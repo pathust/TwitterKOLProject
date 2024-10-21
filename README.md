@@ -37,7 +37,7 @@
    git add .
    ```
 
-5. Commit các thay đổi của bạn với một thông điệp ý nghĩa:
+5. Commit các thay đổi với một thông điệp ý nghĩa:
    ```bash
    git commit -m "Mô tả các thay đổi"
    ```
@@ -55,7 +55,7 @@ git push origin <tên-nhánh>
 4. Chọn nhánh của bạn làm nhánh so sánh và nhánh chính làm nhánh cơ sở.
 5. Điền tiêu đề và mô tả, sau đó nhấp vào "Create pull request."
 
-### Đánh Giá Mã
+### Review Code
 Sau khi bạn đã mở pull request, Tài sẽ review code. Sẵn sàng để giải quyết bất kỳ nhận xét hoặc đề xuất nào được đưa ra.
 
 ### Gộp Thay Đổi
