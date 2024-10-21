@@ -1,4 +1,4 @@
-# Tên Dự Án
+# TwitterKOLProject
 
 ## Tổng Quan
 - Tự động tìm danh sách KOL trong blockchain trên Twitter bằng cách sử dụng Selenium. 
