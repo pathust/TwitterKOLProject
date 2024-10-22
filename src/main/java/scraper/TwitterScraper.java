@@ -10,35 +10,36 @@ import java.time.Duration;
 
 public class TwitterScraper {
     private WebDriver driver;
+    private WebDriverWait wait;
 
     public TwitterScraper() {
         String chromedriverPath = "/Users/phananhtai/Downloads/chromedriver-mac-arm64/chromedriver";
-        System.setProperty("webdriver.chrome.driver",
-                chromedriverPath);
+        System.setProperty("webdriver.chrome.driver", chromedriverPath);
         this.driver = new ChromeDriver();
+        // Initialize WebDriverWait with a timeout of 10 seconds
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(5));
     }
 
     public void login(String username, String password) {
         try {
             // Open Twitter login page
             driver.get("https://twitter.com/login");
-            Thread.sleep(10000); // Sleep after opening the page
 
-            // Enter username
-            driver.findElement(By.name("text")).sendKeys("@21Oop36301");
-            Thread.sleep(1000); // Sleep after entering username
+            // Wait for the username input field to be present and enter the username
+            WebElement usernameField = wait.until(ExpectedConditions.presenceOfElementLocated(By.name("text")));
+            usernameField.sendKeys(username);
 
-            // Click on "Next" button
-            driver.findElement(By.xpath("//span[text()='Next']/..")).click();
-            Thread.sleep(2000); // Sleep after clicking next
+            // Wait for the "Next" button to be clickable and click it
+            WebElement nextButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[text()='Next']/..")));
+            nextButton.click();
 
-            // Enter password
-            driver.findElement(By.name("password")).sendKeys("123456789@21oop");
-            Thread.sleep(1000); // Sleep after entering password
+            // Wait for the password input field to be present and enter the password
+            WebElement passwordField = wait.until(ExpectedConditions.presenceOfElementLocated(By.name("password")));
+            passwordField.sendKeys(password);
 
-            // Click on "Log in" button
-            driver.findElement(By.xpath("//span[text()='Log in']/..")).click();
-            Thread.sleep(2000); // Sleep after logging in
+            // Wait for the "Log in" button to be clickable and click it
+            WebElement loginButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[text()='Log in']/..")));
+            loginButton.click();
         } catch (Exception e) {
             e.printStackTrace();
         }
