@@ -3,76 +3,51 @@ package scraper;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated;
+import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfAllElementsLocatedBy;
 
 public class TwitterScraper {
     private WebDriver driver;
     private WebDriverWait wait;
 
-    public TwitterScraper() {
-        String chromedriverPath = "/Users/phananhtai/Downloads/chromedriver-mac-arm64/chromedriver";
-        System.setProperty("webdriver.chrome.driver", chromedriverPath);
-        this.driver = new ChromeDriver();
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10)); // Wait for 10 seconds max
+    public TwitterScraper(WebDriver driver) {
+        this.driver = driver;
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
-    public void login(String username, String email, String password) {
+    public List<String> getTrendingKOLsAndHashtags() {
+        List<String> trendingInfo = new ArrayList<>();
         try {
-            // Open Twitter login page
-            driver.get("https://twitter.com/login");
+            // Navigate to the homepage or trends page if needed
+            driver.get("https://twitter.com/home");
 
-            // Wait for the username input field to be present and enter the username
-            WebElement usernameField = wait.until(ExpectedConditions.presenceOfElementLocated(By.name("text")));
-            usernameField.sendKeys(username);
+            // Wait for the trends section to load
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
-            // Wait for the "Next" button to be clickable and click it
-            WebElement nextButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[text()='Next']/..")));
-            nextButton.click();
+            // Locate the trends section using the provided selector
+            List<WebElement> trends = wait.until(visibilityOfAllElementsLocatedBy(By.cssSelector("#react-root > div > div > div.css-175oi2r.r-1f2l425.r-13qz1uu.r-417010.r-18u37iz > main > div > div > div > div.css-175oi2r.r-aqfbo4.r-1l8l4mf.r-1jocfgc > div > div.css-175oi2r.r-1jocfgc.r-gtdqiz > div > div > div > div:nth-child(4) > div > section > div > div")));
 
-            // Wait for the password field or the validation step for unusual activity
-            boolean unusualLoginDetected = waitForEmailOrPasswordField();
-
-            // If Twitter is asking for username/email due to unusual activity
-            if (unusualLoginDetected) {
-                // Check for the email/username field and enter the appropriate value
-                WebElement validationField = wait.until(ExpectedConditions.presenceOfElementLocated(By.name("text")));
-                validationField.clear();
-                validationField.sendKeys(email != null && !email.isEmpty() ? email : username);
-
-                // Click "Next" after entering the username/email
-                WebElement emailNextButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[text()='Next']/..")));
-                emailNextButton.click();
+            for (WebElement trend : trends) {
+                trendingInfo.add(trend.getText()); // Get text from each trend element
             }
-
-            // Wait for the password input field to be present and enter the password
-            WebElement passwordField = wait.until(ExpectedConditions.presenceOfElementLocated(By.name("password")));
-            passwordField.sendKeys(password);
-
-            // Wait for the "Log in" button to be clickable and click it
-            WebElement loginButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[text()='Log in']/..")));
-            loginButton.click();
-
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return trendingInfo;
     }
 
-    private boolean waitForEmailOrPasswordField() {
-        try {
-            // Check if the email/username field appears before the password field
-            wait.until(ExpectedConditions.or(
-                    ExpectedConditions.presenceOfElementLocated(By.name("password")),
-                    ExpectedConditions.presenceOfElementLocated(By.name("text"))
-            ));
-
-            // Return true if the email/username field is found
-            return !driver.findElements(By.name("text")).isEmpty();
-        } catch (Exception e) {
-            return false; // Return false if it times out or if an exception occurs
+    // Optionally, add a method to extract KOLs based on trends
+    public List<String> getKOLsFromTrends(List<String> trends) {
+        List<String> kolList = new ArrayList<>();
+        for (String trend : trends) {
+            System.out.println(trend);
         }
+        return kolList;
     }
 }

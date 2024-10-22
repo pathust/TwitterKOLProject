@@ -26,7 +26,7 @@ public class AppInterface extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        scraper = new TwitterScraper();
+//        scraper = new TwitterScraper();
         graph = new Graph();
         pagerankCalculator = new PagerankCalculator();
 
