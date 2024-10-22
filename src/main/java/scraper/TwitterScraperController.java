@@ -7,8 +7,9 @@ public class TwitterScraperController {
         // Provide your Twitter username and password directly
         String username = "@21Oop36301";
         String password = "123456789@21oop";
+        String email = "penaldomessy21@gmail.com";
 
-        crawler.login(username, password);
+        crawler.login(email, username, password);
 
     }
 }
