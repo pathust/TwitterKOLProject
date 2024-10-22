@@ -30,10 +30,15 @@ public class TwitterLogin {
                 while (!isPasswordFieldDetected()) {
                     // Wait for the email/username field to be present
                     WebElement validationField = wait.until(presenceOfElementLocated(By.name("text")));
-                    validationField.clear();
 
-                    // Determine whether to send an email or username
-                    validationField.sendKeys(isEmailField(validationField) ? email : username);
+                    // Determine whether to send an email or username based on the existence of the email field
+                    if (isEmailField()) {
+                        validationField.clear();
+                        validationField.sendKeys(email);
+                    } else {
+                        validationField.clear();
+                        validationField.sendKeys(username);
+                    }
 
                     // Click "Next" button after entering the username/email
                     WebElement nextButton = wait.until(elementToBeClickable(By.xpath("//span[text()='Next']/..")));
@@ -61,10 +66,9 @@ public class TwitterLogin {
         }
     }
 
-    private boolean isEmailField(WebElement field) {
-        // Check if the field is for an email address based on the placeholder
-        String placeholder = field.getAttribute("placeholder");
-        return placeholder != null && placeholder.toLowerCase().contains("email");
+    private boolean isEmailField() {
+        // Check if the field with name "email" exists
+        return !driver.findElements(By.name("email")).isEmpty();
     }
 
     private boolean isPasswordFieldDetected() {
