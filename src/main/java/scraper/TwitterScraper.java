@@ -1,53 +1,53 @@
 package scraper;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
-import java.util.ArrayList;
 import java.util.List;
 
-import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated;
-import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfAllElementsLocatedBy;
+import static org.openqa.selenium.support.ui.ExpectedConditions.*;
 
 public class TwitterScraper {
-    private WebDriver driver;
-    private WebDriverWait wait;
+    private final WebDriver driver;
+    private final WebDriverWait wait;
+    private static final int TIMEOUT_SECONDS = 1; // Increased timeout for better reliability
 
     public TwitterScraper(WebDriver driver) {
         this.driver = driver;
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(TIMEOUT_SECONDS));
     }
 
-    public List<String> getTrendingKOLsAndHashtags() {
-        List<String> trendingInfo = new ArrayList<>();
+    public void processSearchResults() {
         try {
-            // Navigate to the homepage or trends page if needed
-            driver.get("https://twitter.com/home");
+            System.out.println("Start crawling data ...");
+            // Wait for UserCell
+            Thread.sleep(3000);
+            List<WebElement> userCells = wait.until(presenceOfAllElementsLocatedBy(By.xpath("//button[@data-testid='UserCell']")));
 
-            // Wait for the trends section to load
-            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+            // Check if any user cells were found
+            if (userCells.isEmpty()) {
+                System.out.println("No user cells found.");
+                return; // Exit if no user cells are found
+            }
 
-            // Locate the trends section using the provided selector
-            List<WebElement> trends = wait.until(visibilityOfAllElementsLocatedBy(By.cssSelector("#react-root > div > div > div.css-175oi2r.r-1f2l425.r-13qz1uu.r-417010.r-18u37iz > main > div > div > div > div.css-175oi2r.r-aqfbo4.r-1l8l4mf.r-1jocfgc > div > div.css-175oi2r.r-1jocfgc.r-gtdqiz > div > div > div > div:nth-child(4) > div > section > div > div")));
+            for (WebElement userCell : userCells) {
+                List<WebElement> leafSpans = userCell.findElements(
+                        By.xpath(".//span[not(*)]"));
 
-            for (WebElement trend : trends) {
-                trendingInfo.add(trend.getText()); // Get text from each trend element
+                // Step 3: Iterate over the leaf spans and print their text content
+                for (WebElement leafSpan : leafSpans) {
+                    if (!leafSpan.getText().isEmpty()) {
+                        System.out.println(leafSpan.getText());
+                    }
+                }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("Error processing search results: " + e.getMessage());
         }
-        return trendingInfo;
-    }
-
-    // Optionally, add a method to extract KOLs based on trends
-    public List<String> getKOLsFromTrends(List<String> trends) {
-        List<String> kolList = new ArrayList<>();
-        for (String trend : trends) {
-            System.out.println(trend);
-        }
-        return kolList;
     }
 }
