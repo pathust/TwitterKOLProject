@@ -10,9 +10,13 @@ public class PagerankCalculator {
     private static final double DAMPING_FACTOR = 0.85;
     private static final double THRESHOLD = 0.0001;
 
-    public void calculatePageRank(Graph graph, int maxIterations) {
+    public static void calculatePageRank(Graph graph, int maxIterations) {
         Set<KOL> nodeList = graph.getNodes();
         int numNodes = nodeList.size();
+
+        // initial all node's pagerank
+        for(KOL node : nodeList)
+            node.setPagerankScore(0.0);
 
         // Calculate PageRank
         while(maxIterations > 0) {
@@ -23,7 +27,10 @@ public class PagerankCalculator {
 
                 Map<KOL, Double> Interaction = node.getInteraction();
                 for(KOL otherNode : Interaction.keySet()) {
-                    double weight = Interaction.get(otherNode);
+                    double weight = 0.0;
+                    if(otherNode.getWeightTo(node) != null)
+                        weight = otherNode.getWeightTo(node);
+
                     double totalOutWeight = otherNode.getTotalOutWeight();
                     rankSum += otherNode.getPagerankScore() * (weight / totalOutWeight);
                 }
@@ -35,7 +42,7 @@ public class PagerankCalculator {
 
             maxIterations--;
 
-            // break if converge
+//             break if converge
             if(totalChange < THRESHOLD) {
                 break;
             }
