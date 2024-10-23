@@ -43,8 +43,11 @@ public class KOL extends User{
             Double weight = Interaction.get(target);
             TotalWeight += weight;
         }
-
         return TotalWeight;
+    }
+
+    public Double getWeightTo(KOL kol) {
+        return Interaction.get(kol);
     }
 
     @Override
