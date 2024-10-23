@@ -3,8 +3,6 @@ package scraper;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-import java.util.List;
-
 public class TwitterScraperController {
     public static void main(String[] args) {
         String chromedriverPath = "/Users/phananhtai/Downloads/chromedriver-mac-arm64/chromedriver";
@@ -12,12 +10,15 @@ public class TwitterScraperController {
         WebDriver driver = new ChromeDriver();
 
         TwitterLogin login = new TwitterLogin(driver);
-        login.login("@21Oop36301", "penaldomessy21@gmail.com", "123456789@21oop");
+        login.login("PogbaPaul432283", "anhrooneymtp@gmail.com", "anhmanunited");
+
+        TwitterFilter filter = new TwitterFilter(driver);
+        filter.searchHashtagWithAdvancedFilters("#blockchain", 1000, 500, 200);
+        System.out.println("Done");
 
         TwitterScraper scraper = new TwitterScraper(driver);
-        List<String> trends = scraper.getTrendingKOLsAndHashtags();
-        System.out.println("Trending Topics: " + trends);
-
-        driver.quit();
+        scraper.processSearchResults();
+        System.out.println("Done");
+//        driver.quit();
     }
 }
