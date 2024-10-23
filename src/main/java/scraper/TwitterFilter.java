@@ -74,37 +74,23 @@ public class TwitterFilter {
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
     }
 
-    private void fillAdvancedSearchForm(String hashtag, int minLikes, int minReplies, int minReposts) {
+    private void fillAdvancedSearchForm(String hashtag, int minReplies, int minLikes, int minReposts) {
         try {
-            // Wait for and fill the "All of these words" field
-            WebElement allOfTheseWordsField = wait.until(presenceOfElementLocated(
-                    By.xpath("//label[div/div/div/span[text()='All of these words']]//div[2]/div/input")));
-            allOfTheseWordsField.clear();
-            allOfTheseWordsField.sendKeys(hashtag);
 
-            // Minimum replies
-            WebElement minRepliesField = wait.until(presenceOfElementLocated(
-                    By.xpath("//label[div/div/div/span[text()='Minimum replies']]//div[2]/div/input")));
-            scrollToElement(minRepliesField); // Scroll to the Minimum replies field
-            minRepliesField.clear();
-            minRepliesField.sendKeys(String.valueOf(minReplies));
-
-            // Minimum Likes
-            WebElement minLikesField = wait.until(presenceOfElementLocated(
-                    By.xpath("//label[div/div/div/span[text()='Minimum Likes']]//div[2]/div/input")));
-            scrollToElement(minLikesField); // Scroll to the Minimum Likes field
-            minLikesField.clear();
-            minLikesField.sendKeys(String.valueOf(minLikes));
-
-            // Minimum reposts
-            WebElement minRepostsField = wait.until(presenceOfElementLocated(
-                    By.xpath("//label[div/div/div/span[text()='Minimum reposts']]//div[2]/div/input")));
-            scrollToElement(minRepostsField); // Scroll to the Minimum reposts field
-            minRepostsField.clear();
-            minRepostsField.sendKeys(String.valueOf(minReposts));
-
+            fillingFieldBySpan("All of these words", hashtag);
+            fillingFieldBySpan("Minimum replies", String.valueOf(minReplies));
+            fillingFieldBySpan("Minimum Likes", String.valueOf(minLikes));
+            fillingFieldBySpan("Minimum reposts", String.valueOf(minReposts));
         } catch (Exception e) {
             System.out.println("Error filling advanced search form: " + e.getMessage());
         }
+    }
+
+    private void fillingFieldBySpan(String spanText, String text) {
+        WebElement field = wait.until(presenceOfElementLocated(
+                By.xpath("//label[div/div/div/span[text()='" + spanText + "']]//div[2]/div/input")));
+        scrollToElement(field); // Scroll to the Minimum reposts field
+        field.clear();
+        field.sendKeys(text);
     }
 }
