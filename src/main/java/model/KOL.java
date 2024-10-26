@@ -1,9 +1,12 @@
 package model;
 
+import java.util.List;
+
 public class KOL extends User{
     private Double pagerankScore;
-
-    public KOL(String username, int followersCount) {
+    private List<String> KOLfollowers;
+    private List<String> KOLfollowing;
+    public KOL(String username, int followersCount, List<String> kolFollowersList, List<String> kolFollowingList) {
         super(username, followersCount);
     }
 

@@ -7,6 +7,7 @@ public class Tweet {
     private LocalDateTime timestamp;
     private User user;
 
+
     public Tweet(String content, LocalDateTime timestamp, User user) {
         this.content = content;
         this.timestamp = timestamp;
