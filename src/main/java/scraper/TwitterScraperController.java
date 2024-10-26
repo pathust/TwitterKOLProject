@@ -3,9 +3,10 @@ package scraper;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+
 public class TwitterScraperController {
     public static void main(String[] args) {
-        String chromedriverPath = "/Users/phananhtai/Downloads/chromedriver-mac-arm64/chromedriver";
+        String chromedriverPath = "/Users/apple/Downloads/chromedriver-mac-arm64/chromedriver";
         System.setProperty("webdriver.chrome.driver", chromedriverPath);
         WebDriver driver = new ChromeDriver();
 

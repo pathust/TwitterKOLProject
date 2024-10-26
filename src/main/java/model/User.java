@@ -1,8 +1,12 @@
 package model;
 
+import java.util.List;
+
 public class User {
     private String username;
     private int followersCount;
+    private List<String> KOLfollowers;
+    private List<String> KOLfollowing;
 
     public User(String username, int followersCount) {
         this.username = username;
