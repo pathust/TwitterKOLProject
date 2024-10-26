@@ -6,12 +6,12 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 public class TwitterScraperController {
     public static void main(String[] args) {
-        String chromedriverPath = "/Users/apple/Downloads/chromedriver-mac-arm64/chromedriver";
-        System.setProperty("webdriver.chrome.driver", chromedriverPath);
+        System.setProperty("webdriver.chrome.driver", "D:\\Test Java\\Selenium\\chromedriver.exe");
         WebDriver driver = new ChromeDriver();
 
         TwitterLogin login = new TwitterLogin(driver);
-        login.login("PogbaPaul432283", "anhrooneymtp@gmail.com", "anhmanunited");
+        login.login("@21Oop36301", "penaldomessy21@gmail.com", "123456789@21oop");
+        //login.login("PogbaPaul432283", "anhrooneymtp@gmail.com", "anhmanunited");
 
         TwitterFilter filter = new TwitterFilter(driver);
         filter.searchHashtagWithAdvancedFilters("#blockchain", 1000, 500, 200);

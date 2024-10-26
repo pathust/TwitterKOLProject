@@ -1,13 +1,18 @@
 package scraper;
 
 import model.KOL;
+import model.Tweet;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
+import java.time.LocalDateTime;
 import java.time.Duration;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.time.temporal.ChronoUnit;
+
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.*;
 
@@ -71,11 +76,44 @@ public class TwitterScraper {
                                 WebElement followersCountElement = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//a[contains(@href, 'followers')]//span/span")));
                                 int followersCount = convertFollowerCountToInt(followersCountElement.getText());
 
-                                // Uncomment and modify the line below to add the KOL object if needed
-                                // listOfPotentialKOL.add(new KOL(username, followersCount, extractUserList("followers"), extractUserList("following")));
 
                                 System.out.println("User: " + username);
                                 System.out.println("Followers: " + followersCount);
+
+                                // List of potential KOl
+
+                                try {
+                                    List<WebElement> retweets = wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath("//span[@data-testid='socialContext']")));
+                                    System.out.println("Number of retweets found: " + retweets.size());
+
+                                    if (retweets.isEmpty()) {
+                                        System.out.println("No repost.");
+                                    } else {
+                                        List<WebElement> elements = driver.findElements(By.xpath("//span[@data-testid='socialContext']/following::span[2]"));
+                                        System.out.println("Number of potential KOLs found: " + elements.size()); // Debugging line
+
+                                        if (elements.isEmpty()) {
+                                            System.out.println("No potential KOLs found.");
+                                        } else {
+                                            for (WebElement el : elements) {
+                                                System.out.println("Potential KOL: " + el.getText());
+                                                WebElement dateElement = el.findElement(By.xpath("following::time[1]")); // Giả sử ngày đăng là phần tử time ngay sau tên
+                                                System.out.println("Posted date: " + dateElement.getAttribute("datetime")); // Hoặc dùng getText() nếu cần
+
+
+                                                System.out.println();
+                                            }
+                                        }
+                                    }
+                                } catch (NoSuchElementException e) {
+                                    System.out.println("No repost.");
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+
+
+
+
                             } catch (NoSuchElementException e) {
                                 System.out.println("Unable to find follower count.");
                             }
@@ -84,6 +122,7 @@ public class TwitterScraper {
                             driver.navigate().back();
                             Thread.sleep(5000);  // Wait for the search results page to load back
                         }
+
                     } catch (StaleElementReferenceException e) {
                         System.out.println("Stale element reference encountered. Skipping this element.");
                     } catch (NoSuchElementException e) {
