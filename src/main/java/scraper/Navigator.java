@@ -38,8 +38,19 @@ public class Navigator {
     public void fillingFieldBySpan(String spanText, String text) {
         WebElement field = wait.until(presenceOfElementLocated(
                 By.xpath("//label[div/div/div/span[text()='" + spanText + "']]//div[2]/div/input")));
-        scrollToElement(field); // Scroll to the Minimum reposts field
+        scrollToElement(field);
         field.clear();
         field.sendKeys(text);
+    }
+
+    public void navigateToSection(String section) {
+        if (!section.isEmpty()) {
+            WebElement sectionLink = wait.until(presenceOfElementLocated(
+                    By.xpath("//a[contains(@href, '" + section + "')]")));
+            sectionLink.click();
+        }
+        else {
+            System.err.println("No section found");
+        }
     }
 }
