@@ -1,192 +1,189 @@
 package scraper;
 
-import model.KOL;
-import model.Tweet;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.openqa.selenium.*;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import java.time.LocalDateTime;
+import java.io.File;
+import java.io.IOException;
 import java.time.Duration;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.time.temporal.ChronoUnit;
 
-
+import static model.User.toInt;
 import static org.openqa.selenium.support.ui.ExpectedConditions.*;
 
 public class TwitterScraper {
     private final WebDriver driver;
     private final WebDriverWait wait;
+    private final Navigator navigator;
     private static final int TIMEOUT_SECONDS = 5;
+    private static final int MAX_SCROLLS = 2;
+    private final ObjectMapper mapper = new ObjectMapper();
+    private final ArrayNode userArray = mapper.createArrayNode();
 
-    public TwitterScraper(WebDriver driver) {
+    public TwitterScraper(WebDriver driver, Navigator navigator) {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(TIMEOUT_SECONDS));
+        this.navigator = navigator;
     }
 
-    List<KOL> listOfPotentialKOL = new ArrayList<>();
+    private List<WebElement> findNextUserCells() {
+        return wait.until(presenceOfAllElementsLocatedBy(
+                By.xpath("//button[@data-testid='UserCell']")));
+    }
 
-    public void processSearchResults() {
+    private String getUserProfileLink(WebElement userCell) {
         try {
-            driver.get("https://x.com/search?q=%23blockchain%20min_replies%3A1000%20min_faves%3A500%20min_retweets%3A200&src=typed_query&f=user");
-            System.out.println("Start crawling data ...");
+            return userCell.findElement(
+                    By.xpath(".//a[@role='link']")).getAttribute("href");
+        } catch (NoSuchElementException e) {
+            System.out.println("Unable to find profile link.");
+            return "";
+        }
+    }
 
-            Thread.sleep(3000);  // Initial wait for the page to load
+    private void addUserToJson(String profileLink) {
+        ObjectNode userNode = mapper.createObjectNode();
+        userNode.put("profileLink", profileLink);
+        userArray.add(userNode);
+    }
 
-            JavascriptExecutor js = (JavascriptExecutor) driver;
-            int scrollCount = 0;
-            int maxScrolls = 10;  // Define the number of times to scroll
+    private void saveJsonToFile(String filename) {
+        try {
+            mapper.writerWithDefaultPrettyPrinter().writeValue(new File(filename), userArray);
+            System.out.println("Data saved to " + filename);
+        } catch (IOException e) {
+            System.out.println("Error saving JSON file: " + e.getMessage());
+        }
+    }
 
-            while (scrollCount < maxScrolls) {
-                // Wait for UserCell elements to be present
-                List<WebElement> userCells = wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath("//button[@data-testid='UserCell']")));
+    private void extractInitialKOLsToJson(String filename) {
+        try {
+            System.out.println("Start collecting user data...");
 
-                // Check if any user cells were found
+            navigator.clickButton("People");
+            for (int scrollCount = 0; scrollCount < MAX_SCROLLS; scrollCount++) {
+                Thread.sleep(3000);
+                List<WebElement> userCells = findNextUserCells();
+
                 if (userCells.isEmpty()) {
                     System.out.println("No user cells found.");
-                    break;  // Exit if no user cells are found
+                    break;
                 }
 
-                // Process each user cell
                 for (int i = 0; i < userCells.size(); i++) {
-                    try {
-                        // Re-fetch the user cell to avoid stale element reference
-                        WebElement userCell = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("(//button[@data-testid='UserCell'])[" + (i + 1) + "]")));
+                    WebElement userCell = wait.until(presenceOfElementLocated(
+                            By.xpath("(//button[@data-testid='UserCell'])[" + (i + 1) + "]")));
+                    String profileLink = getUserProfileLink(userCell);
 
-                        // Use a list of profile links inside user cells
-                        List<WebElement> leafSpans = userCell.findElements(By.xpath(".//a[@role = 'link']"));
-
-                        // Process each span element
-                        for (WebElement leafSpan : leafSpans) {
-                            // Ensure the link is clickable and handle intercepted clicks
-                            try {
-                                wait.until(ExpectedConditions.elementToBeClickable(leafSpan)).click();
-                            } catch (ElementClickInterceptedException e) {
-                                System.out.println("Click intercepted. Attempting JavaScript click.");
-                                ((JavascriptExecutor) driver).executeScript("arguments[0].click();", leafSpan);
-                            }
-
-                            // Wait for the profile page to load and find the follower count element
-                            try {
-                                WebElement userNameElement = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[contains(@data-testid, 'UserName')]//span/span")));
-                                String username = userNameElement.getText();
-
-                                WebElement followersCountElement = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//a[contains(@href, 'followers')]//span/span")));
-                                int followersCount = convertFollowerCountToInt(followersCountElement.getText());
-
-
-                                System.out.println("User: " + username);
-                                System.out.println("Followers: " + followersCount);
-
-                                // List of potential KOl
-
-                                try {
-                                    List<WebElement> retweets = wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath("//span[@data-testid='socialContext']")));
-                                    System.out.println("Number of retweets found: " + retweets.size());
-
-                                    if (retweets.isEmpty()) {
-                                        System.out.println("No repost.");
-                                    } else {
-                                        List<WebElement> elements = driver.findElements(By.xpath("//span[@data-testid='socialContext']/following::span[2]"));
-                                        System.out.println("Number of potential KOLs found: " + elements.size()); // Debugging line
-
-                                        if (elements.isEmpty()) {
-                                            System.out.println("No potential KOLs found.");
-                                        } else {
-                                            for (WebElement el : elements) {
-                                                System.out.println("Potential KOL: " + el.getText());
-                                                WebElement dateElement = el.findElement(By.xpath("following::time[1]")); // Giả sử ngày đăng là phần tử time ngay sau tên
-                                                System.out.println("Posted date: " + dateElement.getAttribute("datetime")); // Hoặc dùng getText() nếu cần
-
-
-                                                System.out.println();
-                                            }
-                                        }
-                                    }
-                                } catch (NoSuchElementException e) {
-                                    System.out.println("No repost.");
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-                                }
-
-
-
-
-                            } catch (NoSuchElementException e) {
-                                System.out.println("Unable to find follower count.");
-                            }
-
-                            // Navigate back to the search results
-                            driver.navigate().back();
-                            Thread.sleep(5000);  // Wait for the search results page to load back
-                        }
-
-                    } catch (StaleElementReferenceException e) {
-                        System.out.println("Stale element reference encountered. Skipping this element.");
-                    } catch (NoSuchElementException e) {
-                        System.out.println("Element not found. Skipping.");
+                    if (!profileLink.isEmpty()) {
+                        addUserToJson(profileLink);
                     }
                 }
-
-                // Scroll down the page to load more users
-                js.executeScript("window.scrollTo(0, document.body.scrollHeight);");
-                Thread.sleep(2000);  // Wait for new content to load
-
-                scrollCount++;  // Increment scroll counter
+                navigator.scrollDown();
             }
+
+            saveJsonToFile(filename);
         } catch (Exception e) {
-            System.out.println("Error processing search results: " + e.getMessage());
+            System.out.println("Error processing users: " + e.getMessage());
         }
     }
 
-    private List<String> extractUserList(String listType) throws InterruptedException {
-        String listXPath = listType.equals("followers") ? "//a[contains(@href, 'followers')]" : "//a[contains(@href, 'following')]";
-        driver.findElement(By.xpath(listXPath)).click(); // Open the follower/following list
+    public List<String> getUserLinksFromJson(String filePath) {
+        List<String> userLinks = new ArrayList<>();
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            JsonNode rootNode = mapper.readTree(new File(filePath));
 
-        List<String> userList = new ArrayList<>();
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-        int scrollCount = 0;
-        int maxScrolls = 10;
-
-        while (scrollCount < maxScrolls) {
-            try {
-                List<WebElement> userCells = wait.until(presenceOfAllElementsLocatedBy(By.xpath("//button[@data-testid='UserCell']")));
-                for (WebElement userCell : userCells) {
-                    String username = userCell.findElement(By.xpath(".//span[not(*)]")).getText();
-                    int followerCount = convertFollowerCountToInt(userCell.findElement(By.xpath(".//a[contains(@href, 'followers')]//span/span")).getText());
-                    if (followerCount > 100000) {
-                        userList.add(username);
-                    }
+            for (JsonNode userNode : rootNode) {
+                String url = userNode.path("profileLink").asText();
+                if (!url.isEmpty()) {
+                    userLinks.add(url);
                 }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return userLinks;
+    }
 
-                js.executeScript("window.scrollTo(0, document.body.scrollHeight);");
-                Thread.sleep(2000);
-                scrollCount++;
-            } catch (Exception e) {
-                System.out.println("Error while extracting user list: " + e.getMessage());
-                break;
+    private void extractPotentialKOLs() {
+        try {
+            Thread.sleep(3000);
+            List<WebElement> retweets = wait.until(presenceOfAllElementsLocatedBy(By.xpath("//span[@data-testid='socialContext']")));
+            System.out.println("Number of retweets found: " + retweets.size());
+            if (retweets.isEmpty()) {
+                return;
+            }
+
+            List<WebElement> potentialKOLs = driver.findElements(By.xpath("//span[@data-testid='socialContext']/following::span[2]"));
+            System.out.println("Number of potential KOLs found: " + potentialKOLs.size());
+
+            for (WebElement potentialKOL : potentialKOLs) {
+                String kolName = potentialKOL.getText();
+                WebElement dateElement = potentialKOL.findElement(By.xpath("following::time[1]"));
+                String postedDate = dateElement.getAttribute("datetime");
+
+                System.out.println("Potential KOL: " + kolName);
+                System.out.println("Tweet's posted date: " + postedDate);
+            }
+        } catch (NoSuchElementException e) {
+            System.out.println("No reposts found.");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void navigateAndExtractUserData(String userLink) {
+        try {
+            driver.get(userLink);
+            Thread.sleep(5000);
+            WebElement userNameElement = wait.until(presenceOfElementLocated(
+                    By.xpath("//div[contains(@data-testid, 'UserName')]//span/span")));
+            String username = userNameElement.getText();
+
+            WebElement followingCountElement = wait.until(presenceOfElementLocated(
+                    By.xpath("//a[contains(@href, 'following')]//span/span")));
+            int followingCount = toInt(followingCountElement.getText());
+
+            WebElement followersCountElement = wait.until(presenceOfElementLocated(
+                    By.xpath("//a[contains(@href, 'followers')]//span/span")));
+            int followersCount = toInt(followersCountElement.getText());
+
+            System.out.println("User: " + username);
+            System.out.println("Following: " + followingCount);
+            System.out.println("Followers: " + followersCount);
+
+
+            extractPotentialKOLs();
+
+        } catch (Exception e) {
+            System.out.println("Unable to retrieve data for user at " + userLink);
+            e.printStackTrace();
+        }
+    }
+
+    public void processAllUsersFromJson(String jsonFilePath) {
+        List<String> userLinks = getUserLinksFromJson(jsonFilePath);
+
+        System.out.println("Number of userLinks found: " + userLinks.size());
+
+        for (String userLink : userLinks) {
+            System.out.println("Processing user: " + userLink);
+            navigateAndExtractUserData(userLink);
+            try {
+                Thread.sleep(5000);  // Wait to avoid rate limits
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
         }
-
-        driver.navigate().back(); // Return to profile page
-        Thread.sleep(3000);
-        return userList;
     }
 
-    public int convertFollowerCountToInt(String followerCountText) {
-        double count;
-        if (followerCountText.endsWith("K")) {
-            count = Double.parseDouble(followerCountText.replace("K", "")) * 1000;
-        } else if (followerCountText.endsWith("M")) {
-            count = Double.parseDouble(followerCountText.replace("M", "")) * 1_000_000;
-        } else if (followerCountText.endsWith("B")) {
-            count = Double.parseDouble(followerCountText.replace("B", "")) * 1_000_000_000;
-        } else {
-            count = Double.parseDouble(followerCountText.replace(",", ""));
-        }
-        return (int) count;
+    public void solve() {
+        extractInitialKOLsToJson("potential_KOLs.json");
+        processAllUsersFromJson("potential_KOLs.json");
     }
 }
-
