@@ -26,13 +26,9 @@ public class Navigator {
     }
 
     public void clickButton(String buttonName) {
-        try {
-            WebElement button = wait.until(elementToBeClickable(By.xpath("//span[text()='" + buttonName + "']/..")));
-            button.click();
-        } catch (Exception e) {
-            System.err.println("Error clicking the button: " + buttonName);
-            e.printStackTrace();
-        }
+        WebElement button = wait.until(elementToBeClickable(
+                By.xpath("//span[text()='" + buttonName + "']/..")));
+        button.click();
     }
 
     public void fillingFieldBySpan(String spanText, String text) {
@@ -44,13 +40,12 @@ public class Navigator {
     }
 
     public void navigateToSection(String section) {
-        if (!section.isEmpty()) {
-            WebElement sectionLink = wait.until(presenceOfElementLocated(
-                    By.xpath("//a[contains(@href, '" + section + "')]")));
-            sectionLink.click();
-        }
-        else {
+        if (section.isEmpty()) {
             System.err.println("No section found");
+            return;
         }
+        WebElement sectionLink = wait.until(presenceOfElementLocated(
+                By.xpath("//a[contains(@href, '" + section + "')]")));
+        sectionLink.click();
     }
 }

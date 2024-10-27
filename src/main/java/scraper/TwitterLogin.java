@@ -35,7 +35,7 @@ public class TwitterLogin {
                             sendKeys(username);
                         }
 
-                        clickButton("Next");
+                        navigator.clickButton("Next");
                     } catch (Exception e) {
                         System.err.println("Error entering username or email.");
                         e.printStackTrace();
@@ -44,7 +44,7 @@ public class TwitterLogin {
 
                 try {
                     sendKeys(password);
-                    clickButton("Log in");
+                    navigator.clickButton("Log in");
 
                     Thread.sleep(5000);
                     if (driver.getCurrentUrl().contains("home")) {
@@ -73,16 +73,6 @@ public class TwitterLogin {
             field.sendKeys(keysToSend);
         } catch (Exception e) {
             System.err.println("Error sending key: " + keysToSend);
-            e.printStackTrace();
-        }
-    }
-
-    private void clickButton(String buttonName) {
-        try {
-            WebElement button = wait.until(elementToBeClickable(By.xpath("//span[text()='" + buttonName + "']/..")));
-            button.click();
-        } catch (Exception e) {
-            System.err.println("Error clicking the button: " + buttonName);
             e.printStackTrace();
         }
     }

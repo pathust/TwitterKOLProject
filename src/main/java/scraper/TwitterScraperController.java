@@ -3,9 +3,11 @@ package scraper;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+import java.io.IOException;
+
 
 public class TwitterScraperController {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException, InterruptedException {
         System.setProperty("webdriver.chrome.driver", "/Users/phananhtai/Downloads/chromedriver-mac-arm64/chromedriver");
         WebDriver driver = new ChromeDriver();
         Navigator navigator = new Navigator(driver);
@@ -18,7 +20,7 @@ public class TwitterScraperController {
         System.out.println("Done");
 
         TwitterScraper scraper = new TwitterScraper(driver, navigator);
-        scraper.solve();
+        scraper.scrape();
         System.out.println("Done");
 //        driver.quit();
     }
