@@ -45,9 +45,10 @@ public class TwitterScraper {
         }
     }
 
-    private void addUserToJson(String profileLink) {
+    private void addUserToJson(String profileLink, boolean verified) {
         ObjectNode userNode = mapper.createObjectNode();
         userNode.put("profileLink", profileLink);
+        userNode.put("verified", verified);
         userArray.add(userNode);
     }
 
@@ -80,7 +81,7 @@ public class TwitterScraper {
                     String profileLink = getUserProfileLink(userCell);
 
                     if (!profileLink.isEmpty()) {
-                        addUserToJson(profileLink);
+                        addUserToJson(profileLink, true);
                     }
                 }
                 navigator.scrollDown();
