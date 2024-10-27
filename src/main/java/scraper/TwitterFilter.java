@@ -1,6 +1,5 @@
 package scraper;
 
-import model.User;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -15,27 +14,26 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.*;
 public class TwitterFilter {
     private final WebDriver driver;
     private final WebDriverWait wait;
-    private static final int TIMEOUT_SECONDS = 5; // Increased timeout for better reliability
+    private final Navigator navigator;
+    private static final int TIMEOUT_SECONDS = 5;
 
-    public TwitterFilter(WebDriver driver) {
+    public TwitterFilter(WebDriver driver, Navigator navigator) {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(TIMEOUT_SECONDS));
+        this.navigator = navigator;
     }
 
     public void searchHashtagWithAdvancedFilters(String hashtag, int minLikes, int minReplies, int minReposts) {
         System.out.println("Start filtering with Advanced Search");
         try {
-            // Step 1: Wait for the search box to appear and search for the hashtag
             WebElement searchBox = wait.until(visibilityOfElementLocated(By.xpath("//input[@placeholder='Search']")));
             searchBox.sendKeys(hashtag);
             searchBox.submit();
 
-            // Step 2: Check for the Advanced Search button
             boolean advancedSearchAvailable = false;
             while (!advancedSearchAvailable) {
                 try {
-                    WebElement advancedSearchButton = wait.until(elementToBeClickable(By.xpath("//span[text()='Advanced search']")));
-                    advancedSearchButton.click();
+                    navigator.clickButton("Advanced search");
                     advancedSearchAvailable = true;
                 } catch (Exception e) {
                     System.out.println("Advanced search button not found, reloading the page...");
@@ -43,26 +41,21 @@ public class TwitterFilter {
                 }
             }
 
-            // Step 3: Wait for the advanced search form to be visible
             try {
                 WebElement advancedSearchForm = wait.until(visibilityOfElementLocated(
                         By.xpath("//div[@aria-labelledby='modal-header']")));
                 if (advancedSearchForm != null) {
                     System.out.println("Advanced search form found!");
 
-                    // Fill the form with values
                     fillAdvancedSearchForm(hashtag, minLikes, minReplies, minReposts);
                 }
             } catch (Exception e) {
                 System.out.println("Advanced search form not found.");
-                return; // Exit the method if form is not found
+                return;
             }
 
-            // Step 6: Click the "Search" button (if present)
             try {
-                WebElement searchButton = wait.until(elementToBeClickable(
-                        By.xpath("//button[.//span[text()='Search']]")));
-                searchButton.click();
+                navigator.clickButton("Search");
             } catch (Exception e) {
                 System.out.println("Search button not found: " + e.getMessage());
             }
@@ -71,28 +64,16 @@ public class TwitterFilter {
         }
     }
 
-    private void scrollToElement(WebElement element) {
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
-    }
-
     private void fillAdvancedSearchForm(String hashtag, int minReplies, int minLikes, int minReposts) {
         try {
 
-            fillingFieldBySpan("All of these words", hashtag);
-            fillingFieldBySpan("Minimum replies", String.valueOf(minReplies));
-            fillingFieldBySpan("Minimum Likes", String.valueOf(minLikes));
-            fillingFieldBySpan("Minimum reposts", String.valueOf(minReposts));
+            navigator.fillingFieldBySpan("All of these words", hashtag);
+            navigator.fillingFieldBySpan("Minimum replies", String.valueOf(minReplies));
+            navigator.fillingFieldBySpan("Minimum Likes", String.valueOf(minLikes));
+            navigator.fillingFieldBySpan("Minimum reposts", String.valueOf(minReposts));
         } catch (Exception e) {
             System.out.println("Error filling advanced search form: " + e.getMessage());
         }
-    }
-
-    private void fillingFieldBySpan(String spanText, String text) {
-        WebElement field = wait.until(presenceOfElementLocated(
-                By.xpath("//label[div/div/div/span[text()='" + spanText + "']]//div[2]/div/input")));
-        scrollToElement(field); // Scroll to the Minimum reposts field
-        field.clear();
-        field.sendKeys(text);
     }
 
 }
