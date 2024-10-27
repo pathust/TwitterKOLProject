@@ -12,70 +12,93 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.*;
 public class TwitterLogin {
     private final WebDriver driver;
     private final WebDriverWait wait;
+    private final Navigator navigator;
+    private WebElement label;
 
-    public TwitterLogin(WebDriver driver) {
+    public TwitterLogin(WebDriver driver, Navigator navigator) {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        this.navigator = navigator;
     }
 
     public void login(String username, String email, String password) {
         try {
-            // Open Twitter login page
             driver.get("https://twitter.com/login");
 
-            // Attempt to login until successful or redirected back to the login page
             boolean isLoggedIn = false;
             while (!isLoggedIn) {
-                // If Twitter is asking for username/email due to unusual activity
-                while (!isPasswordFieldDetected()) {
-                    // Wait for the email/username field to be present
-                    WebElement validationField = wait.until(presenceOfElementLocated(By.name("text")));
+                while (!isPasswordField()) {
+                    try {
+                        if (isEmailField()) {
+                            sendKeys(email);
+                        } else {
+                            sendKeys(username);
+                        }
 
-                    // Determine whether to send an email or username based on the existence of the email field
-                    if (isEmailField()) {
-                        validationField.sendKeys(email);
-                    } else {
-                        validationField.sendKeys(username);
+                        clickButton("Next");
+                    } catch (Exception e) {
+                        System.err.println("Error entering username or email.");
+                        e.printStackTrace();
                     }
-
-                    // Click "Next" button after entering the username/email
-                    WebElement nextButton = wait.until(elementToBeClickable(By.xpath("//span[text()='Next']/..")));
-                    nextButton.click();
                 }
 
-                // Wait for the password input field to be present and enter the password
-                WebElement passwordField = wait.until(presenceOfElementLocated(By.name("password")));
-                passwordField.sendKeys(password);
+                try {
+                    sendKeys(password);
+                    clickButton("Log in");
 
-                // Wait for the "Log in" button to be clickable and click it
-                WebElement loginButton = wait.until(elementToBeClickable(By.xpath("//span[text()='Log in']/..")));
-                loginButton.click();
-
-                // Check for successful login or redirection back to login
-                if (driver.getCurrentUrl().contains("twitter.com/home")) {
-                    isLoggedIn = true; // Successfully logged in
+                    Thread.sleep(5000);
+                    if (driver.getCurrentUrl().contains("home")) {
+                        isLoggedIn = true;
+                    }
+                    else {
+                        System.out.println(driver.getCurrentUrl());
+                    }
+                } catch (Exception e) {
+                    System.err.println("Error during password entry or login.");
+                    e.printStackTrace();
                 }
             }
         } catch (Exception e) {
+            System.err.println("Error during login process.");
+            e.printStackTrace();
+        }
+
+        System.out.println("Login process completed.");
+    }
+
+    private void sendKeys(String keysToSend) {
+        try {
+            WebElement field = label.findElement(By.xpath("(//input)[last()]"));
+            System.out.println(keysToSend);
+            field.sendKeys(keysToSend);
+        } catch (Exception e) {
+            System.err.println("Error sending key: " + keysToSend);
             e.printStackTrace();
         }
     }
 
-    private  boolean isEmailField() {
-        return !driver.findElements(By.name("email")).isEmpty();
-    }
-    private boolean isPasswordFieldDetected() {
+    private void clickButton(String buttonName) {
         try {
-            // Wait for either the password field or the email/username field to be present
-            wait.until(or(
-                    presenceOfElementLocated(By.name("password")),
-                    presenceOfElementLocated(By.name("text"))
-            ));
-
-            // Return true if the password field is found (i.e., the username field is empty)
-            return driver.findElements(By.name("text")).isEmpty();
+            WebElement button = wait.until(elementToBeClickable(By.xpath("//span[text()='" + buttonName + "']/..")));
+            button.click();
         } catch (Exception e) {
-            return true; // Return true if an exception occurs (indicating password field is likely present)
+            System.err.println("Error clicking the button: " + buttonName);
+            e.printStackTrace();
+        }
+    }
+
+    private boolean isEmailField() {
+        return !label.findElements(By.xpath("//span[contains(text(), 'mail')]")).isEmpty();
+    }
+
+    private boolean isPasswordField() {
+        try {
+            label = wait.until(presenceOfElementLocated(By.xpath("//label")));
+            return label.findElements(By.name("text")).isEmpty();
+        } catch (Exception e) {
+            System.err.println("Error finding label element.");
+            e.printStackTrace();
+            return false;
         }
     }
 }
