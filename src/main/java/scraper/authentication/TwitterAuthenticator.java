@@ -1,28 +1,32 @@
-package scraper;
+package scraper.authentication;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import scraper.navigation.Navigator;
+import scraper.navigation.WebNavigator;
 
 import java.time.Duration;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.*;
 
-public class TwitterLogin {
+public class TwitterAuthenticator implements Authenticator {
     private final WebDriver driver;
     private final WebDriverWait wait;
     private final Navigator navigator;
     private WebElement label;
 
-    public TwitterLogin(WebDriver driver, Navigator navigator) {
+    public TwitterAuthenticator(WebDriver driver, Navigator navigator) {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         this.navigator = navigator;
     }
 
+    @Override
     public void login(String username, String email, String password) {
         try {
+            System.out.println("Logging in...");
             driver.get("https://twitter.com/login");
 
             boolean isLoggedIn = false;

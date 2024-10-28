@@ -4,14 +4,8 @@ import java.util.List;
 
 public class KOL extends User{
     private Double pagerankScore;
-    private List<String> followingList;
-    public KOL(String username, int followersCount) {
-        super(username, followersCount);
-    }
+    public KOL() {
 
-    public KOL(String username, int followersCount, Double pagerankScore) {
-        super(username, followersCount);
-        this.pagerankScore = pagerankScore;
     }
 
     public Double getPagerankScore() {

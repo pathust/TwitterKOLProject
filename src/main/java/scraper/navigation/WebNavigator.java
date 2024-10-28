@@ -1,19 +1,19 @@
-package scraper;
+package scraper.navigation;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
 import java.time.Duration;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.*;
 
-public class Navigator {
+public class WebNavigator implements Navigator {
     private final WebDriver driver;
     private final WebDriverWait wait;
-    private static final int TIMEOUT_SECONDS = 5;
 
-    public Navigator(WebDriver driver) {
+    public WebNavigator(WebDriver driver) {
         this.driver = driver;
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(TIMEOUT_SECONDS));
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(5));
     }
 
     public void scrollToElement(WebElement element) {
@@ -37,6 +37,11 @@ public class Navigator {
         scrollToElement(field);
         field.clear();
         field.sendKeys(text);
+    }
+
+    public String getLink(WebElement element) {
+        return element.findElement(
+                By.xpath(".//a[@role='link']")).getAttribute("href");
     }
 
     public void navigateToSection(String section) {

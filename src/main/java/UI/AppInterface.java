@@ -1,6 +1,5 @@
 package UI;
 
-import scraper.TwitterScraper;
 import model.KOL;
 
 import java.util.List;
@@ -13,10 +12,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import scraper.TwitterScraperController;
 
 public class AppInterface extends Application {
 
-    private TwitterScraper scraper;
+    private TwitterScraperController scraper;
     private Graph graph;
     private PagerankCalculator pagerankCalculator;
 

@@ -1,33 +1,36 @@
-package scraper;
+package scraper.filtering;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import scraper.navigation.Navigator;
+import scraper.navigation.WebNavigator;
 
+import javax.annotation.processing.Filer;
 import java.time.Duration;
 import java.util.List;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.*;
 
-public class TwitterFilter {
+public class TwitterFilter implements Filter {
     private final WebDriver driver;
     private final WebDriverWait wait;
     private final Navigator navigator;
-    private static final int TIMEOUT_SECONDS = 5;
 
     public TwitterFilter(WebDriver driver, Navigator navigator) {
         this.driver = driver;
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(TIMEOUT_SECONDS));
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(5));
         this.navigator = navigator;
     }
 
-    public void searchHashtagWithAdvancedFilters(String hashtag, int minLikes, int minReplies, int minReposts) {
+    @Override
+    public void advancedSearch(List<String> words, int minLikes, int minReplies, int minReposts) {
         System.out.println("Start filtering with Advanced Search");
         try {
             WebElement searchBox = wait.until(visibilityOfElementLocated(By.xpath("//input[@placeholder='Search']")));
-            searchBox.sendKeys(hashtag);
+            String wordsKey = String.join(" ", words);
+            searchBox.sendKeys(wordsKey);
             searchBox.submit();
 
             boolean advancedSearchAvailable = false;
@@ -47,7 +50,7 @@ public class TwitterFilter {
                 if (advancedSearchForm != null) {
                     System.out.println("Advanced search form found!");
 
-                    fillAdvancedSearchForm(hashtag, minLikes, minReplies, minReposts);
+                    fillAdvancedSearchForm(wordsKey, minLikes, minReplies, minReposts);
                 }
             } catch (Exception e) {
                 System.out.println("Advanced search form not found.");
@@ -62,12 +65,13 @@ public class TwitterFilter {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        System.out.println("Finish filtering with Advanced Search");
     }
 
-    private void fillAdvancedSearchForm(String hashtag, int minReplies, int minLikes, int minReposts) {
+    private void fillAdvancedSearchForm(String wordsKey, int minReplies, int minLikes, int minReposts) {
         try {
 
-            navigator.fillingFieldBySpan("All of these words", hashtag);
+            navigator.fillingFieldBySpan("All of these words", wordsKey);
             navigator.fillingFieldBySpan("Minimum replies", String.valueOf(minReplies));
             navigator.fillingFieldBySpan("Minimum Likes", String.valueOf(minLikes));
             navigator.fillingFieldBySpan("Minimum reposts", String.valueOf(minReposts));
