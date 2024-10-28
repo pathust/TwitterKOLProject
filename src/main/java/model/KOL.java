@@ -41,13 +41,4 @@ public class KOL extends User{
     public Double getWeightTo(KOL kol) {
         return Interaction.get(kol);
     }
-
-    @Override
-    public String toString() {
-        return "KOL{" +
-                "username='" + getUsername() + '\'' +
-                ", followersCount=" + getFollowersCount() +
-                ", pagerankScore=" + pagerankScore +
-                '}';
-    }
 }

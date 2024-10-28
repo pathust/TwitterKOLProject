@@ -77,12 +77,4 @@ public class User {
     public void setFollowersCount(String followersCount) {
         this.followersCount = toInt(followersCount);
     }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "username='" + username + '\'' +
-                ", followersCount=" + followersCount +
-                '}';
-    }
 }
