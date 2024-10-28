@@ -6,7 +6,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import scraper.navigation.Navigator;
-import scraper.storage.DataHandler;
+import scraper.storage.UserDataHandler;
 
 import java.io.IOException;
 import java.time.Duration;
@@ -21,15 +21,15 @@ public class TwitterUserDataExtractor implements UserDataExtractor {
     private final WebDriver driver;
     private final WebDriverWait wait;
     private final Navigator navigator;
-    private final DataHandler dataHandler;
+    private final UserDataHandler userDataHandler;
 
     private static final int MAX_SCROLLS = 2;
 
-    public TwitterUserDataExtractor(WebDriver driver, Navigator navigator, DataHandler dataHandler) {
+    public TwitterUserDataExtractor(WebDriver driver, Navigator navigator, UserDataHandler userDataHandler) {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(5));
         this.navigator = navigator;
-        this.dataHandler = dataHandler;
+        this.userDataHandler = userDataHandler;
     }
 
     private List<WebElement> findNextUserCells() {
@@ -108,11 +108,11 @@ public class TwitterUserDataExtractor implements UserDataExtractor {
                 User newUser = new User();
                 newUser.setProfileLink(navigator.getLink(userCell));
                 newUser.setVerified(isVerified);
-                dataHandler.addUser("KOLs.json", newUser);
+                userDataHandler.addUser("KOLs.json", newUser);
             }
             navigator.scrollDown();
         }
 
-        dataHandler.saveData(filePath);
+        userDataHandler.saveData(filePath);
     }
 }

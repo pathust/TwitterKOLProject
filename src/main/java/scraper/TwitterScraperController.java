@@ -10,7 +10,7 @@ import scraper.filtering.Filter;
 import scraper.filtering.TwitterFilter;
 import scraper.navigation.Navigator;
 import scraper.navigation.WebNavigator;
-import scraper.storage.DataHandler;
+import scraper.storage.UserDataHandler;
 import scraper.storage.UserStorageManager;
 
 import java.io.IOException;
@@ -23,7 +23,7 @@ public class TwitterScraperController {
     private final Authenticator authenticator;
     private final Filter filter;
     private final UserDataExtractor userDataExtractor;
-    private DataHandler dataHandler;
+    private UserDataHandler userDataHandler;
 
     public TwitterScraperController() throws IOException {
         System.setProperty(
@@ -33,8 +33,8 @@ public class TwitterScraperController {
         this.navigator = new WebNavigator(driver);
         this.authenticator = new TwitterAuthenticator(driver, navigator);
         this.filter = (Filter) new TwitterFilter(driver, navigator);
-        this.dataHandler = new UserStorageManager();
-        this.userDataExtractor = new TwitterUserDataExtractor(driver, navigator, dataHandler);
+        this.userDataHandler = new UserStorageManager();
+        this.userDataExtractor = new TwitterUserDataExtractor(driver, navigator, userDataHandler);
     }
 
     public void login(String username, String email, String password) {
@@ -58,7 +58,7 @@ public class TwitterScraperController {
     }
 
     public List<String> getUserLinksFrom(String filePath) throws IOException {
-        return dataHandler.getUserLinksFrom(filePath);
+        return userDataHandler.getUserLinksFrom(filePath);
     }
 
     private void extractInitialKOLsTo(String filePath) throws InterruptedException, IOException {

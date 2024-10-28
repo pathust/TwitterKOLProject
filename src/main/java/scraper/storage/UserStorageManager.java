@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class UserStorageManager implements DataHandler {
+public class UserStorageManager implements UserDataHandler {
     private final Map<String, TwitterUserStorage> storageMap;
 
     public UserStorageManager() {
