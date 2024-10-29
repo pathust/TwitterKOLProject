@@ -9,8 +9,8 @@ public class KOL extends User{
     private Double pagerankScore;
     Map<KOL, Double> Interaction = new HashMap<>();
 
-    public KOL() {
-
+    public KOL(String profileLink) {
+        super(profileLink);
     }
 
     public Double getPagerankScore() {

@@ -12,9 +12,9 @@ public class User {
     private List<String> followingList;
     private boolean isVerified;
 
-    public User() {
+    public User(String profileLink) {
         this.username = null;
-        this.profileLink = null;
+        this.profileLink = profileLink;
         this.followersCount = 0;
         this.followingList = new ArrayList<>();
         this.isVerified = false;
