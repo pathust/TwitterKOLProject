@@ -75,10 +75,10 @@ public class TwitterUserDataExtractor implements UserDataExtractor {
     }
 
     @Override
-    public void extractData(String userLink) throws InterruptedException {
+    public void extractData(String userLink) throws InterruptedException, IOException {
         System.out.println("Extracting data from " + userLink);
         driver.get(userLink);
-        Thread.sleep(3000);
+        Thread.sleep(5000);
 
         String username = extractUserName();
         int followingCount = extractFollowingCount();
@@ -105,10 +105,9 @@ public class TwitterUserDataExtractor implements UserDataExtractor {
             for (int i = 0; i < userCells.size(); i++) {
                 WebElement userCell = wait.until(presenceOfElementLocated(
                         By.xpath("(//button[@data-testid='UserCell'])[" + (i + 1) + "]")));
-                User newUser = new User();
-                newUser.setProfileLink(navigator.getLink(userCell));
+                User newUser = new User(navigator.getLink(userCell));
                 newUser.setVerified(isVerified);
-                userDataHandler.addUser("KOLs.json", newUser);
+                userDataHandler.addUser(filePath, newUser);
             }
             navigator.scrollDown();
         }
