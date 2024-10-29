@@ -17,7 +17,7 @@ public class TweetStorageManager implements TweetDataHandler {
     private TweetStorage getStorage(String filePath) throws IOException {
         TweetStorage storage = storageMap.get(filePath);
         if (storage == null) {
-            storage = new TweetStorage(filePath);
+            storage = new TweetStorage(filePath, true);
             storageMap.put(filePath, storage);
         }
         return storage;

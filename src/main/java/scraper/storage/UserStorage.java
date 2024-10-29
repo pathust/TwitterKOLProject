@@ -13,16 +13,19 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class TwitterUserStorage {
+public class UserStorage {
     private final ObjectMapper mapper;
-    private final Map<String, ObjectNode> userMap; // To store user data by username
+    private final Map<String, ObjectNode> userMap;
+    private final Map<String, Integer> userIndexMap;
     private final ArrayNode userArray;
 
-    public TwitterUserStorage(String filePath) throws IOException {
+    public UserStorage(String filePath, boolean overwrite) throws IOException {
         this.mapper = new ObjectMapper();
         this.userMap = new HashMap<>();
+        this.userIndexMap = new HashMap<>();
         this.userArray = mapper.createArrayNode();
-        loadUsers(filePath);
+        if (!overwrite)
+            loadUsers(filePath);
     }
 
     private void loadUsers(String filePath) throws IOException {
@@ -33,42 +36,44 @@ public class TwitterUserStorage {
         JsonNode rootNode = mapper.readTree(file);
         if (rootNode.isArray()) {
             ArrayNode users = (ArrayNode) rootNode;
+            int userIndex = 0;
             for (JsonNode userNode : users) {
-                if (userNode.has("profileLink")) {
-                    String username = userNode.get("profileLink").asText();
-                    userMap.put(username, (ObjectNode) userNode);
-                }
+                String profileLink = userNode.get("profileLink").asText();
+                userMap.put(profileLink, (ObjectNode) userNode);
+                userIndexMap.put(profileLink, userIndex++);
+                userArray.add(userNode);
             }
         }
     }
 
-    public void addUser(User user) {
+    public void addUser(User user) throws IOException {
         ObjectNode userNode = userMap.get(user.getProfileLink());
         if (userNode != null) {
             updateUserFields(userNode, user);
         } else {
             userNode = createUserNode(user);
+            int userIndex = userArray.size();
             userArray.add(userNode);
             userMap.put(user.getProfileLink(), userNode);
+            userIndexMap.put(user.getProfileLink(), userIndex);
         }
     }
 
-    public boolean userExists(String username) {
-        return userMap.containsKey(username);
+    public boolean userExists(String profileLink) {
+        return userMap.containsKey(profileLink);
     }
 
     private void updateUserFields(ObjectNode userNode, User user) {
-        if (!userNode.hasNonNull("isVerified") || !userNode.get("isVerified").asBoolean()) {
+        if (!userNode.get("isVerified").asBoolean()) {
             userNode.put("isVerified", user.isVerified());
         }
-        if (!userNode.hasNonNull("profileLink") || userNode.get("profileLink").asText().isEmpty()) {
-            userNode.put("profileLink", user.getProfileLink());
-        }
-        if (!userNode.hasNonNull("followingList") || userNode.get("followingList").isEmpty()) {
-            ArrayNode followingListNode = mapper.createArrayNode();
-            user.getFollowingList().forEach(followingListNode::add);
-            userNode.set("followingList", followingListNode);
-        }
+        userNode.put("username", user.getUsername());
+        ArrayNode followingListNode = mapper.createArrayNode();
+        user.getFollowingList().forEach(followingListNode::add);
+        userNode.set("followingList", followingListNode);
+
+        int userIndex = userIndexMap.get(user.getProfileLink());
+        userArray.set(userIndex, userNode);
     }
 
     private ObjectNode createUserNode(User user) {
@@ -85,11 +90,11 @@ public class TwitterUserStorage {
     }
 
     public void saveData(String filePath) throws IOException {
-        mapper.writerWithDefaultPrettyPrinter().writeValue(new File(filePath), userArray);
+        File file = new File(filePath);
+        mapper.writerWithDefaultPrettyPrinter().writeValue(file, userArray);
     }
 
-    public List<String> getUserLinksFrom(String filePath) throws IOException {
-        loadUsers(filePath);
+    public List<String> getUserLinks() {
         return userMap.values().stream()
                 .map(userNode -> userNode.path("profileLink").asText())
                 .filter(link -> !link.isEmpty())

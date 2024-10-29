@@ -9,7 +9,6 @@ import model.User;
 
 import java.io.File;
 import java.io.IOException;
-import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,14 +16,17 @@ import java.util.stream.Collectors;
 
 public class TweetStorage {
     private final ObjectMapper mapper;
-    private final Map<String, ObjectNode> tweetMap; // Store tweets by a unique identifier, e.g., timestamp + username
+    private final Map<String, ObjectNode> tweetMap;
+    private final Map<String, Integer> tweetIndexMap;
     private final ArrayNode tweetArray;
 
-    public TweetStorage(String filePath) throws IOException {
+    public TweetStorage(String filePath, boolean overwrite) throws IOException {
         this.mapper = new ObjectMapper();
         this.tweetMap = new HashMap<>();
+        this.tweetIndexMap = new HashMap<>();
         this.tweetArray = mapper.createArrayNode();
-        loadTweets(filePath);
+        if (!overwrite)
+            loadTweets(filePath);
     }
 
     private void loadTweets(String filePath) throws IOException {
@@ -35,9 +37,12 @@ public class TweetStorage {
         JsonNode rootNode = mapper.readTree(file);
         if (rootNode.isArray()) {
             ArrayNode tweets = (ArrayNode) rootNode;
+            int tweetIndex = 0;
             for (JsonNode tweetNode : tweets) {
                 String identifier = createTweetIdentifier(tweetNode);
                 tweetMap.put(identifier, (ObjectNode) tweetNode);
+                tweetIndexMap.put(identifier, tweetIndex++);
+                tweetArray.add(tweetNode);
             }
         }
     }
@@ -55,8 +60,10 @@ public class TweetStorage {
             updateTweetFields(tweetNode, tweet);
         } else {
             tweetNode = createTweetNode(tweet);
-            tweetArray.add(tweetNode);
+            int tweetIndex = tweetArray.size();
             tweetMap.put(identifier, tweetNode);
+            tweetIndexMap.put(identifier, ++tweetIndex);
+            tweetArray.add(tweetNode);
         }
     }
 
@@ -69,6 +76,10 @@ public class TweetStorage {
             repostedUsersNode.add(user.getUsername());
         }
         tweetNode.set("repostedUsersList", repostedUsersNode);
+
+        String identifier = createTweetIdentifier(tweetNode);
+        int tweetIndex = tweetIndexMap.get(identifier);
+        tweetArray.set(tweetIndex, tweetNode);
     }
 
     private ObjectNode createTweetNode(Tweet tweet) {
