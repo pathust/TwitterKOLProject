@@ -8,13 +8,11 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import scraper.navigation.Navigator;
 import scraper.storage.UserDataHandler;
 
-import java.io.IOException;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
 import static model.User.toInt;
-import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfAllElementsLocatedBy;
 import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated;
 
 public class TwitterUserDataExtractor implements UserDataExtractor {
@@ -22,7 +20,6 @@ public class TwitterUserDataExtractor implements UserDataExtractor {
     private final WebDriver driver;
     private final WebDriverWait wait;
     private final Navigator navigator;
-    private final UserDataHandler userDataHandler;
 
     private static final int MAX_SCROLLS = 2;
 
@@ -30,12 +27,29 @@ public class TwitterUserDataExtractor implements UserDataExtractor {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(5));
         this.navigator = navigator;
-        this.userDataHandler = userDataHandler;
     }
 
-    private List<WebElement> findNextUserCells() {
-        return wait.until(presenceOfAllElementsLocatedBy(
-                By.xpath("//button[@data-testid='UserCell']")));
+    public WebElement findNextUserCell(WebElement userCell) {
+        for (int attempt = 0; attempt <= 10; attempt++) {
+            try {
+                WebElement parentDiv = userCell.findElement(
+                        By.xpath("./ancestor::div[@data-testid='cellInnerDiv']"));
+
+                return parentDiv.findElement(
+                        By.xpath("(following-sibling::div[@data-testid='cellInnerDiv'])//button[@data-testid='UserCell']"));
+            } catch (Exception e) {
+                System.out.println("Attempt " + attempt + " failed, retrying...");
+            }
+
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        System.out.println("Next UserCell not found after 10 attempts.");
+        return null;
     }
 
     private String extractUserName(WebElement userCell) {
@@ -75,7 +89,7 @@ public class TwitterUserDataExtractor implements UserDataExtractor {
     }
 
     @Override
-    public void extractData(String userLink) throws InterruptedException, IOException {
+    public void extractData(String userLink) throws InterruptedException {
         System.out.println("Extracting data from " + userLink);
         driver.get(userLink);
         Thread.sleep(5000);
@@ -90,79 +104,27 @@ public class TwitterUserDataExtractor implements UserDataExtractor {
     }
 
     @Override
-    public void extractUserTo(String filePath, boolean isVerified) throws InterruptedException, IOException {
-        for (int scrollCount = 0; scrollCount < MAX_SCROLLS; scrollCount++) {
-            Thread.sleep(3000);
-            List<WebElement> userCells = findNextUserCells();
+    public List<User> extractUsers(boolean isVerified, int maxListSize) {
+        List<User> usersList = new ArrayList<>();
+        WebElement userCell = wait.until(presenceOfElementLocated(
+                By.xpath("//button[@data-testid = 'UserCell']")));
 
-            if (userCells.isEmpty()) {
-                System.out.println("No user cells found.");
+        while (usersList.size() < maxListSize) {
+            String username = extractUserName(userCell);
+            String profileLink = navigator.getLink(userCell);
+
+            User newUser = new User(username, profileLink, isVerified);
+            usersList.add(newUser);
+            System.out.println("Add user to usersList " + username);
+
+            userCell = findNextUserCell(userCell);
+            if (userCell == null) {
                 break;
             }
 
-            for (int i = 0; i < userCells.size(); i++) {
-                WebElement userCell = wait.until(presenceOfElementLocated(
-                        By.xpath("(//button[@data-testid='UserCell'])[" + (i + 1) + "]")));
-                User newUser = new User(navigator.getLink(userCell));
-                newUser.setVerified(isVerified);
-                userDataHandler.addUser(filePath, newUser);
-            }
-            navigator.scrollDown();
-        }
-
-        userDataHandler.saveData(filePath);
-    }
-
-    public List<User> extractUser(boolean isVerified, int maxListSize) throws InterruptedException {
-        List<User> usersList = new ArrayList<>();
-        while (usersList.size() < maxListSize) {
-            Thread.sleep(3000);
-
-            WebElement userCell = wait.until(presenceOfElementLocated(
-                    By.xpath("//button[@data-testid = 'UserCell']["+ usersList.size() +"]//span[not(*)]")));
-            String username = extractUserName(userCell);
-            User newUser = new User(navigator.getLink(userCell));
-            newUser.setUsername(username);
-            newUser.setVerified(isVerified);
-            usersList.add(newUser);
-            System.out.println("Add user to usersList " + username);
-            WebElement nextUserCell = findNextUserCell(userCell);
-            if(nextUserCell != null) navigator.scrollToElement(nextUserCell);
-            else break;
+            navigator.scrollToElement(userCell);
         }
 
         return usersList;
     }
-
-    public WebElement findNextUserCell(WebElement currentUserCell) {
-        WebElement nextUserCell = null;
-
-        // Try to find the next sibling UserCell up to 10 times
-        for (int attempt = 1; attempt <= 10; attempt++) {
-            try {
-                // XPath to find the next sibling UserCell element containing a leaf <span>
-                nextUserCell = wait.until(presenceOfElementLocated(
-                        By.xpath(".//following-sibling::button[@data-testid='UserCell']//span[not(*)]")));
-
-                if (nextUserCell != null) {
-                    System.out.println("Found next UserCell on attempt: " + attempt);
-                    return nextUserCell; // Return the found element
-                }
-            } catch (Exception e) {
-                System.out.println("Attempt " + attempt + " failed, retrying...");
-            }
-
-            // Brief wait before the next attempt
-            try {
-                Thread.sleep(500); // 500 ms delay between attempts
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-                System.out.println("Interrupted during wait: " + e.getMessage());
-            }
-        }
-
-        System.out.println("Next UserCell not found after 10 attempts.");
-        return null; // Return null if the element wasn't found after 10 tries
-    }
-
 }
