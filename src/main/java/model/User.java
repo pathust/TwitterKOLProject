@@ -20,6 +20,14 @@ public class User {
         this.isVerified = false;
     }
 
+    public User(String username, String profileLink, boolean isVerified){
+        this.username = username;
+        this.profileLink = profileLink;
+        this.followersCount = 0;
+        this.followingList = new ArrayList<>();
+        this.isVerified = isVerified = false;
+    }
+
     public static int toInt(String followersCount) {
         int factor = 1;
         if (followersCount.endsWith("K")) {
