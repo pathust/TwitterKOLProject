@@ -3,6 +3,8 @@ package model;
 import java.util.HashMap;
 import java.util.Map;
 
+import java.util.List;
+
 public class KOL extends User{
     private Double pagerankScore;
     Map<KOL, Double> Interaction = new HashMap<>();
