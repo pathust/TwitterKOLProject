@@ -7,13 +7,8 @@ public class KOL extends User{
     private Double pagerankScore;
     Map<KOL, Double> Interaction = new HashMap<>();
 
-    public KOL(String username, int followersCount) {
-        super(username, followersCount);
-    }
-
-    public KOL(String username, int followersCount, Double pagerankScore) {
-        super(username, followersCount);
-        this.pagerankScore = pagerankScore;
+    public KOL(String profileLink) {
+        super(profileLink);
     }
 
     public Double getPagerankScore() {
@@ -43,14 +38,5 @@ public class KOL extends User{
 
     public Double getWeightTo(KOL kol) {
         return Interaction.get(kol);
-    }
-
-    @Override
-    public String toString() {
-        return "KOL{" +
-                "username='" + getUsername() + '\'' +
-                ", followersCount=" + getFollowersCount() +
-                ", pagerankScore=" + pagerankScore +
-                '}';
     }
 }

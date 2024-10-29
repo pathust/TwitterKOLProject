@@ -1,11 +1,13 @@
 package model;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class Tweet {
     private String content;
     private LocalDateTime timestamp;
     private User user;
+    private List<User> repostedUsersList;
 
     public Tweet(String content, LocalDateTime timestamp, User user) {
         this.content = content;
@@ -37,12 +39,11 @@ public class Tweet {
         this.user = user;
     }
 
-    @Override
-    public String toString() {
-        return "Tweet{" +
-                "content='" + content + '\'' +
-                ", timestamp=" + timestamp +
-                ", user=" + user +
-                '}';
+    public List<User> getRepostedUsersList() {
+        return repostedUsersList;
+    }
+
+    public void setRepostedUsersList(List<User> repostedUsersList) {
+        this.repostedUsersList = repostedUsersList;
     }
 }
