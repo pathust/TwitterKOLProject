@@ -45,10 +45,11 @@ public class TwitterScraperController {
         filter.advancedSearch(keywords, maxFollowers, minFollowers, maxTweets);
     }
 
-    public void scrapeUserData(List<String> userLinks) throws InterruptedException {
+    public void scrapeUsersData(List<String> userLinks) throws InterruptedException, IOException {
         for (String userLink : userLinks) {
             userDataExtractor.extractData(userLink);
         }
+        userDataHandler.saveData("KOLs.json");
     }
 
     public void close() {
@@ -73,9 +74,9 @@ public class TwitterScraperController {
         TwitterScraperController controller = new TwitterScraperController();
 
         controller.login(
-                "@21Oop36301",
-                "penaldomessy21@gmail.com",
-                "123456789@21oop");
+                "@PogbaPaul432283",
+                "anhrooneymtp@gmail.com",
+                "anhmanunited");
 
         controller.applyFilter(
                 List.of("blockchain"),
@@ -87,7 +88,7 @@ public class TwitterScraperController {
 
         List<String> userLinks = controller.getUserLinksFrom("KOLs.json");
         System.out.println("Number of user links: " + userLinks.size());
-        controller.scrapeUserData(userLinks);
+        controller.scrapeUsersData(userLinks);
 
         controller.close();
     }
