@@ -28,7 +28,7 @@ public class TwitterScraperController {
     public TwitterScraperController() throws IOException {
         System.setProperty(
                 "webdriver.chrome.driver",
-                "/Users/phananhtai/Downloads/chromedriver-mac-arm64/chromedriver");
+                "D:\\Dowload\\chromedriver-win64\\chromedriver-win64\\chromedriver.exe");
         this.driver = new ChromeDriver();
         this.navigator = new WebNavigator(driver);
         this.authenticator = new TwitterAuthenticator(driver, navigator);
@@ -74,12 +74,12 @@ public class TwitterScraperController {
         TwitterScraperController controller = new TwitterScraperController();
 
         controller.login(
-                "@PogbaPaul432283",
-                "anhrooneymtp@gmail.com",
-                "anhmanunited");
+                "@HolaPThi",
+                "pthi35itk62@gmail.com",
+                "Thi0711!");
 
         controller.applyFilter(
-                List.of("blockchain"),
+                List.of(args[0]),
                 10000,
                 1000,
                 200);
@@ -89,7 +89,7 @@ public class TwitterScraperController {
         List<String> userLinks = controller.getUserLinksFrom("KOLs.json");
         System.out.println("Number of user links: " + userLinks.size());
         controller.scrapeUsersData(userLinks);
-
+        System.out.println("Done !");
         controller.close();
     }
 }
