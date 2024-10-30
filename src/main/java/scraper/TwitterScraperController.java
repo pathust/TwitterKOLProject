@@ -5,13 +5,17 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import scraper.authentication.Authenticator;
 import scraper.authentication.TwitterAuthenticator;
 import scraper.extractor.TwitterUserDataExtractor;
+import scraper.extractor.TwitterTweetDataExtractor;
 import scraper.extractor.UserDataExtractor;
+import scraper.extractor.TweetDataExtractor;
 import scraper.filtering.Filter;
 import scraper.filtering.TwitterFilter;
 import scraper.navigation.Navigator;
 import scraper.navigation.WebNavigator;
 import scraper.storage.UserDataHandler;
 import scraper.storage.UserStorageManager;
+import scraper.storage.TweetStorageManager;
+import scraper.storage.TweetDataHandler;
 
 import java.io.IOException;
 import java.util.List;
@@ -23,18 +27,20 @@ public class TwitterScraperController {
     private final Authenticator authenticator;
     private final Filter filter;
     private final UserDataExtractor userDataExtractor;
-    private UserDataHandler userDataHandler;
+    private final TweetDataExtractor tweetDataExtractor;
+    private final UserDataHandler userDataHandler;
+    private final TweetDataHandler tweetDataHandler;
 
     public TwitterScraperController() throws IOException {
-        System.setProperty(
-                "webdriver.chrome.driver",
-                "/Users/phananhtai/Downloads/chromedriver-mac-arm64/chromedriver");
+        System.setProperty("webdriver.chrome.driver", "D:\\Test Java\\Selenium\\chromedriver.exe");
         this.driver = new ChromeDriver();
         this.navigator = new WebNavigator(driver);
         this.authenticator = new TwitterAuthenticator(driver, navigator);
         this.filter = (Filter) new TwitterFilter(driver, navigator);
         this.userDataHandler = new UserStorageManager();
         this.userDataExtractor = new TwitterUserDataExtractor(driver, navigator, userDataHandler);
+        this.tweetDataHandler = new TweetStorageManager();
+        this.tweetDataExtractor = new TwitterTweetDataExtractor(driver, navigator, tweetDataHandler);
     }
 
     public void login(String username, String email, String password) {
@@ -52,6 +58,13 @@ public class TwitterScraperController {
         userDataHandler.saveData("KOLs.json");
     }
 
+    public void scrapeTweetsData(List<String> tweetLinks) throws InterruptedException, IOException {
+        for (String tweetLink : tweetLinks) {
+            userDataExtractor.extractData(tweetLink);
+        }
+        userDataHandler.saveData("Tweets.json");
+    }
+
     public void close() {
         if (driver != null) {
             driver.quit();
@@ -62,12 +75,21 @@ public class TwitterScraperController {
         return userDataHandler.getUserLinksFrom(filePath);
     }
 
+    public List<String> getTweetLinksFrom(String filePath) throws IOException {
+        return tweetDataHandler.getTweetContentsFrom(filePath);
+    }
+
     private void extractInitialKOLsTo(String filePath) throws InterruptedException, IOException {
         System.out.println("Start collecting user data...");
 
         navigator.clickButton("People");
 
         userDataExtractor.extractUserTo(filePath, true);
+    }
+
+    private void extractInitialTweetsTo(String filePath) throws InterruptedException, IOException {
+        System.out.println("Start collecting tweet data...");
+        tweetDataExtractor.extractTweetTo(filePath, true);
     }
 
     public static void main(String[] args) throws IOException, InterruptedException {
@@ -80,10 +102,20 @@ public class TwitterScraperController {
 
         controller.applyFilter(
                 List.of("blockchain"),
+                1000,
+                500,
+                200);
+
+        controller.extractInitialTweetsTo("Tweets.json");
+        List<String> tweetLinks = controller.getUserLinksFrom("Tweets.json");
+        System.out.println("Number of tweet links: " + tweetLinks.size());
+        controller.scrapeTweetsData(tweetLinks);
+
+        controller.applyFilter(
+                List.of("blockchain"),
                 10000,
                 1000,
                 200);
-
         controller.extractInitialKOLsTo("KOLs.json");
 
         List<String> userLinks = controller.getUserLinksFrom("KOLs.json");
