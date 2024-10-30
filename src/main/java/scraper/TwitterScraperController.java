@@ -1,5 +1,7 @@
 package scraper;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import model.User;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -14,6 +16,7 @@ import scraper.navigation.WebNavigator;
 import scraper.storage.UserDataHandler;
 import scraper.storage.UserStorageManager;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -24,16 +27,16 @@ public class TwitterScraperController {
     private final Authenticator authenticator;
     private final Filter filter;
     private final UserDataExtractor userDataExtractor;
-    private UserDataHandler userDataHandler;
+    private final UserDataHandler userDataHandler;
 
-    public TwitterScraperController() throws IOException {
+    public TwitterScraperController() {
         System.setProperty(
                 "webdriver.chrome.driver",
-                "D:\\Dowload\\chromedriver-win64\\chromedriver-win64\\chromedriver.exe");
+                "/Users/phananhtai/Downloads/chromedriver-mac-arm64/chromedriver");
         this.driver = new ChromeDriver();
         this.navigator = new WebNavigator(driver);
         this.authenticator = new TwitterAuthenticator(driver, navigator);
-        this.filter = (Filter) new TwitterFilter(driver, navigator);
+        this.filter = new TwitterFilter(driver, navigator);
         this.userDataHandler = new UserStorageManager();
         this.userDataExtractor = new TwitterUserDataExtractor(driver, navigator, userDataHandler);
     }
@@ -42,13 +45,21 @@ public class TwitterScraperController {
         authenticator.login(username, email, password);
     }
 
-    public void applyFilter(List<String> keywords, int maxFollowers, int minFollowers, int maxTweets) {
-        filter.advancedSearch(keywords, maxFollowers, minFollowers, maxTweets);
+    public void applyFilter(List<String> keywords, int minLikes, int minReplies, int minReposts) {
+        filter.advancedSearch(keywords, minLikes, minReplies, minReposts);
     }
 
-    public void scrapeUsersData(List<String> userLinks) throws InterruptedException, IOException {
-        for (String userLink : userLinks) {
-            userDataExtractor.extractData(userLink, 10);
+    public void scrapeUsersData(List<User> users) throws IOException {
+        for (User user : users) {
+            if (user == null) {
+                System.out.println("Skipping scrape user ");
+                continue;
+
+            }
+            else {
+                System.out.println("Scraping user " + user.getUsername());
+            }
+            userDataExtractor.extractData(user.getProfileLink(), 10);
             userDataHandler.saveData("KOLs.json");
         }
     }
@@ -59,43 +70,43 @@ public class TwitterScraperController {
         }
     }
 
-    public List<String> getUserLinksFrom(String filePath) throws IOException {
-        return userDataHandler.getUserLinksFrom(filePath);
+    public List<User> getUsers(String filePath) throws IOException {
+        return userDataHandler.getUsers(filePath);
     }
 
-    private void extractInitialKOLsTo(String filePath) throws InterruptedException, IOException {
+    private void extractInitialKOLsTo(String filePath) throws IOException {
         System.out.println("Start collecting user data...");
 
         navigator.clickButton("People");
 
         List <User> users = userDataExtractor.extractUsers(true, 30);
         for (User user : users) {
-            userDataHandler.addUser("KOLs.json", user);
+            userDataHandler.addUser(filePath, user);
         }
 
-        userDataHandler.saveData("KOLs.json");
+        userDataHandler.saveData(filePath);
     }
 
     public static void main(String[] args) throws IOException, InterruptedException {
         TwitterScraperController controller = new TwitterScraperController();
 
         controller.login(
-                "@HolaPThi",
-                "pthi35itk62@gmail.com",
-                "Thi0711!");
+                "@PogbaPaul432283",
+                "anhrooneymtp@gmail.com",
+                "anhmanunited");
 
         controller.applyFilter(
-                List.of(args[0]),
+                List.of("blockchain"),
                 10000,
                 1000,
                 200);
 
         controller.extractInitialKOLsTo("KOLs.json");
 
-        List<String> userLinks = controller.getUserLinksFrom("KOLs.json");
-        System.out.println("Number of user links: " + userLinks.size());
-        controller.scrapeUsersData(userLinks);
-//        System.out.println("Done !");
+        List<User> users = controller.getUsers("KOLs.json");
+        System.out.println("Number of users: " + users.size());
+        controller.scrapeUsersData(users);
+
         controller.close();
     }
 }

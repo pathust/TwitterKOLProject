@@ -93,7 +93,7 @@ public class TwitterUserDataExtractor implements UserDataExtractor {
     }
 
     @Override
-    public void extractData(String userLink, int followingCountThreshold) {
+    public void extractData(String userLink, int followingCountThreshold) throws IOException {
         System.out.println("Extracting data from " + userLink);
         driver.get(userLink);
         try {
@@ -110,7 +110,10 @@ public class TwitterUserDataExtractor implements UserDataExtractor {
 
         navigator.navigateToSection("following");
         List<User> followingList = extractUsers(false, min(followingCount, followingCountThreshold));
-        User newUser = new User(userLink, followersCount, followingList, true);
+        for (User user : followingList) {
+            userDataHandler.addUser("KOLs.json", user);
+        }
+        User newUser = new User(userLink, followersCount, followingList);
         try {
             userDataHandler.addUser("KOLs.json", newUser);
         } catch (IOException e) {

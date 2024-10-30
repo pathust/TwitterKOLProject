@@ -9,23 +9,35 @@ public class User {
     private String username;
     private String profileLink;
     private int followersCount;
-    private List<User> followingList;
     private boolean isVerified;
+    private List<User> followingList;
 
-    public User(String profileLink, int followersCount, List<User> followingList, boolean isVerified) {
-        this.username = null;
-        this.profileLink = profileLink;
-        this.followersCount = followersCount;
-        this.followingList = followingList;
-        this.isVerified = isVerified;
+    public User() {
+
     }
 
     public User(String username, String profileLink, boolean isVerified){
         this.username = username;
         this.profileLink = profileLink;
         this.followersCount = 0;
+        this.isVerified = isVerified;
         this.followingList = new ArrayList<>();
-        this.isVerified = isVerified = false;
+    }
+
+    public User(String profileLink, int followersCount, List<User> followingList) {
+        this.username = null;
+        this.profileLink = profileLink;
+        this.followersCount = followersCount;
+        this.isVerified = false;
+        this.followingList = followingList;
+    }
+
+    public User(String username, String profileLink, boolean isVerified, int followersCount, List<User> followingList) {
+        this.username = username;
+        this.profileLink = profileLink;
+        this.followersCount = followersCount;
+        this.isVerified = isVerified;
+        this.followingList = followingList;
     }
 
     public static int toInt(String followersCount) {
