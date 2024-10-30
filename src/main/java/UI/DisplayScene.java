@@ -3,10 +3,11 @@ package UI;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
-public class DisplayScene extends Application {
+public class DisplayScene  {
+    private Stage stage;
 
-    @Override
-    public void start(Stage primaryStage) {
+
+    public void start(){
 
     }
 }

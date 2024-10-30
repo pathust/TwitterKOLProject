@@ -95,7 +95,7 @@ public class TwitterScraperController {
         List<String> userLinks = controller.getUserLinksFrom("KOLs.json");
         System.out.println("Number of user links: " + userLinks.size());
         controller.scrapeUsersData(userLinks);
-        System.out.println("Done !");
+//        System.out.println("Done !");
         controller.close();
     }
 }

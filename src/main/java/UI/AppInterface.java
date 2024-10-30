@@ -31,37 +31,6 @@ public class AppInterface extends Application {
     private TwitterScraperController scraper;
     private Graph graph;
     private PagerankCalculator pagerankCalculator;
-    private int previousSize = -1;
-//    private Timeline timeline;
-//    private boolean shouldStop = false;
-
-//    private void checkJsonFile() {
-//        int size = 0;
-//
-//        try {
-//            File jsonFile = new File("KOLs.json");
-//
-//            ObjectMapper mapper = new ObjectMapper();
-//            JsonNode jsonNode = mapper.readTree(jsonFile);
-//
-//            if(jsonNode.isObject()) {
-//                size = jsonNode.size();
-//            } else if(jsonNode.isArray()) {
-//                size = jsonNode.size();
-//            }
-//
-//            if(previousSize == size) {
-//                shouldStop = true;
-//                timeline.stop();
-//                return ;
-//            }
-//
-//            previousSize = size;
-//            System.out.println(previousSize);
-//        } catch (IOException ex) {
-//            System.out.println("Can't read the Json File !");
-//        }
-//    }
 
     public static void main(String[] args) {
         launch(args);
@@ -92,31 +61,33 @@ public class AppInterface extends Application {
                 @Override
                 protected Void call() throws Exception {
                     try {
-//                        previousSize = -1;
-                        scraper = new TwitterScraperController();
                         String[] otherArgs = {keyword};
                         scraper.main(otherArgs);
 
-                        waiting.close();
                         scraper.close();
                     } catch (IOException ex) {
                         throw new RuntimeException(ex);
                     }
-//                    catch (InterruptedException ex) {
-//                        throw new RuntimeException(ex);
-//                    }
 
                     return null;
                 }
 
                 @Override
                 protected void succeeded() {
-//                    Stage stage = (Stage) getWindow();
-                    //System.out.println("Your Data have been crawled");
+                    waiting.close();
                 }
             };
 
-            new Thread(seleniumTask).start();
+            Thread thread  = new Thread(seleniumTask);
+            thread.start();
+
+            try {
+                thread.join();
+            } catch (InterruptedException ex) {
+                throw new RuntimeException(ex);
+            }
+
+            waiting.close();
             List<KOL> kolList = null;//scraper.searchKOLs(keyword);
 //            System.out.println(kolList.get(0));
         });
