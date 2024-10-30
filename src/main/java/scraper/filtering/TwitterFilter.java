@@ -26,9 +26,11 @@ public class TwitterFilter implements Filter {
 
     @Override
     public void advancedSearch(List<String> words, int minLikes, int minReplies, int minReposts) {
-        System.out.println("Start filtering with Advanced Search");
         try {
-            WebElement searchBox = wait.until(visibilityOfElementLocated(By.xpath("//input[@placeholder='Search']")));
+            System.out.println("Start filtering with Advanced Search");
+            WebElement searchBox = wait.until(presenceOfElementLocated(
+                    By.xpath("//input[@placeholder='Search']")));
+            System.out.println(searchBox.getText());
             String wordsKey = String.join(" ", words);
             searchBox.sendKeys(wordsKey);
             searchBox.submit();
