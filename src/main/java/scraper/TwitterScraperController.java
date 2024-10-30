@@ -1,5 +1,6 @@
 package scraper;
 
+import model.User;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import scraper.authentication.Authenticator;
@@ -47,9 +48,9 @@ public class TwitterScraperController {
 
     public void scrapeUsersData(List<String> userLinks) throws InterruptedException, IOException {
         for (String userLink : userLinks) {
-            userDataExtractor.extractData(userLink);
+            userDataExtractor.extractData(userLink, 10);
+            userDataHandler.saveData("KOLs.json");
         }
-        userDataHandler.saveData("KOLs.json");
     }
 
     public void close() {
@@ -67,7 +68,12 @@ public class TwitterScraperController {
 
         navigator.clickButton("People");
 
-        userDataExtractor.extractUserTo(filePath, true);
+        List <User> users = userDataExtractor.extractUsers(true, 30);
+        for (User user : users) {
+            userDataHandler.addUser("KOLs.json", user);
+        }
+
+        userDataHandler.saveData("KOLs.json");
     }
 
     public static void main(String[] args) throws IOException, InterruptedException {

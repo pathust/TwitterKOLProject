@@ -1,9 +1,11 @@
 package scraper.extractor;
 
+import model.User;
+
 import java.io.IOException;
 import java.util.List;
 
 public interface UserDataExtractor {
-    void extractData(String userLink) throws InterruptedException, IOException;
-    void extractUserTo(String filePath, boolean isVerified) throws InterruptedException, IOException;
+    void extractData(String userLink, int followingCountThreshold);
+    List <User> extractUsers(boolean isVerified, int maxListSize);
 }

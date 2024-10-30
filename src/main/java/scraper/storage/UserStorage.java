@@ -8,6 +8,7 @@ import model.User;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,13 +20,18 @@ public class UserStorage {
     private final Map<String, Integer> userIndexMap;
     private final ArrayNode userArray;
 
-    public UserStorage(String filePath, boolean overwrite) throws IOException {
+    public UserStorage(String filePath, boolean overwrite) {
         this.mapper = new ObjectMapper();
         this.userMap = new HashMap<>();
         this.userIndexMap = new HashMap<>();
         this.userArray = mapper.createArrayNode();
-        if (!overwrite)
-            loadUsers(filePath);
+        if (!overwrite) {
+            try {
+                loadUsers(filePath);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 
     private void loadUsers(String filePath) throws IOException {
@@ -46,7 +52,7 @@ public class UserStorage {
         }
     }
 
-    public void addUser(User user) throws IOException {
+    public void addUser(User user) {
         ObjectNode userNode = userMap.get(user.getProfileLink());
         if (userNode != null) {
             updateUserFields(userNode, user);
@@ -67,14 +73,20 @@ public class UserStorage {
         if (!userNode.get("isVerified").asBoolean()) {
             userNode.put("isVerified", user.isVerified());
         }
-        userNode.put("username", user.getUsername());
+
         ArrayNode followingListNode = mapper.createArrayNode();
-        user.getFollowingList().forEach(followingListNode::add);
+        for (User followingUser : user.getFollowingList()) {
+            ObjectNode followingUserNode = mapper.createObjectNode();
+            followingUserNode.put("username", followingUser.getUsername());
+            followingUserNode.put("profileLink", followingUser.getProfileLink());
+            followingListNode.add(followingUserNode);
+        }
         userNode.set("followingList", followingListNode);
 
         int userIndex = userIndexMap.get(user.getProfileLink());
         userArray.set(userIndex, userNode);
     }
+
 
     private ObjectNode createUserNode(User user) {
         ObjectNode userNode = mapper.createObjectNode();
@@ -83,11 +95,33 @@ public class UserStorage {
         userNode.put("profileLink", user.getProfileLink());
 
         ArrayNode followingListNode = mapper.createArrayNode();
-        user.getFollowingList().forEach(followingListNode::add);
         userNode.set("followingList", followingListNode);
 
         return userNode;
     }
+
+    public List<User> getFollowingList(User user) {
+        List<User> followingUsers = new ArrayList<>();
+
+        ObjectNode userNode = userMap.get(user.getProfileLink());
+        if (userNode == null) {
+            return followingUsers;
+        }
+
+        ArrayNode followingArrayNode = (ArrayNode) userNode.path("followingList");
+        for (JsonNode followingNode : followingArrayNode) {
+            String followingUsername = followingNode.path("username").asText();
+            String followingProfileLink = followingNode.path("profileLink").asText();
+            boolean isVerified = followingNode.path("isVerified").asBoolean();
+
+            User followingUser = new User(followingUsername, followingProfileLink, isVerified);
+            followingUsers.add(followingUser);
+        }
+
+        return followingUsers;
+    }
+
+
 
     public void saveData(String filePath) throws IOException {
         File file = new File(filePath);

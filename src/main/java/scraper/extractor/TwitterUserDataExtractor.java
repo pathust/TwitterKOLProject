@@ -10,10 +10,11 @@ import scraper.storage.UserDataHandler;
 
 import java.io.IOException;
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.List;
 
+import static java.lang.Math.min;
 import static model.User.toInt;
-import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfAllElementsLocatedBy;
 import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated;
 
 public class TwitterUserDataExtractor implements UserDataExtractor {
@@ -32,15 +33,32 @@ public class TwitterUserDataExtractor implements UserDataExtractor {
         this.userDataHandler = userDataHandler;
     }
 
-    private List<WebElement> findNextUserCells() {
-        return wait.until(presenceOfAllElementsLocatedBy(
-                By.xpath("//button[@data-testid='UserCell']")));
+    public WebElement findNextUserCell(WebElement userCell) {
+        for (int attempt = 0; attempt <= 10; attempt++) {
+            try {
+                WebElement parentDiv = userCell.findElement(
+                        By.xpath("./ancestor::div[@data-testid='cellInnerDiv']"));
+
+                return parentDiv.findElement(
+                        By.xpath("(following-sibling::div[@data-testid='cellInnerDiv'])//button[@data-testid='UserCell']"));
+            } catch (Exception e) {
+                System.out.println("Attempt " + attempt + " failed, retrying...");
+            }
+
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        System.out.println("Next UserCell not found after 10 attempts.");
+        return null;
     }
 
-    private String extractUserName() {
-        WebElement userNameElement = wait.until(
-                presenceOfElementLocated(
-                        By.xpath("//div[contains(@data-testid, 'UserName')]//span/span"))
+    private String extractUserName(WebElement userCell) {
+        WebElement userNameElement = userCell.findElement(
+                By.xpath(".//span[not(*)]") // Find the leaf <span> within userCell
         );
         return userNameElement.getText();
     }
@@ -75,43 +93,57 @@ public class TwitterUserDataExtractor implements UserDataExtractor {
     }
 
     @Override
-    public void extractData(String userLink) throws InterruptedException, IOException {
+    public void extractData(String userLink, int followingCountThreshold) {
         System.out.println("Extracting data from " + userLink);
         driver.get(userLink);
-        Thread.sleep(5000);
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
 
-        String username = extractUserName();
         int followingCount = extractFollowingCount();
         int followersCount = extractFollowersCount();
 
-        System.out.print("User: " + username + "\n");
         System.out.print("Following: " + followingCount + "\n");
         System.out.print("Followers: " + followersCount + "\n");
 
+        navigator.navigateToSection("following");
+        List<User> followingList = extractUsers(false, min(followingCount, followingCountThreshold));
+        User newUser = new User(userLink, followersCount, followingList, true);
+        try {
+            userDataHandler.addUser("KOLs.json", newUser);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         extractPotentialKOLs();
     }
 
     @Override
-    public void extractUserTo(String filePath, boolean isVerified) throws InterruptedException, IOException {
-        for (int scrollCount = 0; scrollCount < MAX_SCROLLS; scrollCount++) {
-            Thread.sleep(3000);
-            List<WebElement> userCells = findNextUserCells();
+    public List<User> extractUsers(boolean isVerified, int maxListSize) {
+        List<User> usersList = new ArrayList<>();
+        if (maxListSize == 0) {
+            return usersList;
+        }
+        WebElement userCell = wait.until(presenceOfElementLocated(
+                By.xpath("//button[@data-testid = 'UserCell']")));
 
-            if (userCells.isEmpty()) {
-                System.out.println("No user cells found.");
+        while (true) {
+            String username = extractUserName(userCell);
+            String profileLink = navigator.getLink(userCell);
+
+            User newUser = new User(username, profileLink, isVerified);
+            usersList.add(newUser);
+            System.out.println("Add user to usersList " + username);
+
+            if (usersList.size() == maxListSize) {
                 break;
             }
 
-            for (int i = 0; i < userCells.size(); i++) {
-                WebElement userCell = wait.until(presenceOfElementLocated(
-                        By.xpath("(//button[@data-testid='UserCell'])[" + (i + 1) + "]")));
-                User newUser = new User(navigator.getLink(userCell));
-                newUser.setVerified(isVerified);
-                userDataHandler.addUser(filePath, newUser);
-            }
-            navigator.scrollDown();
+            userCell = findNextUserCell(userCell);
+            navigator.scrollToElement(userCell);
         }
 
-        userDataHandler.saveData(filePath);
+        return usersList;
     }
 }
