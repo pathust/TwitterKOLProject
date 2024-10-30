@@ -1,24 +1,21 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 import java.util.List;
 
 public class KOL extends User{
-    private Double pagerankScore;
     Map<KOL, Double> Interaction = new HashMap<>();
+    private Double pagerankScore;
 
-    public KOL(String profileLink) {
-        super(profileLink);
+    public KOL(String profileLink, int followersCount, List<User> followingList, boolean isVerified) {
+        super(profileLink, followersCount, followingList, isVerified);
     }
 
-    public Double getPagerankScore() {
-        return pagerankScore;
-    }
-
-    public void setPagerankScore(Double pagerankScore) {
-        this.pagerankScore = pagerankScore;
+    public KOL(String username, String profileLink, boolean isVerified){
+        super(username, profileLink, isVerified);
     }
 
     public Map<KOL, Double> getInteraction() {
@@ -40,5 +37,13 @@ public class KOL extends User{
 
     public Double getWeightTo(KOL kol) {
         return Interaction.get(kol);
+    }
+
+    public Double getPagerankScore() {
+        return pagerankScore;
+    }
+
+    public void setPagerankScore(Double pagerankScore) {
+        this.pagerankScore = pagerankScore;
     }
 }
