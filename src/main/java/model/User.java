@@ -9,15 +9,15 @@ public class User {
     private String username;
     private String profileLink;
     private int followersCount;
-    private List<String> followingList;
+    private List<User> followingList;
     private boolean isVerified;
 
-    public User(String profileLink) {
+    public User(String profileLink, int followersCount, List<User> followingList, boolean isVerified) {
         this.username = null;
         this.profileLink = profileLink;
-        this.followersCount = 0;
-        this.followingList = new ArrayList<>();
-        this.isVerified = false;
+        this.followersCount = followersCount;
+        this.followingList = followingList;
+        this.isVerified = isVerified;
     }
 
     public User(String username, String profileLink, boolean isVerified){
@@ -50,11 +50,11 @@ public class User {
         isVerified = verified;
     }
 
-    public List<String> getFollowingList() {
+    public List<User> getFollowingList() {
         return followingList;
     }
 
-    public void setFollowingList(List<String> followingList) {
+    public void setFollowingList(List<User> followingList) {
         this.followingList = followingList;
     }
 
