@@ -4,6 +4,7 @@ import model.User;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import scraper.navigation.Navigator;
 import scraper.storage.UserDataHandler;
@@ -63,6 +64,21 @@ public class TwitterUserDataExtractor implements UserDataExtractor {
         return userNameElement.getText();
     }
 
+    private void checkAndClickRestrictedButton() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
+        try {
+            WebElement restrictedButton = wait.until(
+                    ExpectedConditions.elementToBeClickable(By.xpath("//button[div/span/span[text()='Yes, view profile']]")));
+
+            if(restrictedButton != null) {
+                restrictedButton.click();
+            }
+        } catch (Exception e) {
+            System.out.println("Restricted button not found or not clickable.");
+        }
+    }
+
     private int extractFollowingCount() {
         WebElement followingCountElement = wait.until(
                 presenceOfElementLocated(
@@ -102,6 +118,7 @@ public class TwitterUserDataExtractor implements UserDataExtractor {
             throw new RuntimeException(e);
         }
 
+        checkAndClickRestrictedButton();
         int followingCount = extractFollowingCount();
         int followersCount = extractFollowersCount();
 
@@ -140,10 +157,12 @@ public class TwitterUserDataExtractor implements UserDataExtractor {
             System.out.println("Add user to usersList " + username);
 
             if (usersList.size() == maxListSize) {
+                System.out.print("Done !");
                 break;
             }
 
             userCell = findNextUserCell(userCell);
+
             navigator.scrollToElement(userCell);
         }
 
