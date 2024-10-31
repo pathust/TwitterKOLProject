@@ -46,6 +46,8 @@ public class AppInterface extends Application {
         TextField searchField = new TextField();
         searchField.setPromptText("Enter Blockchain keyword");
 
+        WaitingScene waiting = new WaitingScene(primaryStage);
+
         Button searchButton = new Button("Search KOL");
         searchButton.setOnAction(e -> {
             String keyword = searchField.getText();
@@ -54,7 +56,6 @@ public class AppInterface extends Application {
                 return ;
             }
 
-            WaitingScene waiting = new WaitingScene(primaryStage);
             waiting.start();
 
             Task<Void> seleniumTask  = new Task<Void>() {
@@ -79,17 +80,10 @@ public class AppInterface extends Application {
             };
 
             Thread thread  = new Thread(seleniumTask);
+            thread.setDaemon(true);
             thread.start();
 
-            try {
-                thread.join();
-            } catch (InterruptedException ex) {
-                throw new RuntimeException(ex);
-            }
-
-            waiting.close();
             List<KOL> kolList = null;//scraper.searchKOLs(keyword);
-//            System.out.println(kolList.get(0));
         });
 
         GridPane layout = new GridPane();
