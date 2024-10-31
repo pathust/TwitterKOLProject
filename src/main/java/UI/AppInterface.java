@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import javafx.concurrent.Task;
+import javafx.application.Platform;
 
 import graph.Graph;
 import graph.PagerankCalculator;
@@ -75,7 +76,7 @@ public class AppInterface extends Application {
 
                 @Override
                 protected void succeeded() {
-                    waiting.close();
+                    Platform.runLater(() -> waiting.close());
                 }
             };
 
