@@ -54,6 +54,7 @@ public class TwitterUserDataExtractor implements UserDataExtractor {
         }
 
         System.out.println("Next UserCell not found after 10 attempts.");
+        driver.quit();
         return null;
     }
 
@@ -65,7 +66,11 @@ public class TwitterUserDataExtractor implements UserDataExtractor {
     }
 
     private void checkAndClickRestrictedButton() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
 
         try {
             WebElement restrictedButton = wait.until(
