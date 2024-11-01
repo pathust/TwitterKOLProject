@@ -1,0 +1,415 @@
+[ {
+  "username" : "Cardano Community",
+  "profileLink" : "https://x.com/Cardano",
+  "isVerified" : true,
+  "followerCount" : 1000000,
+  "followingList" : [ {
+    "profileLink" : "https://x.com/IOHK_Charles"
+  }, {
+    "profileLink" : "https://x.com/cardano_whale"
+  }, {
+    "profileLink" : "https://x.com/cryptorecruitr"
+  }, {
+    "profileLink" : "https://x.com/CardanoFeed"
+  }, {
+    "profileLink" : "https://x.com/Cardano_CF"
+  }, {
+    "profileLink" : "https://x.com/InputOutputHK"
+  }, {
+    "profileLink" : "https://x.com/hoskytoken"
+  }, {
+    "profileLink" : "https://x.com/CryptoIRELAND1"
+  }, {
+    "profileLink" : "https://x.com/TapTools"
+  }, {
+    "profileLink" : "https://x.com/RichardMcCrackn"
+  } ]
+}, {
+  "username" : "Blockchain.com",
+  "profileLink" : "https://x.com/blockchain",
+  "isVerified" : true,
+  "followerCount" : 1000000,
+  "followingList" : [ {
+    "profileLink" : "https://x.com/OneMorePeter"
+  }, {
+    "profileLink" : "https://x.com/ixfiexchange"
+  }, {
+    "profileLink" : "https://x.com/MetaMask"
+  }, {
+    "profileLink" : "https://x.com/boldleonidas"
+  }, {
+    "profileLink" : "https://x.com/Figment_io"
+  }, {
+    "profileLink" : "https://x.com/Optimism"
+  }, {
+    "profileLink" : "https://x.com/MaviaGame"
+  }, {
+    "profileLink" : "https://x.com/zetablockchain"
+  }, {
+    "profileLink" : "https://x.com/brave"
+  }, {
+    "profileLink" : "https://x.com/solana"
+  } ]
+}, {
+  "username" : "Ice Open Network",
+  "profileLink" : "https://x.com/ice_blockchain",
+  "isVerified" : true,
+  "followerCount" : 2000000,
+  "followingList" : [ {
+    "profileLink" : "https://x.com/Amoschencheng"
+  }, {
+    "profileLink" : "https://x.com/RachelConlan"
+  }, {
+    "profileLink" : "https://x.com/TeamKhabib"
+  }, {
+    "profileLink" : "https://x.com/SealSendEmail"
+  }, {
+    "profileLink" : "https://x.com/Briankeryice"
+  }, {
+    "profileLink" : "https://x.com/DoctorX_Meme"
+  }, {
+    "profileLink" : "https://x.com/CertiK"
+  }, {
+    "profileLink" : "https://x.com/BingXOfficial"
+  }, {
+    "profileLink" : "https://x.com/MultiversX"
+  }, {
+    "profileLink" : "https://x.com/ice_apoll0"
+  } ]
+}, {
+  "username" : "Neo Smart Economy",
+  "profileLink" : "https://x.com/Neo_Blockchain",
+  "isVerified" : true,
+  "followerCount" : 0,
+  "followingList" : [ ]
+}, {
+  "username" : "Blockchain.com Support",
+  "profileLink" : "https://x.com/AskBlockchain",
+  "isVerified" : true,
+  "followerCount" : 0,
+  "followingList" : [ ]
+}, {
+  "username" : "Solana",
+  "profileLink" : "https://x.com/solana",
+  "isVerified" : true,
+  "followerCount" : 0,
+  "followingList" : [ ]
+}, {
+  "username" : "BEN",
+  "profileLink" : "https://x.com/BlockchainEdu",
+  "isVerified" : true,
+  "followerCount" : 0,
+  "followingList" : [ ]
+}, {
+  "username" : "Wu Blockchain",
+  "profileLink" : "https://x.com/WuBlockchain",
+  "isVerified" : true,
+  "followerCount" : 0,
+  "followingList" : [ ]
+}, {
+  "username" : "Blockchain Backer",
+  "profileLink" : "https://x.com/BCBacker",
+  "isVerified" : true,
+  "followerCount" : 0,
+  "followingList" : [ ]
+}, {
+  "username" : "Flow (",
+  "profileLink" : "https://x.com/flow_blockchain",
+  "isVerified" : true,
+  "followerCount" : 0,
+  "followingList" : [ ]
+}, {
+  "username" : "Paris Blockchain Week",
+  "profileLink" : "https://x.com/ParisBlockWeek",
+  "isVerified" : true,
+  "followerCount" : 0,
+  "followingList" : [ ]
+}, {
+  "username" : "Chiliz - The Sports Blockchain",
+  "profileLink" : "https://x.com/Chiliz",
+  "isVerified" : true,
+  "followerCount" : 0,
+  "followingList" : [ ]
+}, {
+  "username" : "TON",
+  "profileLink" : "https://x.com/ton_blockchain",
+  "isVerified" : true,
+  "followerCount" : 0,
+  "followingList" : [ ]
+}, {
+  "username" : "Partisia Blockchain",
+  "profileLink" : "https://x.com/partisiampc",
+  "isVerified" : true,
+  "followerCount" : 0,
+  "followingList" : [ ]
+}, {
+  "username" : "Erick / Snowfro /",
+  "profileLink" : "https://x.com/ArtOnBlockchain",
+  "isVerified" : true,
+  "followerCount" : 0,
+  "followingList" : [ ]
+}, {
+  "username" : "RENEC Blockchain",
+  "profileLink" : "https://x.com/RenecBlockchain",
+  "isVerified" : true,
+  "followerCount" : 0,
+  "followingList" : [ ]
+}, {
+  "username" : "Blockchain Capital",
+  "profileLink" : "https://x.com/blockchaincap",
+  "isVerified" : true,
+  "followerCount" : 0,
+  "followingList" : [ ]
+}, {
+  "username" : "Sahara AI",
+  "profileLink" : "https://x.com/SaharaLabsAI",
+  "isVerified" : true,
+  "followerCount" : 0,
+  "followingList" : [ ]
+}, {
+  "username" : "ABS2024 | Asia Blockchain Summit",
+  "profileLink" : "https://x.com/aba_summit",
+  "isVerified" : true,
+  "followerCount" : 0,
+  "followingList" : [ ]
+}, {
+  "username" : "Optimus Z7 - AI & Defi Layer 1 Blockchain",
+  "profileLink" : "https://x.com/OZ7_Blockchain",
+  "isVerified" : true,
+  "followerCount" : 0,
+  "followingList" : [ ]
+}, {
+  "username" : "Blockchain.com Institutional",
+  "profileLink" : "https://x.com/BlockchainINSTL",
+  "isVerified" : true,
+  "followerCount" : 0,
+  "followingList" : [ ]
+}, {
+  "username" : "Texas Blockchain Council",
+  "profileLink" : "https://x.com/TXblockchain_",
+  "isVerified" : true,
+  "followerCount" : 0,
+  "followingList" : [ ]
+}, {
+  "username" : "邦妮區塊鏈 Bonnie Blockchain",
+  "profileLink" : "https://x.com/BlockBonnieC",
+  "isVerified" : true,
+  "followerCount" : 0,
+  "followingList" : [ ]
+}, {
+  "username" : "Lucas Dimos (locked in",
+  "profileLink" : "https://x.com/BlockchainBoyy",
+  "isVerified" : true,
+  "followerCount" : 0,
+  "followingList" : [ ]
+}, {
+  "username" : "BlockchainBrett",
+  "profileLink" : "https://x.com/web3brett",
+  "isVerified" : true,
+  "followerCount" : 0,
+  "followingList" : [ ]
+}, {
+  "username" : "MANTRA",
+  "profileLink" : "https://x.com/MANTRA_Chain",
+  "isVerified" : true,
+  "followerCount" : 0,
+  "followingList" : [ ]
+}, {
+  "username" : "Mint",
+  "profileLink" : "https://x.com/Mint_Blockchain",
+  "isVerified" : true,
+  "followerCount" : 0,
+  "followingList" : [ ]
+}, {
+  "username" : "Cornell Blockchain",
+  "profileLink" : "https://x.com/CUBlockchain",
+  "isVerified" : true,
+  "followerCount" : 0,
+  "followingList" : [ ]
+}, {
+  "username" : "Blockchain for Europe",
+  "profileLink" : "https://x.com/BlockchainforEU",
+  "isVerified" : true,
+  "followerCount" : 0,
+  "followingList" : [ ]
+}, {
+  "username" : "GM VIETNAM (",
+  "profileLink" : "https://x.com/gmvn_official",
+  "isVerified" : true,
+  "followerCount" : 0,
+  "followingList" : [ ]
+}, {
+  "username" : "Charles Hoskinson",
+  "profileLink" : "https://x.com/IOHK_Charles",
+  "isVerified" : false,
+  "followerCount" : 0,
+  "followingList" : [ ]
+}, {
+  "username" : "whale",
+  "profileLink" : "https://x.com/cardano_whale",
+  "isVerified" : false,
+  "followerCount" : 0,
+  "followingList" : [ ]
+}, {
+  "username" : "Dan Gambardello",
+  "profileLink" : "https://x.com/cryptorecruitr",
+  "isVerified" : false,
+  "followerCount" : 0,
+  "followingList" : [ ]
+}, {
+  "username" : "Cardano Feed ($ADA)",
+  "profileLink" : "https://x.com/CardanoFeed",
+  "isVerified" : false,
+  "followerCount" : 0,
+  "followingList" : [ ]
+}, {
+  "username" : "Cardano Foundation",
+  "profileLink" : "https://x.com/Cardano_CF",
+  "isVerified" : false,
+  "followerCount" : 0,
+  "followingList" : [ ]
+}, {
+  "username" : "Input Output",
+  "profileLink" : "https://x.com/InputOutputHK",
+  "isVerified" : false,
+  "followerCount" : 0,
+  "followingList" : [ ]
+}, {
+  "username" : "HOSKY",
+  "profileLink" : "https://x.com/hoskytoken",
+  "isVerified" : false,
+  "followerCount" : 0,
+  "followingList" : [ ]
+}, {
+  "username" : "Darren",
+  "profileLink" : "https://x.com/CryptoIRELAND1",
+  "isVerified" : false,
+  "followerCount" : 0,
+  "followingList" : [ ]
+}, {
+  "username" : "TapTools",
+  "profileLink" : "https://x.com/TapTools",
+  "isVerified" : false,
+  "followerCount" : 0,
+  "followingList" : [ ]
+}, {
+  "username" : "Rick McCracken DIGI",
+  "profileLink" : "https://x.com/RichardMcCrackn",
+  "isVerified" : false,
+  "followerCount" : 0,
+  "followingList" : [ ]
+}, {
+  "username" : "Peter Smith",
+  "profileLink" : "https://x.com/OneMorePeter",
+  "isVerified" : false,
+  "followerCount" : 0,
+  "followingList" : [ ]
+}, {
+  "username" : "IXFI | Gen 3.0 Exchange",
+  "profileLink" : "https://x.com/ixfiexchange",
+  "isVerified" : false,
+  "followerCount" : 0,
+  "followingList" : [ ]
+}, {
+  "username" : "MetaMask",
+  "profileLink" : "https://x.com/MetaMask",
+  "isVerified" : false,
+  "followerCount" : 0,
+  "followingList" : [ ]
+}, {
+  "username" : "Bold",
+  "profileLink" : "https://x.com/boldleonidas",
+  "isVerified" : false,
+  "followerCount" : 0,
+  "followingList" : [ ]
+}, {
+  "username" : "Figment",
+  "profileLink" : "https://x.com/Figment_io",
+  "isVerified" : false,
+  "followerCount" : 0,
+  "followingList" : [ ]
+}, {
+  "username" : "Optimism",
+  "profileLink" : "https://x.com/Optimism",
+  "isVerified" : false,
+  "followerCount" : 0,
+  "followingList" : [ ]
+}, {
+  "username" : "Heroes of Mavia",
+  "profileLink" : "https://x.com/MaviaGame",
+  "isVerified" : false,
+  "followerCount" : 0,
+  "followingList" : [ ]
+}, {
+  "username" : "ZetaChain",
+  "profileLink" : "https://x.com/zetablockchain",
+  "isVerified" : false,
+  "followerCount" : 0,
+  "followingList" : [ ]
+}, {
+  "username" : "Brave",
+  "profileLink" : "https://x.com/brave",
+  "isVerified" : false,
+  "followerCount" : 0,
+  "followingList" : [ ]
+}, {
+  "username" : "陈成Amos",
+  "profileLink" : "https://x.com/Amoschencheng",
+  "isVerified" : false,
+  "followerCount" : 0,
+  "followingList" : [ ]
+}, {
+  "username" : "Rachel Conlan",
+  "profileLink" : "https://x.com/RachelConlan",
+  "isVerified" : false,
+  "followerCount" : 0,
+  "followingList" : [ ]
+}, {
+  "username" : "khabib nurmagomedov",
+  "profileLink" : "https://x.com/TeamKhabib",
+  "isVerified" : false,
+  "followerCount" : 0,
+  "followingList" : [ ]
+}, {
+  "username" : "SealSend",
+  "profileLink" : "https://x.com/SealSendEmail",
+  "isVerified" : false,
+  "followerCount" : 0,
+  "followingList" : [ ]
+}, {
+  "username" : "Professor 'Albert' Iceman",
+  "profileLink" : "https://x.com/Briankeryice",
+  "isVerified" : false,
+  "followerCount" : 0,
+  "followingList" : [ ]
+}, {
+  "username" : "DoctorX",
+  "profileLink" : "https://x.com/DoctorX_Meme",
+  "isVerified" : false,
+  "followerCount" : 0,
+  "followingList" : [ ]
+}, {
+  "username" : "CertiK",
+  "profileLink" : "https://x.com/CertiK",
+  "isVerified" : false,
+  "followerCount" : 0,
+  "followingList" : [ ]
+}, {
+  "username" : "BingX",
+  "profileLink" : "https://x.com/BingXOfficial",
+  "isVerified" : false,
+  "followerCount" : 0,
+  "followingList" : [ ]
+}, {
+  "username" : "Multiversᕽ",
+  "profileLink" : "https://x.com/MultiversX",
+  "isVerified" : false,
+  "followerCount" : 0,
+  "followingList" : [ ]
+}, {
+  "username" : "Apollo",
+  "profileLink" : "https://x.com/ice_apoll0",
+  "isVerified" : false,
+  "followerCount" : 0,
+  "followingList" : [ ]
+} ]
