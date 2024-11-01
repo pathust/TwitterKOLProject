@@ -1,10 +1,13 @@
 package scraper;
 
+import model.Tweet;
 import model.User;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import scraper.authentication.Authenticator;
 import scraper.authentication.TwitterAuthenticator;
+import scraper.extractor.TweetDataExtractor;
+import scraper.extractor.TwitterTweetDataExtractor;
 import scraper.extractor.TwitterUserDataExtractor;
 import scraper.extractor.UserDataExtractor;
 import scraper.filtering.Filter;
@@ -13,6 +16,8 @@ import scraper.navigation.Navigator;
 import scraper.navigation.WebNavigator;
 import scraper.storage.UserDataHandler;
 import scraper.storage.UserStorageManager;
+import scraper.storage.TweetDataHandler;
+import scraper.storage.TweetStorageManager;
 
 import java.io.IOException;
 import java.util.List;
@@ -25,6 +30,8 @@ public class TwitterScraperController {
     private final Filter filter;
     private final UserDataExtractor userDataExtractor;
     private final UserDataHandler userDataHandler;
+    private final TweetDataHandler tweetDataHandler;
+    private final TweetDataExtractor tweetDataExtractor;
 
     public TwitterScraperController() {
         System.setProperty(
@@ -36,6 +43,8 @@ public class TwitterScraperController {
         this.filter = new TwitterFilter(driver, navigator);
         this.userDataHandler = new UserStorageManager();
         this.userDataExtractor = new TwitterUserDataExtractor(driver, navigator, userDataHandler);
+        this.tweetDataHandler = new TweetStorageManager();
+        this.tweetDataExtractor = new TwitterTweetDataExtractor(driver,navigator, tweetDataHandler);
     }
 
     public void login(String username, String email, String password) {
@@ -61,6 +70,21 @@ public class TwitterScraperController {
         }
     }
 
+    public void scrapeTweetsData(List<Tweet> tweets) throws IOException {
+        for (Tweet tweet : tweets) {
+            if (tweet == null) {
+                System.out.println("Skipping scrape user ");
+                continue;
+
+            }
+            else {
+                System.out.println("Scraping tweet " + tweet.getUser());
+            }
+            userDataExtractor.extractData(tweet.getTweetLink(), 10);
+            userDataHandler.saveData("Tweets.json");
+        }
+    }
+
     public void close() {
         if (driver != null) {
             driver.quit();
@@ -69,6 +93,10 @@ public class TwitterScraperController {
 
     public List<User> getUsers(String filePath) throws IOException {
         return userDataHandler.getUsers(filePath);
+    }
+
+    public List<Tweet> getTweets(String filePath) throws IOException {
+        return tweetDataHandler.getTweets(filePath);
     }
 
     private void extractInitialKOLsTo(String filePath) throws IOException {
@@ -84,6 +112,17 @@ public class TwitterScraperController {
         userDataHandler.saveData(filePath);
     }
 
+    private void extractInitialTweetsTo(String filePath) throws IOException {
+        System.out.println("Start collecting tweet data...");
+
+        List <Tweet> tweets = tweetDataExtractor.extractTweets( 30);
+        for (Tweet tweet : tweets) {
+            tweetDataHandler.addTweet(filePath,tweet);
+        }
+
+        tweetDataHandler.saveData(filePath);
+    }
+
     public static void main(String[] args) throws IOException, InterruptedException {
         TwitterScraperController controller = new TwitterScraperController();
 
@@ -91,6 +130,17 @@ public class TwitterScraperController {
                 "@PogbaPaul432283",
                 "anhrooneymtp@gmail.com",
                 "anhmanunited");
+
+        controller.applyFilter(
+                List.of("blockchain"),
+                1000,
+                1000,
+                200);
+
+        controller.extractInitialTweetsTo("Tweets.json");
+        List<Tweet> tweets = controller.getTweets("Tweets.json");
+        System.out.println("Number of tweets: " + tweets.size());
+        controller.scrapeTweetsData(tweets);
 
         controller.applyFilter(
                 List.of("blockchain"),

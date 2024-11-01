@@ -22,6 +22,18 @@ public class TweetStorageManager implements TweetDataHandler {
         }
         return storage;
     }
+/*
+    @Override
+    public List<Tweet> getTweets(String filePath) throws IOException {
+        TweetStorage storage = getStorage(filePath);
+        return storage.getTweets(filePath); // Gọi phương thức tương ứng trong TweetStorage
+    }*/
+@Override
+public List<Tweet> getTweets(String filePath) throws IOException {
+    TweetStorage storage = getStorage(filePath);
+    return storage.getTweets(); // Không truyền vào filePath
+}
+
 
     @Override
     public void addTweet(String filePath, Tweet tweet) throws IOException {
