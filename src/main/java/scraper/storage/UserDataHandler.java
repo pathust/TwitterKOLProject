@@ -11,4 +11,5 @@ public interface UserDataHandler {
     void addUser(String filePath, User newUser) throws IOException;
     void saveData(String filePath) throws IOException;
     List<User> getUsers(String filePath) throws IOException;
+    boolean userExists(String filePath, String profileLink) throws IOException;
 }
