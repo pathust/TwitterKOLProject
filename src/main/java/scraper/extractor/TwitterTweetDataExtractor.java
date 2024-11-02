@@ -89,15 +89,17 @@ public class TwitterTweetDataExtractor implements TweetDataExtractor {
         while (tweetCell != null && tweetsList.size() < maxListSize) {
             String content = extractContent(tweetCell);
             String timestamp = extractPostTime(tweetCell);
-            String username = extractUserOfTweetName(tweetCell);
             String tweetLink = navigator.getLink(tweetCell);
-
-            Tweet newTweet = new Tweet(content, timestamp, username);
+            int repostCount = extractRepostCount();
+            String usernameText = extractUserOfTweetName(tweetCell);
+            User user = new User(usernameText, tweetLink, true); // Khởi tạo User
+            Tweet newTweet = new Tweet(content, timestamp, user);
             tweetsList.add(newTweet);
             System.out.println("Added user to usersList: " + tweetLink);
-            System.out.println("User: " + username);
+            System.out.println("User: " + user);
             System.out.println("Content: " + content);
             System.out.println("Time of Post: " + timestamp);
+            System.out.println("RepostCount: " + repostCount);
             System.out.println("------------------");
 
             tweetCell = findNextTweetCell(tweetCell);

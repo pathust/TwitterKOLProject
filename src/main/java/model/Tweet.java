@@ -1,48 +1,52 @@
 package model;
 
 import java.time.LocalDateTime;
-import java.util.List;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
 import static java.lang.Double.parseDouble;
 
 public class Tweet {
     private String content;
-    private String timestamp;
+    private String dateTimeString;
+    private LocalDateTime timestamp;
     private String tweetLink;
     private int repostCount;
-    private String user;
+    private User user;
     private List<User> repostedUsersList;
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
-    public Tweet(String content, String timestamp, String user) {
+    public Tweet(String content, String dateTimeString, User user) {
         this.content = content;
-        this.timestamp = timestamp;
+        this.dateTimeString = dateTimeString;
         this.user = user;
     }
 
-    public Tweet(String tweetLink, int repostCount, List<User> repostedUsersList) {
-        this.user = null;
+
+    public Tweet(String tweetLink,User user, int repostCount) {
+        this.user = user;
         this.tweetLink = tweetLink;
         this.repostCount = repostCount;
-        this.repostedUsersList = repostedUsersList;
     }
 
-    public Tweet(String content, String tweetLink,  int repostCount, List<User> repostedUsersList) {
+    public Tweet(String content, String dateTimeString,User user, String tweetLink,  int repostCount) {
         this.content = content;
         this.tweetLink = tweetLink;
         this.repostCount = repostCount;
-        this.repostedUsersList = repostedUsersList;
+        this.dateTimeString = dateTimeString;
+        this.user = user;
     }
 
     public static Tweet fromJsonNode(ObjectNode node) {
-        String username = node.get("user").get("username").asText();
-        String timestamp = node.get("timestamp").asText();
         String content = node.get("content").asText();
+        String timestamp = node.get("timestamp").asText();
+        String username = node.get("user").get("username").asText();
         String tweetLink = node.get("user").get("tweetLink").asText();
-        return new Tweet(content, timestamp, username);
+        int repostCount = node.get("repostCount").asInt();
+        User user = new User(username, tweetLink, true);
+        return new Tweet(content, timestamp, user, tweetLink, repostCount);
     }
+
 
     public static int toInt(String repostCount) {
         int factor = 1;
@@ -51,18 +55,29 @@ public class Tweet {
             factor = 1000;
         } else if (repostCount.endsWith("M")) {
             repostCount = repostCount.replace("M", "");
-            factor = 1000_000;
-        }
-        else
+            factor = 1000000;
+        } else {
             repostCount = repostCount.replace(",", "");
-        return (int)parseDouble(repostCount) * factor;
+        }
+
+        // Parse to double to keep the decimal part, then cast to int after multiplying
+        return (int) (Double.parseDouble(repostCount) * factor);
+    }
+
+
+    public int getRepostCount(){
+        return repostCount;
+    }
+
+    public void setRepostCount(int repostCount){
+        this.repostCount = repostCount;
     }
 
     public String getTweetLink(){
         return tweetLink;
     }
 
-    public void setTweetLink(String profileLink) {
+    public void setTweetLink(String tweetLink) {
         this.tweetLink = tweetLink;
     }
 
@@ -74,19 +89,20 @@ public class Tweet {
         this.content = content;
     }
 
-    public String getTimestamp() {
-        return timestamp;
+    public LocalDateTime getTimestamp() {
+        return LocalDateTime.parse(dateTimeString, formatter);
     }
 
-    public void setTimestamp(String timestamp) {
-        this.timestamp = timestamp;
+
+    public void setTimestamp(String dateTimeString) {
+        this.dateTimeString = dateTimeString;
     }
 
-    public String getUser() {
+    public User getUser() {
         return user;
     }
 
-    public void setUser(String user) {
+    public void setUser(User user) {
         this.user = user;
     }
 
@@ -98,3 +114,4 @@ public class Tweet {
         this.repostedUsersList = repostedUsersList;
     }
 }
+

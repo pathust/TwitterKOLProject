@@ -1,19 +1,20 @@
 package scraper;
 
-import model.Tweet;
 import model.User;
+import model.Tweet;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import scraper.authentication.Authenticator;
 import scraper.authentication.TwitterAuthenticator;
 import scraper.extractor.TweetDataExtractor;
-import scraper.extractor.TwitterTweetDataExtractor;
 import scraper.extractor.TwitterUserDataExtractor;
+import scraper.extractor.TwitterTweetDataExtractor;
 import scraper.extractor.UserDataExtractor;
 import scraper.filtering.Filter;
 import scraper.filtering.TwitterFilter;
 import scraper.navigation.Navigator;
 import scraper.navigation.WebNavigator;
+import scraper.storage.TweetDataHandler;
 import scraper.storage.UserDataHandler;
 import scraper.storage.UserStorageManager;
 import scraper.storage.TweetDataHandler;
@@ -141,12 +142,6 @@ public class TwitterScraperController {
         List<Tweet> tweets = controller.getTweets("Tweets.json");
         System.out.println("Number of tweets: " + tweets.size());
         controller.scrapeTweetsData(tweets);
-
-        controller.applyFilter(
-                List.of("blockchain"),
-                10000,
-                1000,
-                200);
 
         controller.extractInitialKOLsTo("KOLs.json");
 
