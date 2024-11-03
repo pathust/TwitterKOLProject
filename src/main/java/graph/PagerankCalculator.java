@@ -1,8 +1,7 @@
 package graph;
 
-import model.KOL;
-import java.util.HashMap;
-import java.util.List;
+import model.GraphNode;
+
 import java.util.Map;
 import java.util.Set;
 
@@ -11,27 +10,27 @@ public class PagerankCalculator {
     private static final double THRESHOLD = 0.0001;
 
     public static void calculatePageRank(Graph graph, int maxIterations) {
-        Set<KOL> nodeList = graph.getNodes();
+        Set<GraphNode> nodeList = graph.getNodes();
         int numNodes = nodeList.size();
 
         // initial all node's pagerank
-        for(KOL node : nodeList)
+        for(GraphNode node : nodeList)
             node.setPagerankScore(0.0);
 
         // Calculate PageRank
         while(maxIterations > 0) {
             double totalChange = 0.0;
 
-            for(KOL node : nodeList) {
+            for(GraphNode node : nodeList) {
                 double rankSum = 0.0;
 
-                Map<KOL, Double> Interaction = node.getInteraction();
-                for(KOL otherNode : Interaction.keySet()) {
-                    double weight = 0.0;
-                    if(otherNode.getWeightTo(node) != null)
-                        weight = otherNode.getWeightTo(node);
+                Map<GraphNode, Double> edgeList = graph.getEdgeListFrom(node);
+                for(GraphNode otherNode : edgeList.keySet()) {
+                    double weight = graph.getWeight(otherNode, node);
+                    if(weight == 0.0)
+                        continue;
 
-                    double totalOutWeight = otherNode.getTotalOutWeight();
+                    double totalOutWeight = graph.getTotalOutweight(otherNode);
                     rankSum += otherNode.getPagerankScore() * (weight / totalOutWeight);
                 }
 

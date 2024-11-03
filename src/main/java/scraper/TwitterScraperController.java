@@ -29,7 +29,7 @@ public class TwitterScraperController {
     public TwitterScraperController() {
         System.setProperty(
                 "webdriver.chrome.driver",
-                "/Users/phananhtai/Downloads/chromedriver-mac-arm64/chromedriver");
+                "/Users/dungnguyenn/Downloads/chromedriver-mac-arm64/chromedriver");
         this.driver = new ChromeDriver();
         this.navigator = new WebNavigator(driver);
         this.authenticator = new TwitterAuthenticator(driver, navigator);
@@ -56,7 +56,7 @@ public class TwitterScraperController {
             else {
                 System.out.println("Scraping user " + user.getUsername());
             }
-            userDataExtractor.extractData(user.getProfileLink(), 10);
+            userDataExtractor.extractData(user.getProfileLink(), 2);
             userDataHandler.saveData("KOLs.json");
         }
     }

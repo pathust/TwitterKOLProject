@@ -3,10 +3,9 @@ package UI;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.layout.GridPane;
+import model.GraphNode;
 import scraper.TwitterScraperController;
-import model.KOL;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import javafx.concurrent.Task;
@@ -17,14 +16,7 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.animation.Timeline;
-import javafx.animation.KeyFrame;
-import javafx.util.Duration;
-
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class AppInterface extends Application {
 
@@ -117,7 +109,7 @@ public class AppInterface extends Application {
             };
 
             new Thread(seleniumTask).start();
-            List<KOL> kolList = null;//scraper.searchKOLs(keyword);
+            List<GraphNode> kolList = null;//scraper.searchKOLs(keyword);
 //            System.out.println(kolList.get(0));
         });
 
