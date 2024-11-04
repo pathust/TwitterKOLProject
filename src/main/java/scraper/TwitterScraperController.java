@@ -71,21 +71,6 @@ public class TwitterScraperController {
         }
     }
 
-    public void scrapeTweetsData(List<Tweet> tweets) throws IOException {
-        for (Tweet tweet : tweets) {
-            if (tweet == null) {
-                System.out.println("Skipping scrape user ");
-                continue;
-
-            }
-            else {
-                System.out.println("Scraping tweet " + tweet.getUser());
-            }
-            userDataExtractor.extractData(tweet.getTweetLink(), 10);
-            userDataHandler.saveData("Tweets.json");
-        }
-    }
-
     public void close() {
         if (driver != null) {
             driver.quit();
@@ -113,17 +98,6 @@ public class TwitterScraperController {
         userDataHandler.saveData(filePath);
     }
 
-    private void extractInitialTweetsTo(String filePath) throws IOException {
-        System.out.println("Start collecting tweet data...");
-
-        List <Tweet> tweets = tweetDataExtractor.extractTweets( 30);
-        for (Tweet tweet : tweets) {
-            tweetDataHandler.addTweet(filePath,tweet);
-        }
-
-        tweetDataHandler.saveData(filePath);
-    }
-
     public static void main(String[] args) throws IOException, InterruptedException {
         TwitterScraperController controller = new TwitterScraperController();
 
@@ -137,11 +111,6 @@ public class TwitterScraperController {
                 1000,
                 1000,
                 200);
-
-        controller.extractInitialTweetsTo("Tweets.json");
-        List<Tweet> tweets = controller.getTweets("Tweets.json");
-        System.out.println("Number of tweets: " + tweets.size());
-        controller.scrapeTweetsData(tweets);
 
         controller.extractInitialKOLsTo("KOLs.json");
 

@@ -1,67 +1,44 @@
 package model;
 
 import java.time.LocalDateTime;
-import com.fasterxml.jackson.databind.node.ObjectNode;
+
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import static java.lang.Double.parseDouble;
 
 public class Tweet {
     private String content;
-    private String dateTimeString;
-    private LocalDateTime timestamp;
+    private String dateTime;
     private String tweetLink;
     private int repostCount;
-    private User user;
-    private List<User> repostedUsersList;
+    private String userLink;
+    private List<String> repostList;
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
-    public Tweet(String content, String dateTimeString, User user) {
-        this.content = content;
-        this.dateTimeString = dateTimeString;
-        this.user = user;
-    }
-
-
-    public Tweet(String tweetLink,User user, int repostCount) {
-        this.user = user;
+    public Tweet(String tweetLink, String userLink) {
         this.tweetLink = tweetLink;
-        this.repostCount = repostCount;
+        this.userLink = userLink;
     }
 
-    public Tweet(String content, String dateTimeString,User user, String tweetLink,  int repostCount) {
-        this.content = content;
+    public Tweet(String tweetLink, List<String> repostList) {
         this.tweetLink = tweetLink;
-        this.repostCount = repostCount;
-        this.dateTimeString = dateTimeString;
-        this.user = user;
+        this.repostList = repostList;
     }
 
-    public static Tweet fromJsonNode(ObjectNode node) {
-        String content = node.get("content").asText();
-        String timestamp = node.get("timestamp").asText();
-        String username = node.get("user").get("username").asText();
-        String tweetLink = node.get("user").get("tweetLink").asText();
-        int repostCount = node.get("repostCount").asInt();
-        User user = new User(username, tweetLink, true);
-        return new Tweet(content, timestamp, user, tweetLink, repostCount);
-    }
-
-
-    public static int toInt(String repostCount) {
+    public static int toInt(String count) {
         int factor = 1;
-        if (repostCount.endsWith("K")) {
-            repostCount = repostCount.replace("K", "");
+        if (count.endsWith("K")) {
+            count = count.replace("K", "");
             factor = 1000;
-        } else if (repostCount.endsWith("M")) {
-            repostCount = repostCount.replace("M", "");
-            factor = 1000000;
+        } else if (count.endsWith("M")) {
+            count = count.replace("M", "");
+            factor = 1000_000;
         } else {
-            repostCount = repostCount.replace(",", "");
+            count = count.replace(",", "");
         }
 
         // Parse to double to keep the decimal part, then cast to int after multiplying
-        return (int) (Double.parseDouble(repostCount) * factor);
+        return (int) (parseDouble(count) * factor);
     }
 
 
@@ -89,29 +66,29 @@ public class Tweet {
         this.content = content;
     }
 
-    public LocalDateTime getTimestamp() {
-        return LocalDateTime.parse(dateTimeString, formatter);
+    public LocalDateTime getDateTime() {
+        return LocalDateTime.parse(dateTime, formatter);
     }
 
 
-    public void setTimestamp(String dateTimeString) {
-        this.dateTimeString = dateTimeString;
+    public void setDateTime(String dateTimeString) {
+        this.dateTime = dateTimeString;
     }
 
-    public User getUser() {
-        return user;
+    public List<String> getRepostList() {
+        return repostList;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setRepostList(List<String> repostList) {
+        this.repostList = repostList;
     }
 
-    public List<User> getRepostedUsersList() {
-        return repostedUsersList;
+    public String getUserLink() {
+        return userLink;
     }
 
-    public void setRepostedUsersList(List<User> repostedUsersList) {
-        this.repostedUsersList = repostedUsersList;
+    public void setUserLink(String userLink) {
+        this.userLink = userLink;
     }
 }
 

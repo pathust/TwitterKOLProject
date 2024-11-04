@@ -17,35 +17,17 @@ public class TweetStorageManager implements TweetDataHandler {
     private TweetStorage getStorage(String filePath) throws IOException {
         TweetStorage storage = storageMap.get(filePath);
         if (storage == null) {
-            storage = new TweetStorage(filePath, true);
+            storage = new TweetStorage();
             storageMap.put(filePath, storage);
         }
         return storage;
     }
-    /*
-        @Override
-        public List<Tweet> getTweets(String filePath) throws IOException {
-            TweetStorage storage = getStorage(filePath);
-            return storage.getTweets(filePath); // Gọi phương thức tương ứng trong TweetStorage
-        }*/
+
     @Override
-    public List<Tweet> getTweets(String filePath) throws IOException {
+    public void loadTweets(String filePath) throws IOException {
         TweetStorage storage = getStorage(filePath);
-        return storage.getTweets();
+        storage.loadTweets(filePath);
     }
-
-/*
-    @Override
-    public List<Tweet> getTweets(String filePath) throws IOException {
-        TweetStorage storage = getStorage(filePath);
-        return storage.getTweets(filePath); // Gọi phương thức tương ứng trong TweetStorage
-    }*/
-@Override
-public List<Tweet> getTweets(String filePath) throws IOException {
-    TweetStorage storage = getStorage(filePath);
-    return storage.getTweets(); // Không truyền vào filePath
-}
-
 
     @Override
     public void addTweet(String filePath, Tweet tweet) throws IOException {
@@ -59,8 +41,9 @@ public List<Tweet> getTweets(String filePath) throws IOException {
         storage.saveData(filePath);
     }
 
-    public List<String> getTweetContentsFrom(String filePath) throws IOException {
+    @Override
+    public List<Tweet> getTweets(String filePath) throws IOException {
         TweetStorage storage = getStorage(filePath);
-        return storage.getTweetContents();
+        return storage.getTweets();
     }
 }

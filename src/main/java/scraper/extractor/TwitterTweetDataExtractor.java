@@ -68,44 +68,5 @@ public class TwitterTweetDataExtractor implements TweetDataExtractor {
         WebElement postTimeElement = tweetCell.findElement(By.tagName("time"));
         return postTimeElement != null ? postTimeElement.getAttribute("datetime") : "";
     }
-
-    @Override
-    public void extractData(String tweetLink) throws IOException {
-        System.out.println("Extracting data from " + tweetLink);
-        driver.get(tweetLink);
-        wait.withTimeout(Duration.ofSeconds(3)); // Shorter wait than Thread.sleep
-        int repostCount = extractRepostCount();
-        System.out.println("Repost: " + repostCount);
-    }
-
-    @Override
-    public List<Tweet> extractTweets(int maxListSize) {
-        List<Tweet> tweetsList = new ArrayList<>();
-        if (maxListSize == 0) return tweetsList;
-
-        WebElement tweetCell = wait.until(ExpectedConditions.presenceOfElementLocated(
-                By.xpath("//article[contains(@data-testid, 'tweet')]")));
-
-        while (tweetCell != null && tweetsList.size() < maxListSize) {
-            String content = extractContent(tweetCell);
-            String timestamp = extractPostTime(tweetCell);
-            String tweetLink = navigator.getLink(tweetCell);
-            int repostCount = extractRepostCount();
-            String usernameText = extractUserOfTweetName(tweetCell);
-            User user = new User(usernameText, tweetLink, true); // Khởi tạo User
-            Tweet newTweet = new Tweet(content, timestamp, user);
-            tweetsList.add(newTweet);
-            System.out.println("Added user to usersList: " + tweetLink);
-            System.out.println("User: " + user);
-            System.out.println("Content: " + content);
-            System.out.println("Time of Post: " + timestamp);
-            System.out.println("RepostCount: " + repostCount);
-            System.out.println("------------------");
-
-            tweetCell = findNextTweetCell(tweetCell);
-            if (tweetCell != null) navigator.scrollToElement(tweetCell);
-        }
-        return tweetsList;
-    }
 }
 
