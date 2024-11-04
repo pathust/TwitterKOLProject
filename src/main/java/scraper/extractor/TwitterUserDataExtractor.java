@@ -114,7 +114,7 @@ public class TwitterUserDataExtractor implements UserDataExtractor {
     }
 
     @Override
-    public void extractData(String userLink, int followingCountThreshold) throws IOException {
+    public void extractData(String userLink, int followingCountThreshold, int maxNewUser) throws IOException {
         System.out.println("Extracting data from " + userLink);
         driver.get(userLink);
         try {
@@ -131,7 +131,7 @@ public class TwitterUserDataExtractor implements UserDataExtractor {
         System.out.print("Followers: " + followersCount + "\n");
 
         navigator.navigateToSection("following");
-        List<User> followingList = extractUsers(false, min(followingCount, followingCountThreshold));
+        List<User> followingList = extractUsers(false, min(followingCount, followingCountThreshold), maxNewUser);
         for (User user : followingList) {
             userDataHandler.addUser("KOLs.json", user);
         }
@@ -145,7 +145,9 @@ public class TwitterUserDataExtractor implements UserDataExtractor {
     }
 
     @Override
-    public List<User> extractUsers(boolean isVerified, int maxListSize) {
+    public List<User> extractUsers(boolean isVerified, int maxListSize, int maxNewUsers) {
+        int countNewUser = 0;
+        int attempt = 0;
         List<User> usersList = new ArrayList<>();
         if (maxListSize == 0) {
             return usersList;
@@ -156,19 +158,38 @@ public class TwitterUserDataExtractor implements UserDataExtractor {
         while (true) {
             String username = extractUserName(userCell);
             String profileLink = navigator.getLink(userCell);
+            boolean checkUser;
+            try {
+                checkUser = userDataHandler.userExists("KOLs.json", profileLink);
+            } catch (IOException e) {
+                System.out.println("User " + username + " not found.");
+                throw new RuntimeException(e);
+            }
 
-            User newUser = new User(username, profileLink, isVerified);
-            usersList.add(newUser);
-            System.out.println("Add user to usersList " + username);
-
-            if (usersList.size() == maxListSize) {
+            if (checkUser){
+                User newUser = new User(username, profileLink, isVerified);
+                usersList.add(newUser);
+                System.out.println("Add user to usersList " + username);
+            }
+            else if(countNewUser < maxNewUsers){
+                User newUser = new User(username, profileLink, isVerified);
+                usersList.add(newUser);
+                System.out.println("Add user to usersList " + username);
+                countNewUser++;
+            }
+            attempt++;
+            if (usersList.size() == maxListSize || attempt >= maxListSize) {
                 System.out.print("Done !");
                 break;
             }
 
             userCell = findNextUserCell(userCell);
-
-            navigator.scrollToElement(userCell);
+            if(userCell == null){
+                break;
+            }
+            else{
+                navigator.scrollToElement(userCell);
+            }
         }
 
         return usersList;
