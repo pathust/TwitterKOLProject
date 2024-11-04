@@ -17,7 +17,7 @@ public class UserStorageManager implements UserDataHandler {
     private UserStorage getStorage(String filePath) throws IOException {
         UserStorage storage = storageMap.get(filePath);
         if (storage == null) {
-            storage = new UserStorage(filePath);
+            storage = new UserStorage();
             storageMap.put(filePath, storage);
         }
         return storage;

@@ -21,7 +21,7 @@ public class UserStorage {
 
     private final ArrayNode userArray;
 
-    public UserStorage(String filePath) {
+    public UserStorage() {
         this.mapper = new ObjectMapper();
         this.objectNodeMap = new HashMap<>();
         this.userIndexMap = new HashMap<>();
