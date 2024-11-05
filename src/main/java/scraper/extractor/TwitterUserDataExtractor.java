@@ -35,7 +35,7 @@ public class TwitterUserDataExtractor implements UserDataExtractor {
     }
 
     public WebElement findNextUserCell(WebElement userCell) {
-        for (int attempt = 0; attempt <= 10; attempt++) {
+        for (int attempt = 0; attempt <= 3; attempt++) {
             try {
                 WebElement parentDiv = userCell.findElement(
                         By.xpath("./ancestor::div[@data-testid='cellInnerDiv']"));
@@ -53,8 +53,7 @@ public class TwitterUserDataExtractor implements UserDataExtractor {
             }
         }
 
-        System.out.println("Next UserCell not found after 10 attempts.");
-        driver.quit();
+        System.out.println("Next UserCell not found after 3 attempts.");
         return null;
     }
 
@@ -178,7 +177,7 @@ public class TwitterUserDataExtractor implements UserDataExtractor {
                 countNewUser++;
             }
             attempt++;
-            if (usersList.size() == maxListSize || attempt >= maxListSize) {
+            if (attempt >= maxListSize) {
                 System.out.print("Done !");
                 break;
             }
@@ -187,7 +186,7 @@ public class TwitterUserDataExtractor implements UserDataExtractor {
             if(userCell == null){
                 break;
             }
-            else{
+            else {
                 navigator.scrollToElement(userCell);
             }
         }

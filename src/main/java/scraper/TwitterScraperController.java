@@ -23,6 +23,8 @@ import scraper.storage.TweetStorageManager;
 import java.io.IOException;
 import java.util.List;
 
+import static java.lang.Integer.sum;
+
 
 public class TwitterScraperController {
     private final WebDriver driver;
@@ -66,7 +68,7 @@ public class TwitterScraperController {
             else {
                 System.out.println("Scraping user " + user.getUsername());
             }
-            userDataExtractor.extractData(user.getProfileLink(), 30, 3);
+            userDataExtractor.extractData(user.getProfileLink(), 1000, 3);
             userDataHandler.saveData("KOLs.json");
         }
     }
@@ -117,6 +119,20 @@ public class TwitterScraperController {
         List<User> users = controller.getUsers("KOLs.json");
         System.out.println("Number of users: " + users.size());
         controller.scrapeUsersData(users);
+
+        List<User> test = controller.getUsers("KOLs.json");
+        int sum = 0;
+        for(User user : test) {
+            System.out.println(sum);
+            List<User> list = user.getFollowingList();
+            String name = user.getUsername();
+            System.out.println("Name: " + name);
+            if(list.size() > 3){
+                sum++;
+            }
+        }
+
+        System.out.println("Number of users: " + sum);
 
         controller.close();
     }
