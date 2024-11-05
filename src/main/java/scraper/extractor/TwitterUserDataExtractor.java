@@ -134,7 +134,10 @@ public class TwitterUserDataExtractor implements UserDataExtractor {
         for (User user : followingList) {
             userDataHandler.addUser("KOLs.json", user);
         }
-        User newUser = new User(userLink, followersCount, followingList);
+        User newUser = userDataHandler.getUser("KOLs.json", userLink);
+        newUser.setFollowersCount(followersCount);
+        newUser.setFollowersCount(followingCount);
+        newUser.setFollowingList(followingList);
         try {
             userDataHandler.addUser("KOLs.json", newUser);
         } catch (IOException e) {

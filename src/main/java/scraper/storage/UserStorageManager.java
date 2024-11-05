@@ -52,4 +52,9 @@ public class UserStorageManager implements UserDataHandler {
         UserStorage storage = getStorage(filePath);
         return storage.userExists(profileLink);
     }
+    @Override
+    public User getUser(String filePath, String profileLink) throws IOException {
+        UserStorage storage = getStorage(filePath);
+        return storage.getUser(profileLink);
+    }
 }

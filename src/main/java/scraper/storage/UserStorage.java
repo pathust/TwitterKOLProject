@@ -151,4 +151,8 @@ public class UserStorage {
     public boolean userExists(String profileLink) {
         return userMap.containsKey(profileLink);
     }
+
+    public User getUser(String profileLink) {
+        return userMap.get(profileLink);
+    }
 }
