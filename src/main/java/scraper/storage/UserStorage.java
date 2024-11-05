@@ -45,7 +45,7 @@ public class UserStorage {
                 int followersCount = userNode.get("followersCount").asInt();
                 int followingCount = userNode.get("followingCount").asInt();
 
-                User user = new User(username, profileLink, isVerified);
+                User user = new User(profileLink, username, isVerified);
                 user.setFollowersCount(followersCount);
                 user.setFollowingCount(followingCount);
                 user.setFollowingList(getFollowingLinks(userNode));
