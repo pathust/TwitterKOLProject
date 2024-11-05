@@ -42,24 +42,18 @@ public class UserStorage {
                 String username =userNode.get("username").asText();
                 String profileLink = userNode.get("profileLink").asText();
                 boolean isVerified = userNode.get("isVerified").asBoolean();
+                int followersCount = userNode.get("followersCount").asInt();
+                int followingCount = userNode.get("followingCount").asInt();
+
+                User user = new User(username, profileLink, isVerified);
+                user.setFollowersCount(followersCount);
+                user.setFollowingCount(followingCount);
+                user.setFollowingList(getFollowingLinks(userNode));
 
                 objectNodeMap.put(profileLink, (ObjectNode) userNode);
                 userIndexMap.put(profileLink, userIndex++);
-                User user = new User(username, profileLink, isVerified);
                 userMap.put(profileLink, user);
                 userArray.add(userNode);
-            }
-
-            System.out.println("Loaded " + userArray.size() + " users");
-
-            for (JsonNode userNode : userArray) {
-                String profileLink = userNode.get("profileLink").asText();
-                int followerCount = userNode.get("followerCount").asInt();
-                User user = userMap.get(profileLink);
-
-                user.setFollowersCount(followerCount);
-                user.setFollowingList(getUsers(userNode));
-                updateUserFields((ObjectNode) userNode,user);
             }
 
             System.out.println("Loaded " + userArray.size() + " users");
@@ -73,10 +67,11 @@ public class UserStorage {
         } else {
             userNode = createUserNode(user);
             int userIndex = userArray.size();
-            userArray.add(userNode);
-            userIndexMap.put(user.getProfileLink(), userIndex);
+
             objectNodeMap.put(user.getProfileLink(), userNode);
+            userIndexMap.put(user.getProfileLink(), userIndex);
             userMap.put(user.getProfileLink(), user);
+            userArray.add(userNode);
         }
     }
 
@@ -90,8 +85,7 @@ public class UserStorage {
         for (JsonNode userNode : userArray) {
             String profileLink = userNode.get("profileLink").asText();
             User user = userMap.get(profileLink);
-
-            users.add(userMap.get(profileLink));
+            users.add(user);
         }
         return users;
     }
@@ -101,7 +95,8 @@ public class UserStorage {
         userNode.put("username", user.getUsername());
         userNode.put("profileLink", user.getProfileLink());
         userNode.put("isVerified", user.isVerified());
-        userNode.put("followerCount", user.getFollowersCount());
+        userNode.put("followersCount", user.getFollowersCount());
+        userNode.put("followingCount", user.getFollowingCount());
         userNode.set("followingList", getFollowingLinks(user.getFollowingList()));
         return userNode;
     }
@@ -110,23 +105,15 @@ public class UserStorage {
         if (!userNode.get("isVerified").asBoolean()) {
             userNode.put("isVerified", user.isVerified());
         }
-        userNode.put("followerCount", user.getFollowersCount());
+        userNode.put("followersCount", user.getFollowersCount());
+        userNode.put("followingCount", user.getFollowingCount());
         userNode.set("followingList", getFollowingLinks(user.getFollowingList()));
 
         int userIndex = userIndexMap.get(user.getProfileLink());
         userArray.set(userIndex, userNode);
     }
 
-    private List<User> getUsersByLinks(List<String> profileLinks) {
-        List<User> users = new ArrayList<>();
-        for (String profileLink : profileLinks) {
-            User user = userMap.get(profileLink);
-            users.add(user);
-        }
-        return users;
-    }
-
-    private List<User> getUsers(JsonNode userNode) {
+    private List<String> getFollowingLinks(JsonNode userNode) {
         List <String> profileLinks = new ArrayList<>();
         JsonNode listNode = userNode.path("followingList");
         if (listNode.isArray()) {
@@ -136,17 +123,16 @@ public class UserStorage {
             }
         }
 
-        return getUsersByLinks(profileLinks);
+        return profileLinks;
     }
 
-    private ArrayNode getFollowingLinks(List<User> users) {
+    private ArrayNode getFollowingLinks(List<String> userLinks) {
         ArrayNode followingListNode = mapper.createArrayNode();
-        for (User user : users) {
-            followingListNode.add(user.getProfileLink()); // Add only the profile link as a string
+        for (String userLink : userLinks) {
+            followingListNode.add(userLink); // Add only the profile link as a string
         }
         return followingListNode;
     }
-
 
     public boolean userExists(String profileLink) {
         return userMap.containsKey(profileLink);

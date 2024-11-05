@@ -39,7 +39,7 @@ public class TwitterScraperController {
     public TwitterScraperController() {
         System.setProperty(
                 "webdriver.chrome.driver",
-                "/Users/apple/Downloads/chromedriver-mac-arm64/chromedriver");
+                "/Users/phananhtai/Downloads/chromedriver-mac-arm64/chromedriver");
         this.driver = new ChromeDriver();
         this.navigator = new WebNavigator(driver);
         this.authenticator = new TwitterAuthenticator(driver, navigator);
@@ -83,10 +83,6 @@ public class TwitterScraperController {
         return userDataHandler.getUsers(filePath);
     }
 
-    public List<Tweet> getTweets(String filePath) throws IOException {
-        return tweetDataHandler.getTweets(filePath);
-    }
-
     private void extractInitialKOLsTo(String filePath) throws IOException {
         System.out.println("Start collecting user data...");
 
@@ -124,7 +120,7 @@ public class TwitterScraperController {
         int sum = 0;
         for(User user : test) {
             System.out.println(sum);
-            List<User> list = user.getFollowingList();
+            List<String> list = user.getFollowingList();
             String name = user.getUsername();
             System.out.println("Name: " + name);
             if(list.size() > 3){

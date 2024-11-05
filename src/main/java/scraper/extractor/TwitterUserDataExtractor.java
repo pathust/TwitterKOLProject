@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static java.lang.Math.min;
-import static model.User.toInt;
 import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated;
 
 public class TwitterUserDataExtractor implements UserDataExtractor {
@@ -35,7 +34,7 @@ public class TwitterUserDataExtractor implements UserDataExtractor {
     }
 
     public WebElement findNextUserCell(WebElement userCell) {
-        for (int attempt = 0; attempt <= 3; attempt++) {
+        for (int attempt = 0; attempt < 3; attempt++) {
             try {
                 WebElement parentDiv = userCell.findElement(
                         By.xpath("./ancestor::div[@data-testid='cellInnerDiv']"));
@@ -83,20 +82,20 @@ public class TwitterUserDataExtractor implements UserDataExtractor {
         }
     }
 
-    private int extractFollowingCount() {
+    private String extractFollowingCount() {
         WebElement followingCountElement = wait.until(
                 presenceOfElementLocated(
                         By.xpath("//a[contains(@href, 'following')]//span/span"))
         );
-        return toInt(followingCountElement.getText());
+        return followingCountElement.getText();
     }
 
-    private int extractFollowersCount() {
+    private String extractFollowersCount() {
         WebElement followersCountElement = wait.until(
                 presenceOfElementLocated(
                         By.xpath("//a[contains(@href, 'followers')]//span/span"))
         );
-        return toInt(followersCountElement.getText());
+        return followersCountElement.getText();
     }
 
     private void extractPotentialKOLs() {
@@ -123,23 +122,27 @@ public class TwitterUserDataExtractor implements UserDataExtractor {
         }
 
         checkAndClickRestrictedButton();
-        int followingCount = extractFollowingCount();
-        int followersCount = extractFollowersCount();
+        String followersCount = extractFollowersCount();
+        String followingCount = extractFollowingCount();
 
         System.out.print("Following: " + followingCount + "\n");
         System.out.print("Followers: " + followersCount + "\n");
 
+
+        User user = userDataHandler.getUser("KOLs.json", userLink);
+        user.setFollowersCount(followersCount);
+        user.setFollowingCount(followingCount);
+
         navigator.navigateToSection("following");
-        List<User> followingList = extractUsers(false, min(followingCount, followingCountThreshold), maxNewUser);
-        for (User user : followingList) {
-            userDataHandler.addUser("KOLs.json", user);
+        List<User> followingList = extractUsers(false, min(user.getFollowingCount(), followingCountThreshold), maxNewUser);
+        List<String> followingLinks = new ArrayList<>();
+        for (User following : followingList) {
+            userDataHandler.addUser("KOLs.json", following);
+            followingLinks.add(following.getProfileLink());
         }
-        User newUser = userDataHandler.getUser("KOLs.json", userLink);
-        newUser.setFollowersCount(followersCount);
-        newUser.setFollowersCount(followingCount);
-        newUser.setFollowingList(followingList);
+        user.setFollowingList(followingLinks);
         try {
-            userDataHandler.addUser("KOLs.json", newUser);
+            userDataHandler.addUser("KOLs.json", user);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -174,7 +177,7 @@ public class TwitterUserDataExtractor implements UserDataExtractor {
                 System.out.println("Add user to usersList " + username);
             }
             else if(countNewUser < maxNewUsers){
-                User newUser = new User(username, profileLink, isVerified);
+                User newUser = new User(profileLink, username, isVerified);
                 usersList.add(newUser);
                 System.out.println("Add user to usersList " + username);
                 countNewUser++;
