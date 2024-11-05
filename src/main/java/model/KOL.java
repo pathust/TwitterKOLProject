@@ -10,12 +10,8 @@ public class KOL extends User{
     Map<KOL, Double> Interaction = new HashMap<>();
     private Double pagerankScore;
 
-    public KOL(String profileLink, int followersCount, List<User> followingList) {
-        super(profileLink, followersCount, followingList);
-    }
-
-    public KOL(String username, String profileLink, boolean isVerified){
-        super(username, profileLink, isVerified);
+    public KOL(String profileLink, String username, boolean isVerified){
+        super(profileLink, username, isVerified);
     }
 
     public Map<KOL, Double> getInteraction() {
