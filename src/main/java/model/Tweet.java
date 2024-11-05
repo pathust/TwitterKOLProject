@@ -20,11 +20,6 @@ public class Tweet {
         this.userLink = userLink;
     }
 
-    public Tweet(String tweetLink, List<String> repostList) {
-        this.tweetLink = tweetLink;
-        this.repostList = repostList;
-    }
-
     public static int toInt(String count) {
         int factor = 1;
         if (count.endsWith("K")) {
@@ -37,7 +32,6 @@ public class Tweet {
             count = count.replace(",", "");
         }
 
-        // Parse to double to keep the decimal part, then cast to int after multiplying
         return (int) (parseDouble(count) * factor);
     }
 
