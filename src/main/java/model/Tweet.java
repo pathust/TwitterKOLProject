@@ -1,18 +1,55 @@
 package model;
 
 import java.time.LocalDateTime;
+
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import static java.lang.Double.parseDouble;
 
 public class Tweet {
     private String content;
-    private LocalDateTime timestamp;
-    private User user;
-    private List<User> repostedUsersList;
+    private String dateTime;
+    private String tweetLink;
+    private int repostCount;
+    private String userLink;
+    private List<String> repostList;
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
-    public Tweet(String content, LocalDateTime timestamp, User user) {
-        this.content = content;
-        this.timestamp = timestamp;
-        this.user = user;
+    public Tweet(String tweetLink, String userLink) {
+        this.tweetLink = tweetLink;
+        this.userLink = userLink;
+    }
+
+    public static int toInt(String count) {
+        int factor = 1;
+        if (count.endsWith("K")) {
+            count = count.replace("K", "");
+            factor = 1000;
+        } else if (count.endsWith("M")) {
+            count = count.replace("M", "");
+            factor = 1000_000;
+        } else {
+            count = count.replace(",", "");
+        }
+
+        return (int) (parseDouble(count) * factor);
+    }
+
+
+    public int getRepostCount(){
+        return repostCount;
+    }
+
+    public void setRepostCount(int repostCount){
+        this.repostCount = repostCount;
+    }
+
+    public String getTweetLink(){
+        return tweetLink;
+    }
+
+    public void setTweetLink(String tweetLink) {
+        this.tweetLink = tweetLink;
     }
 
     public String getContent() {
@@ -23,27 +60,29 @@ public class Tweet {
         this.content = content;
     }
 
-    public LocalDateTime getTimestamp() {
-        return timestamp;
+    public LocalDateTime getDateTime() {
+        return LocalDateTime.parse(dateTime, formatter);
     }
 
-    public void setTimestamp(LocalDateTime timestamp) {
-        this.timestamp = timestamp;
+
+    public void setDateTime(String dateTimeString) {
+        this.dateTime = dateTimeString;
     }
 
-    public User getUser() {
-        return user;
+    public List<String> getRepostList() {
+        return repostList;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setRepostList(List<String> repostList) {
+        this.repostList = repostList;
     }
 
-    public List<User> getRepostedUsersList() {
-        return repostedUsersList;
+    public String getUserLink() {
+        return userLink;
     }
 
-    public void setRepostedUsersList(List<User> repostedUsersList) {
-        this.repostedUsersList = repostedUsersList;
+    public void setUserLink(String userLink) {
+        this.userLink = userLink;
     }
 }
+

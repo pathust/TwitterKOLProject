@@ -9,6 +9,7 @@ import scraper.TwitterScraperController;
 import java.io.IOException;
 import java.util.List;
 import javafx.concurrent.Task;
+import javafx.application.Platform;
 
 import graph.Graph;
 import graph.PagerankCalculator;
@@ -23,37 +24,6 @@ public class AppInterface extends Application {
     private TwitterScraperController scraper;
     private Graph graph;
     private PagerankCalculator pagerankCalculator;
-    private int previousSize = -1;
-//    private Timeline timeline;
-//    private boolean shouldStop = false;
-
-//    private void checkJsonFile() {
-//        int size = 0;
-//
-//        try {
-//            File jsonFile = new File("KOLs.json");
-//
-//            ObjectMapper mapper = new ObjectMapper();
-//            JsonNode jsonNode = mapper.readTree(jsonFile);
-//
-//            if(jsonNode.isObject()) {
-//                size = jsonNode.size();
-//            } else if(jsonNode.isArray()) {
-//                size = jsonNode.size();
-//            }
-//
-//            if(previousSize == size) {
-//                shouldStop = true;
-//                timeline.stop();
-//                return ;
-//            }
-//
-//            previousSize = size;
-//            System.out.println(previousSize);
-//        } catch (IOException ex) {
-//            System.out.println("Can't read the Json File !");
-//        }
-//    }
 
     public static void main(String[] args) {
         launch(args);
@@ -69,6 +39,8 @@ public class AppInterface extends Application {
         TextField searchField = new TextField();
         searchField.setPromptText("Enter Blockchain keyword");
 
+        WaitingScene waiting = new WaitingScene(primaryStage);
+
         Button searchButton = new Button("Search KOL");
         searchButton.setOnAction(e -> {
             String keyword = searchField.getText();
@@ -77,40 +49,34 @@ public class AppInterface extends Application {
                 return ;
             }
 
-            WaitingScene waiting = new WaitingScene(primaryStage);
             waiting.start();
 
             Task<Void> seleniumTask  = new Task<Void>() {
                 @Override
                 protected Void call() throws Exception {
                     try {
-//                        previousSize = -1;
-                        scraper = new TwitterScraperController();
                         String[] otherArgs = {keyword};
                         scraper.main(otherArgs);
 
-                        waiting.close();
                         scraper.close();
                     } catch (IOException ex) {
                         throw new RuntimeException(ex);
                     }
-//                    catch (InterruptedException ex) {
-//                        throw new RuntimeException(ex);
-//                    }
 
                     return null;
                 }
 
                 @Override
                 protected void succeeded() {
-//                    Stage stage = (Stage) getWindow();
-                    //System.out.println("Your Data have been crawled");
+                    Platform.runLater(() -> waiting.close());
                 }
             };
 
-            new Thread(seleniumTask).start();
+            Thread thread  = new Thread(seleniumTask);
+            thread.setDaemon(true);
+            thread.start();
+
             List<GraphNode> kolList = null;//scraper.searchKOLs(keyword);
-//            System.out.println(kolList.get(0));
         });
 
         GridPane layout = new GridPane();

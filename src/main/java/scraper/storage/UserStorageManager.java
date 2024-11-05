@@ -17,7 +17,7 @@ public class UserStorageManager implements UserDataHandler {
     private UserStorage getStorage(String filePath) throws IOException {
         UserStorage storage = storageMap.get(filePath);
         if (storage == null) {
-            storage = new UserStorage(filePath);
+            storage = new UserStorage();
             storageMap.put(filePath, storage);
         }
         return storage;
@@ -45,5 +45,16 @@ public class UserStorageManager implements UserDataHandler {
     public List<User> getUsers(String filePath) throws IOException {
         UserStorage storage = getStorage(filePath);
         return storage.getUsers();
+    }
+
+    @Override
+    public boolean userExists(String filePath, String profileLink) throws IOException {
+        UserStorage storage = getStorage(filePath);
+        return storage.userExists(profileLink);
+    }
+    @Override
+    public User getUser(String filePath, String profileLink) throws IOException {
+        UserStorage storage = getStorage(filePath);
+        return storage.getUser(profileLink);
     }
 }

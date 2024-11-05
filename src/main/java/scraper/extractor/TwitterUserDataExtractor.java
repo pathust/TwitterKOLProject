@@ -4,6 +4,7 @@ import model.User;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import scraper.navigation.Navigator;
 import scraper.storage.UserDataHandler;
@@ -14,7 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static java.lang.Math.min;
-import static model.User.toInt;
 import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated;
 
 public class TwitterUserDataExtractor implements UserDataExtractor {
@@ -34,7 +34,7 @@ public class TwitterUserDataExtractor implements UserDataExtractor {
     }
 
     public WebElement findNextUserCell(WebElement userCell) {
-        for (int attempt = 0; attempt <= 10; attempt++) {
+        for (int attempt = 0; attempt < 3; attempt++) {
             try {
                 WebElement parentDiv = userCell.findElement(
                         By.xpath("./ancestor::div[@data-testid='cellInnerDiv']"));
@@ -52,7 +52,7 @@ public class TwitterUserDataExtractor implements UserDataExtractor {
             }
         }
 
-        System.out.println("Next UserCell not found after 10 attempts.");
+        System.out.println("Next UserCell not found after 3 attempts.");
         return null;
     }
 
@@ -63,20 +63,39 @@ public class TwitterUserDataExtractor implements UserDataExtractor {
         return userNameElement.getText();
     }
 
-    private int extractFollowingCount() {
+    private void checkAndClickRestrictedButton() {
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+        try {
+            WebElement restrictedButton = wait.until(
+                    ExpectedConditions.elementToBeClickable(By.xpath("//button[div/span/span[text()='Yes, view profile']]")));
+
+            if(restrictedButton != null) {
+                restrictedButton.click();
+            }
+        } catch (Exception e) {
+            System.out.println("Restricted button not found or not clickable.");
+        }
+    }
+
+    private String extractFollowingCount() {
         WebElement followingCountElement = wait.until(
                 presenceOfElementLocated(
                         By.xpath("//a[contains(@href, 'following')]//span/span"))
         );
-        return toInt(followingCountElement.getText());
+        return followingCountElement.getText();
     }
 
-    private int extractFollowersCount() {
+    private String extractFollowersCount() {
         WebElement followersCountElement = wait.until(
                 presenceOfElementLocated(
                         By.xpath("//a[contains(@href, 'followers')]//span/span"))
         );
-        return toInt(followersCountElement.getText());
+        return followersCountElement.getText();
     }
 
     private void extractPotentialKOLs() {
@@ -93,7 +112,7 @@ public class TwitterUserDataExtractor implements UserDataExtractor {
     }
 
     @Override
-    public void extractData(String userLink, int followingCountThreshold) throws IOException {
+    public void extractData(String userLink, int followingCountThreshold, int maxNewUser) throws IOException {
         System.out.println("Extracting data from " + userLink);
         driver.get(userLink);
         try {
@@ -102,20 +121,28 @@ public class TwitterUserDataExtractor implements UserDataExtractor {
             throw new RuntimeException(e);
         }
 
-        int followingCount = extractFollowingCount();
-        int followersCount = extractFollowersCount();
+        checkAndClickRestrictedButton();
+        String followersCount = extractFollowersCount();
+        String followingCount = extractFollowingCount();
 
         System.out.print("Following: " + followingCount + "\n");
         System.out.print("Followers: " + followersCount + "\n");
 
+
+        User user = userDataHandler.getUser("KOLs.json", userLink);
+        user.setFollowersCount(followersCount);
+        user.setFollowingCount(followingCount);
+
         navigator.navigateToSection("following");
-        List<User> followingList = extractUsers(false, min(followingCount, followingCountThreshold));
-        for (User user : followingList) {
-            userDataHandler.addUser("KOLs.json", user);
+        List<User> followingList = extractUsers(false, min(user.getFollowingCount(), followingCountThreshold), maxNewUser);
+        List<String> followingLinks = new ArrayList<>();
+        for (User following : followingList) {
+            userDataHandler.addUser("KOLs.json", following);
+            followingLinks.add(following.getProfileLink());
         }
-        User newUser = new User(userLink, followersCount, followingList);
+        user.setFollowingList(followingLinks);
         try {
-            userDataHandler.addUser("KOLs.json", newUser);
+            userDataHandler.addUser("KOLs.json", user);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -123,7 +150,9 @@ public class TwitterUserDataExtractor implements UserDataExtractor {
     }
 
     @Override
-    public List<User> extractUsers(boolean isVerified, int maxListSize) {
+    public List<User> extractUsers(boolean isVerified, int maxListSize, int maxNewUsers) {
+        int countNewUser = 0;
+        int attempt = 0;
         List<User> usersList = new ArrayList<>();
         if (maxListSize == 0) {
             return usersList;
@@ -134,17 +163,38 @@ public class TwitterUserDataExtractor implements UserDataExtractor {
         while (true) {
             String username = extractUserName(userCell);
             String profileLink = navigator.getLink(userCell);
+            boolean checkUser;
+            try {
+                checkUser = userDataHandler.userExists("KOLs.json", profileLink);
+            } catch (IOException e) {
+                System.out.println("User " + username + " not found.");
+                throw new RuntimeException(e);
+            }
 
-            User newUser = new User(username, profileLink, isVerified);
-            usersList.add(newUser);
-            System.out.println("Add user to usersList " + username);
-
-            if (usersList.size() == maxListSize) {
+            if (checkUser){
+                User newUser = new User(username, profileLink, isVerified);
+                usersList.add(newUser);
+                System.out.println("Add user to usersList " + username);
+            }
+            else if(countNewUser < maxNewUsers){
+                User newUser = new User(profileLink, username, isVerified);
+                usersList.add(newUser);
+                System.out.println("Add user to usersList " + username);
+                countNewUser++;
+            }
+            attempt++;
+            if (attempt >= maxListSize) {
+                System.out.print("Done !");
                 break;
             }
 
             userCell = findNextUserCell(userCell);
-            navigator.scrollToElement(userCell);
+            if(userCell == null){
+                break;
+            }
+            else {
+                navigator.scrollToElement(userCell);
+            }
         }
 
         return usersList;

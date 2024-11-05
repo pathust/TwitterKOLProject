@@ -9,38 +9,20 @@ public class User {
     private String username;
     private String profileLink;
     private int followersCount;
+    private int followingCount;
     private boolean isVerified;
-    private List<User> followingList;
+    private List<String> followingList;
 
-    public User() {
-
-    }
-
-    public User(String username, String profileLink, boolean isVerified){
-        this.username = username;
+    public User(String profileLink, String username, boolean isVerified){
         this.profileLink = profileLink;
+        this.username = username;
         this.followersCount = 0;
+        this.followingCount = 0;
         this.isVerified = isVerified;
         this.followingList = new ArrayList<>();
     }
 
-    public User(String profileLink, int followersCount, List<User> followingList) {
-        this.username = null;
-        this.profileLink = profileLink;
-        this.followersCount = followersCount;
-        this.isVerified = false;
-        this.followingList = followingList;
-    }
-
-    public User(String username, String profileLink, boolean isVerified, int followersCount, List<User> followingList) {
-        this.username = username;
-        this.profileLink = profileLink;
-        this.followersCount = followersCount;
-        this.isVerified = isVerified;
-        this.followingList = followingList;
-    }
-
-    public static int toInt(String followersCount) {
+    private int toInt(String followersCount) {
         int factor = 1;
         if (followersCount.endsWith("K")) {
             followersCount = followersCount.replace("K", "");
@@ -62,11 +44,11 @@ public class User {
         isVerified = verified;
     }
 
-    public List<User> getFollowingList() {
+    public List<String> getFollowingList() {
         return followingList;
     }
 
-    public void setFollowingList(List<User> followingList) {
+    public void setFollowingList(List<String> followingList) {
         this.followingList = followingList;
     }
 
@@ -96,5 +78,17 @@ public class User {
 
     public void setFollowersCount(String followersCount) {
         this.followersCount = toInt(followersCount);
+    }
+
+    public int getFollowingCount() {
+        return followingCount;
+    }
+
+    public void setFollowingCount(int followingCount) {
+        this.followingCount = followingCount;
+    }
+
+    public void setFollowingCount(String followingCount) {
+        this.followingCount = toInt(followingCount);
     }
 }

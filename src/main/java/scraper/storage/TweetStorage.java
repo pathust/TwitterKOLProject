@@ -5,31 +5,30 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import model.Tweet;
-import model.User;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 public class TweetStorage {
     private final ObjectMapper mapper;
-    private final Map<String, ObjectNode> tweetMap;
+    private final Map<String, ObjectNode> objectNodeMap;
     private final Map<String, Integer> tweetIndexMap;
+    private final Map<String, Tweet> tweetMap;
     private final ArrayNode tweetArray;
 
-    public TweetStorage(String filePath, boolean overwrite) throws IOException {
+    public TweetStorage() throws IOException {
         this.mapper = new ObjectMapper();
-        this.tweetMap = new HashMap<>();
+        this.objectNodeMap = new HashMap<>();
         this.tweetIndexMap = new HashMap<>();
+        this.tweetMap = new HashMap<>();
         this.tweetArray = mapper.createArrayNode();
-        if (!overwrite)
-            loadTweets(filePath);
     }
 
-    private void loadTweets(String filePath) throws IOException {
+    public void loadTweets(String filePath) throws IOException {
         File file = new File(filePath);
         if (!file.exists() || file.length() == 0) {
             return;
@@ -39,80 +38,102 @@ public class TweetStorage {
             ArrayNode tweets = (ArrayNode) rootNode;
             int tweetIndex = 0;
             for (JsonNode tweetNode : tweets) {
-                String identifier = createTweetIdentifier(tweetNode);
-                tweetMap.put(identifier, (ObjectNode) tweetNode);
-                tweetIndexMap.put(identifier, tweetIndex++);
+                String tweetLink = tweetNode.get("tweetLink").asText();
+                String userLink = tweetNode.get("userLink").asText();
+                String dateTime = tweetNode.get("dateTime").asText();
+                String content = tweetNode.get("content").asText();
+                int repostCount = tweetNode.get("repostCount").asInt();
+
+                Tweet tweet = new Tweet(tweetLink, userLink);
+                tweet.setContent(content);
+                tweet.setDateTime(dateTime);
+                tweet.setRepostCount(repostCount);
+                tweet.setRepostList(getRepostLinks(tweetNode));
+
+                objectNodeMap.put(tweetLink, (ObjectNode) tweetNode);
+                tweetIndexMap.put(tweetLink, tweetIndex++);
+                tweetMap.put(tweetLink, tweet);
                 tweetArray.add(tweetNode);
             }
+
+            System.out.println("Loaded " + tweetArray.size() + " tweets");
         }
     }
 
-    private String createTweetIdentifier(JsonNode tweetNode) {
-        String username = tweetNode.get("user").get("username").asText();
-        String timestamp = tweetNode.get("timestamp").asText();
-        return username + "_" + timestamp;
-    }
-
     public void addTweet(Tweet tweet) {
-        String identifier = tweet.getUser().getUsername() + "_" + tweet.getTimestamp();
-        ObjectNode tweetNode = tweetMap.get(identifier);
+        ObjectNode tweetNode = objectNodeMap.get(tweet.getTweetLink());
         if (tweetNode != null) {
             updateTweetFields(tweetNode, tweet);
         } else {
             tweetNode = createTweetNode(tweet);
             int tweetIndex = tweetArray.size();
-            tweetMap.put(identifier, tweetNode);
-            tweetIndexMap.put(identifier, ++tweetIndex);
+
+            objectNodeMap.put(tweet.getTweetLink(), tweetNode);
+            tweetIndexMap.put(tweet.getTweetLink(), tweetIndex);
+            tweetMap.put(tweet.getTweetLink(), tweet);
             tweetArray.add(tweetNode);
         }
     }
 
-    private void updateTweetFields(ObjectNode tweetNode, Tweet tweet) {
-        tweetNode.put("content", tweet.getContent());
-        tweetNode.put("timestamp", tweet.getTimestamp().toString());
+    public void saveData(String filePath) throws IOException {
+        File file = new File(filePath);
+        mapper.writerWithDefaultPrettyPrinter().writeValue(file, tweetArray);
+    }
 
-        ArrayNode repostedUsersNode = mapper.createArrayNode();
-        for (User user : tweet.getRepostedUsersList()) {
-            repostedUsersNode.add(user.getUsername());
+    public List<Tweet> getTweets() {
+        List<Tweet> tweets = new ArrayList<>();
+        for (JsonNode tweetNode : tweetArray) {
+            String tweetLink = tweetNode.get("repostList").asText();
+            Tweet tweet = tweetMap.get(tweetLink);
+            tweets.add(tweet);
         }
-        tweetNode.set("repostedUsersList", repostedUsersNode);
-
-        String identifier = createTweetIdentifier(tweetNode);
-        int tweetIndex = tweetIndexMap.get(identifier);
-        tweetArray.set(tweetIndex, tweetNode);
+        return tweets;
     }
 
     private ObjectNode createTweetNode(Tweet tweet) {
         ObjectNode tweetNode = mapper.createObjectNode();
+
+        tweetNode.put("tweetLink", tweet.getTweetLink());
+        tweetNode.put("userLink", tweet.getUserLink());
+        tweetNode.put("dateTime", tweet.getDateTime().toString());
         tweetNode.put("content", tweet.getContent());
-        tweetNode.put("timestamp", tweet.getTimestamp().toString());
-
-        ObjectNode userNode = mapper.createObjectNode();
-        userNode.put("username", tweet.getUser().getUsername());
-        userNode.put("profileLink", tweet.getUser().getProfileLink());
-        tweetNode.set("user", userNode);
-
-        ArrayNode repostedUsersNode = mapper.createArrayNode();
-        for (User user : tweet.getRepostedUsersList()) {
-            repostedUsersNode.add(user.getUsername());
-        }
-        tweetNode.set("repostedUsersList", repostedUsersNode);
-
+        tweetNode.put("repostCount", tweet.getRepostCount());
+        tweetNode.set("repostList", getRepostLinks(tweet.getRepostList()));
         return tweetNode;
     }
 
-    public void saveData(String filePath) throws IOException {
-        mapper.writerWithDefaultPrettyPrinter().writeValue(new File(filePath), tweetArray);
+    private void updateTweetFields(ObjectNode tweetNode, Tweet tweet) {
+        tweetNode.put("dateTime", tweet.getDateTime().toString());
+        tweetNode.put("content", tweet.getContent());
+        tweetNode.put("repostCount", tweet.getRepostCount());
+        tweetNode.set("repostList",getRepostLinks(tweet.getRepostList()));
+        int tweetIndex = tweetIndexMap.get(tweet.getTweetLink());
+        tweetArray.set(tweetIndex, tweetNode);
     }
 
-    public List<String> getTweetContents() {
-        return tweetMap.values().stream()
-                .map(tweetNode -> tweetNode.path("content").asText())
-                .filter(content -> !content.isEmpty())
-                .collect(Collectors.toList());
+    private List<String> getRepostLinks(JsonNode tweetNode) {
+        List<String> repostLinks = new ArrayList<>();
+        JsonNode listNode = tweetNode.get("repostList");
+        if (listNode.isArray()) {
+            for (JsonNode linkNode : listNode) {
+                String repostLink = linkNode.asText();
+                repostLinks.add(repostLink);
+            }
+        }
+        return repostLinks;
     }
+
+    private ArrayNode getRepostLinks(List<String> repostLinks) {
+        ArrayNode repostLinkArray = mapper.createArrayNode();
+        for (String repostLink : repostLinks) {
+            repostLinkArray.add(repostLink);
+        }
+        return repostLinkArray;
+    }
+
 
     public ArrayNode getTweetArray() {
         return tweetArray;
     }
 }
+
