@@ -29,18 +29,34 @@ public class WebNavigator implements Navigator {
     public void clickButton(WebElement element, String buttonName) {
         String xpathExpression = ".//button//span[text()='" + buttonName + "']/..";
         WebElement button;
+        int maxRetries = 10;
+        int retryCount = 0;
+        boolean clicked = false;
 
-        try {
-            if (element == null) {
+        while (!clicked && retryCount < maxRetries) {
+            try {
+                if (element == null) {
+                    button = driver.findElement(By.xpath(xpathExpression));
+                } else {
+                    button = element.findElement(By.xpath(xpathExpression));
+                }
 
-                button = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(xpathExpression)));
-            } else {
-
-                button = wait.until(ExpectedConditions.elementToBeClickable(element.findElement(By.xpath(xpathExpression))));
+                // Attempt to click the button
+                button.click();
+                clicked = true; // Exit loop if click is successful
+            } catch (Exception e) {
+                System.out.println("Attempt " + (retryCount + 1) + ": Could not find or click button " + buttonName);
+                retryCount++;
+                try {
+                    Thread.sleep(100); // Short pause before retrying (100 ms)
+                } catch (InterruptedException ie) {
+                    Thread.currentThread().interrupt();
+                }
             }
-            button.click();
-        } catch (Exception e) {
-            System.out.println("Could not find or click button: " + buttonName);
+        }
+
+        if (!clicked) {
+            System.out.println("Failed to click button " + buttonName + " after " + maxRetries + " attempts.");
         }
     }
 
