@@ -1,6 +1,7 @@
 package scraper.navigation;
 
 import org.openqa.selenium.*;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
@@ -26,29 +27,21 @@ public class WebNavigator implements Navigator {
     }
 
     public void clickButton(WebElement element, String buttonName) {
-        String xpathExpression = "button//span[text()='" + buttonName + "']/..";
+        String xpathExpression = ".//button//span[text()='" + buttonName + "']/..";
         WebElement button;
 
-        if (element == null) {
-            try {
-                button = driver.findElement(By.xpath(xpathExpression));
-            }
-            catch (Exception e) {
-                System.out.println("Could not find button " + buttonName);
-                return;
-            }
-        }
-        else {
-            try {
-                button = element.findElement(By.xpath(xpathExpression));
-            }
-            catch (Exception e) {
-                System.out.println("Could not find button " + buttonName);
-                return;
-            }
-        }
+        try {
+            if (element == null) {
 
-        button.click();
+                button = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(xpathExpression)));
+            } else {
+
+                button = wait.until(ExpectedConditions.elementToBeClickable(element.findElement(By.xpath(xpathExpression))));
+            }
+            button.click();
+        } catch (Exception e) {
+            System.out.println("Could not find or click button: " + buttonName);
+        }
     }
 
     public void fillingFieldBySpan(String spanText, String text) {
