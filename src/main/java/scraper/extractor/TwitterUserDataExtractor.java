@@ -113,7 +113,7 @@ public class TwitterUserDataExtractor implements UserDataExtractor {
     }
 
     @Override
-    public void extractData(String userLink, int followingCountThreshold, int maxNewUser) throws IOException {
+    public void extractData(String userLink, int maxListSize) throws IOException {
         System.out.println("Extracting data from " + userLink);
         driver.get(userLink);
         try {
@@ -129,27 +129,31 @@ public class TwitterUserDataExtractor implements UserDataExtractor {
         System.out.print("Following: " + followingCount + "\n");
         System.out.print("Followers: " + followersCount + "\n");
 
-        navigator.navigateToSection("following");
-        List<User> followingList = extractUsers(false, min(followingCount, followingCountThreshold), maxNewUser);
-        for (User user : followingList) {
-            userDataHandler.addUser("KOLs.json", user);
-        }
-        User newUser = userDataHandler.getUser("KOLs.json", userLink);
-        newUser.setFollowersCount(followersCount);
-        newUser.setFollowersCount(followingCount);
-        newUser.setFollowingList(followingList);
         try {
-            userDataHandler.addUser("KOLs.json", newUser);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+            navigator.navigateToSection("followers you know");
+            List<User> followingList = extractUsers(false, -1);
+            for (User user : followingList) {
+                userDataHandler.addUser("KOLs.json", user);
+            }
+            User newUser = userDataHandler.getUser("KOLs.json", userLink);
+            newUser.setFollowersCount(followersCount);
+            newUser.setFollowersCount(followingCount);
+            newUser.setFollowingList(followingList);
+            try {
+                userDataHandler.addUser("KOLs.json", newUser);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        catch (Exception e) {
+            System.out.println("Cannot extract data from " + userLink);
         }
         extractPotentialKOLs();
     }
 
     @Override
-    public List<User> extractUsers(boolean isVerified, int maxListSize, int maxNewUsers) {
+    public List<User> extractUsers(boolean isVerified, int maxListSize) {
         int countNewUser = 0;
-        int attempt = 0;
         List<User> usersList = new ArrayList<>();
         if (maxListSize == 0) {
             return usersList;
@@ -160,33 +164,24 @@ public class TwitterUserDataExtractor implements UserDataExtractor {
         while (true) {
             String username = extractUserName(userCell);
             String profileLink = navigator.getLink(userCell);
-            boolean checkUser;
-            try {
-                checkUser = userDataHandler.userExists("KOLs.json", profileLink);
-            } catch (IOException e) {
-                System.out.println("User " + username + " not found.");
-                throw new RuntimeException(e);
-            }
-
-            if (checkUser){
+            if(maxListSize == -1) {
                 User newUser = new User(username, profileLink, isVerified);
                 usersList.add(newUser);
                 System.out.println("Add user to usersList " + username);
             }
-            else if(countNewUser < maxNewUsers){
+            else if(countNewUser < maxListSize){
                 User newUser = new User(username, profileLink, isVerified);
                 usersList.add(newUser);
                 System.out.println("Add user to usersList " + username);
                 countNewUser++;
             }
-            attempt++;
-            if (attempt >= maxListSize) {
-                System.out.print("Done !");
-                break;
-            }
 
+            navigator.clickButton(userCell, "Follow");
             userCell = findNextUserCell(userCell);
             if(userCell == null){
+                break;
+            }
+            else if(countNewUser == maxListSize){
                 break;
             }
             else {
@@ -196,4 +191,5 @@ public class TwitterUserDataExtractor implements UserDataExtractor {
 
         return usersList;
     }
+
 }

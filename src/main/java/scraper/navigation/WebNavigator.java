@@ -25,9 +25,29 @@ public class WebNavigator implements Navigator {
         js.executeScript("window.scrollTo(0, document.body.scrollHeight)");
     }
 
-    public void clickButton(String buttonName) {
-        WebElement button = wait.until(elementToBeClickable(
-                By.xpath("//span[text()='" + buttonName + "']/..")));
+    public void clickButton(WebElement element, String buttonName) {
+        String xpathExpression = "button//span[text()='" + buttonName + "']/..";
+        WebElement button;
+
+        if (element == null) {
+            try {
+                button = driver.findElement(By.xpath(xpathExpression));
+            }
+            catch (Exception e) {
+                System.out.println("Could not find button " + buttonName);
+                return;
+            }
+        }
+        else {
+            try {
+                button = element.findElement(By.xpath(xpathExpression));
+            }
+            catch (Exception e) {
+                System.out.println("Could not find button " + buttonName);
+                return;
+            }
+        }
+
         button.click();
     }
 

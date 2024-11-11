@@ -68,7 +68,7 @@ public class TwitterScraperController {
             else {
                 System.out.println("Scraping user " + user.getUsername());
             }
-            userDataExtractor.extractData(user.getProfileLink(), 1000, 3);
+            userDataExtractor.extractData(user.getProfileLink(), -1);
             userDataHandler.saveData("KOLs.json");
         }
     }
@@ -90,9 +90,9 @@ public class TwitterScraperController {
     private void extractInitialKOLsTo(String filePath) throws IOException {
         System.out.println("Start collecting user data...");
 
-        navigator.clickButton("People");
+        navigator.clickButton(null,"People");
 
-        List <User> users = userDataExtractor.extractUsers(true, 30, 30);
+        List <User> users = userDataExtractor.extractUsers(true, 30);
         for (User user : users) {
             userDataHandler.addUser(filePath, user);
         }
