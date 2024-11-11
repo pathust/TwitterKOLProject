@@ -8,6 +8,7 @@ import model.KOL;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import javafx.concurrent.Task;
 import javafx.application.Platform;
@@ -27,11 +28,47 @@ import javafx.util.Duration;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class AppInterface extends Application {
-
-    private TwitterScraperController scraper;
+public class AppInterface extends Application implements HomeScene.ButtonClickListener{
     private Graph graph;
     private PagerankCalculator pagerankCalculator;
+    private HomeScene homeScene;
+    private WaitingScene waitingScene;
+    private TwitterScraperController twitterScraper;
+
+    private void startScraper() {
+        Task<Void> scraper = new Task<>() {
+            @Override
+            protected Void call() {
+                try {
+                    String text = homeScene.getText();
+                    String[] textList = {text};
+//                    twitterScraper = new TwitterScraperController();
+//                    System.out.println(text);
+                    TwitterScraperController.main(textList);
+
+                    Platform.runLater(() -> {
+                        waitingScene.close();
+                    });
+                } catch (IOException | InterruptedException ex) {
+                    throw new RuntimeException(ex);
+                }
+
+                return null;
+            }
+        };
+
+        new Thread(scraper).start();
+    }
+
+    @Override
+    public void onButtonClicked() {
+        if(homeScene.getText().isEmpty()) {
+            return ;
+        }
+
+        waitingScene.start();
+        startScraper();
+    }
 
     public static void main(String[] args) {
         launch(args);
@@ -42,63 +79,14 @@ public class AppInterface extends Application {
         graph = new Graph();
         pagerankCalculator = new PagerankCalculator();
 
-        primaryStage.setTitle("KOL Finder");
+        homeScene = new HomeScene(primaryStage);
+        waitingScene = new WaitingScene(primaryStage);
 
-        TextField searchField = new TextField();
-        searchField.setPromptText("Enter Blockchain keyword");
+        homeScene.setButtonClickListener(this);
+        homeScene.setUpButton();
+        homeScene.start();
 
-        WaitingScene waiting = new WaitingScene(primaryStage);
-
-        Button searchButton = new Button("Search KOL");
-        searchButton.setOnAction(e -> {
-            String keyword = searchField.getText();
-
-            if(keyword.isEmpty()) {
-                return ;
-            }
-
-            waiting.start();
-
-            Task<Void> seleniumTask  = new Task<Void>() {
-                @Override
-                protected Void call() throws Exception {
-                    try {
-                        String[] otherArgs = {keyword};
-                        scraper.main(otherArgs);
-
-                        scraper.close();
-                    } catch (IOException ex) {
-                        throw new RuntimeException(ex);
-                    }
-
-                    return null;
-                }
-
-                @Override
-                protected void succeeded() {
-                    Platform.runLater(() -> waiting.close());
-                }
-            };
-
-            Thread thread  = new Thread(seleniumTask);
-            thread.setDaemon(true);
-            thread.start();
-
-            List<KOL> kolList = null;//scraper.searchKOLs(keyword);
-        });
-
-        GridPane layout = new GridPane();
-        layout.setAlignment(Pos.CENTER);
-        layout.setHgap(10);
-        layout.setVgap(15);
-
-        layout.setPadding(new Insets(25, 25, 25, 25));
-
-        layout.add(searchField, 0, 0);
-        layout.add(searchButton, 0, 1);
-
-        Scene scene = new Scene(layout, 300, 300);
-        primaryStage.setScene(scene);
-        primaryStage.show();
+//        AddFile add = new AddFile();
+//        add.start(primaryStage);
     }
 }

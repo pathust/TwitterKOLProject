@@ -21,9 +21,9 @@ public class WaitingScene {
     private VBox waitingLayout;
     private HBox hbox, hbox2;
     private Stage stage;
-    ArrayList<Rectangle> squares;
-    Label label;
-    Scene waitingScene;
+    private ArrayList<Rectangle> squares;
+    private Label label;
+    private Scene waitingScene;
 
     public WaitingScene(Stage stage) {
         this.stage = stage;
@@ -61,7 +61,7 @@ public class WaitingScene {
 
         this.waitingLayout.getChildren().add(hbox2);
 
-        this.waitingScene = new Scene(waitingLayout, 300, 300);
+        this.waitingScene = new Scene(waitingLayout, 600, 600);
     }
 
     public void start() {

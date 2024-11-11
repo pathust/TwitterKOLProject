@@ -39,7 +39,7 @@ public class TwitterScraperController {
     public TwitterScraperController() {
         System.setProperty(
                 "webdriver.chrome.driver",
-                "/Users/phananhtai/Downloads/chromedriver-mac-arm64/chromedriver");
+                "D:\\Dowload\\chromedriver-win64\\chromedriver-win64\\chromedriver.exe");
         this.driver = new ChromeDriver();
         this.navigator = new WebNavigator(driver);
         this.authenticator = new TwitterAuthenticator(driver, navigator);
@@ -100,12 +100,12 @@ public class TwitterScraperController {
         TwitterScraperController controller = new TwitterScraperController();
 
         controller.login(
-                "@PogbaPaul432283",
-                "anhrooneymtp@gmail.com",
-                "anhmanunited");
+                "@DThank05",
+                "dinhthanh020105@gmail.com",
+                "xuanthanh123");
 
         controller.applyFilter(
-                List.of("blockchain"),
+                List.of(args),
                 1000,
                 1000,
                 200);

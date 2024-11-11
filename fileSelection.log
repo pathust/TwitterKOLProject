@@ -1,0 +1,22 @@
+Nov 12, 2024 3:23:30 AM UI.FileAdding.AddFileHandler openFileDialog
+INFO: User selected file: D:\GitHub\KOLs.json
+Nov 12, 2024 3:23:37 AM UI.FileAdding.AddFileHandler openFileDialog
+INFO: User cancelled file selection.
+Nov 12, 2024 3:25:00 AM UI.FileAdding.AddFileHandler openFileDialog
+INFO: User selected file: D:\GitHub\KOLs.json
+Nov 12, 2024 3:25:01 AM UI.FileAdding.AddFileHandler copyFile
+INFO: File copied successfully to: D:\GitHub\KOLs.jsonKOLs.json
+Nov 12, 2024 3:25:11 AM UI.FileAdding.AddFileHandler openFileDialog
+INFO: User cancelled file selection.
+Nov 12, 2024 3:26:42 AM UI.FileAdding.AddFileHandler openFileDialog
+INFO: User selected file: D:\GitHub\KOLs.json
+Nov 12, 2024 3:26:42 AM UI.FileAdding.AddFileHandler copyFile
+INFO: File copied successfully to: D:\GitHub\KOLs.json
+Nov 12, 2024 3:28:20 AM UI.FileAdding.AddFileHandler openFileDialog
+INFO: User selected file: D:\GitHub\KOLs.json
+Nov 12, 2024 3:28:20 AM UI.FileAdding.AddFileHandler copyFile
+INFO: File copied successfully to: D:\GitHub\KOLs.json
+Nov 12, 2024 3:30:47 AM UI.FileAdding.AddFileHandler openFileDialog
+INFO: User selected file: D:\GitHub\KOLs.json
+Nov 12, 2024 3:30:47 AM UI.FileAdding.AddFileHandler copyFile
+INFO: File copied successfully to: D:\GitHub\TwitterKOLProject\KOLs.json
