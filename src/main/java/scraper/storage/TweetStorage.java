@@ -5,6 +5,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import model.Tweet;
+import model.User;
+import java.time.LocalDateTime;
+
+import java.time.format.DateTimeFormatter;
 
 import java.io.File;
 import java.io.IOException;
@@ -40,13 +44,13 @@ public class TweetStorage {
             for (JsonNode tweetNode : tweets) {
                 String tweetLink = tweetNode.get("tweetLink").asText();
                 String userLink = tweetNode.get("userLink").asText();
-                String dateTime = tweetNode.get("dateTime").asText();
-                String content = tweetNode.get("content").asText();
+                //String dateTime = tweetNode.get("dateTime").asText();
+                //String content = tweetNode.get("content").asText();
                 int repostCount = tweetNode.get("repostCount").asInt();
 
-                Tweet tweet = new Tweet(tweetLink, userLink);
-                tweet.setContent(content);
-                tweet.setDateTime(dateTime);
+                Tweet tweet = new Tweet(tweetLink, userLink, repostCount);
+                //tweet.setContent(content);
+                // tweet.setDateTime(dateTime);
                 tweet.setRepostCount(repostCount);
                 tweet.setRepostList(getRepostLinks(tweetNode));
 
@@ -83,7 +87,7 @@ public class TweetStorage {
     public List<Tweet> getTweets() {
         List<Tweet> tweets = new ArrayList<>();
         for (JsonNode tweetNode : tweetArray) {
-            String tweetLink = tweetNode.get("repostList").asText();
+            String tweetLink = tweetNode.get("tweetLink").asText();
             Tweet tweet = tweetMap.get(tweetLink);
             tweets.add(tweet);
         }
@@ -92,18 +96,27 @@ public class TweetStorage {
 
     private ObjectNode createTweetNode(Tweet tweet) {
         ObjectNode tweetNode = mapper.createObjectNode();
-
         tweetNode.put("tweetLink", tweet.getTweetLink());
         tweetNode.put("userLink", tweet.getUserLink());
-        tweetNode.put("dateTime", tweet.getDateTime().toString());
-        tweetNode.put("content", tweet.getContent());
+
+        //LocalDateTime dateTime = tweet.getDateTime();
+        //String dateTimeString = (dateTime != null) ? dateTime.toString() : "unknown";
+        //tweetNode.put("dateTime", dateTimeString);
+
+        //tweetNode.put("content", tweet.getContent());
         tweetNode.put("repostCount", tweet.getRepostCount());
-        tweetNode.set("repostList", getRepostLinks(tweet.getRepostList()));
+
+
+        List<String> repostLinks = (tweet.getRepostList() != null) ? tweet.getRepostList() : new ArrayList<>();
+        tweetNode.set("repostList", getRepostLinks(repostLinks));
+
         return tweetNode;
     }
 
+
+
     private void updateTweetFields(ObjectNode tweetNode, Tweet tweet) {
-        tweetNode.put("dateTime", tweet.getDateTime().toString());
+        //tweetNode.put("dateTime", tweet.getDateTime().toString());
         tweetNode.put("content", tweet.getContent());
         tweetNode.put("repostCount", tweet.getRepostCount());
         tweetNode.set("repostList",getRepostLinks(tweet.getRepostList()));
@@ -131,9 +144,13 @@ public class TweetStorage {
         return repostLinkArray;
     }
 
-
+    public boolean tweetExists(String profileLink) {
+        return tweetMap.containsKey(profileLink);
+    }
     public ArrayNode getTweetArray() {
         return tweetArray;
     }
+    public Tweet getTweet(String profileLink) {
+        return tweetMap.get(profileLink);
+    }
 }
-

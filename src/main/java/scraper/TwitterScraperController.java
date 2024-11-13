@@ -37,9 +37,7 @@ public class TwitterScraperController {
     private final TweetDataExtractor tweetDataExtractor;
 
     public TwitterScraperController() {
-        System.setProperty(
-                "webdriver.chrome.driver",
-                "/Users/phananhtai/Downloads/chromedriver-mac-arm64/chromedriver");
+        System.setProperty("webdriver.chrome.driver", "D:\\Test Java\\Selenium\\chromedriver.exe");
         this.driver = new ChromeDriver();
         this.navigator = new WebNavigator(driver);
         this.authenticator = new TwitterAuthenticator(driver, navigator);
@@ -73,6 +71,21 @@ public class TwitterScraperController {
         }
     }
 
+    public void scrapeTweetsData(List<Tweet> tweets) throws IOException {
+        for (Tweet tweet : tweets) {
+            if (tweet == null) {
+                System.out.println("Skipping scrape tweet ");
+                continue;
+
+            }
+            else {
+                System.out.println("Scraping tweet " + tweet.getUserLink());
+            }
+            tweetDataExtractor.extractData(tweet.getTweetLink(),1000, 3);
+            tweetDataHandler.saveData("Tweet.json");
+        }
+    }
+
     public void close() {
         if (driver != null) {
             driver.quit();
@@ -81,6 +94,10 @@ public class TwitterScraperController {
 
     public List<User> getUsers(String filePath) throws IOException {
         return userDataHandler.getUsers(filePath);
+    }
+
+    public List<Tweet> getTweets(String filePath) throws IOException {
+        return tweetDataHandler.getTweets(filePath);
     }
 
     private void extractInitialKOLsTo(String filePath) throws IOException {
@@ -94,6 +111,17 @@ public class TwitterScraperController {
         }
 
         userDataHandler.saveData(filePath);
+    }
+
+    private void extractInitialTweetsTo(String filePath) throws IOException {
+        System.out.println("Start collecting tweet data...");
+
+        List <Tweet> tweets = tweetDataExtractor.extractTweets( 15,15);
+        for (Tweet tweet : tweets) {
+            tweetDataHandler.addTweet(filePath,tweet);
+        }
+
+        tweetDataHandler.saveData(filePath);
     }
 
     public static void main(String[] args) throws IOException, InterruptedException {
@@ -110,15 +138,31 @@ public class TwitterScraperController {
                 1000,
                 200);
 
+        controller.extractInitialTweetsTo("Tweet.json");
+        List<Tweet> tweets = controller.getTweets("Tweet.json");
+        System.out.println("Number of tweets: " + tweets.size());
+        controller.scrapeTweetsData(tweets);
+        List<Tweet> test1 = controller.getTweets("Tweet.json");
+        int sumTweet = 0;
+        for(Tweet tweet : test1) {
+            System.out.println(sumTweet);
+            List<String> list = tweet.getRepostList();
+            if(list.size() > 3){
+                sumTweet++;
+            }
+        }
+
+        System.out.println("Number of users: " + sumTweet);
+
         controller.extractInitialKOLsTo("KOLs.json");
 
         List<User> users = controller.getUsers("KOLs.json");
         System.out.println("Number of users: " + users.size());
         controller.scrapeUsersData(users);
 
-        List<User> test = controller.getUsers("KOLs.json");
+        List<User> test2 = controller.getUsers("KOLs.json");
         int sum = 0;
-        for(User user : test) {
+        for(User user : test2) {
             System.out.println(sum);
             List<String> list = user.getFollowingList();
             String name = user.getUsername();

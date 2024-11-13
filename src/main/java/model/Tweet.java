@@ -3,21 +3,23 @@ package model;
 import java.time.LocalDateTime;
 
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import static java.lang.Double.parseDouble;
 
 public class Tweet {
     private String content;
-    private String dateTime;
+    //private String dateTime;
     private String tweetLink;
     private int repostCount;
     private String userLink;
     private List<String> repostList;
-    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    //private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
-    public Tweet(String tweetLink, String userLink) {
+    public Tweet(String tweetLink, String userLink,  int repostCount) {
         this.tweetLink = tweetLink;
         this.userLink = userLink;
+        this.repostCount= repostCount;
     }
 
     public static int toInt(String count) {
@@ -60,21 +62,27 @@ public class Tweet {
         this.content = content;
     }
 
-    public LocalDateTime getDateTime() {
-        return LocalDateTime.parse(dateTime, formatter);
-    }
+    /*public LocalDateTime getDateTime() {
+        if (dateTime == null || dateTime.isEmpty()) {
+            System.out.println("Timestamp is null or empty, cannot parse.");
+            return null;
+        }
+        return LocalDateTime.parse(dateTime, DateTimeFormatter.ofPattern("pattern_format"));
+    }*/
 
 
-    public void setDateTime(String dateTimeString) {
+
+    /*public void setDateTime(String dateTimeString) {
         this.dateTime = dateTimeString;
-    }
+    }*/
 
     public List<String> getRepostList() {
+
         return repostList;
     }
 
     public void setRepostList(List<String> repostList) {
-        this.repostList = repostList;
+        this.repostList = repostList != null ? repostList : new ArrayList<>();
     }
 
     public String getUserLink() {

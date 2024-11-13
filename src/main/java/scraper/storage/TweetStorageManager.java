@@ -46,4 +46,16 @@ public class TweetStorageManager implements TweetDataHandler {
         TweetStorage storage = getStorage(filePath);
         return storage.getTweets();
     }
+
+    @Override
+    public boolean userExists(String filePath, String profileLink) throws IOException {
+        TweetStorage storage = getStorage(filePath);
+        return storage.tweetExists(profileLink);
+    }
+
+    @Override
+    public Tweet getTweet(String filePath, String profileLink) throws IOException {
+        TweetStorage storage = getStorage(filePath);
+        return storage.getTweet(profileLink);
+    }
 }
