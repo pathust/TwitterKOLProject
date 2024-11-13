@@ -1,17 +1,20 @@
 package graph;
 
 import model.GraphNode;
+import model.Tweet;
 import model.User;
 
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
-
 import java.util.Random;
 import scraper.storage.UserDataHandler;
 import scraper.storage.UserStorageManager;
 
 public class GraphFactory {
+    public static final double followWeight = 1.0;
+    public static final double postWeight = 1.0;
+    public static final double repostWeight = 1.0;
 
     private final UserDataHandler userDataHandler;
 
@@ -23,26 +26,31 @@ public class GraphFactory {
         return userDataHandler.getUser(filePath, profileLink);
     }
 
-    public static Graph createGraph(List<GraphNode> nodeList) throws IOException {
+    public static Graph createGraph(List<GraphNode> userNodeList, List<GraphNode> tweetNodeList) throws IOException {
         GraphFactory graphFactory = new GraphFactory();
         Graph graph = new Graph();
 
-        for (GraphNode node : nodeList) {
+        // add user node
+        for (GraphNode node : userNodeList) {
             graph.addNode(node);
         }
 
-        for (GraphNode node : nodeList) {
+        // add following edge
+        for (GraphNode node : userNodeList) {
             User userNode = node.getKol();
             List<String> followingList = userNode.getFollowingList();
 
+//            System.out.println( "\nKOL: " + node.getKol().getProfileLink() + "\n");
+
             for(String userLink : followingList) {
                 GraphNode targetNode = new GraphNode(graphFactory.getUser("KOLs.json", userLink));
-                graph.addEdge(node, targetNode, 1.0);
+                graph.addEdge(node, targetNode, followWeight);
 
+//                System.out.println(userLink);
             }
         }
 
-        ///////// test add edge
+        // test add random edge
 
 //        Random rand = new Random();
 //        for (GraphNode node : nodeList) {
@@ -50,12 +58,32 @@ public class GraphFactory {
 //                if(node != otherNode) {
 //                    if(rand.nextBoolean()) {
 //                        graph.addEdge(node, otherNode, 1.0);
-//                        System.out.println(node.getKol().getUsername() + " " + otherNode.getKol().getUsername());
+////                        System.out.println(node.getKol().getUsername() + " " + otherNode.getKol().getUsername());
 //                    }
 //                }
 //            }
 //        }
 
+        for (GraphNode tweetNode : tweetNodeList) {
+            Tweet tweet = tweetNode.getTweet();
+            String userPostLink = tweet.getUserLink();
+            GraphNode userPostNode = new GraphNode(graphFactory.getUser("KOLs.json", userPostLink));
+
+            // add tweet node, user post node
+            graph.addNode(tweetNode);
+            graph.addNode(userPostNode);
+
+            // add post edge
+            graph.addEdge(userPostNode, tweetNode, postWeight);
+
+            // add repost edge
+            for(String userRepostLink : tweet.getRepostList()) {
+                GraphNode userRepostNode = new GraphNode(graphFactory.getUser("KOLs.json", userRepostLink));
+
+                graph.addNode(userRepostNode);
+                graph.addEdge(tweetNode, userRepostNode, repostWeight);
+            }
+        }
 
         return graph;
     }

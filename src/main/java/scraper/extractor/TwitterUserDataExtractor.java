@@ -172,7 +172,7 @@ public class TwitterUserDataExtractor implements UserDataExtractor {
             }
 
             if (checkUser){
-                User newUser = new User(username, profileLink, isVerified);
+                User newUser = new User(profileLink, username, isVerified);
                 usersList.add(newUser);
                 System.out.println("Add user to usersList " + username);
             }

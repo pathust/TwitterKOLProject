@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NodeExtract {
+public class UserNodeExtract {
     public static List<GraphNode> extract() throws IOException {
         UserDataHandler userDataHandler = new UserStorageManager();
         userDataHandler.loadUsers("KOLs.json");
