@@ -1,11 +1,11 @@
-package UI;
+package UI.waiting;
 
-import javafx.application.Application;
+import UI.SwitchingScene;
+import UI.home.startscraper.StartScraperHandler;
+import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.scene.shape.Rectangle;
@@ -13,8 +13,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.control.Label;
 import javafx.animation.TranslateTransition;
 import javafx.util.Duration;
+import javafx.stage.WindowEvent;
+import scraper.TwitterScraperController;
 
-import java.awt.*;
 import java.util.ArrayList;
 
 public class WaitingScene {
@@ -22,25 +23,27 @@ public class WaitingScene {
     private HBox hbox, hbox2;
     private Stage stage;
     private ArrayList<Rectangle> squares;
-    private Label label;
+    private static Label label = new Label();
     private Scene waitingScene;
+    private SwitchingScene switchingScene;
 
-    public WaitingScene(Stage stage) {
+    public WaitingScene(Stage stage, SwitchingScene switching) {
         this.stage = stage;
+        switchingScene = switching;
 
-        this.waitingLayout = new VBox();
-        this.waitingLayout.setAlignment(Pos.CENTER);
+        waitingLayout = new VBox();
+        waitingLayout.setAlignment(Pos.CENTER);
 
-        this.hbox = new HBox();
-        this.hbox.setAlignment(Pos.CENTER);
-        this.hbox.setSpacing(20);
-        this.waitingLayout.getChildren().add(this.hbox);
+        hbox = new HBox();
+        hbox.setAlignment(Pos.CENTER);
+        hbox.setSpacing(20);
+        waitingLayout.getChildren().add(this.hbox);
 
-        this.squares = new ArrayList<>();
+        squares = new ArrayList<>();
         for(int i=0; i<3; ++i) {
             Rectangle square = new Rectangle(10, 10, Color.GREY);
 
-            this.hbox.getChildren().add(square);
+            hbox.getChildren().add(square);
 
             TranslateTransition transition = new TranslateTransition();
             transition.setDuration(Duration.millis(1000)); // Thời gian di chuyển
@@ -53,15 +56,23 @@ public class WaitingScene {
             transition.play();
         }
 
-        this.hbox2 = new HBox();
-        this.label = new Label("Waiting for Data !");
+        hbox2 = new HBox();
+        label.setText("Waiting for Data !");
         //label.setPrefSize(200, 20);
-        this.hbox2.getChildren().add(label);
-        this.hbox2.setStyle("-fx-alignment: center; -fx-padding: 20;");
+        hbox2.getChildren().add(label);
+        hbox2.setStyle("-fx-alignment: center; -fx-padding: 20;");
 
-        this.waitingLayout.getChildren().add(hbox2);
+        waitingLayout.getChildren().add(hbox2);
 
-        this.waitingScene = new Scene(waitingLayout, 600, 600);
+        waitingScene = new Scene(waitingLayout, 600, 600);
+
+        stage.setOnCloseRequest(this::handleCloseRequest);
+    }
+
+    public static void updateStatus(String state) {
+        Platform.runLater(() -> {
+            WaitingScene.label.setText(state);
+        });
     }
 
     public void start() {
@@ -71,5 +82,15 @@ public class WaitingScene {
 
     public void close() {
         stage.close();
+    }
+
+    private void handleCloseRequest(WindowEvent event) {
+        Platform.runLater(() -> {
+            System.out.print("Hello");
+            this.close();
+
+            StartScraperHandler.closeThread();
+            System.exit(0);
+        });
     }
 }

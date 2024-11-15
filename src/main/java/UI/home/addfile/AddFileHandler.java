@@ -1,5 +1,4 @@
-package UI.FileAdding;
-import javafx.application.Application;
+package UI.home.addfile;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -15,9 +14,11 @@ import java.util.logging.SimpleFormatter;
 public class AddFileHandler{
     Stage stage;
     private static final Logger logger = Logger.getLogger(FileHandler.class.getName());
+    private static File selectedFile;
 
     public AddFileHandler(Stage newStage) {
         this.stage = newStage;
+//        fileChooser = new FileChooser();
 
         try {
             // Thiết lập FileHandler cho Logger để ghi log vào file
@@ -33,13 +34,13 @@ public class AddFileHandler{
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Select JSON File");
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("JSON Files", "*.json"));
-        File selectedFile =  fileChooser.showOpenDialog(stage);
+        selectedFile =  fileChooser.showOpenDialog(stage);
 
         // Ghi lại thông tin về việc chọn file
         if (selectedFile != null) {
             logger.info("User selected file: " + selectedFile.getAbsolutePath());
             // Sao chép file vào thư mục đích
-            copyFile(selectedFile);
+//            copyFile(selectedFile);
         } else {
             logger.info("User cancelled file selection.");
         }
@@ -47,9 +48,9 @@ public class AddFileHandler{
         return selectedFile;
     }
 
-    private void copyFile(File sourceFile) {
+    public void copyFile() {
         // Xác định đường dẫn file đích
-        File destinationFile = new File("D:\\GitHub\\TwitterKOLProject\\" + sourceFile.getName());
+        File destinationFile = new File("D:\\GitHub\\TwitterKOLProject\\" + selectedFile.getName());
 
         try {
             // Nếu thư mục đích chưa tồn tại, tạo thư mục
@@ -57,7 +58,7 @@ public class AddFileHandler{
             Files.createDirectories(destinationPath.getParent());
 
             // Sao chép file với tùy chọn ghi đè nếu file đã tồn tại
-            Files.copy(sourceFile.toPath(), destinationPath, StandardCopyOption.REPLACE_EXISTING);
+            Files.copy(selectedFile.toPath(), destinationPath, StandardCopyOption.REPLACE_EXISTING);
             logger.info("File copied successfully to: " + destinationFile.getAbsolutePath());
         } catch (IOException e) {
             // Ghi lỗi vào log nếu có sự cố khi sao chép
