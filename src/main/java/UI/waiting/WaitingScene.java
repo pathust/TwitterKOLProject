@@ -86,7 +86,7 @@ public class WaitingScene {
 
     private void handleCloseRequest(WindowEvent event) {
         Platform.runLater(() -> {
-            System.out.print("Hello");
+//            System.out.print("Hello");
             this.close();
 
             StartScraperHandler.closeThread();

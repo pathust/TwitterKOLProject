@@ -8,6 +8,8 @@ import graph.PagerankCalculator;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+
 public class AppInterface extends Application implements SwitchingScene{
     private Graph graph;
     private PagerankCalculator pagerankCalculator;
@@ -26,7 +28,7 @@ public class AppInterface extends Application implements SwitchingScene{
 
         homeScene = new HomeScene(primaryStage, this);
         waitingScene = new WaitingScene(primaryStage, this);
-
+        displayScene = new DisplayScene(primaryStage, this);
         homeScene.start();
     }
 
@@ -42,6 +44,7 @@ public class AppInterface extends Application implements SwitchingScene{
 
     @Override
     public void switchToDisplay() {
+//        displayScene.init();
         displayScene.start();
     }
 

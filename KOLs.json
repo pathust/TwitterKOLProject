@@ -1,503 +1,839 @@
 [ {
-  "username" : "This is test",
-  "profileLink" : "https://x.com/Exobelos",
+  "username" : "PI\uD835\uDD4FEL",
+  "profileLink" : "https://x.com/Pixelink404",
   "isVerified" : true,
-  "followersCount" : 53000,
-  "followingCount" : 212,
-  "followingList" : [ "https://x.com/Monty_Smug", "https://x.com/Spl4ts", "https://x.com/Dazzlelizz" ]
-}, {
-  "username" : "LmaoBroken",
-  "profileLink" : "https://x.com/LmaoBroken",
-  "isVerified" : true,
-  "followersCount" : 1515,
-  "followingCount" : 522,
-  "followingList" : [ "https://x.com/spyerfrog", "https://x.com/TeamFalconsGG", "https://x.com/souriano" ]
-}, {
-  "username" : "lmao",
-  "profileLink" : "https://x.com/aayylmao",
-  "isVerified" : true,
-  "followersCount" : 99000,
-  "followingCount" : 52,
-  "followingList" : [ "https://x.com/Jejkobbb", "https://x.com/dxxnya", "https://x.com/CaleSaurage" ]
-}, {
-  "username" : "Ambwor",
-  "profileLink" : "https://x.com/FCLmao",
-  "isVerified" : true,
-  "followersCount" : 2678,
-  "followingCount" : 695,
-  "followingList" : [ "https://x.com/calvinsucks", "https://x.com/spybblez", "https://x.com/TalentSomething" ]
-}, {
-  "username" : "Mythical",
-  "profileLink" : "https://x.com/MythicalLMAO",
-  "isVerified" : true,
-  "followersCount" : 1332,
+  "followersCount" : 0,
   "followingCount" : 0,
   "followingList" : [ ]
 }, {
-  "username" : "vi",
-  "profileLink" : "https://x.com/avit69lmao",
+  "username" : "Nemesis",
+  "profileLink" : "https://x.com/nemesis_lol",
   "isVerified" : true,
-  "followersCount" : 3184,
-  "followingCount" : 412,
-  "followingList" : [ "https://x.com/brakence", "https://x.com/jedwill", "https://x.com/7NGELUS" ]
+  "followersCount" : 0,
+  "followingCount" : 0,
+  "followingList" : [ ]
 }, {
-  "username" : "Kendrick Lmao",
-  "profileLink" : "https://x.com/DilleyCouture",
+  "username" : "LoLビギナーズ",
+  "profileLink" : "https://x.com/LoLBeginners",
   "isVerified" : true,
-  "followersCount" : 6817,
-  "followingCount" : 2971,
-  "followingList" : [ "https://x.com/bstrat515", "https://x.com/Ordinary_Adam", "https://x.com/roaringpika" ]
+  "followersCount" : 9658,
+  "followingCount" : 1033,
+  "followingList" : [ "https://x.com/Pixelink404", "https://x.com/LOLNinjaBlog", "https://x.com/LoLJPOfficial", "https://x.com/lol_alliyan", "https://x.com/syaruruuu", "https://x.com/yr7191", "https://x.com/lolesports_jp" ]
 }, {
-  "username" : "D1 | PC Tweaker",
-  "profileLink" : "https://x.com/d1lmao",
+  "username" : "ボチカ@青森最高レート",
+  "profileLink" : "https://x.com/BOTika_LOL",
   "isVerified" : true,
-  "followersCount" : 2705,
-  "followingCount" : 1016,
-  "followingList" : [ "https://x.com/swaywtw", "https://x.com/Cented7", "https://x.com/Jur3ky" ]
+  "followersCount" : 13000,
+  "followingCount" : 2172,
+  "followingList" : [ "https://x.com/ebihuryahurya", "https://x.com/Pixelink404", "https://x.com/PowerofTakaya", "https://x.com/syaruruuu", "https://x.com/LoLJPOfficial", "https://x.com/LOLNinjaBlog", "https://x.com/lol_alliyan", "https://x.com/Nagiponpoko", "https://x.com/JPKR_UG" ]
 }, {
-  "username" : "Negative",
-  "profileLink" : "https://x.com/lmaoNegative",
+  "username" : "LoL Esports Japan",
+  "profileLink" : "https://x.com/lolesports_jp",
   "isVerified" : true,
-  "followersCount" : 256,
-  "followingCount" : 6,
-  "followingList" : [ "https://x.com/TriggerTrades", "https://x.com/assflowcapital", "https://x.com/snorlax_uw" ]
+  "followersCount" : 77000,
+  "followingCount" : 278,
+  "followingList" : [ "https://x.com/ebihuryahurya", "https://x.com/team_detonation", "https://x.com/LoLJPOfficial", "https://x.com/PowerofTakaya", "https://x.com/trollceros", "https://x.com/Nagiponpoko", "https://x.com/Jaeger0446", "https://x.com/JPKR_UG" ]
 }, {
-  "username" : "Lmao",
-  "profileLink" : "https://x.com/lmaohq",
+  "username" : "League of Legends ES",
+  "profileLink" : "https://x.com/lol_es",
   "isVerified" : true,
-  "followersCount" : 17000,
-  "followingCount" : 10,
-  "followingList" : [ "https://x.com/deanbulla", "https://x.com/MustStopMurad", "https://x.com/TaniBuilds" ]
+  "followersCount" : 451000,
+  "followingCount" : 312,
+  "followingList" : [ "https://x.com/werlyb", "https://x.com/manutegaming", "https://x.com/Flakked_LoL" ]
 }, {
-  "username" : "Lola del Rey",
-  "profileLink" : "https://x.com/Lola_lmao7",
+  "username" : "Sardoche",
+  "profileLink" : "https://x.com/Sardoche_Lol",
   "isVerified" : true,
-  "followersCount" : 7377,
-  "followingCount" : 925,
-  "followingList" : [ "https://x.com/powerbottomdad1", "https://x.com/leamaric", "https://x.com/jardinsecret888" ]
+  "followersCount" : 650000,
+  "followingCount" : 555,
+  "followingList" : [ "https://x.com/Gotaga", "https://x.com/Kammeto", "https://x.com/Grimkujow_", "https://x.com/PerezNicolasLol" ]
 }, {
-  "username" : "JeRo LMAO",
-  "profileLink" : "https://x.com/jero_lmao",
+  "username" : "Molecule",
+  "profileLink" : "https://x.com/MoleculeLOL",
   "isVerified" : true,
-  "followersCount" : 4480,
-  "followingCount" : 123,
-  "followingList" : [ "https://x.com/SoulBound", "https://x.com/MorphL2", "https://x.com/SuiNetwork" ]
+  "followersCount" : 33000,
+  "followingCount" : 617,
+  "followingList" : [ "https://x.com/Veigar_v2", "https://x.com/Jackspektra", "https://x.com/LolMalice", "https://x.com/LoLContextChan", "https://x.com/lolPeanut98" ]
 }, {
-  "username" : "LMAO.TON",
-  "profileLink" : "https://x.com/TonLmao",
+  "username" : "T1 LoL",
+  "profileLink" : "https://x.com/T1LoL",
   "isVerified" : true,
-  "followersCount" : 9110,
-  "followingCount" : 3,
-  "followingList" : [ "https://x.com/impulsetoken", "https://x.com/Activity_ton", "https://x.com/getgemsdotio" ]
+  "followersCount" : 0,
+  "followingCount" : 0,
+  "followingList" : [ ]
 }, {
-  "username" : "tjwxxx",
-  "profileLink" : "https://x.com/tjwx_lmao",
+  "username" : "Viking",
+  "profileLink" : "https://x.com/VikingAntonLOL",
   "isVerified" : true,
-  "followersCount" : 358,
+  "followersCount" : 29000,
+  "followingCount" : 444,
+  "followingList" : [ "https://x.com/Chap_GG", "https://x.com/Karnagemvp", "https://x.com/TraYt0N", "https://x.com/OTP_LoL", "https://x.com/NarkussLol" ]
+}, {
+  "username" : "LoL Esports",
+  "profileLink" : "https://x.com/lolesports",
+  "isVerified" : true,
+  "followersCount" : 0,
+  "followingCount" : 0,
+  "followingList" : [ ]
+}, {
+  "username" : "OTP LoL",
+  "profileLink" : "https://x.com/OTP_LoL",
+  "isVerified" : true,
+  "followersCount" : 0,
+  "followingCount" : 0,
+  "followingList" : [ ]
+}, {
+  "username" : "Chreak",
+  "profileLink" : "https://x.com/Chreak_Lol",
+  "isVerified" : true,
+  "followersCount" : 0,
+  "followingCount" : 0,
+  "followingList" : [ ]
+}, {
+  "username" : "Wang Ho Han",
+  "profileLink" : "https://x.com/lolPeanut98",
+  "isVerified" : true,
+  "followersCount" : 159000,
+  "followingCount" : 101,
+  "followingList" : [ "https://x.com/T1LoL", "https://x.com/DRX_LCK", "https://x.com/RulereluR", "https://x.com/GenG_KR", "https://x.com/nemesis_lol", "https://x.com/lolesports", "https://x.com/ebihuryahurya" ]
+}, {
+  "username" : "Narkuss",
+  "profileLink" : "https://x.com/NarkussLol",
+  "isVerified" : true,
+  "followersCount" : 131000,
+  "followingCount" : 520,
+  "followingList" : [ "https://x.com/Chap_GG", "https://x.com/SolaryTV", "https://x.com/KarmineCorp", "https://x.com/LRB_LoL", "https://x.com/Karnagemvp", "https://x.com/TraYt0N", "https://x.com/KametoTV", "https://x.com/Wakzlol", "https://x.com/KoteiZousa", "https://x.com/CabochardLoL", "https://x.com/SlipixLoL", "https://x.com/Rhobalasv2", "https://x.com/Skeanz_lol" ]
+}, {
+  "username" : "Blidzy",
+  "profileLink" : "https://x.com/Blidzy_lol",
+  "isVerified" : true,
+  "followersCount" : 5125,
+  "followingCount" : 750,
+  "followingList" : [ "https://x.com/LEC_Wooloo", "https://x.com/KarmineCorp", "https://x.com/StrikerLoLcoach", "https://x.com/Kammeto", "https://x.com/Gotaga", "https://x.com/WoolooJr", "https://x.com/RekklesLoL", "https://x.com/TraYt0N", "https://x.com/SolaryTV", "https://x.com/Karnagemvp", "https://x.com/Chap_GG" ]
+}, {
+  "username" : "Eric Teixeira",
+  "profileLink" : "https://x.com/ericat_lol",
+  "isVerified" : true,
+  "followersCount" : 116000,
+  "followingCount" : 5416,
+  "followingList" : [ "https://x.com/baianolol1", "https://x.com/rangerlol1", "https://x.com/paiNGamingBR" ]
+}, {
+  "username" : "LOL",
+  "profileLink" : "https://x.com/lolaixyz",
+  "isVerified" : true,
+  "followersCount" : 204000,
+  "followingCount" : 166,
+  "followingList" : [ "https://x.com/Seraph_global", "https://x.com/petrixbarbosa", "https://x.com/OfficialSkyWee1", "https://x.com/lolesports" ]
+}, {
+  "username" : "Nicolas Perez",
+  "profileLink" : "https://x.com/PerezNicolasLol",
+  "isVerified" : true,
+  "followersCount" : 0,
+  "followingCount" : 0,
+  "followingList" : [ ]
+}, {
+  "username" : "Ash",
+  "profileLink" : "https://x.com/Sugoi_Ash",
+  "isVerified" : true,
+  "followersCount" : 209000,
+  "followingCount" : 785,
+  "followingList" : [ "https://x.com/fuslie", "https://x.com/Sykkuno", "https://x.com/Kkatamina" ]
+}, {
+  "username" : "LoL Context-Chan",
+  "profileLink" : "https://x.com/LoLContextChan",
+  "isVerified" : true,
+  "followersCount" : 11000,
+  "followingCount" : 329,
+  "followingList" : [ "https://x.com/AshleyKang", "https://x.com/LPLfanclub", "https://x.com/cutebchu", "https://x.com/Veigar_v2", "https://x.com/LCK", "https://x.com/DRX_LCK", "https://x.com/nemesis_lol", "https://x.com/RekklesLoL" ]
+}, {
+  "username" : "Tweets that feel",
+  "profileLink" : "https://x.com/lonelyuserfyp",
+  "isVerified" : true,
+  "followersCount" : 1000000,
+  "followingCount" : 96,
+  "followingList" : [ "https://x.com/unworns", "https://x.com/dontcyn", "https://x.com/imagesmovies" ]
+}, {
+  "username" : "Noah7",
+  "profileLink" : "https://x.com/Noah_lol1004",
+  "isVerified" : true,
+  "followersCount" : 37000,
+  "followingCount" : 199,
+  "followingList" : [ "https://x.com/SkewMond_09", "https://x.com/AndreGuilhoto94", "https://x.com/0nerren0", "https://x.com/PerezNicolasLol" ]
+}, {
+  "username" : "James MacCormack",
+  "profileLink" : "https://x.com/MacCLol",
+  "isVerified" : true,
+  "followersCount" : 42000,
+  "followingCount" : 486,
+  "followingList" : [ "https://x.com/Caedrel", "https://x.com/Perkz", "https://x.com/LEC_Wooloo", "https://x.com/JankosLoL", "https://x.com/LEC", "https://x.com/AshleyKang", "https://x.com/YamatoMebdi", "https://x.com/Odoamne", "https://x.com/Flakked_LoL", "https://x.com/MedicCasts" ]
+}, {
+  "username" : "Skeanz",
+  "profileLink" : "https://x.com/Skeanz_lol",
+  "isVerified" : true,
+  "followersCount" : 46000,
+  "followingCount" : 636,
+  "followingList" : [ "https://x.com/KarmineCorp", "https://x.com/CabochardLoL", "https://x.com/Karnagemvp", "https://x.com/OTP_LoL", "https://x.com/KoteiZousa", "https://x.com/TraYt0N", "https://x.com/SolaryTV", "https://x.com/Saken_lol", "https://x.com/Vatira5", "https://x.com/LRB_LoL", "https://x.com/Nisqy", "https://x.com/Hanteralol", "https://x.com/StrikerLoLcoach", "https://x.com/xms51", "https://x.com/MaulCKX", "https://x.com/SkewMond_09" ]
+}, {
+  "username" : "lol-エルオーエル-",
+  "profileLink" : "https://x.com/lol_avex",
+  "isVerified" : true,
+  "followersCount" : 107000,
   "followingCount" : 210,
-  "followingList" : [ "https://x.com/oiiiiish", "https://x.com/charliekirk11", "https://x.com/stormchaserlane" ]
+  "followingList" : [ "https://x.com/uno_uno_0716", "https://x.com/SHUUTY_ss", "https://x.com/A_Shinjirooooo" ]
 }, {
-  "username" : "deuce lmao",
-  "profileLink" : "https://x.com/deuce_gg",
+  "username" : "Reptile",
+  "profileLink" : "https://x.com/Reptile9LoL",
   "isVerified" : true,
-  "followersCount" : 267,
-  "followingCount" : 397,
-  "followingList" : [ "https://x.com/RonPaul", "https://x.com/b0ngwterSpiller", "https://x.com/ParkerThayer" ]
+  "followersCount" : 48000,
+  "followingCount" : 423,
+  "followingList" : [ "https://x.com/UnforgivenLoL", "https://x.com/rulfchen", "https://x.com/Scarf4ceLoL", "https://x.com/Jackspektra" ]
 }, {
-  "username" : "MOVED ACCOUNTS @xavii_lmao",
-  "profileLink" : "https://x.com/luxar_b3d",
+  "username" : "VIT Karina",
+  "profileLink" : "https://x.com/karinak_lol",
   "isVerified" : true,
-  "followersCount" : 0,
-  "followingCount" : 0,
-  "followingList" : [ ]
+  "followersCount" : 20000,
+  "followingCount" : 542,
+  "followingList" : [ "https://x.com/TIFA_LoL", "https://x.com/Caltyss", "https://x.com/lizialol", "https://x.com/UnforgivenLoL", "https://x.com/OTP_LoL", "https://x.com/nemesis_lol", "https://x.com/Chreak_Lol" ]
 }, {
-  "username" : "zk.",
-  "profileLink" : "https://x.com/zk_lmao",
+  "username" : "Arun Lol",
+  "profileLink" : "https://x.com/dhaikilokatweet",
   "isVerified" : true,
-  "followersCount" : 0,
-  "followingCount" : 0,
-  "followingList" : [ ]
+  "followersCount" : 58000,
+  "followingCount" : 550,
+  "followingList" : [ "https://x.com/GaurangBhardwa1", "https://x.com/firki07", "https://x.com/ikpsgill1" ]
 }, {
-  "username" : "rig",
-  "profileLink" : "https://x.com/NotOrionLMAO",
+  "username" : "lolGosu",
+  "profileLink" : "https://x.com/lolGosu",
   "isVerified" : true,
-  "followersCount" : 0,
-  "followingCount" : 0,
-  "followingList" : [ ]
+  "followersCount" : 231000,
+  "followingCount" : 42,
+  "followingList" : [ "https://x.com/IWDominate", "https://x.com/Bjergsen", "https://x.com/Biofrostlol" ]
 }, {
-  "username" : "antonio lmao",
-  "profileLink" : "https://x.com/antoniolmaoo",
-  "isVerified" : true,
-  "followersCount" : 0,
-  "followingCount" : 0,
-  "followingList" : [ ]
-}, {
-  "username" : "DP",
-  "profileLink" : "https://x.com/just_dp_lmao",
-  "isVerified" : true,
-  "followersCount" : 0,
-  "followingCount" : 0,
-  "followingList" : [ ]
-}, {
-  "username" : "Zim Lmao",
-  "profileLink" : "https://x.com/ZimLmao",
-  "isVerified" : true,
-  "followersCount" : 0,
-  "followingCount" : 0,
-  "followingList" : [ ]
-}, {
-  "username" : "ZeroGN",
-  "profileLink" : "https://x.com/lmaoZeroGN",
-  "isVerified" : true,
-  "followersCount" : 0,
-  "followingCount" : 0,
-  "followingList" : [ ]
-}, {
-  "username" : "◣▿ ᗩGI᙭ ▴⊿",
-  "profileLink" : "https://x.com/aaa_lmao",
-  "isVerified" : true,
-  "followersCount" : 0,
-  "followingCount" : 0,
-  "followingList" : [ ]
-}, {
-  "username" : "Best of telegram",
-  "profileLink" : "https://x.com/lmao_video",
-  "isVerified" : true,
-  "followersCount" : 0,
-  "followingCount" : 0,
-  "followingList" : [ ]
-}, {
-  "username" : "Fuck fhat Frost guy",
-  "profileLink" : "https://x.com/FrostLMAO2",
-  "isVerified" : true,
-  "followersCount" : 0,
-  "followingCount" : 0,
-  "followingList" : [ ]
-}, {
-  "username" : "ayy lmao",
-  "profileLink" : "https://x.com/tommydfor3_",
-  "isVerified" : true,
-  "followersCount" : 0,
-  "followingCount" : 0,
-  "followingList" : [ ]
-}, {
-  "username" : "Analog",
-  "profileLink" : "https://x.com/LmaoAnalog",
-  "isVerified" : true,
-  "followersCount" : 0,
-  "followingCount" : 0,
-  "followingList" : [ ]
-}, {
-  "username" : "Charles Christ",
-  "profileLink" : "https://x.com/kingchvrles",
-  "isVerified" : true,
-  "followersCount" : 0,
-  "followingCount" : 0,
-  "followingList" : [ ]
-}, {
-  "username" : "SrLmao",
-  "profileLink" : "https://x.com/LSr_Lmao",
-  "isVerified" : true,
-  "followersCount" : 0,
-  "followingCount" : 0,
-  "followingList" : [ ]
-}, {
-  "username" : "Rafael Lmao",
-  "profileLink" : "https://x.com/rafael_lmao",
-  "isVerified" : true,
-  "followersCount" : 0,
-  "followingCount" : 0,
-  "followingList" : [ ]
-}, {
-  "username" : "Monty",
-  "profileLink" : "https://x.com/Monty_Smug",
+  "username" : "リーグ・オブ・レジェンド",
+  "profileLink" : "https://x.com/LoLJPOfficial",
   "isVerified" : false,
   "followersCount" : 0,
   "followingCount" : 0,
   "followingList" : [ ]
 }, {
-  "username" : "Spl4ts",
-  "profileLink" : "https://x.com/Spl4ts",
+  "username" : "LoL忍者",
+  "profileLink" : "https://x.com/LOLNinjaBlog",
   "isVerified" : false,
   "followersCount" : 0,
   "followingCount" : 0,
   "followingList" : [ ]
 }, {
-  "username" : "Dazzle",
-  "profileLink" : "https://x.com/Dazzlelizz",
+  "username" : "たかやスペシャル",
+  "profileLink" : "https://x.com/PowerofTakaya",
   "isVerified" : false,
   "followersCount" : 0,
   "followingCount" : 0,
   "followingList" : [ ]
 }, {
-  "username" : "Falcon Spy",
-  "profileLink" : "https://x.com/spyerfrog",
+  "username" : "Caedrel",
+  "profileLink" : "https://x.com/Caedrel",
   "isVerified" : false,
   "followersCount" : 0,
   "followingCount" : 0,
   "followingList" : [ ]
 }, {
-  "username" : "Team Falcons",
-  "profileLink" : "https://x.com/TeamFalconsGG",
+  "username" : "Luka",
+  "profileLink" : "https://x.com/Perkz",
   "isVerified" : false,
   "followersCount" : 0,
   "followingCount" : 0,
   "followingList" : [ ]
 }, {
-  "username" : "souriano",
-  "profileLink" : "https://x.com/souriano",
+  "username" : "Marcin Jankowski",
+  "profileLink" : "https://x.com/JankosLoL",
   "isVerified" : false,
   "followersCount" : 0,
   "followingCount" : 0,
   "followingList" : [ ]
 }, {
-  "username" : "Jejkobbb",
-  "profileLink" : "https://x.com/Jejkobbb",
+  "username" : "Alliyan (LoL)",
+  "profileLink" : "https://x.com/lol_alliyan",
   "isVerified" : false,
   "followersCount" : 0,
   "followingCount" : 0,
   "followingList" : [ ]
 }, {
-  "username" : "Danya",
-  "profileLink" : "https://x.com/dxxnya",
+  "username" : "しゃるる",
+  "profileLink" : "https://x.com/syaruruuu",
   "isVerified" : false,
   "followersCount" : 0,
   "followingCount" : 0,
   "followingList" : [ ]
 }, {
-  "username" : "CALE SAURAGE",
-  "profileLink" : "https://x.com/CaleSaurage",
+  "username" : "通訳ちゃん",
+  "profileLink" : "https://x.com/yr7191",
   "isVerified" : false,
   "followersCount" : 0,
   "followingCount" : 0,
   "followingList" : [ ]
 }, {
-  "username" : "calvin",
-  "profileLink" : "https://x.com/calvinsucks",
+  "username" : "SHG Evi/えびンモ",
+  "profileLink" : "https://x.com/ebihuryahurya",
   "isVerified" : false,
   "followersCount" : 0,
   "followingCount" : 0,
   "followingList" : [ ]
 }, {
-  "username" : "dream",
-  "profileLink" : "https://x.com/spybblez",
+  "username" : "なぎさっち",
+  "profileLink" : "https://x.com/Nagiponpoko",
   "isVerified" : false,
   "followersCount" : 0,
   "followingCount" : 0,
   "followingList" : [ ]
 }, {
-  "username" : "Larry²",
-  "profileLink" : "https://x.com/TalentSomething",
+  "username" : "JapaneseKoreanUG",
+  "profileLink" : "https://x.com/JPKR_UG",
   "isVerified" : false,
   "followersCount" : 0,
   "followingCount" : 0,
   "followingList" : [ ]
 }, {
-  "username" : "brakence",
-  "profileLink" : "https://x.com/brakence",
+  "username" : "DetonatioN FocusMe",
+  "profileLink" : "https://x.com/team_detonation",
   "isVerified" : false,
   "followersCount" : 0,
   "followingCount" : 0,
   "followingList" : [ ]
 }, {
-  "username" : "a local",
-  "profileLink" : "https://x.com/jedwill",
+  "username" : "Ceros",
+  "profileLink" : "https://x.com/trollceros",
   "isVerified" : false,
   "followersCount" : 0,
   "followingCount" : 0,
   "followingList" : [ ]
 }, {
-  "username" : "angelus aka @big Megatron",
-  "profileLink" : "https://x.com/7NGELUS",
+  "username" : "Jaeger / いぇーがー",
+  "profileLink" : "https://x.com/Jaeger0446",
   "isVerified" : false,
   "followersCount" : 0,
   "followingCount" : 0,
   "followingList" : [ ]
 }, {
-  "username" : "bstrat515",
-  "profileLink" : "https://x.com/bstrat515",
+  "username" : "Jorge 'Werlyb'",
+  "profileLink" : "https://x.com/werlyb",
   "isVerified" : false,
   "followersCount" : 0,
   "followingCount" : 0,
   "followingList" : [ ]
 }, {
-  "username" : "Ordinary Adam",
-  "profileLink" : "https://x.com/Ordinary_Adam",
+  "username" : "Manute",
+  "profileLink" : "https://x.com/manutegaming",
   "isVerified" : false,
   "followersCount" : 0,
   "followingCount" : 0,
   "followingList" : [ ]
 }, {
-  "username" : "shakingpika",
-  "profileLink" : "https://x.com/roaringpika",
+  "username" : "flakkkkkkkk",
+  "profileLink" : "https://x.com/Flakked_LoL",
   "isVerified" : false,
   "followersCount" : 0,
   "followingCount" : 0,
   "followingList" : [ ]
 }, {
-  "username" : "SG Sway",
-  "profileLink" : "https://x.com/swaywtw",
+  "username" : "M8 Gotaga",
+  "profileLink" : "https://x.com/Gotaga",
   "isVerified" : false,
   "followersCount" : 0,
   "followingCount" : 0,
   "followingList" : [ ]
 }, {
-  "username" : "EXD Cented",
-  "profileLink" : "https://x.com/Cented7",
+  "username" : "Kameto",
+  "profileLink" : "https://x.com/Kammeto",
   "isVerified" : false,
   "followersCount" : 0,
   "followingCount" : 0,
   "followingList" : [ ]
 }, {
-  "username" : "Jur3ky",
-  "profileLink" : "https://x.com/Jur3ky",
+  "username" : "Grim",
+  "profileLink" : "https://x.com/Grimkujow_",
   "isVerified" : false,
   "followersCount" : 0,
   "followingCount" : 0,
   "followingList" : [ ]
 }, {
-  "username" : "TRIGGER TRADES",
-  "profileLink" : "https://x.com/TriggerTrades",
+  "username" : "Veigarv2",
+  "profileLink" : "https://x.com/Veigar_v2",
   "isVerified" : false,
   "followersCount" : 0,
   "followingCount" : 0,
   "followingList" : [ ]
 }, {
-  "username" : "AssFlow Capital",
-  "profileLink" : "https://x.com/assflowcapital",
+  "username" : "Jackspektra",
+  "profileLink" : "https://x.com/Jackspektra",
   "isVerified" : false,
   "followersCount" : 0,
   "followingCount" : 0,
   "followingList" : [ ]
 }, {
-  "username" : "unusualwhales.com Snorlax (๑❛ ڡ ❛๑)",
-  "profileLink" : "https://x.com/snorlax_uw",
+  "username" : "Malice",
+  "profileLink" : "https://x.com/LolMalice",
   "isVerified" : false,
   "followersCount" : 0,
   "followingCount" : 0,
   "followingList" : [ ]
 }, {
-  "username" : "Dean (3/AC) (rtrd/acc)",
-  "profileLink" : "https://x.com/deanbulla",
+  "username" : "LCK",
+  "profileLink" : "https://x.com/LCK",
   "isVerified" : false,
   "followersCount" : 0,
   "followingCount" : 0,
   "followingList" : [ ]
 }, {
-  "username" : "Murad",
-  "profileLink" : "https://x.com/MustStopMurad",
+  "username" : "Joe",
+  "profileLink" : "https://x.com/JoeMar",
   "isVerified" : false,
   "followersCount" : 0,
   "followingCount" : 0,
   "followingList" : [ ]
 }, {
-  "username" : "Tani",
-  "profileLink" : "https://x.com/TaniBuilds",
+  "username" : "T1",
+  "profileLink" : "https://x.com/T1",
   "isVerified" : false,
   "followersCount" : 0,
   "followingCount" : 0,
   "followingList" : [ ]
 }, {
-  "username" : "sucks",
-  "profileLink" : "https://x.com/powerbottomdad1",
+  "username" : "Chap",
+  "profileLink" : "https://x.com/Chap_GG",
   "isVerified" : false,
   "followersCount" : 0,
   "followingCount" : 0,
   "followingList" : [ ]
 }, {
-  "username" : "ɐ͎ʞ͎ć͎ı͎ɹ͎ɐ͎ɯ͎",
-  "profileLink" : "https://x.com/leamaric",
+  "username" : "Karnage",
+  "profileLink" : "https://x.com/Karnagemvp",
   "isVerified" : false,
   "followersCount" : 0,
   "followingCount" : 0,
   "followingList" : [ ]
 }, {
-  "username" : "Catherine",
-  "profileLink" : "https://x.com/jardinsecret888",
+  "username" : "TraYtoN",
+  "profileLink" : "https://x.com/TraYt0N",
   "isVerified" : false,
   "followersCount" : 0,
   "followingCount" : 0,
   "followingList" : [ ]
 }, {
-  "username" : "Soulbound",
-  "profileLink" : "https://x.com/SoulBound",
+  "username" : "Martin",
+  "profileLink" : "https://x.com/RekklesLoL",
   "isVerified" : false,
   "followersCount" : 0,
   "followingCount" : 0,
   "followingList" : [ ]
 }, {
-  "username" : "Morph",
-  "profileLink" : "https://x.com/MorphL2",
+  "username" : "FNATIC",
+  "profileLink" : "https://x.com/FNATIC",
   "isVerified" : false,
   "followersCount" : 0,
   "followingCount" : 0,
   "followingList" : [ ]
 }, {
-  "username" : "Sui",
-  "profileLink" : "https://x.com/SuiNetwork",
+  "username" : "LEC",
+  "profileLink" : "https://x.com/LEC",
   "isVerified" : false,
   "followersCount" : 0,
   "followingCount" : 0,
   "followingList" : [ ]
 }, {
-  "username" : "Impulse Finance",
-  "profileLink" : "https://x.com/impulsetoken",
+  "username" : "Karmine Corp",
+  "profileLink" : "https://x.com/KarmineCorp",
   "isVerified" : false,
   "followersCount" : 0,
   "followingCount" : 0,
   "followingList" : [ ]
 }, {
-  "username" : "Activity",
-  "profileLink" : "https://x.com/Activity_ton",
+  "username" : "Cabochard",
+  "profileLink" : "https://x.com/CabochardLoL",
   "isVerified" : false,
   "followersCount" : 0,
   "followingCount" : 0,
   "followingList" : [ ]
 }, {
-  "username" : "Getgems",
-  "profileLink" : "https://x.com/getgemsdotio",
+  "username" : "Solary",
+  "profileLink" : "https://x.com/SolaryTV",
   "isVerified" : false,
   "followersCount" : 0,
   "followingCount" : 0,
   "followingList" : [ ]
 }, {
-  "username" : "oishWX",
-  "profileLink" : "https://x.com/oiiiiish",
+  "username" : "TDS Slipix",
+  "profileLink" : "https://x.com/SlipixLoL",
   "isVerified" : false,
   "followersCount" : 0,
   "followingCount" : 0,
   "followingList" : [ ]
 }, {
-  "username" : "Charlie Kirk",
-  "profileLink" : "https://x.com/charliekirk11",
+  "username" : "Rhobalas",
+  "profileLink" : "https://x.com/Rhobalasv2",
   "isVerified" : false,
   "followersCount" : 0,
   "followingCount" : 0,
   "followingList" : [ ]
 }, {
-  "username" : "Storm Chaser Lane Fatherree",
-  "profileLink" : "https://x.com/stormchaserlane",
+  "username" : "Wakz | Solary",
+  "profileLink" : "https://x.com/Wakzlol",
   "isVerified" : false,
   "followersCount" : 0,
   "followingCount" : 0,
   "followingList" : [ ]
 }, {
-  "username" : "Ron Paul",
-  "profileLink" : "https://x.com/RonPaul",
+  "username" : "DRX League of Legends",
+  "profileLink" : "https://x.com/DRX_LCK",
   "isVerified" : false,
   "followersCount" : 0,
   "followingCount" : 0,
   "followingList" : [ ]
 }, {
-  "username" : "morg",
-  "profileLink" : "https://x.com/b0ngwterSpiller",
+  "username" : "박재혁",
+  "profileLink" : "https://x.com/RulereluR",
   "isVerified" : false,
   "followersCount" : 0,
   "followingCount" : 0,
   "followingList" : [ ]
 }, {
-  "username" : "Parker Thayer",
-  "profileLink" : "https://x.com/ParkerThayer",
+  "username" : "젠지 이스포츠 | Gen.G Esports",
+  "profileLink" : "https://x.com/GenG_KR",
+  "isVerified" : false,
+  "followersCount" : 0,
+  "followingCount" : 0,
+  "followingList" : [ ]
+}, {
+  "username" : "SLY | Sakor",
+  "profileLink" : "https://x.com/LRB_LoL",
+  "isVerified" : false,
+  "followersCount" : 0,
+  "followingCount" : 0,
+  "followingList" : [ ]
+}, {
+  "username" : "KametoTV",
+  "profileLink" : "https://x.com/KametoTV",
+  "isVerified" : false,
+  "followersCount" : 0,
+  "followingCount" : 0,
+  "followingList" : [ ]
+}, {
+  "username" : "Kotei",
+  "profileLink" : "https://x.com/KoteiZousa",
+  "isVerified" : false,
+  "followersCount" : 0,
+  "followingCount" : 0,
+  "followingList" : [ ]
+}, {
+  "username" : "LEC Wooloo",
+  "profileLink" : "https://x.com/LEC_Wooloo",
+  "isVerified" : false,
+  "followersCount" : 0,
+  "followingCount" : 0,
+  "followingList" : [ ]
+}, {
+  "username" : "BDS Striker",
+  "profileLink" : "https://x.com/StrikerLoLcoach",
+  "isVerified" : false,
+  "followersCount" : 0,
+  "followingCount" : 0,
+  "followingList" : [ ]
+}, {
+  "username" : "Wooloo Live",
+  "profileLink" : "https://x.com/WoolooJr",
+  "isVerified" : false,
+  "followersCount" : 0,
+  "followingCount" : 0,
+  "followingList" : [ ]
+}, {
+  "username" : "Baiano",
+  "profileLink" : "https://x.com/baianolol1",
+  "isVerified" : false,
+  "followersCount" : 0,
+  "followingCount" : 0,
+  "followingList" : [ ]
+}, {
+  "username" : "Ranger aka Goat",
+  "profileLink" : "https://x.com/rangerlol1",
+  "isVerified" : false,
+  "followersCount" : 0,
+  "followingCount" : 0,
+  "followingList" : [ ]
+}, {
+  "username" : "paiN Gaming",
+  "profileLink" : "https://x.com/paiNGamingBR",
+  "isVerified" : false,
+  "followersCount" : 0,
+  "followingCount" : 0,
+  "followingList" : [ ]
+}, {
+  "username" : "Seraph",
+  "profileLink" : "https://x.com/Seraph_global",
+  "isVerified" : false,
+  "followersCount" : 0,
+  "followingCount" : 0,
+  "followingList" : [ ]
+}, {
+  "username" : "Petrix Barbosa",
+  "profileLink" : "https://x.com/petrixbarbosa",
+  "isVerified" : false,
+  "followersCount" : 0,
+  "followingCount" : 0,
+  "followingList" : [ ]
+}, {
+  "username" : "Sky Wee",
+  "profileLink" : "https://x.com/OfficialSkyWee1",
+  "isVerified" : false,
+  "followersCount" : 0,
+  "followingCount" : 0,
+  "followingList" : [ ]
+}, {
+  "username" : "Maul",
+  "profileLink" : "https://x.com/MaulCKX",
+  "isVerified" : false,
+  "followersCount" : 0,
+  "followingCount" : 0,
+  "followingList" : [ ]
+}, {
+  "username" : "Jules",
+  "profileLink" : "https://x.com/Hanteralol",
+  "isVerified" : false,
+  "followersCount" : 0,
+  "followingCount" : 0,
+  "followingList" : [ ]
+}, {
+  "username" : "XMS",
+  "profileLink" : "https://x.com/xms51",
+  "isVerified" : false,
+  "followersCount" : 0,
+  "followingCount" : 0,
+  "followingList" : [ ]
+}, {
+  "username" : "leslie",
+  "profileLink" : "https://x.com/fuslie",
+  "isVerified" : false,
+  "followersCount" : 0,
+  "followingCount" : 0,
+  "followingList" : [ ]
+}, {
+  "username" : "Sykkuno",
+  "profileLink" : "https://x.com/Sykkuno",
+  "isVerified" : false,
+  "followersCount" : 0,
+  "followingCount" : 0,
+  "followingList" : [ ]
+}, {
+  "username" : "Miyoung",
+  "profileLink" : "https://x.com/Kkatamina",
+  "isVerified" : false,
+  "followersCount" : 0,
+  "followingCount" : 0,
+  "followingList" : [ ]
+}, {
+  "username" : "Ashley Kang",
+  "profileLink" : "https://x.com/AshleyKang",
+  "isVerified" : false,
+  "followersCount" : 0,
+  "followingCount" : 0,
+  "followingList" : [ ]
+}, {
+  "username" : "LPL Fanclub",
+  "profileLink" : "https://x.com/LPLfanclub",
+  "isVerified" : false,
+  "followersCount" : 0,
+  "followingCount" : 0,
+  "followingList" : [ ]
+}, {
+  "username" : "Rita",
+  "profileLink" : "https://x.com/cutebchu",
+  "isVerified" : false,
+  "followersCount" : 0,
+  "followingCount" : 0,
+  "followingList" : [ ]
+}, {
+  "username" : "benadryl",
+  "profileLink" : "https://x.com/unworns",
+  "isVerified" : false,
+  "followersCount" : 0,
+  "followingCount" : 0,
+  "followingList" : [ ]
+}, {
+  "username" : "cyn",
+  "profileLink" : "https://x.com/dontcyn",
+  "isVerified" : false,
+  "followersCount" : 0,
+  "followingCount" : 0,
+  "followingList" : [ ]
+}, {
+  "username" : "Images That Could Be Movie Posters",
+  "profileLink" : "https://x.com/imagesmovies",
+  "isVerified" : false,
+  "followersCount" : 0,
+  "followingCount" : 0,
+  "followingList" : [ ]
+}, {
+  "username" : "SkewMond",
+  "profileLink" : "https://x.com/SkewMond_09",
+  "isVerified" : false,
+  "followersCount" : 0,
+  "followingCount" : 0,
+  "followingList" : [ ]
+}, {
+  "username" : "André Guilhoto",
+  "profileLink" : "https://x.com/AndreGuilhoto94",
+  "isVerified" : false,
+  "followersCount" : 0,
+  "followingCount" : 0,
+  "followingList" : [ ]
+}, {
+  "username" : "문현준",
+  "profileLink" : "https://x.com/0nerren0",
+  "isVerified" : false,
+  "followersCount" : 0,
+  "followingCount" : 0,
+  "followingList" : [ ]
+}, {
+  "username" : "YamatoCannon",
+  "profileLink" : "https://x.com/YamatoMebdi",
+  "isVerified" : false,
+  "followersCount" : 0,
+  "followingCount" : 0,
+  "followingList" : [ ]
+}, {
+  "username" : "Andrei Pascu",
+  "profileLink" : "https://x.com/Odoamne",
+  "isVerified" : false,
+  "followersCount" : 0,
+  "followingCount" : 0,
+  "followingList" : [ ]
+}, {
+  "username" : "Medic",
+  "profileLink" : "https://x.com/MedicCasts",
+  "isVerified" : false,
+  "followersCount" : 0,
+  "followingCount" : 0,
+  "followingList" : [ ]
+}, {
+  "username" : "SAKEN",
+  "profileLink" : "https://x.com/Saken_lol",
+  "isVerified" : false,
+  "followersCount" : 0,
+  "followingCount" : 0,
+  "followingList" : [ ]
+}, {
+  "username" : "KC Vatira.",
+  "profileLink" : "https://x.com/Vatira5",
+  "isVerified" : false,
+  "followersCount" : 0,
+  "followingCount" : 0,
+  "followingList" : [ ]
+}, {
+  "username" : "Yasin Dincer",
+  "profileLink" : "https://x.com/Nisqy",
+  "isVerified" : false,
+  "followersCount" : 0,
+  "followingCount" : 0,
+  "followingList" : [ ]
+}, {
+  "username" : "宇野実彩子 AAA",
+  "profileLink" : "https://x.com/uno_uno_0716",
+  "isVerified" : false,
+  "followersCount" : 0,
+  "followingCount" : 0,
+  "followingList" : [ ]
+}, {
+  "username" : "Shuta Sueyoshi",
+  "profileLink" : "https://x.com/SHUUTY_ss",
+  "isVerified" : false,
+  "followersCount" : 0,
+  "followingCount" : 0,
+  "followingList" : [ ]
+}, {
+  "username" : "SHINJIRO 與 真司郎",
+  "profileLink" : "https://x.com/A_Shinjirooooo",
+  "isVerified" : false,
+  "followersCount" : 0,
+  "followingCount" : 0,
+  "followingList" : [ ]
+}, {
+  "username" : "Unforgiven",
+  "profileLink" : "https://x.com/UnforgivenLoL",
+  "isVerified" : false,
+  "followersCount" : 0,
+  "followingCount" : 0,
+  "followingList" : [ ]
+}, {
+  "username" : "Rulfchen",
+  "profileLink" : "https://x.com/rulfchen",
+  "isVerified" : false,
+  "followersCount" : 0,
+  "followingCount" : 0,
+  "followingList" : [ ]
+}, {
+  "username" : "Scarface",
+  "profileLink" : "https://x.com/Scarf4ceLoL",
+  "isVerified" : false,
+  "followersCount" : 0,
+  "followingCount" : 0,
+  "followingList" : [ ]
+}, {
+  "username" : "TIFA",
+  "profileLink" : "https://x.com/TIFA_LoL",
+  "isVerified" : false,
+  "followersCount" : 0,
+  "followingCount" : 0,
+  "followingList" : [ ]
+}, {
+  "username" : "G2 Caltys",
+  "profileLink" : "https://x.com/Caltyss",
+  "isVerified" : false,
+  "followersCount" : 0,
+  "followingCount" : 0,
+  "followingList" : [ ]
+}, {
+  "username" : "G2 Lizia",
+  "profileLink" : "https://x.com/lizialol",
+  "isVerified" : false,
+  "followersCount" : 0,
+  "followingCount" : 0,
+  "followingList" : [ ]
+}, {
+  "username" : "Raja Babu",
+  "profileLink" : "https://x.com/GaurangBhardwa1",
+  "isVerified" : false,
+  "followersCount" : 0,
+  "followingCount" : 0,
+  "followingList" : [ ]
+}, {
+  "username" : "",
+  "profileLink" : "https://x.com/firki07",
+  "isVerified" : false,
+  "followersCount" : 0,
+  "followingCount" : 0,
+  "followingList" : [ ]
+}, {
+  "username" : "Dr Gill",
+  "profileLink" : "https://x.com/ikpsgill1",
+  "isVerified" : false,
+  "followersCount" : 0,
+  "followingCount" : 0,
+  "followingList" : [ ]
+}, {
+  "username" : "Christian Rivera",
+  "profileLink" : "https://x.com/IWDominate",
+  "isVerified" : false,
+  "followersCount" : 0,
+  "followingCount" : 0,
+  "followingList" : [ ]
+}, {
+  "username" : "Bjergsen",
+  "profileLink" : "https://x.com/Bjergsen",
+  "isVerified" : false,
+  "followersCount" : 0,
+  "followingCount" : 0,
+  "followingList" : [ ]
+}, {
+  "username" : "Vincent",
+  "profileLink" : "https://x.com/Biofrostlol",
   "isVerified" : false,
   "followersCount" : 0,
   "followingCount" : 0,
