@@ -20,7 +20,7 @@ public class TweetStorage {
     private final Map<String, Tweet> tweetMap;
     private final ArrayNode tweetArray;
 
-    public TweetStorage() throws IOException {
+    public TweetStorage() {
         this.mapper = new ObjectMapper();
         this.objectNodeMap = new HashMap<>();
         this.tweetIndexMap = new HashMap<>();
@@ -33,20 +33,18 @@ public class TweetStorage {
         if (!file.exists() || file.length() == 0) {
             return;
         }
+
         JsonNode rootNode = mapper.readTree(file);
         if (rootNode.isArray()) {
             ArrayNode tweets = (ArrayNode) rootNode;
             int tweetIndex = 0;
+
             for (JsonNode tweetNode : tweets) {
                 String tweetLink = tweetNode.get("tweetLink").asText();
                 String userLink = tweetNode.get("userLink").asText();
-                String dateTime = tweetNode.get("dateTime").asText();
-                String content = tweetNode.get("content").asText();
                 int repostCount = tweetNode.get("repostCount").asInt();
 
-                Tweet tweet = new Tweet(tweetLink, userLink);
-                tweet.setContent(content);
-                tweet.setDateTime(dateTime);
+                Tweet tweet = new Tweet(tweetLink, userLink, repostCount);
                 tweet.setRepostCount(repostCount);
                 tweet.setRepostList(getRepostLinks(tweetNode));
 
@@ -61,11 +59,10 @@ public class TweetStorage {
     }
 
     public void addTweet(Tweet tweet) {
-        ObjectNode tweetNode = objectNodeMap.get(tweet.getTweetLink());
-        if (tweetNode != null) {
-            updateTweetFields(tweetNode, tweet);
+        if (tweetMap.containsKey(tweet.getTweetLink())) {
+            updateTweet(tweet);
         } else {
-            tweetNode = createTweetNode(tweet);
+            ObjectNode tweetNode = createTweetNode(tweet);
             int tweetIndex = tweetArray.size();
 
             objectNodeMap.put(tweet.getTweetLink(), tweetNode);
@@ -76,48 +73,70 @@ public class TweetStorage {
     }
 
     public void saveData(String filePath) throws IOException {
-        File file = new File(filePath);
-        mapper.writerWithDefaultPrettyPrinter().writeValue(file, tweetArray);
+        mapper.writerWithDefaultPrettyPrinter().writeValue(new File(filePath), tweetArray);
     }
 
     public List<Tweet> getTweets() {
         List<Tweet> tweets = new ArrayList<>();
         for (JsonNode tweetNode : tweetArray) {
-            String tweetLink = tweetNode.get("repostList").asText();
-            Tweet tweet = tweetMap.get(tweetLink);
-            tweets.add(tweet);
+            String tweetLink = tweetNode.get("tweetLink").asText();
+            tweets.add(tweetMap.get(tweetLink));
         }
         return tweets;
     }
-
+/*
     private ObjectNode createTweetNode(Tweet tweet) {
         ObjectNode tweetNode = mapper.createObjectNode();
-
         tweetNode.put("tweetLink", tweet.getTweetLink());
         tweetNode.put("userLink", tweet.getUserLink());
-        tweetNode.put("dateTime", tweet.getDateTime().toString());
-        tweetNode.put("content", tweet.getContent());
         tweetNode.put("repostCount", tweet.getRepostCount());
-        tweetNode.set("repostList", getRepostLinks(tweet.getRepostList()));
-        return tweetNode;
-    }
 
-    private void updateTweetFields(ObjectNode tweetNode, Tweet tweet) {
-        tweetNode.put("dateTime", tweet.getDateTime().toString());
-        tweetNode.put("content", tweet.getContent());
-        tweetNode.put("repostCount", tweet.getRepostCount());
-        tweetNode.set("repostList",getRepostLinks(tweet.getRepostList()));
+        // Kiểm tra nếu repostList là null, tạo một ArrayNode rỗng
+        List<String> repostLinks = (tweet.getRepostList() != null) ? tweet.getRepostList() : new ArrayList<>();
+        tweetNode.set("repostList", getRepostLinks(repostLinks));
+
+        return tweetNode;
+    }*/
+private ObjectNode createTweetNode(Tweet tweet) {
+    ObjectNode tweetNode = mapper.createObjectNode();
+    tweetNode.put("tweetLink", tweet.getTweetLink());
+    tweetNode.put("userLink", tweet.getUserLink());
+    tweetNode.put("repostCount", tweet.getRepostCount());
+
+    // Khởi tạo một ArrayNode rỗng nếu repostList là null
+    List<String> repostLinks = (tweet.getRepostList() != null) ? tweet.getRepostList() : new ArrayList<>();
+    tweetNode.set("repostList", getRepostLinks(repostLinks));
+
+    return tweetNode;
+}
+
+
+    private void updateTweet(Tweet tweet) {
+        ObjectNode tweetNode = objectNodeMap.get(tweet.getTweetLink());
+        updateTweetFields(tweetNode, tweet);
         int tweetIndex = tweetIndexMap.get(tweet.getTweetLink());
         tweetArray.set(tweetIndex, tweetNode);
+    }
+
+    /*private void updateTweetFields(ObjectNode tweetNode, Tweet tweet) {
+        tweetNode.put("repostCount", tweet.getRepostCount());
+        tweetNode.set("repostList", getRepostLinks(tweet.getRepostList()));
+    }*/
+    private void updateTweetFields(ObjectNode tweetNode, Tweet tweet) {
+        tweetNode.put("repostCount", tweet.getRepostCount());
+
+        // Kiểm tra repostList của tweet, gán một danh sách rỗng nếu null
+        List<String> repostLinks = (tweet.getRepostList() != null) ? tweet.getRepostList() : new ArrayList<>();
+        tweetNode.set("repostList", getRepostLinks(repostLinks));
     }
 
     private List<String> getRepostLinks(JsonNode tweetNode) {
         List<String> repostLinks = new ArrayList<>();
         JsonNode listNode = tweetNode.get("repostList");
+
         if (listNode.isArray()) {
             for (JsonNode linkNode : listNode) {
-                String repostLink = linkNode.asText();
-                repostLinks.add(repostLink);
+                repostLinks.add(linkNode.asText());
             }
         }
         return repostLinks;
@@ -131,9 +150,11 @@ public class TweetStorage {
         return repostLinkArray;
     }
 
+    public boolean tweetExists(String tweetLink) {
+        return tweetMap.containsKey(tweetLink);
+    }
 
-    public ArrayNode getTweetArray() {
-        return tweetArray;
+    public Tweet getTweet(String tweetLink) {
+        return tweetMap.get(tweetLink);
     }
 }
-

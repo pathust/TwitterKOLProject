@@ -2,6 +2,7 @@ package scraper;
 
 import UI.waiting.WaitingScene;
 import model.User;
+import model.Tweet;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import scraper.authentication.Authenticator;
@@ -17,10 +18,13 @@ import scraper.navigation.WebNavigator;
 import scraper.storage.TweetDataHandler;
 import scraper.storage.UserDataHandler;
 import scraper.storage.UserStorageManager;
+import scraper.storage.TweetDataHandler;
 import scraper.storage.TweetStorageManager;
 
 import java.io.IOException;
 import java.util.List;
+
+import static java.lang.Integer.sum;
 
 
 public class TwitterScraperController {
@@ -59,6 +63,10 @@ public class TwitterScraperController {
         filter.advancedSearch(keywords, minLikes, minReplies, minReposts);
     }
 
+    public void navigationalSearchLink(){
+        filter.navigateToSearchResultLink();
+    }
+
     public void scrapeUsersData(List<User> users) throws IOException {
         for (User user : users) {
             if (user == null) {
@@ -76,12 +84,31 @@ public class TwitterScraperController {
         }
     }
 
+    public void scrapeTweetsData(List<Tweet> tweets) throws IOException {
+        for (Tweet tweet : tweets) {
+            if (tweet == null) {
+                System.out.println("Skipping scrape tweet ");
+                continue;
+
+            }
+            else {
+                System.out.println("Scraping tweet " + tweet.getUserLink());
+            }
+            tweetDataExtractor.extractData(tweet.getTweetLink(),1000,5);
+            tweetDataHandler.saveData("Tweet.json");
+        }
+    }
+
     public static void close() {
         driver.close();
     }
 
     public List<User> getUsers(String filePath) throws IOException {
         return userDataHandler.getUsers(filePath);
+    }
+
+    public List<Tweet> getTweets(String filePath) throws IOException {
+        return tweetDataHandler.getTweets(filePath);
     }
 
     private void extractInitialKOLsTo(String filePath) throws IOException {
@@ -97,16 +124,38 @@ public class TwitterScraperController {
         userDataHandler.saveData(filePath);
     }
 
+    private void extractInitialTweetsTo(String filePath) throws IOException {
+        System.out.println("Start collecting tweet data...");
+
+        List <Tweet> tweets = tweetDataExtractor.extractTweets( 15,15);
+        for (Tweet tweet : tweets) {
+            tweetDataHandler.addTweet(filePath,tweet);
+        }
+
+        tweetDataHandler.saveData(filePath);
+    }
+
     public static void main(String[] args) throws IOException, InterruptedException {
         TwitterScraperController controller = new TwitterScraperController();
 
+        //controller.login("@PogbaPaul432283", "anhrooneymtp@gmail.com", "anhmanunited");
+        //controller.login("@21Oop36301","penaldomessy21@gmail.com","123456789@21oop");
+        controller.login("@nhom_8_OOP","nqkien199hy@gmail.com","kien1992005t1chy");
         controller.login();
 
         controller.applyFilter(
                 List.of(args),
                 1000,
                 1000,
-                200);
+                250);
+
+        controller.extractInitialTweetsTo("Tweet.json");
+        List<Tweet> tweets = controller.getTweets("Tweet.json");
+        System.out.println("Number of tweets: " + tweets.size());
+        controller.scrapeTweetsData(tweets);
+        List<Tweet> test1 = controller.getTweets("Tweet.json");
+
+        controller.navigationalSearchLink();
 
         controller.extractInitialKOLsTo("KOLs.json");
 
@@ -114,9 +163,9 @@ public class TwitterScraperController {
         System.out.println("Number of users: " + users.size());
         controller.scrapeUsersData(users);
 
-        List<User> test = controller.getUsers("KOLs.json");
+        List<User> test2 = controller.getUsers("KOLs.json");
         int sum = 0;
-        for(User user : test) {
+        for(User user : test2) {
             System.out.println(sum);
             List<String> list = user.getFollowingList();
             String name = user.getUsername();
@@ -127,6 +176,7 @@ public class TwitterScraperController {
         }
 
         System.out.println("Number of users: " + sum);
-        driver.quit();
+
+        controller.close();
     }
 }
