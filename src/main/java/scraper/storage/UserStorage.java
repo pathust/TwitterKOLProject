@@ -48,7 +48,7 @@ public class UserStorage {
                 User user = new User(profileLink, username, isVerified);
                 user.setFollowersCount(followersCount);
                 user.setFollowingCount(followingCount);
-                user.setFollowingList(getFollowingLinks(userNode));
+                user.setFollowersList(getFollowingLinks(userNode));
 
                 objectNodeMap.put(profileLink, (ObjectNode) userNode);
                 userIndexMap.put(profileLink, userIndex++);
@@ -97,7 +97,7 @@ public class UserStorage {
         userNode.put("isVerified", user.isVerified());
         userNode.put("followersCount", user.getFollowersCount());
         userNode.put("followingCount", user.getFollowingCount());
-        userNode.set("followingList", getFollowingLinks(user.getFollowingList()));
+        userNode.set("followersList", getFollowingLinks(user.getFollowersList()));
         return userNode;
     }
 
@@ -107,7 +107,7 @@ public class UserStorage {
         }
         userNode.put("followersCount", user.getFollowersCount());
         userNode.put("followingCount", user.getFollowingCount());
-        userNode.set("followingList", getFollowingLinks(user.getFollowingList()));
+        userNode.set("followersList", getFollowingLinks(user.getFollowersList()));
 
         int userIndex = userIndexMap.get(user.getProfileLink());
         userArray.set(userIndex, userNode);
@@ -115,7 +115,7 @@ public class UserStorage {
 
     private List<String> getFollowingLinks(JsonNode userNode) {
         List <String> profileLinks = new ArrayList<>();
-        JsonNode listNode = userNode.path("followingList");
+        JsonNode listNode = userNode.path("followersList");
         if (listNode.isArray()) {
             for (JsonNode linkNode : listNode) {
                 String profileLink = linkNode.asText();
@@ -127,11 +127,11 @@ public class UserStorage {
     }
 
     private ArrayNode getFollowingLinks(List<String> userLinks) {
-        ArrayNode followingListNode = mapper.createArrayNode();
+        ArrayNode followersListNode = mapper.createArrayNode();
         for (String userLink : userLinks) {
-            followingListNode.add(userLink); // Add only the profile link as a string
+            followersListNode.add(userLink); // Add only the profile link as a string
         }
-        return followingListNode;
+        return followersListNode;
     }
 
     public boolean userExists(String profileLink) {

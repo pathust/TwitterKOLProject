@@ -97,19 +97,6 @@ public class TwitterUserDataExtractor implements UserDataExtractor {
         return followersCountElement.getText();
     }
 
-    private void extractPotentialKOLs() {
-        for (int scrollCount = 0; scrollCount < MAX_SCROLLS; scrollCount++) {
-            List<WebElement> potentialKOLs = driver.findElements(
-                    By.xpath("//span[@data-testid='socialContext']/following::span[2]"));
-            System.out.print("Number of potential KOLs found: " + potentialKOLs.size() + "\n");
-
-            for (WebElement potentialKOL : potentialKOLs) {
-                String kolName = potentialKOL.getText();
-                System.out.print("Potential KOL: " + kolName + "\n");
-            }
-        }
-    }
-
     @Override
     public void extractData(String userLink, int maxListSize) {
         System.out.println("Extracting data from " + userLink);
@@ -138,7 +125,7 @@ public class TwitterUserDataExtractor implements UserDataExtractor {
             User newUser = userDataHandler.getUser("KOLs.json", userLink);
             newUser.setFollowersCount(followersCount);
             newUser.setFollowingCount(followingCount);
-            newUser.setFollowingList(followingLinks);
+            newUser.setFollowersList(followingLinks);
             try {
                 userDataHandler.addUser("KOLs.json", newUser);
             } catch (IOException e) {
@@ -148,7 +135,6 @@ public class TwitterUserDataExtractor implements UserDataExtractor {
         catch (Exception e) {
             System.out.println("Cannot extract data from " + userLink);
         }
-        extractPotentialKOLs();
     }
 
     @Override
@@ -159,18 +145,19 @@ public class TwitterUserDataExtractor implements UserDataExtractor {
             return usersList;
         }
         WebElement userCell = wait.until(presenceOfElementLocated(
-                By.xpath("//button[@data-testid = 'UserCell']")));
+                By.xpath("//div[@aria-label = 'Home timeline']//button[@data-testid = 'UserCell']")));
 
         while (true) {
             String username = extractUserName(userCell);
             String profileLink = navigator.getLink(userCell);
-            if(maxListSize == -1 || countNewUser < maxListSize) {
-                User newUser = new User(profileLink, username, isVerified);
-                usersList.add(newUser);
-                System.out.println("Add user to usersList " + username);
-                navigator.clickButton(userCell, "Follow");
-                countNewUser++;
-            }
+
+            User newUser = new User(profileLink, username, isVerified);
+            usersList.add(newUser);
+            System.out.println(countNewUser + ". Add user to usersList " + username);
+
+            navigator.clickButton(userCell, "Follow");
+
+            countNewUser++;
 
             userCell = findNextUserCell(userCell);
             if(userCell == null){
@@ -183,6 +170,8 @@ public class TwitterUserDataExtractor implements UserDataExtractor {
                 navigator.scrollToElement(userCell);
             }
         }
+
+        System.out.println("Users list size: " + usersList.size());
 
         return usersList;
     }

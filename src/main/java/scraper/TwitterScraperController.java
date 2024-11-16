@@ -149,34 +149,34 @@ public class TwitterScraperController {
                 1000,
                 250);
 
+        // Extract data from tweets
         controller.extractInitialTweetsTo("Tweet.json");
         List<Tweet> tweets = controller.getTweets("Tweet.json");
         System.out.println("Number of tweets: " + tweets.size());
         controller.scrapeTweetsData(tweets);
-        List<Tweet> test1 = controller.getTweets("Tweet.json");
 
         controller.navigationalSearchLink();
 
+        // Extract data from users
         controller.extractInitialKOLsTo("KOLs.json");
-
         List<User> users = controller.getUsers("KOLs.json");
         System.out.println("Number of users: " + users.size());
         controller.scrapeUsersData(users);
 
-        List<User> test2 = controller.getUsers("KOLs.json");
-        int sum = 0;
-        for(User user : test2) {
-            System.out.println(sum);
-            List<String> list = user.getFollowingList();
+        List<User> userList = controller.getUsers("KOLs.json");
+        int count = 0;
+        for(User user : userList) {
+            System.out.println(count);
+            List<String> list = user.getFollowersList();
             String name = user.getUsername();
             System.out.println("Name: " + name);
             if(list.size() > 3){
-                sum++;
+                count++;
             }
         }
 
-        System.out.println("Number of users: " + sum);
+        System.out.println("Number of users: " + count);
 
-        controller.close();
+        driver.quit();
     }
 }

@@ -14,7 +14,7 @@ public class User {
     private int followersCount;
     private int followingCount;
     private boolean isVerified;
-    private List<String> followingList;
+    private List<String> followersList;
 
     public User() {
     }
@@ -25,7 +25,7 @@ public class User {
         this.followersCount = 0;
         this.followingCount = 0;
         this.isVerified = isVerified;
-        this.followingList = new ArrayList<>();
+        this.followersList = new ArrayList<>();
     }
 
     private int toInt(String followersCount) {
@@ -50,12 +50,12 @@ public class User {
         isVerified = verified;
     }
 
-    public List<String> getFollowingList() {
-        return followingList;
+    public List<String> getFollowersList() {
+        return followersList;
     }
 
-    public void setFollowingList(List<String> followingList) {
-        this.followingList = followingList;
+    public void setFollowersList(List<String> followersList) {
+        this.followersList = followersList;
     }
 
     public String getProfileLink() {

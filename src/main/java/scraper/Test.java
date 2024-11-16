@@ -18,7 +18,7 @@ public class Test {
         int sum = 0;
         for (User user : users) {
             System.out.println(sum);
-            List<String> list = user.getFollowingList();
+            List<String> list = user.getFollowersList();
             String name = user.getUsername();
             System.out.println("Name: " + name);
             if(list.size() > 3){

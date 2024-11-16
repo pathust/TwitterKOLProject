@@ -28,21 +28,21 @@ public class WebNavigator implements Navigator {
 
     public void clickButton(WebElement element, String buttonName) {
         String xpathExpression = "//button//span[text()='" + buttonName + "']";
+        WebElement button = null;
         try {
             if (element == null) {
-                element = driver.findElement(By.xpath(xpathExpression));
+                button = driver.findElement(By.xpath(xpathExpression));
             }
             else {
-                element = element.findElement(By.xpath(xpathExpression));
+                button = element.findElement(By.xpath(xpathExpression));
             }
             Thread.sleep(1000);
+            button.click();
+            System.out.println(button.getText());
         }
         catch (Exception e) {
             System.out.println(e.getMessage());
         }
-
-        WebElement button = wait.until(elementToBeClickable(element));
-        button.click();
     }
 
     public void fillingFieldBySpan(String spanText, String text) {
