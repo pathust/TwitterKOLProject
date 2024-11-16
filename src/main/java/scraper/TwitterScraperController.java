@@ -1,7 +1,7 @@
 package scraper;
 
+import UI.waiting.WaitingScene;
 import model.User;
-import model.Tweet;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import scraper.authentication.Authenticator;
@@ -17,17 +17,14 @@ import scraper.navigation.WebNavigator;
 import scraper.storage.TweetDataHandler;
 import scraper.storage.UserDataHandler;
 import scraper.storage.UserStorageManager;
-import scraper.storage.TweetDataHandler;
 import scraper.storage.TweetStorageManager;
 
 import java.io.IOException;
 import java.util.List;
 
-import static java.lang.Integer.sum;
-
 
 public class TwitterScraperController {
-    private final WebDriver driver;
+    private static WebDriver driver;
     private final Navigator navigator;
     private final Authenticator authenticator;
     private final Filter filter;
@@ -39,8 +36,8 @@ public class TwitterScraperController {
     public TwitterScraperController() {
         System.setProperty(
                 "webdriver.chrome.driver",
-                "/Users/phananhtai/Downloads/chromedriver-mac-arm64/chromedriver");
-        this.driver = new ChromeDriver();
+                "D:\\Dowload\\chromedriver-win64\\chromedriver-win64\\chromedriver.exe");
+        driver = new ChromeDriver();
         this.navigator = new WebNavigator(driver);
         this.authenticator = new TwitterAuthenticator(driver, navigator);
         this.filter = new TwitterFilter(driver, navigator);
@@ -51,10 +48,14 @@ public class TwitterScraperController {
     }
 
     public void login(String username, String email, String password) {
+        WaitingScene.updateStatus("Logging");
+
         authenticator.login(username, email, password);
     }
 
     public void applyFilter(List<String> keywords, int minLikes, int minReplies, int minReposts) {
+        WaitingScene.updateStatus("Advance Search Setting");
+
         filter.advancedSearch(keywords, minLikes, minReplies, minReposts);
     }
 
@@ -68,15 +69,15 @@ public class TwitterScraperController {
             else {
                 System.out.println("Scraping user " + user.getUsername());
             }
+
+            WaitingScene.updateStatus("Collecting " + user.getProfileLink());
             userDataExtractor.extractData(user.getProfileLink(), 1000, 3);
             userDataHandler.saveData("KOLs.json");
         }
     }
 
-    public void close() {
-        if (driver != null) {
-            driver.quit();
-        }
+    public static void close() {
+        driver.close();
     }
 
     public List<User> getUsers(String filePath) throws IOException {
@@ -99,13 +100,10 @@ public class TwitterScraperController {
     public static void main(String[] args) throws IOException, InterruptedException {
         TwitterScraperController controller = new TwitterScraperController();
 
-        controller.login(
-                "@PogbaPaul432283",
-                "anhrooneymtp@gmail.com",
-                "anhmanunited");
+        controller.login();
 
         controller.applyFilter(
-                List.of("blockchain"),
+                List.of(args),
                 1000,
                 1000,
                 200);
@@ -129,7 +127,6 @@ public class TwitterScraperController {
         }
 
         System.out.println("Number of users: " + sum);
-
-        controller.close();
+        driver.quit();
     }
 }

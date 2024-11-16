@@ -1,37 +1,21 @@
 package UI;
 
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.layout.GridPane;
-import scraper.TwitterScraperController;
-import model.KOL;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.List;
-import javafx.concurrent.Task;
-import javafx.application.Platform;
-
+import UI.display.DisplayScene;
+import UI.home.HomeScene;
+import UI.waiting.WaitingScene;
 import graph.Graph;
 import graph.PagerankCalculator;
 import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.animation.Timeline;
-import javafx.animation.KeyFrame;
-import javafx.util.Duration;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.IOException;
 
-public class AppInterface extends Application {
-
-    private TwitterScraperController scraper;
+public class AppInterface extends Application implements SwitchingScene{
     private Graph graph;
     private PagerankCalculator pagerankCalculator;
+    private HomeScene homeScene;
+    private WaitingScene waitingScene;
+    private DisplayScene displayScene;
 
     public static void main(String[] args) {
         launch(args);
@@ -42,63 +26,40 @@ public class AppInterface extends Application {
         graph = new Graph();
         pagerankCalculator = new PagerankCalculator();
 
-        primaryStage.setTitle("KOL Finder");
+        homeScene = new HomeScene(primaryStage, this);
+        waitingScene = new WaitingScene(primaryStage, this);
+        displayScene = new DisplayScene(primaryStage, this);
+        homeScene.start();
+    }
 
-        TextField searchField = new TextField();
-        searchField.setPromptText("Enter Blockchain keyword");
+    @Override
+    public void switchToHome() {
+        homeScene.start();
+    }
 
-        WaitingScene waiting = new WaitingScene(primaryStage);
+    @Override
+    public void switchToWaiting() {
+        waitingScene.start();
+    }
 
-        Button searchButton = new Button("Search KOL");
-        searchButton.setOnAction(e -> {
-            String keyword = searchField.getText();
+    @Override
+    public void switchToDisplay() {
+//        displayScene.init();
+        displayScene.start();
+    }
 
-            if(keyword.isEmpty()) {
-                return ;
-            }
+    @Override
+    public void closeHome() {
+        homeScene.close();
+    }
 
-            waiting.start();
+    @Override
+    public void closeWaiting() {
+        waitingScene.close();
+    }
 
-            Task<Void> seleniumTask  = new Task<Void>() {
-                @Override
-                protected Void call() throws Exception {
-                    try {
-                        String[] otherArgs = {keyword};
-                        scraper.main(otherArgs);
-
-                        scraper.close();
-                    } catch (IOException ex) {
-                        throw new RuntimeException(ex);
-                    }
-
-                    return null;
-                }
-
-                @Override
-                protected void succeeded() {
-                    Platform.runLater(() -> waiting.close());
-                }
-            };
-
-            Thread thread  = new Thread(seleniumTask);
-            thread.setDaemon(true);
-            thread.start();
-
-            List<KOL> kolList = null;//scraper.searchKOLs(keyword);
-        });
-
-        GridPane layout = new GridPane();
-        layout.setAlignment(Pos.CENTER);
-        layout.setHgap(10);
-        layout.setVgap(15);
-
-        layout.setPadding(new Insets(25, 25, 25, 25));
-
-        layout.add(searchField, 0, 0);
-        layout.add(searchButton, 0, 1);
-
-        Scene scene = new Scene(layout, 300, 300);
-        primaryStage.setScene(scene);
-        primaryStage.show();
+    @Override
+    public void closeDisplay() {
+        displayScene.close();
     }
 }

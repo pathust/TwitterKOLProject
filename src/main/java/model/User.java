@@ -1,10 +1,13 @@
 package model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import static java.lang.Double.parseDouble;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class User {
     private String username;
     private String profileLink;
@@ -12,6 +15,9 @@ public class User {
     private int followingCount;
     private boolean isVerified;
     private List<String> followingList;
+
+    public User() {
+    }
 
     public User(String profileLink, String username, boolean isVerified){
         this.profileLink = profileLink;
