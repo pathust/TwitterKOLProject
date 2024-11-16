@@ -1,6 +1,7 @@
 package scraper.navigation;
 
 import org.openqa.selenium.*;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
@@ -25,9 +26,22 @@ public class WebNavigator implements Navigator {
         js.executeScript("window.scrollTo(0, document.body.scrollHeight)");
     }
 
-    public void clickButton(String buttonName) {
-        WebElement button = wait.until(elementToBeClickable(
-                By.xpath("//span[text()='" + buttonName + "']/..")));
+    public void clickButton(WebElement element, String buttonName) {
+        String xpathExpression = "//button//span[text()='" + buttonName + "']";
+        try {
+            if (element == null) {
+                element = driver.findElement(By.xpath(xpathExpression));
+            }
+            else {
+                element = element.findElement(By.xpath(xpathExpression));
+            }
+            Thread.sleep(1000);
+        }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        WebElement button = wait.until(elementToBeClickable(element));
         button.click();
     }
 
@@ -49,7 +63,7 @@ public class WebNavigator implements Navigator {
             System.err.println("No section found");
             return;
         }
-        WebElement sectionLink = wait.until(presenceOfElementLocated(
+        WebElement sectionLink = wait.until(elementToBeClickable(
                 By.xpath("//a[contains(@href, '" + section + "')]")));
         sectionLink.click();
     }

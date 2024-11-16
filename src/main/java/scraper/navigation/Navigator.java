@@ -7,7 +7,7 @@ public interface Navigator {
 
     void scrollDown();
 
-    void clickButton(String buttonName);
+    void clickButton(WebElement element, String buttonName);
 
     void fillingFieldBySpan(String spanText, String text);
 

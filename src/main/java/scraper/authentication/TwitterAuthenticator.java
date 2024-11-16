@@ -38,7 +38,7 @@ public class TwitterAuthenticator implements Authenticator {
                             sendKeys(username);
                         }
 
-                        navigator.clickButton("Next");
+                        navigator.clickButton(null,"Next");
                     } catch (Exception e) {
                         System.err.println("Error entering username or email.");
                         e.printStackTrace();
@@ -47,7 +47,7 @@ public class TwitterAuthenticator implements Authenticator {
 
                 try {
                     sendKeys(password);
-                    navigator.clickButton("Log in");
+                    navigator.clickButton(null,"Log in");
 
                     Thread.sleep(5000);
                     if (driver.getCurrentUrl().contains("home")) {

@@ -2,336 +2,192 @@
   "username" : "Solana",
   "profileLink" : "https://x.com/solana",
   "isVerified" : true,
-  "followersCount" : 2000000,
-  "followingCount" : 2028,
-  "followingList" : [ "https://x.com/aeyakovenko", "https://x.com/rajgokal", "https://x.com/Polkadot" ]
+  "followerCount" : 0,
+  "followingList" : [ ]
 }, {
-  "username" : "Cardano Community",
-  "profileLink" : "https://x.com/Cardano",
+  "username" : "Ethereum Foundation",
+  "profileLink" : "https://x.com/ethereum",
   "isVerified" : true,
-  "followersCount" : 1000000,
-  "followingCount" : 614,
-  "followingList" : [ "https://x.com/IOHK_Charles", "https://x.com/cardano_whale", "https://x.com/cryptorecruitr" ]
-}, {
-  "username" : "Ice Open Network",
-  "profileLink" : "https://x.com/ice_blockchain",
-  "isVerified" : true,
-  "followersCount" : 2000000,
-  "followingCount" : 104,
-  "followingList" : [ "https://x.com/TimDraper", "https://x.com/BinanceLabs", "https://x.com/Cobratate" ]
-}, {
-  "username" : "Blockchain.com",
-  "profileLink" : "https://x.com/blockchain",
-  "isVerified" : true,
-  "followersCount" : 1000000,
-  "followingCount" : 36,
-  "followingList" : [ "https://x.com/OneMorePeter", "https://x.com/ixfiexchange", "https://x.com/MetaMask" ]
+  "followerCount" : 0,
+  "followingList" : [ "https://x.com/Mint_Blockchain", "https://x.com/ice_blockchain", "https://x.com/oasys_games", "https://x.com/BlockchainBoyy", "https://x.com/flow_blockchain", "https://x.com/web3brett", "https://x.com/ParisBlockWeek", "https://x.com/BlockchainforEU", "https://x.com/aba_summit", "https://x.com/SwftCoin", "https://x.com/Cardano", "https://x.com/blockchaincap", "https://x.com/blockchainrptr", "https://x.com/Neo_Blockchain", "https://x.com/BlockchainEdu" ]
 }, {
   "username" : "TON",
   "profileLink" : "https://x.com/ton_blockchain",
   "isVerified" : true,
-  "followersCount" : 2000000,
-  "followingCount" : 847,
-  "followingList" : [ "https://x.com/Bybit_Official", "https://x.com/MEXC_Official", "https://x.com/BitMartExchange" ]
-}, {
-  "username" : "Wu Blockchain",
-  "profileLink" : "https://x.com/WuBlockchain",
-  "isVerified" : true,
-  "followersCount" : 495000,
-  "followingCount" : 983,
-  "followingList" : [ "https://x.com/lookonchain", "https://x.com/ki_young_ju", "https://x.com/Rewkang" ]
-}, {
-  "username" : "Mint",
-  "profileLink" : "https://x.com/Mint_Blockchain",
-  "isVerified" : true,
-  "followersCount" : 0,
-  "followingCount" : 0,
+  "followerCount" : 0,
   "followingList" : [ ]
 }, {
-  "username" : "Blockchain.com Support",
-  "profileLink" : "https://x.com/AskBlockchain",
+  "username" : "Cardano Community",
+  "profileLink" : "https://x.com/Cardano",
   "isVerified" : true,
-  "followersCount" : 0,
-  "followingCount" : 0,
+  "followerCount" : 0,
   "followingList" : [ ]
 }, {
   "username" : "Neo Smart Economy",
   "profileLink" : "https://x.com/Neo_Blockchain",
   "isVerified" : true,
-  "followersCount" : 0,
-  "followingCount" : 0,
+  "followerCount" : 0,
   "followingList" : [ ]
 }, {
-  "username" : "Flow (",
-  "profileLink" : "https://x.com/flow_blockchain",
+  "username" : "Followed by Blockchain.com",
+  "profileLink" : "https://x.com/AskBlockchain",
   "isVerified" : true,
-  "followersCount" : 0,
-  "followingCount" : 0,
+  "followerCount" : 9,
+  "followingList" : [ "https://x.com/ParisBlockWeek", "https://x.com/blockchain" ]
+}, {
+  "username" : "Ice Open Network",
+  "profileLink" : "https://x.com/ice_blockchain",
+  "isVerified" : true,
+  "followerCount" : 103,
+  "followingList" : [ "https://x.com/SwftCoin" ]
+}, {
+  "username" : "Followed by Solana",
+  "profileLink" : "https://x.com/BlockchainEdu",
+  "isVerified" : true,
+  "followerCount" : 0,
   "followingList" : [ ]
 }, {
   "username" : "Blockchain Backer",
   "profileLink" : "https://x.com/BCBacker",
   "isVerified" : true,
-  "followersCount" : 0,
-  "followingCount" : 0,
+  "followerCount" : 643,
+  "followingList" : [ "https://x.com/BlockchainBoyy", "https://x.com/blockchainrptr" ]
+}, {
+  "username" : "Followed by Blockchain.com",
+  "profileLink" : "https://x.com/ParisBlockWeek",
+  "isVerified" : true,
+  "followerCount" : 0,
   "followingList" : [ ]
 }, {
-  "username" : "Chiliz - The Sports Blockchain",
-  "profileLink" : "https://x.com/Chiliz",
+  "username" : "Flow (",
+  "profileLink" : "https://x.com/flow_blockchain",
   "isVerified" : true,
-  "followersCount" : 0,
-  "followingCount" : 0,
-  "followingList" : [ ]
+  "followerCount" : 1591,
+  "followingList" : [ "https://x.com/SwftCoin", "https://x.com/blockchainrptr" ]
 }, {
-  "username" : "Partisia Blockchain",
-  "profileLink" : "https://x.com/partisiampc",
+  "username" : "Mint",
+  "profileLink" : "https://x.com/Mint_Blockchain",
   "isVerified" : true,
-  "followersCount" : 0,
-  "followingCount" : 0,
-  "followingList" : [ ]
+  "followerCount" : 20,
+  "followingList" : [ "https://x.com/SwftCoin" ]
 }, {
   "username" : "ODUWA BLOCKCHAIN SOLUTIONS",
   "profileLink" : "https://x.com/Oduwacoin",
   "isVerified" : true,
-  "followersCount" : 0,
-  "followingCount" : 0,
+  "followerCount" : 107,
+  "followingList" : [ "https://x.com/SwftCoin" ]
+}, {
+  "username" : "Partisia Blockchain",
+  "profileLink" : "https://x.com/partisiampc",
+  "isVerified" : true,
+  "followerCount" : 0,
   "followingList" : [ ]
 }, {
-  "username" : "Paris Blockchain Week",
-  "profileLink" : "https://x.com/ParisBlockWeek",
+  "username" : "Wu Blockchain",
+  "profileLink" : "https://x.com/WuBlockchain",
   "isVerified" : true,
-  "followersCount" : 0,
-  "followingCount" : 0,
-  "followingList" : [ ]
+  "followerCount" : 983,
+  "followingList" : [ "https://x.com/AcademyPolkadot", "https://x.com/ton_blockchain", "https://x.com/SwftCoin", "https://x.com/Neo_Blockchain" ]
+}, {
+  "username" : "Followed by Solana",
+  "profileLink" : "https://x.com/IBCProtocol",
+  "isVerified" : true,
+  "followerCount" : 2,
+  "followingList" : [ "https://x.com/solana", "https://x.com/SwftCoin", "https://x.com/Cardano" ]
+}, {
+  "username" : "Chiliz - The Sports Blockchain",
+  "profileLink" : "https://x.com/Chiliz",
+  "isVerified" : true,
+  "followerCount" : 902,
+  "followingList" : [ "https://x.com/ParisBlockWeek", "https://x.com/BlockchainforEU", "https://x.com/SwftCoin" ]
 }, {
   "username" : "RENEC Blockchain",
   "profileLink" : "https://x.com/RenecBlockchain",
   "isVerified" : true,
-  "followersCount" : 0,
-  "followingCount" : 0,
-  "followingList" : [ ]
+  "followerCount" : 54,
+  "followingList" : [ "https://x.com/SwftCoin" ]
 }, {
-  "username" : "BEN",
-  "profileLink" : "https://x.com/BlockchainEdu",
+  "username" : "ABS2024 | Asia Blockchain Summit",
+  "profileLink" : "https://x.com/aba_summit",
   "isVerified" : true,
-  "followersCount" : 0,
-  "followingCount" : 0,
-  "followingList" : [ ]
-}, {
-  "username" : "Optimus Z7 - AI & Defi Layer 1 Blockchain",
-  "profileLink" : "https://x.com/OZ7_Blockchain",
-  "isVerified" : true,
-  "followersCount" : 0,
-  "followingCount" : 0,
+  "followerCount" : 0,
   "followingList" : [ ]
 }, {
   "username" : "Blockchain Capital",
   "profileLink" : "https://x.com/blockchaincap",
   "isVerified" : true,
-  "followersCount" : 0,
-  "followingCount" : 0,
-  "followingList" : [ ]
-}, {
-  "username" : "Erick / Snowfro /",
-  "profileLink" : "https://x.com/ArtOnBlockchain",
-  "isVerified" : true,
-  "followersCount" : 0,
-  "followingCount" : 0,
-  "followingList" : [ ]
+  "followerCount" : 301,
+  "followingList" : [ "https://x.com/BlockchainBoyy", "https://x.com/TXblockchain_", "https://x.com/ParisBlockWeek", "https://x.com/BlockchainforEU", "https://x.com/SwftCoin", "https://x.com/BlockchainEdu" ]
 }, {
   "username" : "SWFT Blockchain",
   "profileLink" : "https://x.com/SwftCoin",
   "isVerified" : true,
-  "followersCount" : 0,
-  "followingCount" : 0,
-  "followingList" : [ ]
-}, {
-  "username" : "GM VIETNAM (",
-  "profileLink" : "https://x.com/gmvn_official",
-  "isVerified" : true,
-  "followersCount" : 0,
-  "followingCount" : 0,
-  "followingList" : [ ]
-}, {
-  "username" : "邦妮區塊鏈 Bonnie Blockchain",
-  "profileLink" : "https://x.com/BlockBonnieC",
-  "isVerified" : true,
-  "followersCount" : 0,
-  "followingCount" : 0,
+  "followerCount" : 0,
   "followingList" : [ ]
 }, {
   "username" : "TheBlockchainMedia",
   "profileLink" : "https://x.com/TheChainMedia",
   "isVerified" : true,
-  "followersCount" : 0,
-  "followingCount" : 0,
-  "followingList" : [ ]
-}, {
-  "username" : "Blockchain.com Institutional",
-  "profileLink" : "https://x.com/BlockchainINSTL",
-  "isVerified" : true,
-  "followersCount" : 0,
-  "followingCount" : 0,
-  "followingList" : [ ]
-}, {
-  "username" : "Blockchain Reporter",
-  "profileLink" : "https://x.com/blockchainrptr",
-  "isVerified" : true,
-  "followersCount" : 0,
-  "followingCount" : 0,
-  "followingList" : [ ]
-}, {
-  "username" : "Polkadot Blockchain Academy",
-  "profileLink" : "https://x.com/AcademyPolkadot",
-  "isVerified" : true,
-  "followersCount" : 0,
-  "followingCount" : 0,
+  "followerCount" : 0,
   "followingList" : [ ]
 }, {
   "username" : "Lucas Dimos (locked in",
   "profileLink" : "https://x.com/BlockchainBoyy",
   "isVerified" : true,
-  "followersCount" : 0,
-  "followingCount" : 0,
+  "followerCount" : 0,
   "followingList" : [ ]
 }, {
-  "username" : "Vexanium Blockchain Foundation",
-  "profileLink" : "https://x.com/vexanium",
+  "username" : "GM VIETNAM (",
+  "profileLink" : "https://x.com/gmvn_official",
   "isVerified" : true,
-  "followersCount" : 0,
-  "followingCount" : 0,
+  "followerCount" : 0,
+  "followingList" : [ ]
+}, {
+  "username" : "Blockchain Reporter",
+  "profileLink" : "https://x.com/blockchainrptr",
+  "isVerified" : true,
+  "followerCount" : 2835,
+  "followingList" : [ "https://x.com/partisiampc" ]
+}, {
+  "username" : "Texas Blockchain Council",
+  "profileLink" : "https://x.com/TXblockchain_",
+  "isVerified" : true,
+  "followerCount" : 0,
+  "followingList" : [ ]
+}, {
+  "username" : "Followed by Blockchain.com",
+  "profileLink" : "https://x.com/BlockchainINSTL",
+  "isVerified" : true,
+  "followerCount" : 3,
+  "followingList" : [ "https://x.com/blockchain" ]
+}, {
+  "username" : "Polkadot Blockchain Academy",
+  "profileLink" : "https://x.com/AcademyPolkadot",
+  "isVerified" : true,
+  "followerCount" : 0,
+  "followingList" : [ ]
+}, {
+  "username" : "BlockchainBrett",
+  "profileLink" : "https://x.com/web3brett",
+  "isVerified" : true,
+  "followerCount" : 0,
   "followingList" : [ ]
 }, {
   "username" : "Blockchain for Europe",
   "profileLink" : "https://x.com/BlockchainforEU",
   "isVerified" : true,
-  "followersCount" : 0,
-  "followingCount" : 0,
+  "followerCount" : 1054,
+  "followingList" : [ "https://x.com/ParisBlockWeek" ]
+}, {
+  "username" : "Blockchain.com",
+  "profileLink" : "https://x.com/blockchain",
+  "isVerified" : false,
+  "followerCount" : 0,
   "followingList" : [ ]
 }, {
-  "username" : "toly",
-  "profileLink" : "https://x.com/aeyakovenko",
+  "username" : "Oasys | Blockchain for Games",
+  "profileLink" : "https://x.com/oasys_games",
   "isVerified" : false,
-  "followersCount" : 0,
-  "followingCount" : 0,
-  "followingList" : [ ]
-}, {
-  "username" : "raj",
-  "profileLink" : "https://x.com/rajgokal",
-  "isVerified" : false,
-  "followersCount" : 0,
-  "followingCount" : 0,
-  "followingList" : [ ]
-}, {
-  "username" : "Polkadot",
-  "profileLink" : "https://x.com/Polkadot",
-  "isVerified" : false,
-  "followersCount" : 0,
-  "followingCount" : 0,
-  "followingList" : [ ]
-}, {
-  "username" : "Charles Hoskinson",
-  "profileLink" : "https://x.com/IOHK_Charles",
-  "isVerified" : false,
-  "followersCount" : 0,
-  "followingCount" : 0,
-  "followingList" : [ ]
-}, {
-  "username" : "whale",
-  "profileLink" : "https://x.com/cardano_whale",
-  "isVerified" : false,
-  "followersCount" : 0,
-  "followingCount" : 0,
-  "followingList" : [ ]
-}, {
-  "username" : "Dan Gambardello",
-  "profileLink" : "https://x.com/cryptorecruitr",
-  "isVerified" : false,
-  "followersCount" : 0,
-  "followingCount" : 0,
-  "followingList" : [ ]
-}, {
-  "username" : "Tim Draper",
-  "profileLink" : "https://x.com/TimDraper",
-  "isVerified" : false,
-  "followersCount" : 0,
-  "followingCount" : 0,
-  "followingList" : [ ]
-}, {
-  "username" : "Binance Labs Fund",
-  "profileLink" : "https://x.com/BinanceLabs",
-  "isVerified" : false,
-  "followersCount" : 0,
-  "followingCount" : 0,
-  "followingList" : [ ]
-}, {
-  "username" : "Andrew Tate",
-  "profileLink" : "https://x.com/Cobratate",
-  "isVerified" : false,
-  "followersCount" : 0,
-  "followingCount" : 0,
-  "followingList" : [ ]
-}, {
-  "username" : "Peter Smith",
-  "profileLink" : "https://x.com/OneMorePeter",
-  "isVerified" : false,
-  "followersCount" : 0,
-  "followingCount" : 0,
-  "followingList" : [ ]
-}, {
-  "username" : "IXFI | Gen 3.0 Exchange",
-  "profileLink" : "https://x.com/ixfiexchange",
-  "isVerified" : false,
-  "followersCount" : 0,
-  "followingCount" : 0,
-  "followingList" : [ ]
-}, {
-  "username" : "MetaMask",
-  "profileLink" : "https://x.com/MetaMask",
-  "isVerified" : false,
-  "followersCount" : 0,
-  "followingCount" : 0,
-  "followingList" : [ ]
-}, {
-  "username" : "Bybit",
-  "profileLink" : "https://x.com/Bybit_Official",
-  "isVerified" : false,
-  "followersCount" : 0,
-  "followingCount" : 0,
-  "followingList" : [ ]
-}, {
-  "username" : "MEXC",
-  "profileLink" : "https://x.com/MEXC_Official",
-  "isVerified" : false,
-  "followersCount" : 0,
-  "followingCount" : 0,
-  "followingList" : [ ]
-}, {
-  "username" : "BitMart",
-  "profileLink" : "https://x.com/BitMartExchange",
-  "isVerified" : false,
-  "followersCount" : 0,
-  "followingCount" : 0,
-  "followingList" : [ ]
-}, {
-  "username" : "Lookonchain",
-  "profileLink" : "https://x.com/lookonchain",
-  "isVerified" : false,
-  "followersCount" : 0,
-  "followingCount" : 0,
-  "followingList" : [ ]
-}, {
-  "username" : "Ki Young Ju",
-  "profileLink" : "https://x.com/ki_young_ju",
-  "isVerified" : false,
-  "followersCount" : 0,
-  "followingCount" : 0,
-  "followingList" : [ ]
-}, {
-  "username" : "Andrew Kang",
-  "profileLink" : "https://x.com/Rewkang",
-  "isVerified" : false,
-  "followersCount" : 0,
-  "followingCount" : 0,
+  "followerCount" : 0,
   "followingList" : [ ]
 } ]

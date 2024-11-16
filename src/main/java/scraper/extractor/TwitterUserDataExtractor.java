@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static java.lang.Math.min;
+import static model.User.toInt;
 import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated;
 
 public class TwitterUserDataExtractor implements UserDataExtractor {
@@ -112,7 +113,7 @@ public class TwitterUserDataExtractor implements UserDataExtractor {
     }
 
     @Override
-    public void extractData(String userLink, int followingCountThreshold, int maxNewUser) throws IOException {
+    public void extractData(String userLink, int maxListSize) throws IOException {
         System.out.println("Extracting data from " + userLink);
         driver.get(userLink);
         try {
@@ -145,14 +146,31 @@ public class TwitterUserDataExtractor implements UserDataExtractor {
             userDataHandler.addUser("KOLs.json", user);
         } catch (IOException e) {
             throw new RuntimeException(e);
+        try {
+            navigator.navigateToSection("followers_you_follow");
+            List<User> followingList = extractUsers(false, -1);
+            for (User user : followingList) {
+                userDataHandler.addUser("KOLs.json", user);
+            }
+            User newUser = userDataHandler.getUser("KOLs.json", userLink);
+            newUser.setFollowersCount(followersCount);
+            newUser.setFollowersCount(followingCount);
+            newUser.setFollowingList(followingList);
+            try {
+                userDataHandler.addUser("KOLs.json", newUser);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        catch (Exception e) {
+            System.out.println("Cannot extract data from " + userLink);
         }
         extractPotentialKOLs();
     }
 
     @Override
-    public List<User> extractUsers(boolean isVerified, int maxListSize, int maxNewUsers) {
+    public List<User> extractUsers(boolean isVerified, int maxListSize) {
         int countNewUser = 0;
-        int attempt = 0;
         List<User> usersList = new ArrayList<>();
         if (maxListSize == 0) {
             return usersList;
@@ -163,6 +181,8 @@ public class TwitterUserDataExtractor implements UserDataExtractor {
         while (true) {
             String username = extractUserName(userCell);
             String profileLink = navigator.getLink(userCell);
+            if(maxListSize == -1) {
+                User newUser = new User(username, profileLink, isVerified);
             boolean checkUser;
             try {
                 checkUser = userDataHandler.userExists("KOLs.json", profileLink);
@@ -176,20 +196,21 @@ public class TwitterUserDataExtractor implements UserDataExtractor {
                 usersList.add(newUser);
                 System.out.println("Add user to usersList " + username);
             }
+            else if(countNewUser < maxListSize){
+                User newUser = new User(username, profileLink, isVerified);
             else if(countNewUser < maxNewUsers){
                 User newUser = new User(profileLink, username, isVerified);
                 usersList.add(newUser);
                 System.out.println("Add user to usersList " + username);
+                navigator.clickButton(userCell, "Follow");
                 countNewUser++;
-            }
-            attempt++;
-            if (attempt >= maxListSize) {
-                System.out.print("Done !");
-                break;
             }
 
             userCell = findNextUserCell(userCell);
             if(userCell == null){
+                break;
+            }
+            else if(countNewUser == maxListSize){
                 break;
             }
             else {
@@ -199,4 +220,5 @@ public class TwitterUserDataExtractor implements UserDataExtractor {
 
         return usersList;
     }
+
 }
