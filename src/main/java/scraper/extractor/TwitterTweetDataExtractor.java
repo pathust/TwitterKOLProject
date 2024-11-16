@@ -15,6 +15,7 @@ import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.lang.System.*;
 import static model.Tweet.toInt;
 import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated;
 
@@ -42,11 +43,26 @@ public class TwitterTweetDataExtractor implements TweetDataExtractor {
                 return parentDiv.findElement(
                         By.xpath("(following-sibling::div[@data-testid='cellInnerDiv'])//article[contains(@data-testid, 'tweet')]"));
             } catch (Exception e) {
-                System.out.println("Attempt " + attempt + " failed, retrying...");
+                out.println("Attempt " + attempt + " failed, retrying...");
                 wait.withTimeout(Duration.ofSeconds(1)); // Shorter wait for retries
             }
         }
-        System.out.println("Next TweetCell not found after " + RETRY_ATTEMPTS + " attempts.");
+        out.println("Next TweetCell not found after " + RETRY_ATTEMPTS + " attempts.");
+        return null;
+    }
+
+    private WebElement findNextUserCell(WebElement tweetCell) {
+        for (int attempt = 0; attempt < RETRY_ATTEMPTS; attempt++) {
+            try {
+                WebElement parentDiv = tweetCell.findElement(By.xpath("./ancestor::div[@data-testid='cellInnerDiv']"));
+                return parentDiv.findElement(
+                        By.xpath("(following-sibling::div[@data-testid='cellInnerDiv'])//button[@data-testid='UserCell']"));
+            } catch (Exception e) {
+                out.println("Attempt " + attempt + " failed, retrying...");
+                wait.withTimeout(Duration.ofSeconds(1)); // Shorter wait for retries
+            }
+        }
+        out.println("Next UserCell not found after " + RETRY_ATTEMPTS + " attempts.");
         return null;
     }
 
@@ -70,7 +86,7 @@ public class TwitterTweetDataExtractor implements TweetDataExtractor {
                     presenceOfElementLocated(By.xpath("//button[@aria-label[contains(., 'reposts')]]//span")));
             return toInt(repostCountElement.getText());
         } catch (Exception e) {
-            System.out.println("Error extracting repost count.");
+            out.println("Error extracting repost count.");
             return 0;
         }
     }
@@ -82,7 +98,7 @@ public class TwitterTweetDataExtractor implements TweetDataExtractor {
 
     @Override
     public void extractData(String tweetLink, int repostCountThreshold, int maxNewUser) throws IOException {
-        System.out.println("Extracting data from " + tweetLink);
+        out.println("Extracting data from " + tweetLink);
         driver.get(tweetLink);
 
         try {
@@ -92,87 +108,113 @@ public class TwitterTweetDataExtractor implements TweetDataExtractor {
         }
 
         int repostCount = extractRepostCount();
-        System.out.print("Repost: " + repostCount + "\n");
+        out.print("Repost: " + repostCount + "\n");
 
-        // Lấy tweet từ JSON và kiểm tra null
         Tweet tweet = tweetDataHandler.getTweet("Tweet.json", tweetLink);
         if (tweet == null) {
-            System.out.println("Error: Tweet not found in Tweet.json for link: " + tweetLink);
+            out.println("Error: Tweet not found in Tweet.json for link: " + tweetLink);
             return;
         }
         tweet.setRepostCount(repostCount);
-
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-
-        // Click Repost và View Quotes
         try {
             WebElement repostButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@data-testid='retweet']")));
             repostButton.click();
 
             WebElement viewQuotesOption = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[text()='View Quotes']")));
             viewQuotesOption.click();
+
+            WebElement viewRepostsOption = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[text()='Reposts']")));
+            viewRepostsOption.click();
         } catch (Exception e) {
-            System.out.println("Error: Unable to click 'Repost' or 'View Quotes' button.");
+            out.println("Error: Unable to click 'Repost' or 'View Quotes' button.");
             e.printStackTrace();
             return;
         }
 
-        // Lấy danh sách repost và lưu vào tweet
-        List<Tweet> repostList = extractTweets(Math.min(tweet.getRepostCount(), repostCountThreshold), maxNewUser);
+        List<Tweet> repostList = extractEachTweet(Math.min(tweet.getRepostCount(), repostCountThreshold), maxNewUser);
+        int countNewUsers = maxNewUser;
+        int countRepost =0;
         List<String> repostLinks = new ArrayList<>();
         for (Tweet repost : repostList) {
+            if (countRepost >= countNewUsers) {
+                break;
+            }
             tweetDataHandler.addTweet("Tweet.json", repost);
             repostLinks.add(repost.getUserLink());
+            countRepost++;
         }
         tweet.setRepostList(repostLinks);
 
-        // Lưu tweet đã cập nhật
         try {
             tweetDataHandler.addTweet("Tweet.json", tweet);
         } catch (IOException e) {
-            System.out.println("Error: Unable to save tweet data.");
+            out.println("Error: Unable to save tweet data.");
             e.printStackTrace();
         }
     }
 
-    /*public void extractData(String tweetLink, int repostCountThreshold, int maxNewUser) throws IOException {
-        System.out.println("Extracting data from " + tweetLink);
-        driver.get(tweetLink);
-
-        int repostCount = extractRepostCount();
-        System.out.print("Repost: " + repostCount + "\n");
-
-        Tweet tweet = tweetDataHandler.getTweet("Tweet.json", tweetLink);
-        tweet.setRepostCount(repostCount);
-
-        try {
-            WebElement repostButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@data-testid='retweet']")));
-            repostButton.click();
-
-            WebElement viewQuotesOption = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[text()='View Quotes']")));
-            viewQuotesOption.click();
-
-            navigator.clickButton("Reposts");
-        } catch (Exception e) {
-            System.out.println("Error: Unable to click 'Repost' or 'View Quotes' button.");
-            e.printStackTrace();
-            return;
+    @Override
+    public List<Tweet> extractEachTweet(int maxListSize, int maxNewUsers) {
+        int countNewUser = 0;
+        List<Tweet> tweetsList = new ArrayList<>();
+        if (maxListSize == 0) {
+            return tweetsList;
         }
 
-        List<Tweet> repostList = extractTweets(Math.min(repostCount, repostCountThreshold), maxNewUser);
-        List<String> repostLinks = new ArrayList<>();
-        for (Tweet repost : repostList) {
-            tweetDataHandler.addTweet("Tweet.json", repost);
-            repostLinks.add(repost.getUserLink());
+        WebElement userCell = null;
+        boolean success = false;int dem =0;
+        while (!success) {
+            try{
+                dem =0;
+                userCell = wait.until(presenceOfElementLocated(
+                        By.xpath("//button[@data-testid='UserCell']")));
+                success = true;
+            }
+            catch (Exception e) {
+                dem++;
+                System.out.println("Finding user failed, retrying...");
+                if( dem ==3){
+                    success = true;
+                }
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
         }
-        tweet.setRepostList(repostLinks);
 
-        try {
-            tweetDataHandler.addTweet("Tweet.json", tweet);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        while (tweetsList.size() < maxListSize && countNewUser < maxNewUsers) {
+            String usernameText = extractUserOfTweetName(userCell);
+            String userLink = navigator.getLink(userCell);
+            String tweetLink = userLink;
+            int repostCount =0;
+            try {
+                if (tweetDataHandler.userExists("Tweet.json", userLink) || countNewUser < maxNewUsers) {
+                    Tweet newTweet = new Tweet(tweetLink, userLink, repostCount);
+                    tweetsList.add(newTweet);
+                    out.println("Added user: " + usernameText);
+
+                    if (!tweetDataHandler.userExists("Tweet.json", userLink)) {
+                        countNewUser++;
+                    }
+                }
+            } catch (IOException e) {
+                out.println("Error checking user existence for " + usernameText);
+                throw new RuntimeException(e);
+            }
+            countNewUser++;
+            userCell = findNextUserCell(userCell);
+            if (userCell == null) {
+                break;
+            } else {
+                navigator.scrollToElement(userCell);
+            }
         }
-    }*/
+        return tweetsList;
+    }
+
 
     @Override
     public List<Tweet> extractTweets(int maxListSize, int maxNewUsers) {
@@ -182,36 +224,58 @@ public class TwitterTweetDataExtractor implements TweetDataExtractor {
             return tweetsList;
         }
 
-        WebElement userCell = wait.until(presenceOfElementLocated(
-                By.xpath("//article[contains(@data-testid, 'tweet')]")));
+        WebElement tweetCell = null;
+        boolean success = false;int dem =0;
+        while (!success) {
+            try{
+                dem =0;
+                tweetCell = wait.until(presenceOfElementLocated(
+                        By.xpath("//article[contains(@data-testid, 'tweet')]")));
+                success = true;
+            }
+            catch (Exception e) {
+                dem++;
+                System.out.println("Finding tweet failed, retrying...");
+                if( dem ==3){
+                    success = true;
+                }
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
+        }
 
         while (tweetsList.size() < maxListSize) {
-            String usernameText = extractUserOfTweetName(userCell);
-            String userLink = navigator.getLink(userCell);
-            String tweetLink = extractTweetLink(userCell);
-            int repostCount = extractRepostCount();
+            String usernameText = extractUserOfTweetName(tweetCell);
+            String userLink = navigator.getLink(tweetCell);
+            String tweetLink = extractTweetLink(tweetCell);
+            //int repostCount = extractRepostCount();
+            int repostCount =0;
             try {
                 if (tweetDataHandler.userExists("Tweet.json", userLink) || countNewUser < maxNewUsers) {
                     Tweet newTweet = new Tweet(tweetLink, userLink, repostCount);
                     tweetsList.add(newTweet);
-                    System.out.println("Added user: " + usernameText);
+                    out.println("Added user: " + usernameText);
 
                     if (!tweetDataHandler.userExists("Tweet.json", userLink)) {
                         countNewUser++;
                     }
                 }
             } catch (IOException e) {
-                System.out.println("Error checking user existence for " + usernameText);
+                out.println("Error checking user existence for " + usernameText);
                 throw new RuntimeException(e);
             }
 
-            userCell = findNextTweetCell(userCell);
-            if (userCell == null) {
+            tweetCell = findNextTweetCell(tweetCell);
+            if (tweetCell == null) {
                 break;
             } else {
-                navigator.scrollToElement(userCell);
+                navigator.scrollToElement(tweetCell);
             }
         }
         return tweetsList;
     }
+
 }
