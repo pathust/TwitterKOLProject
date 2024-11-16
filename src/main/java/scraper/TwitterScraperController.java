@@ -127,5 +127,6 @@ public class TwitterScraperController {
         }
 
         System.out.println("Number of users: " + sum);
+        driver.quit();
     }
 }
