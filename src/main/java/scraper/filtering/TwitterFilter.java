@@ -36,7 +36,7 @@ public class TwitterFilter implements Filter {
             boolean advancedSearchAvailable = false;
             while (!advancedSearchAvailable) {
                 try {
-                    navigator.clickButton(null,"Advanced search");
+                    navigator.navigateToSection("search-advanced");
                     advancedSearchAvailable = true;
                 } catch (Exception e) {
                     System.out.println("Advanced search button not found, reloading the page...");

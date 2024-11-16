@@ -27,37 +27,22 @@ public class WebNavigator implements Navigator {
     }
 
     public void clickButton(WebElement element, String buttonName) {
-        String xpathExpression = ".//button//span[text()='" + buttonName + "']/..";
-        WebElement button;
-        int maxRetries = 10;
-        int retryCount = 0;
-        boolean clicked = false;
-
-        while (!clicked && retryCount < maxRetries) {
-            try {
-                if (element == null) {
-                    button = driver.findElement(By.xpath(xpathExpression));
-                } else {
-                    button = element.findElement(By.xpath(xpathExpression));
-                }
-
-                // Attempt to click the button
-                button.click();
-                clicked = true; // Exit loop if click is successful
-            } catch (Exception e) {
-                System.out.println("Attempt " + (retryCount + 1) + ": Could not find or click button " + buttonName);
-                retryCount++;
-                try {
-                    Thread.sleep(100); // Short pause before retrying (100 ms)
-                } catch (InterruptedException ie) {
-                    Thread.currentThread().interrupt();
-                }
+        String xpathExpression = "//button//span[text()='" + buttonName + "']";
+        try {
+            if (element == null) {
+                element = driver.findElement(By.xpath(xpathExpression));
             }
+            else {
+                element = element.findElement(By.xpath(xpathExpression));
+            }
+            Thread.sleep(1000);
+        }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
         }
 
-        if (!clicked) {
-            System.out.println("Failed to click button " + buttonName + " after " + maxRetries + " attempts.");
-        }
+        WebElement button = wait.until(elementToBeClickable(element));
+        button.click();
     }
 
     public void fillingFieldBySpan(String spanText, String text) {
@@ -78,7 +63,7 @@ public class WebNavigator implements Navigator {
             System.err.println("No section found");
             return;
         }
-        WebElement sectionLink = wait.until(presenceOfElementLocated(
+        WebElement sectionLink = wait.until(elementToBeClickable(
                 By.xpath("//a[contains(@href, '" + section + "')]")));
         sectionLink.click();
     }

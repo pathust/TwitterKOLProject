@@ -90,7 +90,7 @@ public class TwitterScraperController {
     private void extractInitialKOLsTo(String filePath) throws IOException {
         System.out.println("Start collecting user data...");
 
-        navigator.clickButton(null,"People");
+        navigator.navigateToSection("user");
 
         List <User> users = userDataExtractor.extractUsers(true, 30);
         for (User user : users) {
@@ -104,9 +104,9 @@ public class TwitterScraperController {
         TwitterScraperController controller = new TwitterScraperController();
 
         controller.login(
-                "@PogbaPaul432283",
-                "anhrooneymtp@gmail.com",
-                "anhmanunited");
+                "@KyrieIrving2303",
+                "kyrieirvinghandling11@gmail.com",
+                "123456789Yb");
 
         controller.applyFilter(
                 List.of("blockchain"),

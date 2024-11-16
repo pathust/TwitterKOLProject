@@ -14,7 +14,6 @@ import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
-import static java.lang.Math.min;
 import static model.User.toInt;
 import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated;
 
@@ -130,7 +129,7 @@ public class TwitterUserDataExtractor implements UserDataExtractor {
         System.out.print("Followers: " + followersCount + "\n");
 
         try {
-            navigator.navigateToSection("followers you know");
+            navigator.navigateToSection("followers_you_follow");
             List<User> followingList = extractUsers(false, -1);
             for (User user : followingList) {
                 userDataHandler.addUser("KOLs.json", user);
@@ -173,10 +172,10 @@ public class TwitterUserDataExtractor implements UserDataExtractor {
                 User newUser = new User(username, profileLink, isVerified);
                 usersList.add(newUser);
                 System.out.println("Add user to usersList " + username);
+                navigator.clickButton(userCell, "Follow");
                 countNewUser++;
             }
 
-            navigator.clickButton(userCell, "Follow");
             userCell = findNextUserCell(userCell);
             if(userCell == null){
                 break;
