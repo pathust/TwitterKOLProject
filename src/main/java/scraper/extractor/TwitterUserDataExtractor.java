@@ -14,8 +14,6 @@ import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
-import static java.lang.Math.min;
-import static model.User.toInt;
 import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated;
 
 public class TwitterUserDataExtractor implements UserDataExtractor {
@@ -113,7 +111,7 @@ public class TwitterUserDataExtractor implements UserDataExtractor {
     }
 
     @Override
-    public void extractData(String userLink, int maxListSize) throws IOException {
+    public void extractData(String userLink, int maxListSize) {
         System.out.println("Extracting data from " + userLink);
         driver.get(userLink);
         try {
@@ -129,33 +127,18 @@ public class TwitterUserDataExtractor implements UserDataExtractor {
         System.out.print("Following: " + followingCount + "\n");
         System.out.print("Followers: " + followersCount + "\n");
 
-
-        User user = userDataHandler.getUser("KOLs.json", userLink);
-        user.setFollowersCount(followersCount);
-        user.setFollowingCount(followingCount);
-
-        navigator.navigateToSection("following");
-        List<User> followingList = extractUsers(false, min(user.getFollowingCount(), followingCountThreshold), maxNewUser);
-        List<String> followingLinks = new ArrayList<>();
-        for (User following : followingList) {
-            userDataHandler.addUser("KOLs.json", following);
-            followingLinks.add(following.getProfileLink());
-        }
-        user.setFollowingList(followingLinks);
-        try {
-            userDataHandler.addUser("KOLs.json", user);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
         try {
             navigator.navigateToSection("followers_you_follow");
             List<User> followingList = extractUsers(false, -1);
+            List<String> followingLinks = new ArrayList<>();
             for (User user : followingList) {
                 userDataHandler.addUser("KOLs.json", user);
+                followingLinks.add(user.getProfileLink());
             }
             User newUser = userDataHandler.getUser("KOLs.json", userLink);
             newUser.setFollowersCount(followersCount);
-            newUser.setFollowersCount(followingCount);
-            newUser.setFollowingList(followingList);
+            newUser.setFollowingCount(followingCount);
+            newUser.setFollowingList(followingLinks);
             try {
                 userDataHandler.addUser("KOLs.json", newUser);
             } catch (IOException e) {
@@ -181,24 +164,7 @@ public class TwitterUserDataExtractor implements UserDataExtractor {
         while (true) {
             String username = extractUserName(userCell);
             String profileLink = navigator.getLink(userCell);
-            if(maxListSize == -1) {
-                User newUser = new User(username, profileLink, isVerified);
-            boolean checkUser;
-            try {
-                checkUser = userDataHandler.userExists("KOLs.json", profileLink);
-            } catch (IOException e) {
-                System.out.println("User " + username + " not found.");
-                throw new RuntimeException(e);
-            }
-
-            if (checkUser){
-                User newUser = new User(profileLink, username, isVerified);
-                usersList.add(newUser);
-                System.out.println("Add user to usersList " + username);
-            }
-            else if(countNewUser < maxListSize){
-                User newUser = new User(username, profileLink, isVerified);
-            else if(countNewUser < maxNewUsers){
+            if(maxListSize == -1 || countNewUser < maxListSize) {
                 User newUser = new User(profileLink, username, isVerified);
                 usersList.add(newUser);
                 System.out.println("Add user to usersList " + username);
