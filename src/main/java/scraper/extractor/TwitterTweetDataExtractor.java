@@ -116,7 +116,8 @@ public class TwitterTweetDataExtractor implements TweetDataExtractor {
             return;
         }
         tweet.setRepostCount(repostCount);
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        //WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
         try {
             WebElement repostButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@data-testid='retweet']")));
             repostButton.click();
@@ -126,6 +127,8 @@ public class TwitterTweetDataExtractor implements TweetDataExtractor {
 
             WebElement viewRepostsOption = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[text()='Reposts']")));
             viewRepostsOption.click();
+
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         } catch (Exception e) {
             out.println("Error: Unable to click 'Repost' or 'View Quotes' button.");
             e.printStackTrace();
@@ -133,16 +136,17 @@ public class TwitterTweetDataExtractor implements TweetDataExtractor {
         }
 
         List<Tweet> repostList = extractEachTweet(Math.min(tweet.getRepostCount(), repostCountThreshold), maxNewUser);
-        int countNewUsers = maxNewUser;
-        int countRepost =0;
         List<String> repostLinks = new ArrayList<>();
+        int countNewUsers = 0;
+
+        // Lặp qua repostList và thêm liên kết người dùng vào repostLinks
         for (Tweet repost : repostList) {
-            if (countRepost >= countNewUsers) {
+            if (countNewUsers >= maxNewUser) {
                 break;
             }
             tweetDataHandler.addTweet("Tweet.json", repost);
             repostLinks.add(repost.getUserLink());
-            countRepost++;
+            countNewUsers++;
         }
         tweet.setRepostList(repostLinks);
 
@@ -154,6 +158,7 @@ public class TwitterTweetDataExtractor implements TweetDataExtractor {
         }
     }
 
+
     @Override
     public List<Tweet> extractEachTweet(int maxListSize, int maxNewUsers) {
         int countNewUser = 0;
@@ -163,20 +168,18 @@ public class TwitterTweetDataExtractor implements TweetDataExtractor {
         }
 
         WebElement userCell = null;
-        boolean success = false;int dem =0;
+        boolean success = false;
         while (!success) {
             try{
-                dem =0;
-                userCell = wait.until(presenceOfElementLocated(
-                        By.xpath("//button[@data-testid='UserCell']")));
+
+                userCell = wait.until(presenceOfElementLocated(By.xpath("//button[@data-testid='UserCell']")));
+                //userCell = wait.until(presenceOfElementLocated(By.xpath("//article[contains(@data-testid, 'tweet')]")));
                 success = true;
             }
             catch (Exception e) {
-                dem++;
                 System.out.println("Finding user failed, retrying...");
-                if( dem ==3){
-                    success = true;
-                }
+
+                success = true;
                 try {
                     Thread.sleep(500);
                 } catch (InterruptedException ex) {

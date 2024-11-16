@@ -84,7 +84,7 @@ public class TweetStorage {
         }
         return tweets;
     }
-
+/*
     private ObjectNode createTweetNode(Tweet tweet) {
         ObjectNode tweetNode = mapper.createObjectNode();
         tweetNode.put("tweetLink", tweet.getTweetLink());
@@ -96,7 +96,19 @@ public class TweetStorage {
         tweetNode.set("repostList", getRepostLinks(repostLinks));
 
         return tweetNode;
-    }
+    }*/
+private ObjectNode createTweetNode(Tweet tweet) {
+    ObjectNode tweetNode = mapper.createObjectNode();
+    tweetNode.put("tweetLink", tweet.getTweetLink());
+    tweetNode.put("userLink", tweet.getUserLink());
+    tweetNode.put("repostCount", tweet.getRepostCount());
+
+    // Khởi tạo một ArrayNode rỗng nếu repostList là null
+    List<String> repostLinks = (tweet.getRepostList() != null) ? tweet.getRepostList() : new ArrayList<>();
+    tweetNode.set("repostList", getRepostLinks(repostLinks));
+
+    return tweetNode;
+}
 
 
     private void updateTweet(Tweet tweet) {
@@ -106,9 +118,16 @@ public class TweetStorage {
         tweetArray.set(tweetIndex, tweetNode);
     }
 
-    private void updateTweetFields(ObjectNode tweetNode, Tweet tweet) {
+    /*private void updateTweetFields(ObjectNode tweetNode, Tweet tweet) {
         tweetNode.put("repostCount", tweet.getRepostCount());
         tweetNode.set("repostList", getRepostLinks(tweet.getRepostList()));
+    }*/
+    private void updateTweetFields(ObjectNode tweetNode, Tweet tweet) {
+        tweetNode.put("repostCount", tweet.getRepostCount());
+
+        // Kiểm tra repostList của tweet, gán một danh sách rỗng nếu null
+        List<String> repostLinks = (tweet.getRepostList() != null) ? tweet.getRepostList() : new ArrayList<>();
+        tweetNode.set("repostList", getRepostLinks(repostLinks));
     }
 
     private List<String> getRepostLinks(JsonNode tweetNode) {

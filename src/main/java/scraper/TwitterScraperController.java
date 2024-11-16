@@ -17,13 +17,10 @@ import scraper.navigation.WebNavigator;
 import scraper.storage.TweetDataHandler;
 import scraper.storage.UserDataHandler;
 import scraper.storage.UserStorageManager;
-import scraper.storage.TweetDataHandler;
 import scraper.storage.TweetStorageManager;
 
 import java.io.IOException;
 import java.util.List;
-
-import static java.lang.Integer.sum;
 
 
 public class TwitterScraperController {
@@ -54,6 +51,10 @@ public class TwitterScraperController {
 
     public void applyFilter(List<String> keywords, int minLikes, int minReplies, int minReposts) {
         filter.advancedSearch(keywords, minLikes, minReplies, minReposts);
+    }
+
+    public void navigationalSearchLink(){
+        filter.navigateToSearchResultLink();
     }
 
     public void scrapeUsersData(List<User> users) throws IOException {
@@ -141,19 +142,10 @@ public class TwitterScraperController {
         System.out.println("Number of tweets: " + tweets.size());
         controller.scrapeTweetsData(tweets);
         List<Tweet> test1 = controller.getTweets("Tweet.json");
-        int sumTweet = 0;
-        for(Tweet tweet : test1) {
-            System.out.println(sumTweet);
-            List<String> list = tweet.getRepostList();
-            if(list.size() > 3){
-                sumTweet++;
-            }
-        }
 
-        System.out.println("Number of users: " + sumTweet);
+        controller.navigationalSearchLink();
 
         controller.extractInitialKOLsTo("KOLs.json");
-
         List<User> users = controller.getUsers("KOLs.json");
         System.out.println("Number of users: " + users.size());
         controller.scrapeUsersData(users);
