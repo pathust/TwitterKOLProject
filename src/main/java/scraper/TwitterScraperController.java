@@ -138,11 +138,7 @@ public class TwitterScraperController {
     public static void main(String[] args) throws IOException, InterruptedException {
         TwitterScraperController controller = new TwitterScraperController();
 
-        controller.login(
-                "@nhom_8_OOP",
-                "nqkien199hy@gmail.com",
-                "kien1992005t1chy"
-        );
+        controller.login();
         controller.applyFilter(
                 List.of(args),
                 1000,
