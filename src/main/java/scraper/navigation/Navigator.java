@@ -4,6 +4,8 @@ import org.openqa.selenium.WebElement;
 
 public interface Navigator {
     void scrollToElement(WebElement element);
+    void scrollToElement(WebElement element, int delay);
+
 
     void scrollDown();
 

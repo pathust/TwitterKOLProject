@@ -13,8 +13,11 @@ import java.io.IOException;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated;
+import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOf;
 
 public class TwitterUserDataExtractor implements UserDataExtractor {
 
@@ -38,8 +41,10 @@ public class TwitterUserDataExtractor implements UserDataExtractor {
                 WebElement parentDiv = userCell.findElement(
                         By.xpath("./ancestor::div[@data-testid='cellInnerDiv']"));
 
-                return parentDiv.findElement(
+                userCell = parentDiv.findElement(
                         By.xpath("(following-sibling::div[@data-testid='cellInnerDiv'])//button[@data-testid='UserCell']"));
+
+                return userCell;
             } catch (Exception e) {
                 System.out.println("Attempt " + attempt + " failed, retrying...");
             }
@@ -102,7 +107,7 @@ public class TwitterUserDataExtractor implements UserDataExtractor {
         System.out.println("Extracting data from " + userLink);
         driver.get(userLink);
         try {
-            Thread.sleep(3000);
+            Thread.sleep(2000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
@@ -145,7 +150,7 @@ public class TwitterUserDataExtractor implements UserDataExtractor {
             return usersList;
         }
         WebElement userCell = wait.until(presenceOfElementLocated(
-                By.xpath("//div[@aria-label = 'Home timeline']//button[@data-testid = 'UserCell']")));
+                By.xpath("//button[@data-testid = 'UserCell']")));
 
         while (true) {
             String username = extractUserName(userCell);
@@ -157,18 +162,16 @@ public class TwitterUserDataExtractor implements UserDataExtractor {
 
             navigator.clickButton(userCell, "Follow");
 
-            countNewUser++;
+            if (++countNewUser == maxListSize) {
+                break;
+            }
 
             userCell = findNextUserCell(userCell);
-            if(userCell == null){
+            if(userCell == null) {
                 break;
             }
-            else if(countNewUser == maxListSize){
-                break;
-            }
-            else {
-                navigator.scrollToElement(userCell);
-            }
+
+            navigator.scrollToElement(userCell);
         }
 
         System.out.println("Users list size: " + usersList.size());
