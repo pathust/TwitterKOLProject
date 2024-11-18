@@ -39,7 +39,7 @@ public class UserStorage {
             ArrayNode users = (ArrayNode) rootNode;
             int userIndex = 0;
             for (JsonNode userNode : users) {
-                String username =userNode.get("username").asText();
+                String username = userNode.get("username").asText();
                 String profileLink = userNode.get("profileLink").asText();
                 boolean isVerified = userNode.get("isVerified").asBoolean();
                 int followersCount = userNode.get("followersCount").asInt();
