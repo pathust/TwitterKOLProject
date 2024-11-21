@@ -11,11 +11,14 @@ public class MainTest {
         List<GraphNode> tweetNodeList = TweetNodeExtract.extract();
 
         Graph graph = GraphFactory.createGraph(userNodeList, tweetNodeList);
-
         PagerankCalculator.calculatePageRank(graph, 100);
 
         for(GraphNode node : userNodeList){
-            System.out.println(node.getKol().getUsername() + " " + node.getPagerankScore());
+            System.out.println(node.getNodeType() + " " + node.getKol().getUsername() + " " + node.getPagerankScore());
+        }
+
+        for(GraphNode node : tweetNodeList){
+            System.out.println(node.getNodeType() + " " + node.getTweet().getTweetLink() + " " + node.getPagerankScore());
         }
     }
 }

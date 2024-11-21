@@ -116,7 +116,7 @@ public class TwitterScraperController {
 
         navigator.navigateToSection("user");
 
-        List <User> users = userDataExtractor.extractUsers(true, 30);
+        List <User> users = userDataExtractor.extractUsers(true, 2);
         for (User user : users) {
             userDataHandler.addUser(filePath, user);
         }
@@ -127,7 +127,7 @@ public class TwitterScraperController {
     private void extractInitialTweetsTo(String filePath) throws IOException {
         System.out.println("Start collecting tweet data...");
 
-        List <Tweet> tweets = tweetDataExtractor.extractTweets( 15,15);
+        List <Tweet> tweets = tweetDataExtractor.extractTweets( 1,1);
         for (Tweet tweet : tweets) {
             tweetDataHandler.addTweet(filePath,tweet);
         }
@@ -146,12 +146,12 @@ public class TwitterScraperController {
                 250);
 
         // Extract data from tweets
-        controller.extractInitialTweetsTo("Tweet.json");
-        List<Tweet> tweets = controller.getTweets("Tweet.json");
-        System.out.println("Number of tweets: " + tweets.size());
-        controller.scrapeTweetsData(tweets);
-
-        controller.navigationalSearchLink();
+//        controller.extractInitialTweetsTo("Tweet.json");
+//        List<Tweet> tweets = controller.getTweets("Tweet.json");
+//        System.out.println("Number of tweets: " + tweets.size());
+//        controller.scrapeTweetsData(tweets);
+//
+//        controller.navigationalSearchLink();
 
         // Extract data from users
         controller.extractInitialKOLsTo("KOLs.json");

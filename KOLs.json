@@ -1,69 +1,13 @@
 [ {
-  "username" : "TON",
-  "profileLink" : "https://x.com/ton_blockchain",
-  "isVerified" : true,
-  "followersCount" : 0,
-  "followingCount" : 0,
-  "followersList" : [ ]
-}, {
-  "username" : "Solana",
-  "profileLink" : "https://x.com/solana",
-  "isVerified" : true,
-  "followersCount" : 0,
-  "followingCount" : 0,
-  "followersList" : [ ]
-}, {
-  "username" : "Cardano Community",
-  "profileLink" : "https://x.com/Cardano",
-  "isVerified" : true,
-  "followersCount" : 0,
-  "followingCount" : 0,
-  "followersList" : [ ]
-}, {
   "username" : "Blockchain.com",
   "profileLink" : "https://x.com/blockchain",
   "isVerified" : true,
-  "followersCount" : 1000000,
-  "followingCount" : 36,
-  "followersList" : [ "https://x.com/ton_blockchain" ]
-}, {
-  "username" : "RENEC Blockchain",
-  "profileLink" : "https://x.com/RenecBlockchain",
-  "isVerified" : true,
   "followersCount" : 0,
   "followingCount" : 0,
-  "followersList" : [ ]
+  "followersList" : ["https://x.com/solana","https://x.com/Cardano" ]
 }, {
-  "username" : "Wu Blockchain",
-  "profileLink" : "https://x.com/WuBlockchain",
-  "isVerified" : true,
-  "followersCount" : 492000,
-  "followingCount" : 983,
-  "followersList" : [ "https://x.com/ton_blockchain" ]
-}, {
-  "username" : "Blockchain.com Support",
-  "profileLink" : "https://x.com/AskBlockchain",
-  "isVerified" : true,
-  "followersCount" : 0,
-  "followingCount" : 0,
-  "followersList" : [ ]
-}, {
-  "username" : "BEN",
-  "profileLink" : "https://x.com/BlockchainEdu",
-  "isVerified" : true,
-  "followersCount" : 0,
-  "followingCount" : 0,
-  "followersList" : [ ]
-}, {
-  "username" : "Oasys | Blockchain for Games",
-  "profileLink" : "https://x.com/oasys_games",
-  "isVerified" : true,
-  "followersCount" : 0,
-  "followingCount" : 0,
-  "followersList" : [ ]
-}, {
-  "username" : "Chiliz - The Sports Blockchain",
-  "profileLink" : "https://x.com/Chiliz",
+  "username" : "Solana",
+  "profileLink" : "https://x.com/solana",
   "isVerified" : true,
   "followersCount" : 0,
   "followingCount" : 0,
@@ -74,138 +18,19 @@
   "isVerified" : true,
   "followersCount" : 0,
   "followingCount" : 0,
-  "followersList" : [ ]
+  "followersList" : ["https://x.com/Cardano", "https://x.com/solana", "https://x.com/blockchain"]
 }, {
-  "username" : "Paris Blockchain Week",
-  "profileLink" : "https://x.com/ParisBlockWeek",
+  "username" : "Cardano Community",
+  "profileLink" : "https://x.com/Cardano",
   "isVerified" : true,
   "followersCount" : 0,
   "followingCount" : 0,
-  "followersList" : [ ]
+  "followersList" : ["https://x.com/blockchain" ]
 }, {
-  "username" : "Mint",
-  "profileLink" : "https://x.com/Mint_Blockchain",
+  "username" : "TON",
+  "profileLink" : "https://x.com/ton_blockchain",
   "isVerified" : true,
   "followersCount" : 0,
   "followingCount" : 0,
-  "followersList" : [ ]
-}, {
-  "username" : "Optimus Z7 - AI & Defi Layer 1 Blockchain",
-  "profileLink" : "https://x.com/OZ7_Blockchain",
-  "isVerified" : true,
-  "followersCount" : 0,
-  "followingCount" : 0,
-  "followersList" : [ ]
-}, {
-  "username" : "The Inter-Blockchain Communication Protocol",
-  "profileLink" : "https://x.com/IBCProtocol",
-  "isVerified" : true,
-  "followersCount" : 0,
-  "followingCount" : 0,
-  "followersList" : [ ]
-}, {
-  "username" : "Blockchain Backer",
-  "profileLink" : "https://x.com/BCBacker",
-  "isVerified" : true,
-  "followersCount" : 0,
-  "followingCount" : 0,
-  "followersList" : [ ]
-}, {
-  "username" : "Neo Smart Economy",
-  "profileLink" : "https://x.com/Neo_Blockchain",
-  "isVerified" : true,
-  "followersCount" : 0,
-  "followingCount" : 0,
-  "followersList" : [ ]
-}, {
-  "username" : "Riot Platforms, Inc.",
-  "profileLink" : "https://x.com/RiotPlatforms",
-  "isVerified" : true,
-  "followersCount" : 0,
-  "followingCount" : 0,
-  "followersList" : [ ]
-}, {
-  "username" : "Blockchain Capital",
-  "profileLink" : "https://x.com/blockchaincap",
-  "isVerified" : true,
-  "followersCount" : 0,
-  "followingCount" : 0,
-  "followersList" : [ ]
-}, {
-  "username" : "Partisia Blockchain",
-  "profileLink" : "https://x.com/partisiampc",
-  "isVerified" : true,
-  "followersCount" : 0,
-  "followingCount" : 0,
-  "followersList" : [ ]
-}, {
-  "username" : "邦妮區塊鏈 Bonnie Blockchain",
-  "profileLink" : "https://x.com/BlockBonnieC",
-  "isVerified" : true,
-  "followersCount" : 0,
-  "followingCount" : 0,
-  "followersList" : [ ]
-}, {
-  "username" : "TheBlockchainMedia",
-  "profileLink" : "https://x.com/TheChainMedia",
-  "isVerified" : true,
-  "followersCount" : 0,
-  "followingCount" : 0,
-  "followersList" : [ ]
-}, {
-  "username" : "GM VIETNAM (",
-  "profileLink" : "https://x.com/gmvn_official",
-  "isVerified" : true,
-  "followersCount" : 0,
-  "followingCount" : 0,
-  "followersList" : [ ]
-}, {
-  "username" : "SWFT Blockchain",
-  "profileLink" : "https://x.com/SwftCoin",
-  "isVerified" : true,
-  "followersCount" : 0,
-  "followingCount" : 0,
-  "followersList" : [ ]
-}, {
-  "username" : "Blockchain.com Institutional",
-  "profileLink" : "https://x.com/BlockchainINSTL",
-  "isVerified" : true,
-  "followersCount" : 0,
-  "followingCount" : 0,
-  "followersList" : [ ]
-}, {
-  "username" : "Texas Blockchain Council",
-  "profileLink" : "https://x.com/TXblockchain_",
-  "isVerified" : true,
-  "followersCount" : 0,
-  "followingCount" : 0,
-  "followersList" : [ ]
-}, {
-  "username" : "Blockchain Reporter",
-  "profileLink" : "https://x.com/blockchainrptr",
-  "isVerified" : true,
-  "followersCount" : 0,
-  "followingCount" : 0,
-  "followersList" : [ ]
-}, {
-  "username" : "Polkadot Blockchain Academy",
-  "profileLink" : "https://x.com/AcademyPolkadot",
-  "isVerified" : true,
-  "followersCount" : 0,
-  "followingCount" : 0,
-  "followersList" : [ ]
-}, {
-  "username" : "Blockchain Economy",
-  "profileLink" : "https://x.com/BEconomy_HQ",
-  "isVerified" : true,
-  "followersCount" : 0,
-  "followingCount" : 0,
-  "followersList" : [ ]
-}, {
-  "username" : "Lucas Dimos (locked in",
-  "profileLink" : "https://x.com/BlockchainBoyy",
-  "isVerified" : true,
-  "followersCount" : 0,
-  "followingCount" : 0,
-  "followersList" : [ ]
+  "followersList" : ["https://x.com/blockchain","https://x.com/Cardano"]
 } ]

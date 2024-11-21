@@ -38,7 +38,7 @@ public class GraphFactory {
         // add following edge
         for (GraphNode node : userNodeList) {
             User userNode = node.getKol();
-            List<String> followingList = userNode.getFollowingList();
+            List<String> followingList = userNode.getFollowersList();
 
 //            System.out.println( "\nKOL: " + node.getKol().getProfileLink() + "\n");
 
@@ -47,14 +47,17 @@ public class GraphFactory {
                 graph.addEdge(node, targetNode, followWeight);
 
 //                System.out.println(userLink);
+//                if(graphFactory.getUser("KOLs.json", userLink) == null) {
+//                    System.out.println("ERROR");
+//                }
             }
         }
 
         // test add random edge
 
 //        Random rand = new Random();
-//        for (GraphNode node : nodeList) {
-//            for (GraphNode otherNode : nodeList) {
+//        for (GraphNode node : userNodeList) {
+//            for (GraphNode otherNode : userNodeList) {
 //                if(node != otherNode) {
 //                    if(rand.nextBoolean()) {
 //                        graph.addEdge(node, otherNode, 1.0);

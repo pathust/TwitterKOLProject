@@ -51,9 +51,11 @@ public class WebNavigator implements Navigator {
                 button = driver.findElement(By.xpath(globalXPath));
             }
             else {
-                button = element.findElement(By.xpath(scopedXPath));
+                button = element.findElement(By.xpath(globalXPath));
             }
 
+            Thread.sleep(1000);
+            button = wait.until(elementToBeClickable(button));
             button.click();
         }
         catch (Exception e) {
