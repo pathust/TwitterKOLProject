@@ -48,7 +48,6 @@ public class GraphFactory {
             for(String userLink : followingList) {
                 GraphNode targetNode = new GraphNode(graphFactory.getUser("KOLs.json", userLink));
                 graph.addEdge(node, targetNode, followWeight);
-
             }
         }
 
