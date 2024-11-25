@@ -22,6 +22,10 @@ public class GraphFactory {
         this.userDataHandler = new UserStorageManager();
     }
 
+    public void loadUsers(String filePath) throws IOException {
+        userDataHandler.loadUsers(filePath);
+    }
+
     public User getUser(String filePath, String profileLink) throws IOException {
         return userDataHandler.getUser(filePath, profileLink);
     }
@@ -29,6 +33,7 @@ public class GraphFactory {
     public static Graph createGraph(List<GraphNode> userNodeList, List<GraphNode> tweetNodeList) throws IOException {
         GraphFactory graphFactory = new GraphFactory();
         Graph graph = new Graph();
+        graphFactory.loadUsers("KOLs.json");
 
         // add user node
         for (GraphNode node : userNodeList) {
@@ -40,16 +45,10 @@ public class GraphFactory {
             User userNode = node.getKol();
             List<String> followingList = userNode.getFollowersList();
 
-//            System.out.println( "\nKOL: " + node.getKol().getProfileLink() + "\n");
-
             for(String userLink : followingList) {
                 GraphNode targetNode = new GraphNode(graphFactory.getUser("KOLs.json", userLink));
                 graph.addEdge(node, targetNode, followWeight);
 
-//                System.out.println(userLink);
-//                if(graphFactory.getUser("KOLs.json", userLink) == null) {
-//                    System.out.println("ERROR");
-//                }
             }
         }
 

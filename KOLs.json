@@ -25,7 +25,7 @@
   "isVerified" : true,
   "followersCount" : 0,
   "followingCount" : 0,
-  "followersList" : ["https://x.com/blockchain" ]
+  "followersList" : ["https://x.com/blockchain", "https://x.com/ice_blockchain" ]
 }, {
   "username" : "TON",
   "profileLink" : "https://x.com/ton_blockchain",
