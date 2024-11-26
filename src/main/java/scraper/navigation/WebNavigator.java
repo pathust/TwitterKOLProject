@@ -25,6 +25,11 @@ public class WebNavigator implements Navigator {
         js.executeScript("window.scrollTo(0, document.body.scrollHeight)");
     }
 
+    public void scrollBy(int pixels) {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("window.scrollBy(0, arguments[0]);", pixels);
+    }
+
     public void clickButton(String buttonName) {
         WebElement button = wait.until(elementToBeClickable(
                 By.xpath("//span[text()='" + buttonName + "']/..")));

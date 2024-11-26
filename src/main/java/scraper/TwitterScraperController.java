@@ -82,7 +82,7 @@ public class TwitterScraperController {
             else {
                 System.out.println("Scraping tweet " + tweet.getUserLink());
             }
-            tweetDataExtractor.extractData(tweet.getTweetLink(),1000,5);
+            tweetDataExtractor.extractData(tweet.getTweetLink(),1000,7);
             tweetDataHandler.saveData("Tweet.json");
         }
     }
@@ -117,7 +117,7 @@ public class TwitterScraperController {
     private void extractInitialTweetsTo(String filePath) throws IOException {
         System.out.println("Start collecting tweet data...");
 
-        List <Tweet> tweets = tweetDataExtractor.extractTweets( 15,15);
+        List <Tweet> tweets = tweetDataExtractor.extractTweets( 30,30);
         for (Tweet tweet : tweets) {
             tweetDataHandler.addTweet(filePath,tweet);
         }
@@ -129,13 +129,12 @@ public class TwitterScraperController {
         TwitterScraperController controller = new TwitterScraperController();
 
         //controller.login("@PogbaPaul432283", "anhrooneymtp@gmail.com", "anhmanunited");
-        //controller.login("@21Oop36301","penaldomessy21@gmail.com","123456789@21oop");
-        controller.login("@nhom_8_OOP","nqkien199hy@gmail.com","kien1992005t1chy");
+        controller.login("@21Oop36301","penaldomessy21@gmail.com","123456789@21oop");
         controller.applyFilter(
                 List.of("blockchain"),
                 1000,
                 1000,
-                250);
+                200);
 
         controller.extractInitialTweetsTo("Tweet.json");
         List<Tweet> tweets = controller.getTweets("Tweet.json");

@@ -13,5 +13,7 @@ public interface Navigator {
 
     void navigateToSection(String section);
 
+    void scrollBy(int pixels);
+
     String getLink(WebElement element);
 }
