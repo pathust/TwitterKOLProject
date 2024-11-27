@@ -116,7 +116,7 @@ public class TwitterScraperController {
 
         navigator.navigateToSection("user");
 
-        List <User> users = userDataExtractor.extractUsers(true, 2);
+        List <User> users = userDataExtractor.extractUsers(true, 10);
         for (User user : users) {
             userDataHandler.addUser(filePath, user);
         }
@@ -138,7 +138,7 @@ public class TwitterScraperController {
     public static void main(String[] args) throws IOException, InterruptedException {
         TwitterScraperController controller = new TwitterScraperController();
 
-        controller.login("dungnguyen05", "dungnc291205@gmail.com", "DunG@0911575998");
+        controller.login("PogbaPaul432283", "anhrooneymtp@gmail.com", "anhmanunited");
         controller.applyFilter(
                 List.of(args),
                 1000,
