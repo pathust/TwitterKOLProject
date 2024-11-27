@@ -14,8 +14,9 @@ public class PagerankCalculator {
         int numNodes = nodeList.size();
 
         // initial all node's pagerank
-        for(GraphNode node : nodeList)
+        for(GraphNode node : nodeList) {
             node.setPagerankScore(0.0);
+        }
 
         // Calculate PageRank
         while(maxIterations > 0) {
