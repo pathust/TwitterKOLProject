@@ -4,12 +4,12 @@
   "isVerified" : true,
   "followersCount" : 0,
   "followingCount" : 0,
-  "followersList" : [ ]
+  "followersList" : ["https://x.com/Mint_Blockchain" ]
 }, {
   "username" : "Mint",
   "profileLink" : "https://x.com/Mint_Blockchain",
   "isVerified" : true,
   "followersCount" : 0,
   "followingCount" : 0,
-  "followersList" : [ ]
+  "followersList" : ["https://x.com/ethereum" ]
 } ]
