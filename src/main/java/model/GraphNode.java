@@ -6,9 +6,6 @@ public class GraphNode {
     Tweet tweet;
     Double pagerankScore;
 
-    public GraphNode() {
-    }
-
     public GraphNode(User kol) {
         nodeType = "KOL";
         this.kol = kol;
