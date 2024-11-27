@@ -4,7 +4,7 @@
   "isVerified" : true,
   "followersCount" : 0,
   "followingCount" : 0,
-  "followersList" : ["https://x.com/solana","https://x.com/Cardano" ]
+  "followersList" : ["https://x.com/solana","https://x.com/Cardano", "https://x.com/ice_blockchain" ]
 }, {
   "username" : "Solana",
   "profileLink" : "https://x.com/solana",
@@ -25,7 +25,7 @@
   "isVerified" : true,
   "followersCount" : 0,
   "followingCount" : 0,
-  "followersList" : ["https://x.com/blockchain", "https://x.com/ice_blockchain" ]
+  "followersList" : ["https://x.com/solana", "https://x.com/ice_blockchain" ]
 }, {
   "username" : "TON",
   "profileLink" : "https://x.com/ton_blockchain",
