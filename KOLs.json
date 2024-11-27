@@ -1,36 +1,15 @@
 [ {
-  "username" : "Blockchain.com",
-  "profileLink" : "https://x.com/blockchain",
-  "isVerified" : true,
-  "followersCount" : 0,
-  "followingCount" : 0,
-  "followersList" : ["https://x.com/solana","https://x.com/Cardano", "https://x.com/ice_blockchain" ]
-}, {
-  "username" : "Solana",
-  "profileLink" : "https://x.com/solana",
+  "username" : "Followed by Cardano Community and 5 others",
+  "profileLink" : "https://x.com/ethereum",
   "isVerified" : true,
   "followersCount" : 0,
   "followingCount" : 0,
   "followersList" : [ ]
 }, {
-  "username" : "Ice Open Network",
-  "profileLink" : "https://x.com/ice_blockchain",
+  "username" : "Mint",
+  "profileLink" : "https://x.com/Mint_Blockchain",
   "isVerified" : true,
   "followersCount" : 0,
   "followingCount" : 0,
-  "followersList" : ["https://x.com/Cardano", "https://x.com/solana", "https://x.com/blockchain"]
-}, {
-  "username" : "Cardano Community",
-  "profileLink" : "https://x.com/Cardano",
-  "isVerified" : true,
-  "followersCount" : 0,
-  "followingCount" : 0,
-  "followersList" : ["https://x.com/solana", "https://x.com/ice_blockchain" ]
-}, {
-  "username" : "TON",
-  "profileLink" : "https://x.com/ton_blockchain",
-  "isVerified" : true,
-  "followersCount" : 0,
-  "followingCount" : 0,
-  "followersList" : ["https://x.com/blockchain","https://x.com/Cardano"]
+  "followersList" : [ ]
 } ]
