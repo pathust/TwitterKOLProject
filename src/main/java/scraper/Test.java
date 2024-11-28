@@ -1,7 +1,7 @@
 package scraper;
 
 import model.User;
-import scraper.storage.UserDataHandler;
+import scraper.storage.StorageHandler;
 import scraper.storage.UserStorageManager;
 
 import java.io.IOException;
@@ -9,11 +9,11 @@ import java.util.List;
 
 public class Test {
     public static void main(String[] args) throws IOException {
-        UserDataHandler userDataHandler = new UserStorageManager();
+        StorageHandler<User> userDataHandler = new UserStorageManager();
         System.out.println("Loading");
-        userDataHandler.loadUsers("KOLs.json");
+        userDataHandler.load("KOLs.json");
         System.out.println("Loaded");
-        List<User> users = userDataHandler.getUsers("KOLs.json");
+        List<User> users = userDataHandler.getAll("KOLs.json");
         System.out.println(users.size());
         int sum = 0;
         for (User user : users) {

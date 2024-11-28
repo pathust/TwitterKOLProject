@@ -8,18 +8,22 @@ import java.util.List;
 import static java.lang.Double.parseDouble;
 
 public class Tweet {
-    private String content;
-    //private String dateTime;
+    private String authorUsername;
+    private String authorProfileLink;
     private String tweetLink;
+    private String content;
+    private int likeCount;
+    private int commentCount;
     private int repostCount;
-    private String userLink;
+    private int viewCount;
     private List<String> repostList;
     //private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
-    public Tweet(String tweetLink, String userLink,  int repostCount) {
+    public Tweet(String tweetLink, String authorProfileLink,  int repostCount) {
         this.tweetLink = tweetLink;
-        this.userLink = userLink;
+        this.authorProfileLink = authorProfileLink;
         this.repostCount= repostCount;
+        repostList = new ArrayList<>();
     }
 
     public static int toInt(String count) {
@@ -77,20 +81,54 @@ public class Tweet {
     }*/
 
     public List<String> getRepostList() {
-
         return repostList;
     }
 
     public void setRepostList(List<String> repostList) {
-        this.repostList = repostList != null ? repostList : new ArrayList<>();
+        this.repostList =
+                (repostList != null)
+                        ? repostList
+                        : new ArrayList<>();
     }
 
-    public String getUserLink() {
-        return userLink;
+    public String getAuthorUsername() {
+        return authorUsername;
     }
 
-    public void setUserLink(String userLink) {
-        this.userLink = userLink;
+    public void setAuthorUsername(String authorUsername) {
+        this.authorUsername = authorUsername;
+    }
+
+    public String getAuthorProfileLink() {
+        return authorProfileLink;
+    }
+
+    public void setAuthorProfileLink(String authorProfileLink) {
+        this.authorProfileLink = authorProfileLink;
+    }
+
+    public int getLikeCount() {
+        return likeCount;
+    }
+
+    public void setLikeCount(int likeCount) {
+        this.likeCount = likeCount;
+    }
+
+    public int getCommentCount() {
+        return commentCount;
+    }
+
+    public void setCommentCount(int commentCount) {
+        this.commentCount = commentCount;
+    }
+
+    public int getViewCount() {
+        return viewCount;
+    }
+
+    public void setViewCount(int viewCount) {
+        this.viewCount = viewCount;
     }
 }
 

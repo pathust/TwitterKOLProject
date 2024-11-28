@@ -7,7 +7,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import scraper.navigation.Navigator;
-import scraper.storage.TweetDataHandler;
+import scraper.storage.StorageHandler;
 
 import java.io.IOException;
 import java.time.Duration;
@@ -23,12 +23,12 @@ public class TwitterTweetDataExtractor implements TweetDataExtractor {
     private final WebDriver driver;
     private final WebDriverWait wait;
     private final Navigator navigator;
-    private final TweetDataHandler tweetDataHandler;
+    private final StorageHandler<Tweet> tweetDataHandler;
 
     //private static final int MAX_SCROLLS = 2;
     private static final int RETRY_ATTEMPTS = 3;
 
-    public TwitterTweetDataExtractor(WebDriver driver, Navigator navigator, TweetDataHandler tweetDataHandler) {
+    public TwitterTweetDataExtractor(WebDriver driver, Navigator navigator, StorageHandler<Tweet> tweetDataHandler) {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         this.navigator = navigator;
@@ -158,7 +158,7 @@ public class TwitterTweetDataExtractor implements TweetDataExtractor {
         int repostCount = extractRepostCount();
         out.print("Repost: " + repostCount + "\n");
 
-        Tweet tweet = tweetDataHandler.getTweet("Tweet.json", tweetLink);
+        Tweet tweet = tweetDataHandler.get("Tweet.json", tweetLink);
         if (tweet == null) {
             out.println("Error: Tweet not found in Tweet.json for link: " + tweetLink);
             return;
@@ -186,13 +186,13 @@ public class TwitterTweetDataExtractor implements TweetDataExtractor {
 
 
         for (Tweet repost : repostList) {
-            repostLinks.add(repost.getUserLink());
+            repostLinks.add(repost.getAuthorProfileLink());
         }
 
         tweet.setRepostList(repostLinks);
 
         try {
-            tweetDataHandler.addTweet("Tweet.json", tweet);
+            tweetDataHandler.add("Tweet.json", tweet);
         } catch (IOException e) {
             out.println("Error: Unable to save tweet data.");
             e.printStackTrace();
@@ -239,7 +239,7 @@ public class TwitterTweetDataExtractor implements TweetDataExtractor {
                     tweetsList.add(newTweet);
                     out.println("Added user: " + usernameText);
 
-                    if (!tweetDataHandler.tweetExists("Tweet.json", userLink)) {
+                    if (!tweetDataHandler.exists("Tweet.json", userLink)) {
                         countNewUser++;
                     }
                 }
@@ -295,12 +295,12 @@ public class TwitterTweetDataExtractor implements TweetDataExtractor {
             //int repostCount = extractRepostCount();
             int repostCount =0;
             try {
-                if (tweetDataHandler.tweetExists("Tweet.json", userLink) || countNewUser < maxNewUsers) {
+                if (tweetDataHandler.exists("Tweet.json", userLink) || countNewUser < maxNewUsers) {
                     Tweet newTweet = new Tweet(tweetLink, userLink, repostCount);
                     tweetsList.add(newTweet);
                     out.println("Added user: " + usernameText);
 
-                    if (!tweetDataHandler.tweetExists("Tweet.json", userLink)) {
+                    if (!tweetDataHandler.exists("Tweet.json", userLink)) {
                         countNewUser++;
                     }
                 }

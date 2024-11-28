@@ -7,28 +7,25 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import scraper.navigation.Navigator;
-import scraper.storage.UserDataHandler;
+import scraper.storage.StorageHandler;
 
 import java.io.IOException;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated;
-import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOf;
 
 public class TwitterUserDataExtractor implements UserDataExtractor {
 
     private final WebDriver driver;
     private final WebDriverWait wait;
     private final Navigator navigator;
-    private final UserDataHandler userDataHandler;
+    private final StorageHandler<User> userDataHandler;
 
     private static final int MAX_SCROLLS = 2;
 
-    public TwitterUserDataExtractor(WebDriver driver, Navigator navigator, UserDataHandler userDataHandler) {
+    public TwitterUserDataExtractor(WebDriver driver, Navigator navigator, StorageHandler<User> userDataHandler) {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(5));
         this.navigator = navigator;
@@ -103,7 +100,7 @@ public class TwitterUserDataExtractor implements UserDataExtractor {
     }
 
     @Override
-    public void extractData(String userLink, int maxListSize) {
+    public void extractData(String userLink) {
         System.out.println("Extracting data from " + userLink);
         driver.get(userLink);
         try {
@@ -121,18 +118,19 @@ public class TwitterUserDataExtractor implements UserDataExtractor {
 
         try {
             navigator.navigateToSection("followers_you_follow");
-            List<User> followingList = extractUsers(false, -1);
-            List<String> followingLinks = new ArrayList<>();
-            for (User user : followingList) {
-                userDataHandler.addUser("KOLs.json", user);
-                followingLinks.add(user.getProfileLink());
+
+            List<User> followersList = extractUsers(false, -1, false);
+            List<String> followersLinks = new ArrayList<>();
+            for (User user : followersList) {
+                userDataHandler.add("KOLs.json", user);
+                followersLinks.add(user.getProfileLink());
             }
-            User newUser = userDataHandler.getUser("KOLs.json", userLink);
+            User newUser = userDataHandler.get("KOLs.json", userLink);
             newUser.setFollowersCount(followersCount);
             newUser.setFollowingCount(followingCount);
-            newUser.setFollowersList(followingLinks);
+            newUser.setFollowersList(followersLinks);
             try {
-                userDataHandler.addUser("KOLs.json", newUser);
+                userDataHandler.add("KOLs.json", newUser);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -143,7 +141,7 @@ public class TwitterUserDataExtractor implements UserDataExtractor {
     }
 
     @Override
-    public List<User> extractUsers(boolean isVerified, int maxListSize) {
+    public List<User> extractUsers(boolean isVerified, int maxListSize, boolean addToStorage) {
         int countNewUser = 0;
         List<User> usersList = new ArrayList<>();
         if (maxListSize == 0) {
@@ -160,7 +158,8 @@ public class TwitterUserDataExtractor implements UserDataExtractor {
             usersList.add(newUser);
             System.out.println(countNewUser + ". Add user to usersList " + username);
 
-            navigator.clickButton(userCell, "Follow");
+            if (addToStorage)
+                navigator.clickButton(userCell, "Follow");
 
             if (++countNewUser == maxListSize) {
                 break;
