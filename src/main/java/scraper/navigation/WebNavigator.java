@@ -30,10 +30,35 @@ public class WebNavigator implements Navigator {
         js.executeScript("window.scrollBy(0, arguments[0]);", pixels);
     }
 
-    public void clickButton(String buttonName) {
-        WebElement button = wait.until(elementToBeClickable(
-                By.xpath("//span[text()='" + buttonName + "']/..")));
-        button.click();
+    @Override
+    public void clickButton(WebElement element, String buttonName) {
+        String scopedXPath = ".//button//span[text()='" + buttonName + "']"; // Scoped to element
+        String globalXPath = "//button//span[text()='" + buttonName + "']";
+
+        try {
+            WebElement button;
+            if (element == null) {
+                button = driver.findElement(By.xpath(globalXPath));
+            }
+            else {
+                button = element.findElement(By.xpath(globalXPath));
+            }
+
+            Thread.sleep(1000);
+            if (button == null) {
+                System.out.println("Button not found");
+            }
+            button = wait.until(elementToBeClickable(button));
+            button.click();
+        }
+        catch (Exception e) {
+            if (element != null) {
+                String btnName = element.findElement(By.xpath("//button//span[contains(text(), 'Follow')]")).getText();
+                System.out.println(btnName);
+            }
+
+            System.out.println("Followed");
+        }
     }
 
     public void fillingFieldBySpan(String spanText, String text) {
