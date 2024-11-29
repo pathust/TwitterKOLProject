@@ -3,6 +3,7 @@ package UI;
 import UI.display.DisplayScene;
 import UI.home.HomeScene;
 import UI.waiting.WaitingScene;
+import UI.startedScene.started;
 import graph.Graph;
 import graph.PagerankCalculator;
 import javafx.application.Application;

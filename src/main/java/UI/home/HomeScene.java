@@ -15,6 +15,10 @@ public class HomeScene{
     private Scene scene;
     private Stage stage;
 
+    public HomeScene() {
+
+    }
+
     public HomeScene(Stage primaryStage, SwitchingScene switching) {
         stage = primaryStage;
         addFile = new AddFile(stage);

@@ -9,13 +9,13 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #FFF0F5;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.controller.home2">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #FFF0F5;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.home.HomeScene">
    <children>
       <VBox prefHeight="400.0" prefWidth="105.0" spacing="10.0" style="-fx-background-color: #FFCCCC;">
          <children>
-            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="111.0" style="-fx-background-color: #FFE4E1;" text="Crawl data" />
-            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="107.0" style="-fx-background-color: #FFE4E1;" text="Upload data" />
-            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="111.0" style="-fx-background-color: #FFE4E1;" text="Data statistic" />
+            <Button fx:id="crawlDataButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="111.0" style="-fx-background-color: #FFE4E1;" text="Crawl data" />
+            <Button fx:id="uploadDataButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="107.0" style="-fx-background-color: #FFE4E1;" text="Upload data" />
+            <Button fx:id="dataStatisticButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="111.0" style="-fx-background-color: #FFE4E1;" text="Data statistic" />
          </children>
          <padding>
             <Insets top="90.0" />
@@ -52,7 +52,7 @@
             <Image url="@../../../resources/images/linh4.png" />
          </image>
       </ImageView>
-      <Button layoutX="294.0" layoutY="303.0" mnemonicParsing="false" style="-fx-background-color: #FFE4E1; -fx-background-radius: 50; -fx-border-width: 20;" text="SEARCH">
+      <Button fx:id="searchButton" layoutX="294.0" layoutY="303.0" mnemonicParsing="false" style="-fx-background-color: #FFE4E1; -fx-background-radius: 50; -fx-border-width: 20;" text="SEARCH">
          <font>
             <Font name="Berlin Sans FB Demi Bold" size="27.0" />
          </font>

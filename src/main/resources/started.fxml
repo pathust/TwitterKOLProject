@@ -8,7 +8,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: linear-gradient(to bottom, #fce4ec, #f8bbd0); -fx-border-color: pink; -fx-border-radius: 3;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.home.home1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: linear-gradient(to bottom, #fce4ec, #f8bbd0); -fx-border-color: pink; -fx-border-radius: 3;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.home.startedScene.started">
     <children>
         <ImageView fitHeight="193.0" fitWidth="259.0" layoutX="-18.0" layoutY="39.0">
             <image>
@@ -25,21 +25,6 @@
                 <Font name="Berlin Sans FB Bold" size="15.0" />
             </font>
         </Button>
-        <MenuBar prefHeight="25.0" prefWidth="600.0" style="-fx-background-color: pink; -fx-text-font: Berlin Sans FB Demi;" AnchorPane.leftAnchor="0.0">
-            <menus>
-                <Menu mnemonicParsing="false" text="Home">
-                    <items>
-                        <MenuItem mnemonicParsing="false" text="Close" />
-                    </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="Exit" />
-                <Menu mnemonicParsing="false" text="Help">
-                    <items>
-                        <MenuItem mnemonicParsing="false" text="About" />
-                    </items>
-                </Menu>
-            </menus>
-        </MenuBar>
         <ImageView fitHeight="156.0" fitWidth="272.0" layoutY="224.0">
             <image>
                 <Image url="@images/linh1.png" />
