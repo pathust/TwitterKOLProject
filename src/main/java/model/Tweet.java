@@ -1,5 +1,7 @@
 package model;
 
+import org.openqa.selenium.WebElement;
+
 import java.time.LocalDateTime;
 
 import java.time.format.DateTimeFormatter;
@@ -26,22 +28,6 @@ public class Tweet {
         repostList = new ArrayList<>();
     }
 
-    public static int toInt(String count) {
-        int factor = 1;
-        if (count.endsWith("K")) {
-            count = count.replace("K", "");
-            factor = 1000;
-        } else if (count.endsWith("M")) {
-            count = count.replace("M", "");
-            factor = 1000_000;
-        } else {
-            count = count.replace(",", "");
-        }
-
-        return (int) (parseDouble(count) * factor);
-    }
-
-
     public int getRepostCount(){
         return repostCount;
     }
@@ -65,21 +51,7 @@ public class Tweet {
     public void setContent(String content) {
         this.content = content;
     }
-
-    /*public LocalDateTime getDateTime() {
-        if (dateTime == null || dateTime.isEmpty()) {
-            System.out.println("Timestamp is null or empty, cannot parse.");
-            return null;
-        }
-        return LocalDateTime.parse(dateTime, DateTimeFormatter.ofPattern("pattern_format"));
-    }*/
-
-
-
-    /*public void setDateTime(String dateTimeString) {
-        this.dateTime = dateTimeString;
-    }*/
-
+    
     public List<String> getRepostList() {
         return repostList;
     }

@@ -14,11 +14,10 @@ public class UserStorage extends Storage<User> {
     protected User parseItem(JsonNode itemNode) {
         String username = itemNode.get("username").asText();
         String profileLink = itemNode.get("profileLink").asText();
-        boolean isVerified = itemNode.get("isVerified").asBoolean();
         int followersCount = itemNode.get("followersCount").asInt();
         int followingCount = itemNode.get("followingCount").asInt();
 
-        User user = new User(profileLink, username, isVerified);
+        User user = new User(profileLink, username);
         user.setFollowersCount(followersCount);
         user.setFollowingCount(followingCount);
         user.setFollowersList(getFollowersLinks(itemNode));
@@ -30,7 +29,6 @@ public class UserStorage extends Storage<User> {
         ObjectNode userNode = mapper.createObjectNode();
         userNode.put("username", user.getUsername());
         userNode.put("profileLink", user.getProfileLink());
-        userNode.put("isVerified", user.isVerified());
         userNode.put("followersCount", user.getFollowersCount());
         userNode.put("followingCount", user.getFollowingCount());
         userNode.set("followersList", createFollowersLinksNode(user.getFollowersList()));
@@ -39,9 +37,6 @@ public class UserStorage extends Storage<User> {
 
     @Override
     protected void updateItemFields(ObjectNode userNode, User user) {
-        if (!userNode.get("isVerified").asBoolean()) {
-            userNode.put("isVerified", user.isVerified());
-        }
         userNode.put("followersCount", user.getFollowersCount());
         userNode.put("followingCount", user.getFollowingCount());
         userNode.set("followersList", createFollowersLinksNode(user.getFollowersList()));

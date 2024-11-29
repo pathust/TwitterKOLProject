@@ -7,10 +7,10 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import scraper.authentication.Authenticator;
 import scraper.authentication.TwitterAuthenticator;
-import scraper.extractor.TweetDataExtractor;
-import scraper.extractor.TwitterUserDataExtractor;
-import scraper.extractor.TwitterTweetDataExtractor;
+import scraper.extractor.DataExtractor;
 import scraper.extractor.UserDataExtractor;
+import scraper.extractor.TweetDataExtractor;
+import scraper.extractor.Extractor;
 import scraper.filtering.Filter;
 import scraper.filtering.TwitterFilter;
 import scraper.navigation.Navigator;
@@ -28,9 +28,9 @@ public class TwitterScraperController {
     private final Navigator navigator;
     private final Authenticator authenticator;
     private final Filter filter;
-    private final UserDataExtractor userDataExtractor;
+    private final Extractor<User> userDataExtractor;
     private final StorageHandler<User> userDataHandler;
-    private final TweetDataExtractor tweetDataExtractor;
+    private final Extractor<Tweet> tweetDataExtractor;
     private final StorageHandler<Tweet> tweetDataHandler;
 
     public TwitterScraperController() {
@@ -42,9 +42,9 @@ public class TwitterScraperController {
         this.authenticator = new TwitterAuthenticator(driver, navigator);
         this.filter = new TwitterFilter(driver, navigator);
         this.userDataHandler = new UserStorageManager();
-        this.userDataExtractor = new TwitterUserDataExtractor(driver, navigator, userDataHandler);
+        this.userDataExtractor = new UserDataExtractor(driver, navigator, userDataHandler) {};
         this.tweetDataHandler = new TweetStorageManager();
-        this.tweetDataExtractor = new TwitterTweetDataExtractor(driver, navigator, tweetDataHandler);
+        this.tweetDataExtractor = new TweetDataExtractor(driver, navigator, tweetDataHandler);
     }
 
     public void login(String username, String email, String password) {
@@ -90,7 +90,7 @@ public class TwitterScraperController {
             else {
                 System.out.println("Scraping tweet " + tweet.getAuthorProfileLink());
             }
-            tweetDataExtractor.extractData(tweet.getTweetLink(),1000,5);
+            tweetDataExtractor.extractData(tweet.getTweetLink());
             tweetDataHandler.save("Tweet.json");
         }
     }
@@ -112,7 +112,7 @@ public class TwitterScraperController {
 
         navigator.navigateToSection("user");
 
-        List <User> users = userDataExtractor.extractUsers(true, 100, true);
+        List <User> users = userDataExtractor.extractItems(10, true);
         for (User user : users) {
             userDataHandler.add(filePath, user);
         }
@@ -123,7 +123,7 @@ public class TwitterScraperController {
     private void extractInitialTweetsTo(String filePath) throws IOException {
         System.out.println("Start collecting tweet data...");
 
-        List <Tweet> tweets = tweetDataExtractor.extractTweets( 5,5);
+        List <Tweet> tweets = tweetDataExtractor.extractItems(5, true);
         for (Tweet tweet : tweets) {
             tweetDataHandler.add(filePath,tweet);
         }

@@ -1,0 +1,54 @@
+package scraper.extractor;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import scraper.navigation.Navigator;
+import scraper.storage.StorageHandler;
+
+import java.io.IOException;
+import java.time.Duration;
+import java.util.ArrayList;
+import java.util.List;
+
+public abstract class DataExtractor<T> {
+    protected final WebDriver driver;
+    protected final WebDriverWait wait;
+    protected final Navigator navigator;
+    protected final StorageHandler<T> storageHandler;
+
+    public DataExtractor(WebDriver driver, Navigator navigator, StorageHandler<T> storageHandler) {
+        this.driver = driver;
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        this.navigator = navigator;
+        this.storageHandler = storageHandler;
+    }
+
+    protected abstract WebElement getFirstCell();
+    protected abstract WebElement nextCell(WebElement currentCell);
+    protected abstract T extractItem(WebElement currentCell);
+    protected abstract void Write(T item);
+    public abstract void extractData(String link) throws IOException;
+    public List<T> extractItems(int maxListSize, boolean addToStorage) {
+        List<T> items = new ArrayList<>();
+        if (maxListSize == 0) {
+            return items;
+        }
+
+        WebElement currentCell = null;
+        int counter = 1;
+        do {
+            currentCell = nextCell(currentCell);
+            if (currentCell == null) {
+                break;
+            }
+            navigator.scrollToElement(currentCell);
+            T newItem = extractItem(currentCell);
+            System.out.println(counter);
+            Write(newItem);
+            items.add(newItem);
+        } while (++counter != maxListSize);
+
+        return items;
+    }
+}
