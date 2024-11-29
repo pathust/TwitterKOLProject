@@ -40,7 +40,7 @@ public class TwitterScraperController {
     public TwitterScraperController() {
         System.setProperty(
                 "webdriver.chrome.driver",
-                "/Users/phananhtai/Downloads/chromedriver-mac-arm64/chromedriver");
+                "D:\\Dowload\\chromedriver-win64\\chromedriver-win64\\chromedriver.exe");
         driver = new ChromeDriver();
         this.navigator = new WebNavigator(driver);
         this.authenticator = new TwitterAuthenticator(driver, navigator);
@@ -138,7 +138,11 @@ public class TwitterScraperController {
     public static void main(String[] args) throws IOException, InterruptedException {
         TwitterScraperController controller = new TwitterScraperController();
 
-        controller.login();
+        controller.login(
+                "@DThank05",
+                "dinhthanh020105@gmail.com",
+                "xuanthanh123");
+
         controller.applyFilter(
                 List.of(args),
                 1000,

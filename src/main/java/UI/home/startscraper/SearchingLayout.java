@@ -8,9 +8,11 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 
 public class SearchingLayout {
-    private HBox searchingComponent;
+    private Pane searchingComponent;
     private StartScraperHandler startScraperHandler;
 
     private void StartSearch(String text) {
@@ -28,26 +30,24 @@ public class SearchingLayout {
 
         Button searchButton = new Button("Search KOL");
 
-        GridPane layout = new GridPane();
-        layout.setAlignment(Pos.CENTER);
-        layout.setHgap(10);
-        layout.setVgap(15);
-
-        layout.setPadding(new Insets(25, 25, 25, 25));
-
-        layout.add(instruction, 0,0);
-        layout.add(searchField, 0, 1);
-        layout.add(searchButton, 0, 2);
-
-        searchingComponent = new HBox(layout);
-
         startScraperHandler = new StartScraperHandler(switchingScene);
         searchButton.setOnAction(event -> {
             StartSearch(searchField.getText());
         });
+
+        Button addTextField = new Button("New TextField");
+
+        VBox layout = new VBox(searchField, searchButton, addTextField);
+
+        addTextField.setOnAction(event -> {
+            TextArea trt = new TextArea();
+            layout.getChildren().add(trt);
+        });
+
+        searchingComponent = new Pane(layout);
     }
 
-    public HBox getSearchComponent() {
+    public Pane getSearchComponent() {
         return searchingComponent;
     }
 }

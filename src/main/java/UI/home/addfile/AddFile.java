@@ -55,16 +55,16 @@ public class AddFile {
 
         chooseFileButton.setMinWidth(Region.USE_PREF_SIZE);
 
-        grid.setVgap(20); grid.setHgap(20);
+//        grid.setVgap(20); grid.setHgap(20);
         addFileHandler = new AddFileHandler(stage);
 
-        grid.setPadding(new Insets(25, 25, 25, 25));
+//        grid.setPadding(new Insets(25, 25, 25, 25));
 
         setChooseFileButton(chooseFileButton, fileLabel);
         setAddFileButton(addFileButton);
 
         addFileComponent = new HBox(grid);
-//        addFileComponent.setAlignment(Pos.CENTER);
+        addFileComponent.setAlignment(Pos.CENTER);
     }
 
     public HBox getComponent() {
