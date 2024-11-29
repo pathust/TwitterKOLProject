@@ -71,7 +71,7 @@ public class WebNavigator implements Navigator {
 
     public String getLink(WebElement element) {
         return element.findElement(
-                By.xpath(".//a[@role='link']")).getAttribute("href");
+                By.xpath("//a[@role='link']")).getAttribute("href");
     }
 
     public void navigateToSection(String section) {
@@ -79,8 +79,12 @@ public class WebNavigator implements Navigator {
             System.err.println("No section found");
             return;
         }
-        WebElement sectionLink = wait.until(presenceOfElementLocated(
-                By.xpath("//a[contains(@href, '" + section + "')]")));
-        sectionLink.click();
+        String sectionLink = wait.until(
+                presenceOfElementLocated(
+                        By.xpath("//a[contains(@href, '" + section + "')]")
+                )).getAttribute("href");
+        while (!driver.getCurrentUrl().contains(section)) {
+            driver.navigate().to(sectionLink);
+        }
     }
 }

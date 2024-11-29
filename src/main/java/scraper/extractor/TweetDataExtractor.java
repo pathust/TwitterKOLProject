@@ -51,12 +51,14 @@ public class TweetDataExtractor extends DataExtractor<Tweet> implements Extracto
     @Override
     protected WebElement nextCell(WebElement tweetCell) {
         if (tweetCell == null) {
+            System.out.println("Next cell is null");
             return getFirstCell();
         }
 
         for (int attempt = 0; attempt < RETRY_ATTEMPTS; attempt++) {
             try {
-                WebElement parentDiv = tweetCell.findElement(By.xpath("./ancestor::div[@data-testid='cellInnerDiv']"));
+                WebElement parentDiv = tweetCell.findElement(
+                        By.xpath("./ancestor::div[@data-testid='cellInnerDiv']"));
                 return parentDiv.findElement(
                         By.xpath("(following-sibling::div[@data-testid='cellInnerDiv'])//article[contains(@data-testid, 'tweet')]"));
             } catch (Exception e) {
@@ -109,13 +111,13 @@ public class TweetDataExtractor extends DataExtractor<Tweet> implements Extracto
         }
 
         try {
-            WebElement repostButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@data-testid='retweet']")));
+            WebElement repostButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(".//button[@data-testid='retweet']")));
             repostButton.click();
 
-            WebElement viewQuotesOption = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[text()='View Quotes']")));
+            WebElement viewQuotesOption = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(".//span[text()='View Quotes']")));
             viewQuotesOption.click();
 
-            WebElement viewRepostsOption = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[text()='Reposts']")));
+            WebElement viewRepostsOption = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(".//span[text()='Reposts']")));
             viewRepostsOption.click();
 
         } catch (Exception e) {
@@ -143,16 +145,17 @@ public class TweetDataExtractor extends DataExtractor<Tweet> implements Extracto
     }
 
     private String extractAuthorUsername(WebElement tweetCell) {
-        return tweetCell.findElement(By.xpath("//div[@data-testid='User-Name']//div[0]")).getText();
+        return tweetCell.findElement(By.xpath(".//div[@data-testid='User-Name']/div[1]")).getText();
     }
 
     private String extractAuthorProfileLink(WebElement tweetCell) {
-        return navigator.getLink(tweetCell);
+        WebElement authorProfileLinkElement = tweetCell.findElement(By.xpath(".//div[@data-testid='User-Name']/div[1]//a"));
+        return authorProfileLinkElement.getAttribute("href");
     }
 
     private String extractTweetLink(WebElement tweetCell) {
-        WebElement tweetLinkElement = tweetCell.findElement(By.xpath("//a[contains(@href, 'status')]"));
-        return navigator.getLink(tweetLinkElement);
+        WebElement tweetLinkElement = tweetCell.findElement(By.xpath(".//a[contains(@href, 'status')]"));
+        return tweetLinkElement.getAttribute("href");
     }
 
     private String extractContent(WebElement tweetCell) {
@@ -165,7 +168,6 @@ public class TweetDataExtractor extends DataExtractor<Tweet> implements Extracto
         WebElement interactElement = wait.until(
                 presenceOfElementLocated(By.xpath(xpathExpression))
         );
-        WebElement countDiv = interactElement.findElement(By.xpath("//div[last()]"));
-        return Integer.parseInt(countDiv.getText());
+        return toInt(interactElement.getText());
     }
 }

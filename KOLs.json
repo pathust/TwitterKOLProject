@@ -1,54 +1,6 @@
 [ {
-  "username" : "Ice Open Network",
-  "profileLink" : "https://x.com/ice_blockchain",
-  "followersCount" : 0,
-  "followingCount" : 0,
-  "followersList" : [ ]
-}, {
-  "username" : "Cardano Community",
-  "profileLink" : "https://x.com/Cardano",
-  "followersCount" : 0,
-  "followingCount" : 0,
-  "followersList" : [ ]
-}, {
-  "username" : "Mint",
-  "profileLink" : "https://x.com/Mint_Blockchain",
-  "followersCount" : 0,
-  "followingCount" : 0,
-  "followersList" : [ ]
-}, {
-  "username" : "Blockchain.com",
-  "profileLink" : "https://x.com/blockchain",
-  "followersCount" : 0,
-  "followingCount" : 0,
-  "followersList" : [ ]
-}, {
-  "username" : "Blockchain Backer",
-  "profileLink" : "https://x.com/BCBacker",
-  "followersCount" : 0,
-  "followingCount" : 0,
-  "followersList" : [ ]
-}, {
-  "username" : "TON",
-  "profileLink" : "https://x.com/ton_blockchain",
-  "followersCount" : 0,
-  "followingCount" : 0,
-  "followersList" : [ ]
-}, {
-  "username" : "Solana",
-  "profileLink" : "https://x.com/solana",
-  "followersCount" : 0,
-  "followingCount" : 0,
-  "followersList" : [ ]
-}, {
-  "username" : "RENEC Blockchain",
-  "profileLink" : "https://x.com/RenecBlockchain",
-  "followersCount" : 0,
-  "followingCount" : 0,
-  "followersList" : [ ]
-}, {
-  "username" : "Erick / Snowfro /",
-  "profileLink" : "https://x.com/ArtOnBlockchain",
+  "username" : "",
+  "profileLink" : null,
   "followersCount" : 0,
   "followingCount" : 0,
   "followersList" : [ ]

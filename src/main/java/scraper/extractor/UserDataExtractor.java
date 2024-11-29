@@ -53,13 +53,13 @@ public class UserDataExtractor extends DataExtractor<User> implements Extractor<
     @Override
     protected User extractItem(WebElement currentCell) {
         String username = extractUserName(currentCell);
-        String profileLink = navigator.getLink(currentCell);
+        String profileLink = extractProfileLink(currentCell);
         return new User(profileLink, username);
     }
 
     @Override
     protected void Write(User user) {
-        System.out.println("Writing user: " + user.getUsername());
+        System.out.println("Writing user: " + user.getUsername() + " " + user.getProfileLink());
     }
 
     @Override
@@ -100,8 +100,18 @@ public class UserDataExtractor extends DataExtractor<User> implements Extractor<
 
     private String extractUserName(WebElement userCell) {
         try {
-            WebElement userNameElement = userCell.findElement(By.xpath(".//span[not(*)]"));
+            WebElement userNameElement = userCell.findElement(By.xpath("//ancestor::span[not(*)]"));
             return userNameElement.getText();
+        } catch (Exception e) {
+            System.out.println("Unable to extract username.");
+            return "Unknown";
+        }
+    }
+
+    private String extractProfileLink(WebElement userCell) {
+        try {
+            WebElement userNameElement = userCell.findElement(By.xpath("//ancestor::span[not(*)]"));
+            return userNameElement.getAttribute("href");
         } catch (Exception e) {
             System.out.println("Unable to extract username.");
             return "Unknown";

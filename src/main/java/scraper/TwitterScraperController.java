@@ -59,10 +59,6 @@ public class TwitterScraperController {
         filter.advancedSearch(keywords, minLikes, minReplies, minReposts);
     }
 
-    public void navigationalSearchLink(){
-        filter.navigateToSearchResultLink();
-    }
-
     public void scrapeUsersData(List<User> users) throws IOException {
         for (User user : users) {
             if (user == null) {
@@ -141,13 +137,16 @@ public class TwitterScraperController {
                 1000,
                 250);
 
+        String searchResultLink = driver.getCurrentUrl();
         // Extract data from tweets
         controller.extractInitialTweetsTo("Tweet.json");
         List<Tweet> tweets = controller.getTweets("Tweet.json");
         System.out.println("Number of tweets: " + tweets.size());
         controller.scrapeTweetsData(tweets);
 
-        controller.navigationalSearchLink();
+        while (!driver.getCurrentUrl().contains("search")) {
+            driver.get(searchResultLink);
+        }
 
         // Extract data from users
         controller.extractInitialKOLsTo("KOLs.json");
