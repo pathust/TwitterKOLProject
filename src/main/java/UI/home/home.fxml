@@ -23,7 +23,7 @@
       </VBox>
       <ImageView fitHeight="284.0" fitWidth="503.0" layoutX="110.0" layoutY="-101.0">
          <image>
-            <Image url="@images/linh3.png" />
+            <Image url="@../../../resources/images/linh3.png" />
          </image>
       </ImageView>
       <Text layoutX="270.0" layoutY="51.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CRAWL DATA">
@@ -44,12 +44,12 @@
       </VBox>
       <ImageView fitHeight="112.0" fitWidth="200.0" layoutX="387.0" layoutY="-24.0">
          <image>
-            <Image url="@images/linh4.png" />
+            <Image url="@../../../resources/images/linh4.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="112.0" fitWidth="200.0" layoutX="132.0" layoutY="-24.0" rotate="-109.4">
          <image>
-            <Image url="@images/linh4.png" />
+            <Image url="@../../../resources/images/linh4.png" />
          </image>
       </ImageView>
       <Button layoutX="294.0" layoutY="303.0" mnemonicParsing="false" style="-fx-background-color: #FFE4E1; -fx-background-radius: 50; -fx-border-width: 20;" text="SEARCH">
@@ -59,7 +59,7 @@
       </Button>
       <ImageView fitHeight="151.0" fitWidth="272.0" layoutX="14.0" layoutY="-19.0">
          <image>
-            <Image url="@images/lih2.png" />
+            <Image url="@../../../resources/images/lih2.png" />
          </image>
       </ImageView>
    </children>
