@@ -3,12 +3,13 @@ package scraper.storage;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import model.DataModel;
 import model.Tweet;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class TweetStorage extends Storage<Tweet> {
+public class TweetStorage extends Storage {
 
     @Override
     protected Tweet parseItem(JsonNode itemNode) {
@@ -18,12 +19,14 @@ public class TweetStorage extends Storage<Tweet> {
         int repostCount = itemNode.get("repostCount").asInt();
 
         Tweet tweet = new Tweet(tweetLink, authorProfileLink, repostCount);
+        tweet.setAuthorUsername(authorUsername);
         tweet.setRepostList(getRepostLinks(itemNode));
         return tweet;
     }
 
     @Override
-    protected ObjectNode createItemNode(Tweet tweet) {
+    protected ObjectNode createItemNode(DataModel dataModel) {
+        Tweet tweet = (Tweet) dataModel;
         ObjectNode tweetNode = mapper.createObjectNode();
         tweetNode.put("authorUsername", tweet.getAuthorUsername());
         tweetNode.put("authorProfileLink", tweet.getAuthorProfileLink());
@@ -35,13 +38,15 @@ public class TweetStorage extends Storage<Tweet> {
     }
 
     @Override
-    protected void updateItemFields(ObjectNode tweetNode, Tweet tweet) {
+    protected void updateItemFields(ObjectNode tweetNode, DataModel dataModel) {
+        Tweet tweet = (Tweet) dataModel;
         tweetNode.put("repostCount", tweet.getRepostCount());
         tweetNode.set("repostList", createRepostLinksNode(tweet.getRepostList()));
     }
 
     @Override
-    protected String getIdentifier(Tweet tweet) {
+    protected String getIdentifier(DataModel dataModel) {
+        Tweet tweet = (Tweet) dataModel;
         return tweet.getTweetLink();
     }
 

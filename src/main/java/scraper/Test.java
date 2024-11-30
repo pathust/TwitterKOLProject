@@ -1,19 +1,27 @@
 package scraper;
 
 import model.User;
+import scraper.storage.DataRepository;
 import scraper.storage.StorageHandler;
 import scraper.storage.UserStorageManager;
+import utils.ObjectType;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Test {
     public static void main(String[] args) throws IOException {
-        StorageHandler<User> userDataHandler = new UserStorageManager();
+        DataRepository storageHandler = new StorageHandler();
         System.out.println("Loading");
-        userDataHandler.load("KOLs.json");
+        storageHandler.load(ObjectType.USER, "KOLs.json");
         System.out.println("Loaded");
-        List<User> users = userDataHandler.getAll("KOLs.json");
+        List<User> users = storageHandler.getAll(ObjectType.USER, "KOLs.json")
+                .stream()
+                .filter(item -> item instanceof User)
+                .map(item -> (User) item)
+                .toList();
+
         System.out.println(users.size());
         int sum = 0;
         for (User user : users) {

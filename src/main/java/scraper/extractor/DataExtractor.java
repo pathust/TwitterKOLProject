@@ -4,7 +4,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import scraper.navigation.Navigator;
-import scraper.storage.StorageHandler;
+import scraper.storage.DataRepository;
 
 import java.io.IOException;
 import java.time.Duration;
@@ -17,9 +17,9 @@ public abstract class DataExtractor<T> {
     protected final WebDriver driver;
     protected final WebDriverWait wait;
     protected final Navigator navigator;
-    protected final StorageHandler<T> storageHandler;
+    protected final DataRepository storageHandler;
 
-    public DataExtractor(WebDriver driver, Navigator navigator, StorageHandler<T> storageHandler) {
+    public DataExtractor(WebDriver driver, Navigator navigator, DataRepository storageHandler) {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(5));
         this.navigator = navigator;
@@ -28,7 +28,7 @@ public abstract class DataExtractor<T> {
 
     protected abstract WebElement getFirstCell();
     protected abstract WebElement nextCell(WebElement currentCell);
-    protected abstract T extractItem(String xpathExpression);
+    protected abstract T extractItem(String xpathExpression, boolean addToStorage);
     protected abstract void Write(T item);
     public abstract void extractData(String link) throws IOException;
     public List<T> extractItems(int maxListSize, boolean addToStorage) {
@@ -45,8 +45,9 @@ public abstract class DataExtractor<T> {
                 break;
             }
             navigator.scrollToElement(currentCell);
-            String xpathExpression = getXPath(currentCell);
-            T newItem = extractItem(xpathExpression);
+            String xpathExpression = getXPath(driver, currentCell);
+            System.out.println(xpathExpression);
+            T newItem = extractItem(xpathExpression, addToStorage);
             System.out.println(counter);
             Write(newItem);
             items.add(newItem);

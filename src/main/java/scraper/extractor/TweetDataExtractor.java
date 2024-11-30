@@ -1,11 +1,13 @@
 package scraper.extractor;
 
 import model.Tweet;
+import model.User;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import scraper.navigation.Navigator;
-import scraper.storage.StorageHandler;
+import scraper.storage.DataRepository;
+import utils.ObjectType;
 
 import java.io.IOException;
 import java.time.Duration;
@@ -20,7 +22,7 @@ import static utils.Math.toInt;
 public class TweetDataExtractor extends DataExtractor<Tweet> implements Extractor<Tweet> {
     private static final int RETRY_ATTEMPTS = 3;
 
-    public TweetDataExtractor(WebDriver driver, Navigator navigator, StorageHandler<Tweet> storageHandler) {
+    public TweetDataExtractor(WebDriver driver, Navigator navigator, DataRepository storageHandler) {
         super(driver, navigator, storageHandler);
     }
 
@@ -70,7 +72,7 @@ public class TweetDataExtractor extends DataExtractor<Tweet> implements Extracto
     }
 
     @Override
-    protected Tweet extractItem(String xpathExpression) {
+    protected Tweet extractItem(String xpathExpression, boolean addToStorage) {
         String authorUsername = extractAuthorUsername(xpathExpression);
         String authorProfileLink = extractAuthorProfileLink(xpathExpression);
         String tweetLink = extractTweetLink(xpathExpression);
@@ -103,7 +105,7 @@ public class TweetDataExtractor extends DataExtractor<Tweet> implements Extracto
             throw new RuntimeException(e);
         }
 
-        Tweet tweet = storageHandler.get("Tweet.json", tweetLink);
+        Tweet tweet = (Tweet) storageHandler.get(ObjectType.TWEET, "Tweet.json", tweetLink);
         if (tweet == null) {
             out.println("Error: Tweet not found in Tweet.json for link: " + tweetLink);
             return;
@@ -136,7 +138,7 @@ public class TweetDataExtractor extends DataExtractor<Tweet> implements Extracto
         tweet.setRepostList(repostLinks);
 
         try {
-            storageHandler.add("Tweet.json", tweet);
+            storageHandler.add(ObjectType.TWEET, "Tweet.json", tweet);
         } catch (IOException e) {
             out.println("Error: Unable to save tweet data.");
             e.printStackTrace();

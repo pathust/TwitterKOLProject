@@ -1,11 +1,13 @@
 package scraper.extractor;
 
+import model.Tweet;
 import model.User;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import scraper.navigation.Navigator;
-import scraper.storage.StorageHandler;
+import scraper.storage.DataRepository;
+import utils.ObjectType;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -15,8 +17,10 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElemen
 import static utils.Math.toInt;
 
 public class UserDataExtractor extends DataExtractor<User> implements Extractor<User> {
-    public UserDataExtractor(WebDriver driver, Navigator navigator, StorageHandler<User> storageHandler) {
+    private Extractor<Tweet> tweetExtractor;
+    public UserDataExtractor(WebDriver driver, Navigator navigator, DataRepository storageHandler) {
         super(driver, navigator, storageHandler);
+        tweetExtractor = new TweetDataExtractor(driver, navigator, storageHandler);
     }
 
     @Override
@@ -51,10 +55,13 @@ public class UserDataExtractor extends DataExtractor<User> implements Extractor<
     }
 
     @Override
-    protected User extractItem(String xpathExpression) {
+    protected User extractItem(String xpathExpression, boolean addToStorage) {
+        if (addToStorage)
+            navigator.clickButton(xpathExpression, "Follow");
+
         String username = extractUserName(xpathExpression);
         String profileLink = extractProfileLink(xpathExpression);
-        User user = new User(username, profileLink);
+        User user = new User(profileLink, username);
         return user;
     }
 
@@ -81,16 +88,16 @@ public class UserDataExtractor extends DataExtractor<User> implements Extractor<
 
             List<String> followersLinks = new ArrayList<>();
             for (User user : followersList) {
-                storageHandler.add("KOLs.json", user);
+                storageHandler.add(ObjectType.USER, "KOLs.json", user);
                 followersLinks.add(user.getProfileLink());
             }
 
-            User newUser = storageHandler.get("KOLs.json", userLink);
+            User newUser = (User) storageHandler.get(ObjectType.USER, "KOLs.json", userLink);
             if (newUser != null) {
                 newUser.setFollowersCount(toInt(followersCount));
                 newUser.setFollowingCount(toInt(followingCount));
                 newUser.setFollowersList(followersLinks);
-                storageHandler.add("KOLs.json", newUser);
+                storageHandler.add(ObjectType.USER, "KOLs.json", newUser);
             }
         } catch (IOException e) {
             throw new RuntimeException("Error updating user data: " + e.getMessage());
@@ -101,7 +108,7 @@ public class UserDataExtractor extends DataExtractor<User> implements Extractor<
 
     private String extractUserName(String parentXPath) {
         try {
-            String xpathExpression = parentXPath + "//div[last()]//a";
+            String xpathExpression = parentXPath + "//div[last()]//a//span";
             WebElement userNameElement = driver.findElement(By.xpath(xpathExpression));
             return userNameElement.getText();
         } catch (Exception e) {

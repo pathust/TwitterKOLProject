@@ -9,7 +9,7 @@ import static java.lang.Double.parseDouble;
 import static utils.Math.toInt;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class User {
+public class User extends DataModel{
     private String username;
     private String profileLink;
     private int followersCount;

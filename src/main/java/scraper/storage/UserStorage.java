@@ -3,12 +3,13 @@ package scraper.storage;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import model.DataModel;
 import model.User;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserStorage extends Storage<User> {
+public class UserStorage extends Storage{
 
     @Override
     protected User parseItem(JsonNode itemNode) {
@@ -25,7 +26,8 @@ public class UserStorage extends Storage<User> {
     }
 
     @Override
-    protected ObjectNode createItemNode(User user) {
+    protected ObjectNode createItemNode(DataModel dataModel) {
+        User user = (User) dataModel;
         ObjectNode userNode = mapper.createObjectNode();
         userNode.put("username", user.getUsername());
         userNode.put("profileLink", user.getProfileLink());
@@ -36,7 +38,8 @@ public class UserStorage extends Storage<User> {
     }
 
     @Override
-    protected void updateItemFields(ObjectNode userNode, User user) {
+    protected void updateItemFields(ObjectNode userNode, DataModel dataModel) {
+        User user = (User) dataModel;
         userNode.put("followersCount", user.getFollowersCount());
         userNode.put("followingCount", user.getFollowingCount());
         userNode.set("followersList", createFollowersLinksNode(user.getFollowersList()));
@@ -46,7 +49,8 @@ public class UserStorage extends Storage<User> {
     }
 
     @Override
-    protected String getIdentifier(User user) {
+    protected String getIdentifier(DataModel dataModel) {
+        User user = (User) dataModel;
         return user.getProfileLink();
     }
 

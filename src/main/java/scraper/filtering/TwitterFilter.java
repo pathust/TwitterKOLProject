@@ -58,7 +58,7 @@ public class TwitterFilter implements Filter {
             }
 
             try {
-                navigator.clickButton(null,"Search");
+                navigator.clickButton("", "Search");
             } catch (Exception e) {
                 System.out.println("Search button not found: " + e.getMessage());
             }

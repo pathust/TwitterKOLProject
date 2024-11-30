@@ -31,18 +31,12 @@ public class WebNavigator implements Navigator {
     }
 
     @Override
-    public void clickButton(WebElement element, String buttonName) {
-        String scopedXPath = ".//button//span[text()='" + buttonName + "']"; // Scoped to element
-        String globalXPath = "//button//span[text()='" + buttonName + "']";
+    public void clickButton(String parentXPath, String buttonName) {
+        String xpathExpression = parentXPath + "//button//span[text()='" + buttonName + "']"; // Scoped to element
 
         try {
             WebElement button;
-            if (element == null) {
-                button = driver.findElement(By.xpath(globalXPath));
-            }
-            else {
-                button = element.findElement(By.xpath(globalXPath));
-            }
+            button = driver.findElement(By.xpath(xpathExpression));
 
             Thread.sleep(1000);
             if (button == null) {
@@ -52,11 +46,6 @@ public class WebNavigator implements Navigator {
             button.click();
         }
         catch (Exception e) {
-            if (element != null) {
-                String btnName = element.findElement(By.xpath("//button//span[contains(text(), 'Follow')]")).getText();
-                System.out.println(btnName);
-            }
-
             System.out.println("Followed");
         }
     }

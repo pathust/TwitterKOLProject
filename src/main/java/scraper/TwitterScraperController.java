@@ -7,7 +7,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import scraper.authentication.Authenticator;
 import scraper.authentication.TwitterAuthenticator;
-import scraper.extractor.DataExtractor;
 import scraper.extractor.UserDataExtractor;
 import scraper.extractor.TweetDataExtractor;
 import scraper.extractor.Extractor;
@@ -15,12 +14,17 @@ import scraper.filtering.Filter;
 import scraper.filtering.TwitterFilter;
 import scraper.navigation.Navigator;
 import scraper.navigation.WebNavigator;
+import scraper.storage.DataRepository;
 import scraper.storage.StorageHandler;
 import scraper.storage.UserStorageManager;
 import scraper.storage.TweetStorageManager;
+import utils.ObjectType;
 
 import java.io.IOException;
 import java.util.List;
+
+import static utils.ObjectType.TWEET;
+import static utils.ObjectType.USER;
 
 
 public class TwitterScraperController {
@@ -28,10 +32,9 @@ public class TwitterScraperController {
     private final Navigator navigator;
     private final Authenticator authenticator;
     private final Filter filter;
+    private final DataRepository dataRepository;
     private final Extractor<User> userDataExtractor;
-    private final StorageHandler<User> userDataHandler;
     private final Extractor<Tweet> tweetDataExtractor;
-    private final StorageHandler<Tweet> tweetDataHandler;
 
     public TwitterScraperController() {
         System.setProperty(
@@ -41,10 +44,9 @@ public class TwitterScraperController {
         this.navigator = new WebNavigator(driver);
         this.authenticator = new TwitterAuthenticator(driver, navigator);
         this.filter = new TwitterFilter(driver, navigator);
-        this.userDataHandler = new UserStorageManager();
-        this.userDataExtractor = new UserDataExtractor(driver, navigator, userDataHandler) {};
-        this.tweetDataHandler = new TweetStorageManager();
-        this.tweetDataExtractor = new TweetDataExtractor(driver, navigator, tweetDataHandler);
+        this.dataRepository = new StorageHandler();
+        this.userDataExtractor = new UserDataExtractor(driver, navigator, dataRepository) {};
+        this.tweetDataExtractor = new TweetDataExtractor(driver, navigator, dataRepository);
     }
 
     public void login(String username, String email, String password) {
@@ -72,7 +74,7 @@ public class TwitterScraperController {
 
             WaitingScene.updateStatus("Collecting " + user.getProfileLink());
             userDataExtractor.extractData(user.getProfileLink());
-            userDataHandler.save("KOLs.json");
+            dataRepository.save(USER,"KOLs.json");
         }
     }
 
@@ -87,7 +89,7 @@ public class TwitterScraperController {
                 System.out.println("Scraping tweet " + tweet.getAuthorProfileLink());
             }
             tweetDataExtractor.extractData(tweet.getTweetLink());
-            tweetDataHandler.save("Tweet.json");
+            dataRepository.save(TWEET, "Tweet.json");
         }
     }
 
@@ -96,11 +98,19 @@ public class TwitterScraperController {
     }
 
     public List<User> getUsers(String filePath) throws IOException {
-        return userDataHandler.getAll(filePath);
+        return dataRepository.getAll(USER, filePath)
+                .stream()
+                .filter(item -> item instanceof User)
+                .map(item -> (User) item)
+                .toList();
     }
 
     public List<Tweet> getTweets(String filePath) throws IOException {
-        return tweetDataHandler.getAll(filePath);
+        return dataRepository.getAll(TWEET, filePath)
+                .stream()
+                .filter(item -> item instanceof User)
+                .map(item -> (Tweet) item)
+                .toList();
     }
 
     private void extractInitialKOLsTo(String filePath) throws IOException {
@@ -110,10 +120,11 @@ public class TwitterScraperController {
 
         List <User> users = userDataExtractor.extractItems(10, true);
         for (User user : users) {
-            userDataHandler.add(filePath, user);
+            System.out.println("User " + user.getUsername());
+            dataRepository.add(USER, filePath, user);
         }
 
-        userDataHandler.save(filePath);
+        dataRepository.save(USER, filePath);
     }
 
     private void extractInitialTweetsTo(String filePath) throws IOException {
@@ -121,10 +132,10 @@ public class TwitterScraperController {
 
         List <Tweet> tweets = tweetDataExtractor.extractItems(5, true);
         for (Tweet tweet : tweets) {
-            tweetDataHandler.add(filePath,tweet);
+            dataRepository.add(TWEET, filePath,tweet);
         }
 
-        tweetDataHandler.save(filePath);
+        dataRepository.save(TWEET, filePath);
     }
 
     public static void main(String[] args) throws IOException, InterruptedException {

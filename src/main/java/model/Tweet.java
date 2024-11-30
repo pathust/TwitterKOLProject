@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import static java.lang.Double.parseDouble;
 
-public class Tweet {
+public class Tweet extends DataModel{
     private String authorUsername;
     private String authorProfileLink;
     private String tweetLink;

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import model.DataModel;
 
 import java.io.File;
 import java.io.IOException;
@@ -12,20 +13,20 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public abstract class Storage<T> {
+public abstract class Storage {
     protected final ObjectMapper mapper;
     protected final Map<String, ObjectNode> objectNodeMap;
     protected final Map<String, Integer> itemIndexMap;
-    protected final Map<String, T> itemMap;
+    protected final Map<String, DataModel> itemMap;
     protected final ArrayNode itemArray;
 
-    protected abstract T parseItem(JsonNode itemNode);
+    protected abstract DataModel parseItem(JsonNode itemNode);
 
-    protected abstract ObjectNode createItemNode(T item);
+    protected abstract ObjectNode createItemNode(DataModel item);
 
-    protected abstract void updateItemFields(ObjectNode itemNode, T item);
+    protected abstract void updateItemFields(ObjectNode itemNode, DataModel item);
 
-    protected abstract String getIdentifier(T item);
+    protected abstract String getIdentifier(DataModel item);
 
     public Storage() {
         this.mapper = new ObjectMapper();
@@ -44,7 +45,7 @@ public abstract class Storage<T> {
 //            ArrayNode users = (ArrayNode) rootNode;
             int itemIndex = 0;
             for (JsonNode itemNode : rootNode) {
-                T item = parseItem(itemNode);
+                DataModel item = parseItem(itemNode);
                 String identifier = getIdentifier(item);
 
                 objectNodeMap.put(identifier, (ObjectNode) itemNode);
@@ -59,7 +60,7 @@ public abstract class Storage<T> {
         mapper.writerWithDefaultPrettyPrinter().writeValue(new File(filePath), itemArray);
     }
 
-    public void add(T item) {
+    public void add(DataModel item) {
         String identifier = getIdentifier(item);
         ObjectNode itemNode = objectNodeMap.get(identifier);
         if (itemNode != null) {
@@ -79,11 +80,11 @@ public abstract class Storage<T> {
         return itemMap.containsKey(identifier);
     }
 
-    public T get(String identifier) {
+    public DataModel get(String identifier) {
         return itemMap.get(identifier);
     }
 
-    public List<T> getAll() {
+    public List<DataModel> getAll() {
         return new ArrayList<>(itemMap.values());
     }
 }

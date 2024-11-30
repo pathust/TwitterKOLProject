@@ -1,15 +1,17 @@
 package scraper.storage;
 
+import model.DataModel;
 import model.User;
 
-public class UserStorageManager extends StorageManager<User> {
+public class UserStorageManager extends StorageManager {
     @Override
-    protected Storage<User> createStorage() {
+    protected Storage createStorage() {
         return new UserStorage();
     }
 
     @Override
-    protected String getUniqueKey(User user) {
+    protected String getUniqueKey(DataModel dataModel) {
+        User user = (User) dataModel;
         return user.getProfileLink();
     }
 }
