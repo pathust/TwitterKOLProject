@@ -16,9 +16,6 @@ import scraper.navigation.Navigator;
 import scraper.navigation.WebNavigator;
 import scraper.storage.DataRepository;
 import scraper.storage.StorageHandler;
-import scraper.storage.UserStorageManager;
-import scraper.storage.TweetStorageManager;
-import utils.ObjectType;
 
 import java.io.IOException;
 import java.util.List;

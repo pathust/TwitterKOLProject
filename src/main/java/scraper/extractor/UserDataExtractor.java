@@ -12,9 +12,12 @@ import utils.ObjectType;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated;
 import static utils.Math.toInt;
+import static utils.ObjectType.USER;
 
 public class UserDataExtractor extends DataExtractor<User> implements Extractor<User> {
     private Extractor<Tweet> tweetExtractor;
@@ -88,16 +91,16 @@ public class UserDataExtractor extends DataExtractor<User> implements Extractor<
 
             List<String> followersLinks = new ArrayList<>();
             for (User user : followersList) {
-                storageHandler.add(ObjectType.USER, "KOLs.json", user);
+                storageHandler.add(USER, "KOLs.json", user);
                 followersLinks.add(user.getProfileLink());
             }
 
-            User newUser = (User) storageHandler.get(ObjectType.USER, "KOLs.json", userLink);
+            User newUser = (User) storageHandler.get(USER, "KOLs.json", userLink);
             if (newUser != null) {
                 newUser.setFollowersCount(toInt(followersCount));
                 newUser.setFollowingCount(toInt(followingCount));
                 newUser.setFollowersList(followersLinks);
-                storageHandler.add(ObjectType.USER, "KOLs.json", newUser);
+                storageHandler.add(USER, "KOLs.json", newUser);
             }
         } catch (IOException e) {
             throw new RuntimeException("Error updating user data: " + e.getMessage());
@@ -163,12 +166,15 @@ public class UserDataExtractor extends DataExtractor<User> implements Extractor<
             return 0;
         }
 
-        int res = Integer.parseInt(
-                knownFollowersDiv.getText().
-                        replaceAll("\\D+", "")
-        );
+        String text = knownFollowersDiv.getText();
+        Pattern pattern = Pattern.compile("\\d+");
+        Matcher matcher = pattern.matcher(text);
+        int res = 0;
+        while (matcher.find()) {
+            res = Integer.parseInt(matcher.group());
+        }
 
-        xpathExpression += "//span";
+        xpathExpression += "/span";
         res += driver.findElements(By.xpath(xpathExpression)).size();
 
         return res;
