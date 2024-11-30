@@ -1,8 +1,6 @@
-package scraper.storage;
+package storage;
 
 import model.DataModel;
-import model.Tweet;
-import model.User;
 import utils.ObjectType;
 
 import java.io.IOException;

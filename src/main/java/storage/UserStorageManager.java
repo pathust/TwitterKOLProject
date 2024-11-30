@@ -1,4 +1,4 @@
-package scraper.storage;
+package storage;
 
 import model.DataModel;
 import model.User;

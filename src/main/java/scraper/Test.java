@@ -1,14 +1,12 @@
 package scraper;
 
 import model.User;
-import scraper.storage.DataRepository;
-import scraper.storage.StorageHandler;
-import scraper.storage.UserStorageManager;
+import storage.DataRepository;
+import storage.StorageHandler;
 import utils.ObjectType;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class Test {
     public static void main(String[] args) throws IOException {

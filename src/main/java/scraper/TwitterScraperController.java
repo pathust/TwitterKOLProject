@@ -14,8 +14,8 @@ import scraper.filtering.Filter;
 import scraper.filtering.TwitterFilter;
 import scraper.navigation.Navigator;
 import scraper.navigation.WebNavigator;
-import scraper.storage.DataRepository;
-import scraper.storage.StorageHandler;
+import storage.DataRepository;
+import storage.StorageHandler;
 
 import java.io.IOException;
 import java.util.List;
