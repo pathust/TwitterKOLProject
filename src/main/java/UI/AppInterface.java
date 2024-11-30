@@ -1,14 +1,11 @@
 package UI;
 
-import UI.display.DisplayScene;
 import UI.home.HomeScene;
 import UI.waiting.WaitingScene;
 import graph.Graph;
 import graph.PagerankCalculator;
 import javafx.application.Application;
 import javafx.stage.Stage;
-
-import java.io.IOException;
 
 public class AppInterface extends Application implements SwitchingScene{
     private Graph graph;
