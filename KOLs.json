@@ -1,15 +1,43 @@
 [ {
-  "username" : "Followed by Cardano Community and 5 others",
-  "profileLink" : "https://x.com/ethereum",
+  "username" : "BlockchainDan",
+  "profileLink" : "https://x.com/BlockchainDan",
   "isVerified" : true,
   "followersCount" : 0,
   "followingCount" : 0,
-  "followersList" : ["https://x.com/Mint_Blockchain" ]
+  "followersList" : [ "https://x.com/Blockchain_Expo", "https://x.com/munblockchain"]
 }, {
-  "username" : "Mint",
-  "profileLink" : "https://x.com/Mint_Blockchain",
+  "username" : "Blockchain Expo",
+  "profileLink" : "https://x.com/Blockchain_Expo",
+  "isVerified" : true,
+  "followersCount" : 10000,
+  "followingCount" : 1127,
+  "followersList" : ["https://x.com/BlockchainDan", "https://x.com/dmgblockchain", "https://x.com/WXblockchain", "https://x.com/HarvardLawBFI" ]
+}, {
+  "username" : "MUN",
+  "profileLink" : "https://x.com/munblockchain",
   "isVerified" : true,
   "followersCount" : 0,
   "followingCount" : 0,
-  "followersList" : ["https://x.com/ethereum" ]
-} ]
+  "followersList" : ["https://x.com/Blockchain_Expo", "https://x.com/dmgblockchain", "https://x.com/WXblockchain" ]
+}, {
+  "username" : "DMG Blockchain Solutions",
+  "profileLink" : "https://x.com/dmgblockchain",
+  "isVerified" : true,
+  "followersCount" : 5794,
+  "followingCount" : 110,
+  "followersList" : ["https://x.com/BlockchainDan", "https://x.com/Blockchain_Expo", "https://x.com/munblockchain" ]
+}, {
+  "username" : "Wanxiang Blockchain",
+  "profileLink" : "https://x.com/WXblockchain",
+  "isVerified" : true,
+  "followersCount" : 7523,
+  "followingCount" : 452,
+  "followersList" : ["https://x.com/BlockchainDan", "https://x.com/Blockchain_Expo", "https://x.com/HarvardLawBFI" ]
+}, {
+  "username" : "Harvard Law Blockchain & FinTech Initiative",
+  "profileLink" : "https://x.com/HarvardLawBFI",
+  "isVerified" : true,
+  "followersCount" : 4783,
+  "followingCount" : 69,
+  "followersList" : ["https://x.com/munblockchain", "https://x.com/dmgblockchain", "https://x.com/WXblockchain"]
+}]
