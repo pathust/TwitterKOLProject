@@ -94,7 +94,7 @@ public class TwitterScraperController {
             else {
                 System.out.println("Scraping tweet " + tweet.getUserLink());
             }
-            tweetDataExtractor.extractData(tweet.getTweetLink(),1000,5);
+            tweetDataExtractor.extractData(tweet.getTweetLink(),1000,10);
             tweetDataHandler.saveData("Tweet.json");
         }
     }
@@ -116,7 +116,7 @@ public class TwitterScraperController {
 
         navigator.navigateToSection("user");
 
-        List <User> users = userDataExtractor.extractUsers(true, 10);
+        List <User> users = userDataExtractor.extractUsers(true, 30);
         for (User user : users) {
             userDataHandler.addUser(filePath, user);
         }
@@ -127,7 +127,7 @@ public class TwitterScraperController {
     private void extractInitialTweetsTo(String filePath) throws IOException {
         System.out.println("Start collecting tweet data...");
 
-        List <Tweet> tweets = tweetDataExtractor.extractTweets( 1,1);
+        List <Tweet> tweets = tweetDataExtractor.extractTweets( 30,30);
         for (Tweet tweet : tweets) {
             tweetDataHandler.addTweet(filePath,tweet);
         }
@@ -138,7 +138,7 @@ public class TwitterScraperController {
     public static void main(String[] args) throws IOException, InterruptedException {
         TwitterScraperController controller = new TwitterScraperController();
 
-        controller.login("PogbaPaul432283", "anhrooneymtp@gmail.com", "anhmanunited");
+        controller.login("dungnc291205", "dungnc29122005@gmail.com", "DunG@0911575998");
         controller.applyFilter(
                 List.of(args),
                 1000,

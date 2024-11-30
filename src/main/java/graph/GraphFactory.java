@@ -71,10 +71,12 @@ public class GraphFactory {
             }
         }
 
+        // ADD NEEDED USER NODE
+
         // add tweet node
         for (GraphNode tweetNode : tweetNodeList) {
             Tweet tweet = tweetNode.getTweet();
-            User userPost = graphFactory.getUser("KOLs.json", tweet.getUserLink());
+            User userPost = graphFactory.getUser("KOLs.json", tweet.getUserLink());  //  lỗi chưa co link trong KOL.json
             GraphNode userPostNode = graphFactory.getNode(userPost);
 
             // add tweet node, user post node
@@ -86,7 +88,7 @@ public class GraphFactory {
 
             // add repost edge
             for(String userRepostLink : tweet.getRepostList()) {
-                User userRepost = graphFactory.getUser("KOLs.json", userRepostLink);
+                User userRepost = graphFactory.getUser("KOLs.json", userRepostLink);  //  lỗi chưa co link trong KOL.json
                 GraphNode userRepostNode = graphFactory.getNode(userRepost);
 
                 graph.addNode(userRepostNode);
