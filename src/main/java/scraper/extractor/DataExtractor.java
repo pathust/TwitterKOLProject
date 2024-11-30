@@ -11,6 +11,8 @@ import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
+import static utils.XPathExtension.getXPath;
+
 public abstract class DataExtractor<T> {
     protected final WebDriver driver;
     protected final WebDriverWait wait;
@@ -26,7 +28,7 @@ public abstract class DataExtractor<T> {
 
     protected abstract WebElement getFirstCell();
     protected abstract WebElement nextCell(WebElement currentCell);
-    protected abstract T extractItem(WebElement currentCell);
+    protected abstract T extractItem(String xpathExpression);
     protected abstract void Write(T item);
     public abstract void extractData(String link) throws IOException;
     public List<T> extractItems(int maxListSize, boolean addToStorage) {
@@ -43,11 +45,12 @@ public abstract class DataExtractor<T> {
                 break;
             }
             navigator.scrollToElement(currentCell);
-            T newItem = extractItem(currentCell);
+            String xpathExpression = getXPath(currentCell);
+            T newItem = extractItem(xpathExpression);
             System.out.println(counter);
             Write(newItem);
             items.add(newItem);
-        } while (++counter != maxListSize);
+        } while (++counter <= maxListSize);
 
         return items;
     }

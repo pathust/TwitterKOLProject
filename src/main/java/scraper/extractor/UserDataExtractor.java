@@ -51,10 +51,11 @@ public class UserDataExtractor extends DataExtractor<User> implements Extractor<
     }
 
     @Override
-    protected User extractItem(WebElement currentCell) {
-        String username = extractUserName(currentCell);
-        String profileLink = extractProfileLink(currentCell);
-        return new User(profileLink, username);
+    protected User extractItem(String xpathExpression) {
+        String username = extractUserName(xpathExpression);
+        String profileLink = extractProfileLink(xpathExpression);
+        User user = new User(username, profileLink);
+        return user;
     }
 
     @Override
@@ -98,9 +99,10 @@ public class UserDataExtractor extends DataExtractor<User> implements Extractor<
         }
     }
 
-    private String extractUserName(WebElement userCell) {
+    private String extractUserName(String parentXPath) {
         try {
-            WebElement userNameElement = userCell.findElement(By.xpath("//ancestor::span[not(*)]"));
+            String xpathExpression = parentXPath + "//div[last()]//a";
+            WebElement userNameElement = driver.findElement(By.xpath(xpathExpression));
             return userNameElement.getText();
         } catch (Exception e) {
             System.out.println("Unable to extract username.");
@@ -108,9 +110,10 @@ public class UserDataExtractor extends DataExtractor<User> implements Extractor<
         }
     }
 
-    private String extractProfileLink(WebElement userCell) {
+    private String extractProfileLink(String parentXPath) {
         try {
-            WebElement userNameElement = userCell.findElement(By.xpath("//ancestor::span[not(*)]"));
+            String xpathExpression = parentXPath + "//div[last()]//a";
+            WebElement userNameElement = driver.findElement(By.xpath(xpathExpression));
             return userNameElement.getAttribute("href");
         } catch (Exception e) {
             System.out.println("Unable to extract username.");

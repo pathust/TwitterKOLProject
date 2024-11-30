@@ -4,7 +4,6 @@ import model.Tweet;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import scraper.navigation.Navigator;
 import scraper.storage.StorageHandler;
 
@@ -14,11 +13,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static java.lang.System.*;
+import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
 import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated;
 import static utils.Math.toInt;
 
 public class TweetDataExtractor extends DataExtractor<Tweet> implements Extractor<Tweet> {
-
     private static final int RETRY_ATTEMPTS = 3;
 
     public TweetDataExtractor(WebDriver driver, Navigator navigator, StorageHandler<Tweet> storageHandler) {
@@ -71,11 +70,11 @@ public class TweetDataExtractor extends DataExtractor<Tweet> implements Extracto
     }
 
     @Override
-    protected Tweet extractItem(WebElement tweetCell) {
-        String authorUsername = extractAuthorUsername(tweetCell);
-        String authorProfileLink = extractAuthorProfileLink(tweetCell);
-        String tweetLink = extractTweetLink(tweetCell);
-        String content = extractContent(tweetCell);
+    protected Tweet extractItem(String xpathExpression) {
+        String authorUsername = extractAuthorUsername(xpathExpression);
+        String authorProfileLink = extractAuthorProfileLink(xpathExpression);
+        String tweetLink = extractTweetLink(xpathExpression);
+        String content = extractContent(xpathExpression);
         int commentCount = extractCount("reply");
         int repostCount = extractCount("retweet");
         int likeCount = extractCount("like");
@@ -111,13 +110,13 @@ public class TweetDataExtractor extends DataExtractor<Tweet> implements Extracto
         }
 
         try {
-            WebElement repostButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(".//button[@data-testid='retweet']")));
+            WebElement repostButton = wait.until(elementToBeClickable(By.xpath(".//button[@data-testid='retweet']")));
             repostButton.click();
 
-            WebElement viewQuotesOption = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(".//span[text()='View Quotes']")));
+            WebElement viewQuotesOption = wait.until(elementToBeClickable(By.xpath(".//span[text()='View Quotes']")));
             viewQuotesOption.click();
 
-            WebElement viewRepostsOption = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(".//span[text()='Reposts']")));
+            WebElement viewRepostsOption = wait.until(elementToBeClickable(By.xpath(".//span[text()='Reposts']")));
             viewRepostsOption.click();
 
         } catch (Exception e) {
@@ -144,23 +143,24 @@ public class TweetDataExtractor extends DataExtractor<Tweet> implements Extracto
         }
     }
 
-    private String extractAuthorUsername(WebElement tweetCell) {
-        return tweetCell.findElement(By.xpath(".//div[@data-testid='User-Name']/div[1]")).getText();
+    private String extractAuthorUsername(String parentXPath) {
+        String xpathExpression = parentXPath + "//div[@data-testid='User-Name']/div[1]";
+        return driver.findElement(By.xpath(xpathExpression)).getText();
     }
 
-    private String extractAuthorProfileLink(WebElement tweetCell) {
-        WebElement authorProfileLinkElement = tweetCell.findElement(By.xpath(".//div[@data-testid='User-Name']/div[1]//a"));
-        return authorProfileLinkElement.getAttribute("href");
+    private String extractAuthorProfileLink(String parentXPath) {
+        String xpathExpression = parentXPath + "//div[@data-testid='User-Name']/div[1]//a";
+        return driver.findElement(By.xpath(xpathExpression)).getAttribute("href");
     }
 
-    private String extractTweetLink(WebElement tweetCell) {
-        WebElement tweetLinkElement = tweetCell.findElement(By.xpath(".//a[contains(@href, 'status')]"));
-        return tweetLinkElement.getAttribute("href");
+    private String extractTweetLink(String parentXPath) {
+        String xpathExpression = parentXPath + "//a[contains(@href, 'status')]";
+        return driver.findElement(By.xpath(xpathExpression)).getAttribute("href");
     }
 
-    private String extractContent(WebElement tweetCell) {
-        WebElement contentElement = tweetCell.findElement(By.xpath("//div[@data-testid='tweetText']"));
-        return contentElement != null ? contentElement.getText() : "";
+    private String extractContent(String parentXPath) {
+        String xpathExpression = parentXPath + "//div[@data-testid='tweetText']";
+        return driver.findElement(By.xpath(xpathExpression)).getText();
     }
 
     private int extractCount(String attributeValue) {
