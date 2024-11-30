@@ -142,7 +142,6 @@ public class TwitterScraperController {
                 "@DThank05",
                 "dinhthanh020105@gmail.com",
                 "xuanthanh123");
-
         controller.applyFilter(
                 List.of(args),
                 1000,

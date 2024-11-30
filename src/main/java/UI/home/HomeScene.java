@@ -4,60 +4,119 @@ import UI.SwitchingScene;
 import UI.home.addfile.AddFile;
 import UI.home.startscraper.SearchingLayout;
 
+import UI.home.startscraper.StartScraperHandler;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javafx.scene.paint.Color;
 
+import java.io.IOException;
+import java.util.ArrayList;
+
 public class HomeScene{
-    private AddFile addFile;
-    private SearchingLayout searchingLayout;
     private Scene scene;
     private Stage stage;
-    private ScrollPane root;
+    private SwitchingScene switchingScene;
+    @FXML
+    private Button addButton;
+    private Button searchButton;
+    private int counting = 0;
+    private ArrayList<HBox> array;
+    private ArrayList<TextField> arrayText;
+    private FXMLLoader loader;
+    private VBox vbox;
 
+    private void createMoreTextField() {
+        if(array.size() == 5) return ;
+        HBox hBox = new HBox();
+        hBox.getStyleClass().add("hBoxStyle");
+
+        TextField textField = new TextField();
+        textField.getStyleClass().add("textFieldStyle");
+
+        Button xButton = new Button();
+        xButton.getStyleClass().add("xButtonStyle");
+
+        xButton.setOnAction(event -> {
+            for(int i=0; i<array.size(); ++i) {
+                if(array.get(i).getId().equals(xButton.getParent().getId())) {
+                    array.remove(i);
+                    arrayText.remove(i);
+                    break;
+                }
+            }
+
+            vbox.getChildren().remove(xButton.getParent());
+        });
+
+        hBox.getChildren().add(textField);
+        hBox.getChildren().add(xButton);
+
+        ++counting;
+        hBox.setId("HBox"+counting);
+        System.out.println(textField.getId());
+
+        vbox.getChildren().remove(addButton);
+        vbox.getChildren().add(hBox);
+        vbox.getChildren().add(addButton);
+        array.add(hBox);
+        arrayText.add(textField);
+    }
+
+    public HomeScene() {
+
+    }
     public HomeScene(Stage primaryStage, SwitchingScene switching) {
         stage = primaryStage;
-        addFile = new AddFile(stage);
-        searchingLayout = new SearchingLayout(switching);
+        switchingScene = switching;
 
-        HBox addFileComponent = addFile.getComponent();
-        Pane searchingComponent = searchingLayout.getSearchComponent();
+        loader = new FXMLLoader(getClass().getResource("/home.fxml"));
+        Parent root = null;
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            System.out.println("No FIle found");
+            throw new RuntimeException(e);
+        }
 
-        VBox vBox = new VBox(searchingComponent, addFileComponent);
-        vBox.setStyle("-fx-background-color: green;");
+        vbox = (VBox)loader.getNamespace().get("VBox");
+        array = new ArrayList<>();
+        arrayText = new ArrayList<>();
 
-        vBox.prefWidthProperty().bind(stage.widthProperty().multiply(0.6));
-        vBox.prefHeightProperty().bind(stage.heightProperty().multiply(0.8));
+        addButton = (Button) loader.getNamespace().get("AddButton");
+        addButton.setOnAction(event -> {
+            createMoreTextField();
+        });
 
-        VBox.setVgrow(searchingComponent, Priority.ALWAYS);
+        // Khi ấn sẽ bắt đầu crawl data
+        searchButton = (Button) loader.getNamespace().get("searchButton");
+        searchButton.setOnAction(event -> {
+            if(array.isEmpty()) return ;
+            StringBuilder text = new StringBuilder();
 
-        root = new ScrollPane();
-        root.setContent(vBox);
+            for (TextField tf : arrayText) {
+                System.out.println(tf.getText());
+                text.append(tf.getText());
+                text.append("\n");
+            }
 
-//        root.setStyle("-fx-alignment: center;");
-        root.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
-        root.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+            StartScraperHandler startScraperHandler = new StartScraperHandler(switchingScene);
+            startScraperHandler.startCrawl(text.toString());
+        });
 
-//        vBox.layoutXProperty().bind((stage.widthProperty().subtract(vBox.prefWidthProperty())).divide(2));
-//        vBox.layoutYProperty().bind((stage.heightProperty().subtract(vBox.prefHeightProperty())).divide(2));
-//
-//        stage.widthProperty().addListener((obs, oldWidth, newWidth) -> {
-//            vBox.layoutXProperty().bind((stage.widthProperty().subtract(vBox.prefWidthProperty())).divide(2));
-//        });
-//
-//        stage.heightProperty().addListener((obs, oldHeight, newHeight) -> {
-//            vBox.layoutYProperty().bind((stage.heightProperty().subtract(vBox.prefHeightProperty())));
-//        });
-
-        scene = new Scene(root, 600, 600);
-        stage.setScene(scene);
+        scene = new Scene(root);
     }
 
     public void start() {
+        stage.setScene(scene);
         this.stage.show();
     }
 

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #FFF0F5;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.controller.kolSearchList">
+   <children>
+      <VBox prefHeight="403.0" prefWidth="116.0" spacing="10.0" style="-fx-background-color: #FFCCCC;">
+         <children>
+            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="124.0" style="-fx-background-color: #FFE4E1;" text="Crawl data" />
+            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="137.0" style="-fx-background-color: #FFE4E1;" text="Upload data" />
+            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="130.0" style="-fx-background-color: #FFE4E1;" text="Data statistic" />
+         </children>
+         <padding>
+            <Insets top="90.0" />
+         </padding>
+      </VBox>
+      <ImageView fitHeight="301.0" fitWidth="567.0" layoutX="70.0" layoutY="-106.0">
+         <image>
+            <Image url="@images/linh3.png" />
+         </image>
+      </ImageView>
+      <TableView layoutX="139.0" layoutY="81.0" prefHeight="308.0" prefWidth="484.0">
+        <columns>
+          <TableColumn prefWidth="75.0" text="Name" />
+          <TableColumn prefWidth="75.0" text="C2" />
+        </columns>
+      </TableView>
+      <Text layoutX="252.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="KOL SEARCH LIST" wrappingWidth="238.0">
+         <font>
+            <Font name="Berlin Sans FB Bold" size="24.0" />
+         </font>
+      </Text>
+   </children>
+</AnchorPane>

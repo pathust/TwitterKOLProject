@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #FFF0F5;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.home.HomeScene" stylesheets="style.css">
+   <children>
+      <VBox prefHeight="400.0" prefWidth="105.0" spacing="10.0" style="-fx-background-color: #FFCCCC;">
+         <children>
+            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="111.0" style="-fx-background-color: #FFE4E1;" text="Crawl data" />
+            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="107.0" style="-fx-background-color: #FFE4E1;" text="Upload data" />
+            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="111.0" style="-fx-background-color: #FFE4E1;" text="Data statistic" />
+         </children>
+         <padding>
+            <Insets top="90.0" />
+         </padding>
+      </VBox>
+      <ImageView fitHeight="284.0" fitWidth="503.0" layoutX="110.0" layoutY="-101.0">
+         <image>
+            <Image url="@images/linh3.png" />
+         </image>
+      </ImageView>
+      <Text layoutX="270.0" layoutY="51.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CRAWL DATA">
+         <font>
+            <Font name="Berlin Sans FB Demi Bold" size="29.0" />
+         </font>
+      </Text>
+      <VBox fx:id="VBox" layoutX="137.0" layoutY="105.0" prefHeight="191.0" prefWidth="451.0">
+         <children>
+<!--            <HBox styleClass="hBoxStyle" fx:id="HBox1">-->
+<!--               <children>-->
+<!--                  <TextField fx:id="TextField1"  styleClass="textFieldStyle" />-->
+<!--                  <Button fx:id="Button1" mnemonicParsing="false" styleClass="xButtonStyle" />-->
+<!--               </children>-->
+<!--            </HBox>-->
+            <Button fx:id="AddButton" mnemonicParsing="false" style="-fx-background-color: #FFE4E1;" text="Add +" />
+         </children>
+      </VBox>
+      <ImageView fitHeight="112.0" fitWidth="200.0" layoutX="387.0" layoutY="-24.0">
+         <image>
+            <Image url="@images/linh4.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="112.0" fitWidth="200.0" layoutX="132.0" layoutY="-24.0" rotate="-109.4">
+         <image>
+            <Image url="@images/linh4.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="searchButton" layoutX="294.0" layoutY="303.0" mnemonicParsing="false" style="-fx-background-color: #FFE4E1; -fx-background-radius: 50; -fx-border-width: 20;" text="SEARCH">
+         <font>
+            <Font name="Berlin Sans FB Demi Bold" size="27.0" />
+         </font>
+      </Button>
+      <ImageView fitHeight="151.0" fitWidth="272.0" layoutX="14.0" layoutY="-19.0">
+         <image>
+            <Image url="@images/lih2.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>
