@@ -71,19 +71,6 @@ public class GraphFactory {
             }
         }
 
-        // test add random edge
-
-//        Random rand = new Random();
-//        for (GraphNode node : userNodeList) {
-//            for (GraphNode otherNode : userNodeList) {
-//                if(node != otherNode) {
-//                    if(rand.nextBoolean()) {
-//                        graph.addEdge(node, otherNode, 1.0);
-////                        System.out.println(node.getKol().getUsername() + " " + otherNode.getKol().getUsername());
-//                    }
-//                }
-//            }
-//        }
 
         for (GraphNode tweetNode : tweetNodeList) {
             Tweet tweet = tweetNode.getTweet();
