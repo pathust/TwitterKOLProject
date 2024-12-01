@@ -1,7 +1,7 @@
 package UI;
 
 public interface SwitchingScene {
-    public void switchToHome();
+    public void switchToSearching();
     public void switchToWaiting();
     public void switchToDisplay();
     public void closeHome();

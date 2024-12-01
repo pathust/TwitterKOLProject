@@ -104,3 +104,19 @@ Dec 01, 2024 1:28:14 PM UI.home.addfile.AddFileHandler openFileDialog
 INFO: User selected file: D:\KOLs.json
 Dec 01, 2024 1:28:17 PM UI.home.addfile.AddFileHandler copyFile
 INFO: File copied successfully to: D:\GitHub\TwitterKOLProjectKOLs.json
+Dec 01, 2024 3:10:16 PM UI.home.addfile.AddFileHandler openFileDialog
+INFO: User selected file: D:\GitHub\Dataset.json
+Dec 01, 2024 3:10:19 PM UI.home.addfile.AddFileHandler copyFile
+INFO: File copied successfully to: D:\GitHub\TwitterKOLProjectKOLs.json
+Dec 01, 2024 3:10:26 PM UI.home.addfile.AddFileHandler copyFile
+INFO: File copied successfully to: D:\GitHub\TwitterKOLProjectTweets.json
+Dec 01, 2024 3:11:30 PM UI.home.addfile.AddFileHandler openFileDialog
+INFO: User selected file: D:\GitHub\Dataset.json
+Dec 01, 2024 3:11:31 PM UI.home.addfile.AddFileHandler copyFile
+INFO: File copied successfully to: D:\GitHub\TwitterKOLProject\KOLs.json
+Dec 01, 2024 3:11:35 PM UI.home.addfile.AddFileHandler copyFile
+INFO: File copied successfully to: D:\GitHub\TwitterKOLProject\Tweets.json
+Dec 01, 2024 3:13:05 PM UI.home.addfile.AddFileHandler openFileDialog
+INFO: User selected file: D:\GitHub\Dataset.json
+Dec 01, 2024 3:13:06 PM UI.home.addfile.AddFileHandler copyFile
+INFO: File copied successfully to: D:\GitHub\TwitterKOLProject\Tweet.json

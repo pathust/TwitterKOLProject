@@ -32,7 +32,7 @@ public class MenuController {
 
         crawl.setOnAction(event -> {
 //            System.out.println("Hello");
-            switchingScene.switchToHome();
+            switchingScene.switchToSearching();
         });
 
         upload = (Button) loader.getNamespace().get("Upload");
