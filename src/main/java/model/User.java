@@ -5,9 +5,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.util.ArrayList;
 import java.util.List;
 
-import static java.lang.Double.parseDouble;
-import static utils.Math.toInt;
-
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class User extends DataModel{
     private String username;

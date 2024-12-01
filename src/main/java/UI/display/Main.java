@@ -2,11 +2,9 @@ package UI.display;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
-import model.Tweet;
 import model.User;
 import storage.DataRepository;
 import storage.StorageHandler;
-import utils.ObjectType;
 
 import java.io.IOException;
 import java.util.List;

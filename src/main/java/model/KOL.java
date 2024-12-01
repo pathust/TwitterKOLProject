@@ -1,10 +1,7 @@
 package model;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-
-import java.util.List;
 
 public class KOL extends User{
     Map<KOL, Double> Interaction = new HashMap<>();

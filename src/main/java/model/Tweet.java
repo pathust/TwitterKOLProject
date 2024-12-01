@@ -1,13 +1,7 @@
 package model;
 
-import org.openqa.selenium.WebElement;
-
-import java.time.LocalDateTime;
-
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import static java.lang.Double.parseDouble;
 
 public class Tweet extends DataModel{
     private String authorUsername;
