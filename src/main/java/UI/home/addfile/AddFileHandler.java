@@ -48,10 +48,10 @@ public class AddFileHandler{
         return selectedFile;
     }
 
-    public void copyFile() {
+    public void copyFile(String destination) {
         // Xác định đường dẫn file đích
 //        File destinationFile = new File("TwitterKOLProject\\" + selectedFile.getName());
-        File destinationFile = new File(System.getProperty("user.dir")+"\\KOLs.json");
+        File destinationFile = new File(System.getProperty("user.dir")+destination);
         try {
 //             Nếu thư mục đích chưa tồn tại, tạo thư mục
             Path destinationPath = destinationFile.toPath();

@@ -1,10 +1,10 @@
 package UI.home;
 
 import UI.SwitchingScene;
-import UI.home.addfile.AddFile;
 import UI.home.startscraper.SearchingLayout;
 
 import UI.home.startscraper.StartScraperHandler;
+import UI.menu.MenuController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
@@ -27,12 +27,15 @@ public class HomeScene{
     private SwitchingScene switchingScene;
     @FXML
     private Button addButton;
+    @FXML
     private Button searchButton;
     private int counting = 0;
     private ArrayList<HBox> array;
     private ArrayList<TextField> arrayText;
     private FXMLLoader loader;
+    private MenuController menuController;
     private VBox vbox;
+    private static Button crawl, upload, staticData;
 
     private void createMoreTextField() {
         if(array.size() == 5) return ;
@@ -77,6 +80,7 @@ public class HomeScene{
     public HomeScene(Stage primaryStage, SwitchingScene switching) {
         stage = primaryStage;
         switchingScene = switching;
+//        menuController = new MenuController(switching);
 
         loader = new FXMLLoader(getClass().getResource("/home.fxml"));
         Parent root = null;
@@ -86,6 +90,8 @@ public class HomeScene{
             System.out.println("No FIle found");
             throw new RuntimeException(e);
         }
+
+        System.out.println(loader.getNamespace().get("Menu"));
 
         vbox = (VBox)loader.getNamespace().get("VBox");
         array = new ArrayList<>();
@@ -110,6 +116,22 @@ public class HomeScene{
 
             StartScraperHandler startScraperHandler = new StartScraperHandler(switchingScene);
             startScraperHandler.startCrawl(text.toString());
+        });
+
+        crawl = (Button) loader.getNamespace().get("Crawl");
+        System.out.println(crawl);
+
+        crawl.setOnAction(event -> {
+//            System.out.println("Hello");
+            switchingScene.switchToHome();
+        });
+
+        upload = (Button) loader.getNamespace().get("Upload");
+        System.out.println(upload);
+
+        upload.setOnAction(event -> {
+            System.out.println("Hello");
+            switchingScene.switchToAddFile();
         });
 
         scene = new Scene(root);

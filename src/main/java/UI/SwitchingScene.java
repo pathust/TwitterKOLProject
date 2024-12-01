@@ -7,4 +7,5 @@ public interface SwitchingScene {
     public void closeHome();
     public void closeWaiting();
     public void closeDisplay();
+    public void switchToAddFile();
 }

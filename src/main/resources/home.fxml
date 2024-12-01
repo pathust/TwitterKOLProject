@@ -11,11 +11,12 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #FFF0F5;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.home.HomeScene" stylesheets="style.css">
    <children>
+<!--       <fx:include source="/menu.fxml" />-->
       <VBox prefHeight="400.0" prefWidth="105.0" spacing="10.0" style="-fx-background-color: #FFCCCC;">
          <children>
-            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="111.0" style="-fx-background-color: #FFE4E1;" text="Crawl data" />
-            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="107.0" style="-fx-background-color: #FFE4E1;" text="Upload data" />
-            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="111.0" style="-fx-background-color: #FFE4E1;" text="Data statistic" />
+            <Button fx:id="Crawl" mnemonicParsing="false" prefHeight="25.0" prefWidth="111.0" style="-fx-background-color: #FFE4E1;" text="Crawl data" />
+            <Button fx:id="Upload" mnemonicParsing="false" prefHeight="25.0" prefWidth="107.0" style="-fx-background-color: #FFE4E1;" text="Upload data" />
+            <Button fx:id="Static" mnemonicParsing="false" prefHeight="25.0" prefWidth="111.0" style="-fx-background-color: #FFE4E1;" text="Data statistic" />
          </children>
          <padding>
             <Insets top="90.0" />

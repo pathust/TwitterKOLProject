@@ -2,6 +2,8 @@ package UI;
 
 import UI.display.DisplayScene;
 import UI.home.HomeScene;
+import UI.home.addfile.UploadFileLogic;
+import UI.menu.MenuController;
 import UI.start.StartedController;
 import UI.waiting.WaitingScene;
 import graph.Graph;
@@ -13,9 +15,11 @@ public class AppInterface extends Application implements SwitchingScene{
     private Graph graph;
     private PagerankCalculator pagerankCalculator;
     private HomeScene homeScene;
+    private UploadFileLogic uploadFileLogic;
     private WaitingScene waitingScene;
     private DisplayScene displayScene;
     private StartedController startedController;
+    private MenuController menuController;
 
     public static void main(String[] args) {
         launch(args);
@@ -29,6 +33,8 @@ public class AppInterface extends Application implements SwitchingScene{
         homeScene = new HomeScene(primaryStage, this);
         waitingScene = new WaitingScene(primaryStage, this);
         displayScene = new DisplayScene(primaryStage, this);
+        menuController = new MenuController(this);
+        uploadFileLogic = new UploadFileLogic(primaryStage, this);
         startedController = new StartedController(primaryStage, this);
 //
 //        homeScene.start();
@@ -64,5 +70,10 @@ public class AppInterface extends Application implements SwitchingScene{
     @Override
     public void closeDisplay() {
         displayScene.close();
+    }
+
+    @Override
+    public void switchToAddFile() {
+        uploadFileLogic.start();
     }
 }

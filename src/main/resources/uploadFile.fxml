@@ -1,60 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.text.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.geometry.*?>
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #FFF0F5;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.controller.home3">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #FFF0F5;" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.home.addfile.UploadFileLogic">
    <children>
-      <VBox prefHeight="406.0" prefWidth="115.0" spacing="10.0" style="-fx-background-color: #FFCCCC;">
-         <children>
-            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="117.0" style="-fx-background-color: #FFE4E1;" text=" Crawl data" />
-            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="117.0" style="-fx-background-color: #FFE4E1;" text="Upload data" />
-            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="117.0" style="-fx-background-color: #FFE4E1;" text="Data statistic" />
-         </children>
-         <padding>
-            <Insets top="90.0" />
-         </padding>
-      </VBox>
+<!--      <fx:include source="/menu.fxml" />-->
+            <VBox prefHeight="406.0" prefWidth="115.0" spacing="10.0" style="-fx-background-color: #FFCCCC;">
+               <children>
+                  <Button fx:id="Crawl" mnemonicParsing="false" prefHeight="25.0" prefWidth="117.0" style="-fx-background-color: #FFE4E1;" text=" Crawl data" />
+                  <Button fx:id="Upload" mnemonicParsing="false" prefHeight="25.0" prefWidth="117.0" style="-fx-background-color: #FFE4E1;" text="Upload data" />
+                  <Button fx:id="Static" mnemonicParsing="false" prefHeight="25.0" prefWidth="117.0" style="-fx-background-color: #FFE4E1;" text="Data statistic" />
+               </children>
+               <padding>
+                  <Insets top="90.0" />
+               </padding>
+            </VBox>
       <ImageView fitHeight="257.0" fitWidth="502.0" layoutX="108.0" layoutY="-74.0">
          <image>
             <Image url="@images/linh3.png" />
          </image>
       </ImageView>
-      <HBox alignment="TOP_RIGHT" layoutX="160.0" layoutY="120.0" prefHeight="36.0" prefWidth="417.0" spacing="20.0">
-         <children>
-            <MenuButton mnemonicParsing="false" prefHeight="30.0" prefWidth="110.0" text="UP KOL">
-              <items>
-                <MenuItem mnemonicParsing="false" text="Action 1" />
-                <MenuItem mnemonicParsing="false" text="Action 2" />
-              </items>
-               <font>
-                  <Font name="Berlin Sans FB Bold" size="14.0" />
-               </font>
-            </MenuButton>
-            <TextField prefHeight="30.0" prefWidth="294.0" />
-         </children>
-      </HBox>
       <ImageView fitHeight="112.0" fitWidth="200.0" layoutX="382.0" layoutY="-11.0">
          <image>
             <Image url="@images/linh4.png" />
          </image>
       </ImageView>
+      <VBox layoutX="129.0" layoutY="131.0" prefHeight="97.0" prefWidth="441.0" style="-fx-spacing: 20;">
+         <children>
+            <HBox alignment="TOP_RIGHT" prefHeight="36.0" prefWidth="417.0" spacing="20.0">
+               <children>
+                  <TextField prefHeight="41.0" prefWidth="289.0" />
+                  <Button fx:id="ChooseFile" mnemonicParsing="false" prefHeight="34.0" prefWidth="85.0" text="Choose File" />
+               </children>
+            </HBox>
+            <HBox prefHeight="42.0" prefWidth="441.0" style="-fx-spacing: 50; -fx-alignment: CENTER;">
+               <children>
+                  <Button fx:id="KOL" mnemonicParsing="false" prefHeight="42.0" prefWidth="86.0" text="Add KOL" />
+                  <Button fx:id="Tweet" mnemonicParsing="false" prefHeight="42.0" prefWidth="83.0" text="Add Tweet" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
       <Text layoutX="269.0" layoutY="63.0" strokeType="OUTSIDE" strokeWidth="0.0" text="UPLOAD DATA" wrappingWidth="179.8203125">
          <font>
             <Font name="Berlin Sans FB Demi Bold" size="26.0" />
          </font>
       </Text>
-      <Button layoutX="296.0" layoutY="294.0" mnemonicParsing="false" style="-fx-background-color: #FFE4E1; -fx-background-radius: 50;" text="SEARCH">
-         <font>
-            <Font name="Berlin Sans FB Demi Bold" size="25.0" />
-         </font>
-      </Button>
       <ImageView fitHeight="112.0" fitWidth="200.0" layoutX="141.0" layoutY="-11.0" rotate="-105.9">
          <image>
             <Image url="@images/linh4.png" />
@@ -65,19 +65,5 @@
             <Image url="@images/lih2.png" />
          </image>
       </ImageView>
-      <HBox layoutX="160.0" layoutY="164.0" prefHeight="30.0" prefWidth="417.0" spacing="20.0">
-         <children>
-            <MenuButton mnemonicParsing="false" prefHeight="30.0" prefWidth="121.0" text="UP TWEET">
-              <items>
-                <MenuItem mnemonicParsing="false" text="Action 1" />
-                <MenuItem mnemonicParsing="false" text="Action 2" />
-              </items>
-               <font>
-                  <Font name="Berlin Sans FB Bold" size="13.0" />
-               </font>
-            </MenuButton>
-            <TextField prefHeight="30.0" prefWidth="305.0" />
-         </children>
-      </HBox>
    </children>
 </AnchorPane>

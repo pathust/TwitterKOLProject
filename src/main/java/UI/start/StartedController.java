@@ -38,7 +38,7 @@ public class StartedController {
         getStartedButton = (Button) loader.getNamespace().get("getStartedButton");
 
         getStartedButton.setOnAction(event -> {
-            switchingScene.switchToHome();System.out.println("Pressed");
+            switchingScene.switchToAddFile();
         });
 
         scene = new Scene(root);
