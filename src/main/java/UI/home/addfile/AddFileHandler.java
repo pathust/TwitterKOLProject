@@ -48,20 +48,20 @@ public class AddFileHandler{
         return selectedFile;
     }
 
-    public void copyFile() {
+    public void copyFile(String destination) {
         // Xác định đường dẫn file đích
-        File destinationFile = new File("D:\\GitHub\\TwitterKOLProject\\" + selectedFile.getName());
-
+//        File destinationFile = new File("TwitterKOLProject\\" + selectedFile.getName());
+        File destinationFile = new File(System.getProperty("user.dir")+destination);
         try {
-            // Nếu thư mục đích chưa tồn tại, tạo thư mục
+//             Nếu thư mục đích chưa tồn tại, tạo thư mục
             Path destinationPath = destinationFile.toPath();
             Files.createDirectories(destinationPath.getParent());
 
-            // Sao chép file với tùy chọn ghi đè nếu file đã tồn tại
+//             Sao chép file với tùy chọn ghi đè nếu file đã tồn tại
             Files.copy(selectedFile.toPath(), destinationPath, StandardCopyOption.REPLACE_EXISTING);
             logger.info("File copied successfully to: " + destinationFile.getAbsolutePath());
         } catch (IOException e) {
-            // Ghi lỗi vào log nếu có sự cố khi sao chép
+//             Ghi lỗi vào log nếu có sự cố khi sao chép
             logger.severe("Failed to copy file: " + e.getMessage());
             e.printStackTrace();
         }

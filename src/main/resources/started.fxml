@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: linear-gradient(to bottom, #fce4ec, #f8bbd0); -fx-border-color: pink; -fx-border-radius: 3;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.start.StartedController">
+    <children>
+        <ImageView fitHeight="193.0" fitWidth="259.0" layoutX="-18.0" layoutY="39.0">
+            <image>
+                <Image url="@images/linh1.png" />
+            </image>
+        </ImageView>
+        <ImageView fitHeight="177.0" fitWidth="259.0" layoutX="172.0" layoutY="47.0">
+            <image>
+                <Image url="@images/kolhe.jpg" />
+            </image>
+        </ImageView>
+        <Button fx:id="getStartedButton" layoutX="241.0" layoutY="337.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="121.0" style="-fx-background-color: linear-gradient(to bottom, #42a5f5, #155995); -fx-text-fill: white; -fx-background-radius: 50; -fx-border-radius: 40;" text="GET STARTED">
+            <font>
+                <Font name="Berlin Sans FB Bold" size="15.0" />
+            </font>
+        </Button>
+        <MenuBar prefHeight="25.0" prefWidth="600.0" style="-fx-background-color: pink; -fx-text-font: Berlin Sans FB Demi;" AnchorPane.leftAnchor="0.0">
+            <menus>
+                <Menu mnemonicParsing="false" text="Home">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="Close" />
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Exit" />
+                <Menu mnemonicParsing="false" text="Help">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="About" />
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+        <ImageView fitHeight="156.0" fitWidth="272.0" layoutY="224.0">
+            <image>
+                <Image url="@images/linh1.png" />
+            </image>
+        </ImageView>
+        <ImageView fitHeight="112.0" fitWidth="200.0" layoutX="153.0" layoutY="224.0">
+            <image>
+                <Image url="@images/linh1.png" />
+            </image>
+        </ImageView>
+        <ImageView fitHeight="112.0" fitWidth="200.0" layoutX="331.0" layoutY="224.0">
+            <image>
+                <Image url="@images/linh1.png" />
+            </image>
+        </ImageView>
+        <ImageView fitHeight="145.0" fitWidth="246.0" layoutX="423.0" layoutY="47.0">
+            <image>
+                <Image url="@images/linh1.png" />
+            </image>
+        </ImageView>
+        <ImageView fitHeight="112.0" fitWidth="200.0" layoutX="446.0" layoutY="268.0">
+            <image>
+                <Image url="@images/linh1.png" />
+            </image>
+        </ImageView>
+    </children>
+</AnchorPane>

@@ -1,40 +1,52 @@
 package UI;
 
-import UI.display.DisplayScene;
-import UI.home.HomeScene;
+//import UI.home.HomeScene;
+import UI.display.Display;
+import UI.home.addfile.UploadFile;
+import UI.home.startscraper.Searching;
+import UI.menu.MenuController;
+import UI.start.StartedController;
 import UI.waiting.WaitingScene;
 import graph.Graph;
 import graph.PagerankCalculator;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
-import java.io.IOException;
-
 public class AppInterface extends Application implements SwitchingScene{
     private Graph graph;
     private PagerankCalculator pagerankCalculator;
-    private HomeScene homeScene;
+    private Searching searching;
+    private UploadFile uploadFile;
     private WaitingScene waitingScene;
-    private DisplayScene displayScene;
+    private Display display;
+//    private DisplayScene displayScene;
+    private StartedController startedController;
+    private MenuController menuController;
 
     public static void main(String[] args) {
         launch(args);
     }
 
     @Override
-    public void start(Stage primaryStage) {
+    public void start(Stage primaryStage) throws Exception {
         graph = new Graph();
         pagerankCalculator = new PagerankCalculator();
 
-        homeScene = new HomeScene(primaryStage, this);
+        searching = new Searching(primaryStage, this);
         waitingScene = new WaitingScene(primaryStage, this);
-        displayScene = new DisplayScene(primaryStage, this);
-        homeScene.start();
+//        displayScene = new DisplayScene(primaryStage, this);
+        menuController = new MenuController(this);
+        uploadFile = new UploadFile(primaryStage, this);
+        startedController = new StartedController(primaryStage, this);
+        display = new Display(primaryStage, this);
+//
+//        homeScene.start();
+        startedController.start();
     }
 
     @Override
-    public void switchToHome() {
-        homeScene.start();
+    public void switchToSearching() {
+        searching.start();
     }
 
     @Override
@@ -44,13 +56,12 @@ public class AppInterface extends Application implements SwitchingScene{
 
     @Override
     public void switchToDisplay() {
-//        displayScene.init();
-        displayScene.start();
+        display.start();
     }
 
     @Override
     public void closeHome() {
-        homeScene.close();
+        searching.close();
     }
 
     @Override
@@ -60,6 +71,11 @@ public class AppInterface extends Application implements SwitchingScene{
 
     @Override
     public void closeDisplay() {
-        displayScene.close();
+//        displayScene.close();
+    }
+
+    @Override
+    public void switchToAddFile() {
+        uploadFile.start();
     }
 }

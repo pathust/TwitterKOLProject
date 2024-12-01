@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox fx:id="Menu" prefHeight="400.0" prefWidth="105.0" spacing="10.0" style="-fx-background-color: #FFCCCC;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.menu.MenuController">
+    <children>
+        <Button fx:id="Crawl" mnemonicParsing="false" prefHeight="25.0" prefWidth="111.0" style="-fx-background-color: #FFE4E1;" text="Crawl data" />
+        <Button fx:id="Upload" mnemonicParsing="false" prefHeight="25.0" prefWidth="107.0" style="-fx-background-color: #FFE4E1;" text="Upload data" />
+        <Button fx:id="Static" mnemonicParsing="false" prefHeight="25.0" prefWidth="111.0" style="-fx-background-color: #FFE4E1;" text="Data statistic" />
+    </children>
+    <padding>
+        <Insets top="90.0" />
+    </padding>
+</VBox>
