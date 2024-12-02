@@ -15,7 +15,6 @@ public class TwitterFilter implements Filter {
     private final WebDriver driver;
     private final WebDriverWait wait;
     private final Navigator navigator;
-    private String searchResultLink;
 
     public TwitterFilter(WebDriver driver, Navigator navigator) {
         this.driver = driver;
@@ -59,12 +58,10 @@ public class TwitterFilter implements Filter {
             }
 
             try {
-                navigator.clickButton(null,"Search");
+                navigator.clickButton("", "Search");
             } catch (Exception e) {
                 System.out.println("Search button not found: " + e.getMessage());
             }
-
-            searchResultLink = driver.getCurrentUrl();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -82,15 +79,4 @@ public class TwitterFilter implements Filter {
             System.out.println("Error filling advanced search form: " + e.getMessage());
         }
     }
-
-
-    public void navigateToSearchResultLink() {
-        if (searchResultLink != null) {
-            System.out.println("Navigating to search result link: " + searchResultLink);
-            driver.get(searchResultLink);
-        } else {
-            System.out.println("Search result link is null. Please perform advanced search first.");
-        }
-    }
-
 }

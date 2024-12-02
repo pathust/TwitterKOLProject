@@ -1,7 +1,6 @@
 package scraper.navigation;
 
 import org.openqa.selenium.*;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
@@ -17,27 +16,18 @@ public class WebNavigator implements Navigator {
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(5));
     }
 
-    @Override
     public void scrollToElement(WebElement element) {
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
     }
 
-    @Override
-    public void scrollToElement(WebElement element, int delay) {
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
-        if (delay != 0) {
-            try {
-                Thread.sleep(delay);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-        }
-    }
-
-    @Override
     public void scrollDown() {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("window.scrollTo(0, document.body.scrollHeight)");
+    }
+
+    public void scrollBy(int pixels) {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("window.scrollBy(0, arguments[0]);", pixels);
     }
 
     @Override
@@ -47,23 +37,20 @@ public class WebNavigator implements Navigator {
 
         try {
             WebElement button;
-            if (element == null) {
-                button = driver.findElement(By.xpath(globalXPath));
-            }
-            else {
-                button = element.findElement(By.xpath(globalXPath));
-            }
+            button = driver.findElement(By.xpath(xpathExpression));
 
             Thread.sleep(1000);
+            if (button == null) {
+                System.out.println("Button not found");
+            }
             button = wait.until(elementToBeClickable(button));
             button.click();
         }
         catch (Exception e) {
-            System.out.println(e.getMessage());
+            System.out.println("Followed");
         }
     }
 
-    @Override
     public void fillingFieldBySpan(String spanText, String text) {
         WebElement field = wait.until(presenceOfElementLocated(
                 By.xpath("//label[div/div/div/span[text()='" + spanText + "']]//div[2]/div/input")));
@@ -72,20 +59,22 @@ public class WebNavigator implements Navigator {
         field.sendKeys(text);
     }
 
-    @Override
     public String getLink(WebElement element) {
         return element.findElement(
-                By.xpath(".//a[@role='link']")).getAttribute("href");
+                By.xpath("//a[@role='link']")).getAttribute("href");
     }
 
-    @Override
     public void navigateToSection(String section) {
         if (section.isEmpty()) {
             System.err.println("No section found");
             return;
         }
-        WebElement sectionLink = wait.until(elementToBeClickable(
-                By.xpath("//a[contains(@href, '" + section + "')]")));
-        sectionLink.click();
+        String sectionLink = wait.until(
+                presenceOfElementLocated(
+                        By.xpath("//a[contains(@href, '" + section + "')]")
+                )).getAttribute("href");
+        while (!driver.getCurrentUrl().contains(section)) {
+            driver.navigate().to(sectionLink);
+        }
     }
 }

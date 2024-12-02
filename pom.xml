@@ -38,6 +38,11 @@
             <artifactId>javafx-graphics</artifactId>
             <version>23.0.1</version>
         </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-fxml</artifactId>
+            <version>23.0.1</version>
+        </dependency>
 
         <!-- Jackson Databind Dependency for JSON -->
         <dependency>
@@ -45,6 +50,13 @@
             <artifactId>jackson-databind</artifactId>
             <version>2.15.2</version>
         </dependency>
+
+        <dependency>
+            <groupId>com.jfoenix</groupId>
+            <artifactId>jfoenix</artifactId>
+            <version>9.0.10</version>
+        </dependency>
+
 
         <!-- Jackson Core (required by Jackson Databind) -->
         <dependency>
