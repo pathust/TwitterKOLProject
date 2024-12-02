@@ -62,12 +62,12 @@ public class GraphFactory {
         // add following edge
         for (GraphNode node : userNodeList) {
             User userNode = node.getKol();
-            List<String> followingList = userNode.getFollowersList();
+            List<String> followersList = userNode.getFollowersList();
 
-            for(String targetUserLink : followingList) {
-                User targetUser = graphFactory.getUser("KOLs.json", targetUserLink);
-                GraphNode targetNode = graphFactory.getNode(targetUser);
-                graph.addEdge(node, targetNode, followWeight);
+            for(String followerLink : followersList) {
+                User followerUser = graphFactory.getUser("KOLs.json", followerLink);
+                GraphNode followerNode = graphFactory.getNode(followerUser);
+                graph.addEdge(followerNode, node, followWeight);
             }
         }
 
@@ -84,7 +84,7 @@ public class GraphFactory {
             graph.addNode(userPostNode);
 
             // add post edge
-            graph.addEdge(userPostNode, tweetNode, postWeight);
+            graph.addEdge(tweetNode, userPostNode, postWeight);
 
             // add repost edge
             for(String userRepostLink : tweet.getRepostList()) {
@@ -92,7 +92,7 @@ public class GraphFactory {
                 GraphNode userRepostNode = graphFactory.getNode(userRepost);
 
                 graph.addNode(userRepostNode);
-                graph.addEdge(tweetNode, userRepostNode, repostWeight);
+                graph.addEdge(userRepostNode, tweetNode, repostWeight);
             }
         }
 
