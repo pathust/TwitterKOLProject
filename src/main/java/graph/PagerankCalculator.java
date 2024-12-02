@@ -2,6 +2,7 @@ package graph;
 
 import model.GraphNode;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -25,8 +26,8 @@ public class PagerankCalculator {
             for(GraphNode node : nodeList) {
                 double rankSum = 0.0;
 
-                Map<GraphNode, Double> edgeList = graph.getEdgeListFrom(node);
-                for(GraphNode otherNode : edgeList.keySet()) {
+                List<GraphNode> edgeList = graph.getEdgeListTo(node);
+                for(GraphNode otherNode : edgeList) {
                     double weight = graph.getWeight(otherNode, node);
                     if(weight == 0.0)
                         continue;

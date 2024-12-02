@@ -2,15 +2,15 @@ package graph;
 
 import model.GraphNode;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class Graph {
     private Map<GraphNode, Map<GraphNode, Double>> graph;
+    private Map<GraphNode, List<GraphNode>> inEdges;
 
     public Graph() {
         this.graph = new HashMap<>();
+        this.inEdges = new HashMap<>();
     }
 
     public Set<GraphNode> getNodes() {
@@ -20,12 +20,15 @@ public class Graph {
     public void addNode(GraphNode node) {
         if(!graph.containsKey(node)) {
             graph.putIfAbsent(node, new HashMap<>());
+            inEdges.putIfAbsent(node, new ArrayList<>());
         }
     }
 
     public void addEdge(GraphNode node, GraphNode targetNode, Double weight) {
         addNode(node);
+        addNode(targetNode);
         graph.get(node).put(targetNode, weight);
+        inEdges.get(targetNode).add(node);
     }
 
     public Double getWeight(GraphNode node, GraphNode targetNode) {
@@ -48,8 +51,8 @@ public class Graph {
         return total;
     }
 
-    public Map<GraphNode, Double> getEdgeListFrom(GraphNode node) {
-        return graph.get(node);
+    public List<GraphNode> getEdgeListTo(GraphNode node) {
+        return inEdges.get(node);
     }
 
     public Map<GraphNode, Map<GraphNode, Double>> getGraph() {
