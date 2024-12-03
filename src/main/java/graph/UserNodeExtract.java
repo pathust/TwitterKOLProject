@@ -1,9 +1,11 @@
 package graph;
 
+import model.DataModel;
 import model.GraphNode;
 import model.User;
-import scraper.storage.UserDataHandler;
-import scraper.storage.UserStorageManager;
+import storage.DataRepository;
+import storage.StorageHandler;
+import utils.ObjectType;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -11,14 +13,14 @@ import java.util.List;
 
 public class UserNodeExtract {
     public static List<GraphNode> extract() throws IOException {
-        UserDataHandler userDataHandler = new UserStorageManager();
-        userDataHandler.loadUsers("KOLs.json");
-        List<User> userList = userDataHandler.getUsers("KOLs.json");
+        DataRepository dataRepository = new StorageHandler();
+        dataRepository.load(ObjectType.USER, "KOLs.json");
+        List<DataModel> userList = dataRepository.getAll(ObjectType.USER, "KOLs.json");
 
         List<GraphNode> nodeList = new ArrayList<>();
 
-        for (User user : userList) {
-            nodeList.add(new GraphNode(user));
+        for (DataModel dataModel : userList) {
+            nodeList.add(new GraphNode((User) dataModel));
         }
 
         return nodeList;

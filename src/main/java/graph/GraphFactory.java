@@ -4,30 +4,29 @@ import model.*;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Map;
-import java.util.Random;
-import scraper.storage.UserDataHandler;
-import scraper.storage.UserStorageManager;
+import storage.DataRepository;
+import storage.StorageHandler;
+import utils.ObjectType;
 
 public class GraphFactory {
     public static final double followWeight = 1.0;
     public static final double postWeight = 1.0;
     public static final double repostWeight = 1.0;
 
-    private final UserDataHandler userDataHandler;
+    private final DataRepository dataRepository;
     private final NodeDataHandle nodeDataHandle;
 
     public GraphFactory() {
-        this.userDataHandler = new UserStorageManager();
+        this.dataRepository = new StorageHandler();
         this.nodeDataHandle = new GraphNodeStorage();
     }
 
-    public void loadUsers(String filePath) throws IOException {
-        userDataHandler.loadUsers(filePath);
+    public void load(ObjectType type, String filePath) throws IOException {
+        dataRepository.load(type, filePath);
     }
 
-    public User getUser(String filePath, String profileLink) throws IOException {
-        return userDataHandler.getUser(filePath, profileLink);
+    public DataModel get(ObjectType type, String filePath, String uniqueKey) throws IOException {
+        return dataRepository.get(type, filePath, uniqueKey);
     }
 
     public void addNode(User user, GraphNode userNode) throws IOException {
@@ -49,13 +48,13 @@ public class GraphFactory {
     public static Graph createGraph(List<GraphNode> userNodeList, List<GraphNode> tweetNodeList) throws IOException {
         GraphFactory graphFactory = new GraphFactory();
         Graph graph = new Graph();
-        graphFactory.loadUsers("KOLs.json");
+        graphFactory.load(ObjectType.USER, "KOLs.json");
 
         // add user node
         for (GraphNode node : userNodeList) {
             graph.addNode(node);
 
-            User user = graphFactory.getUser("KOLs.json", node.getKol().getProfileLink());
+            User user = (User) graphFactory.get(ObjectType.USER, "KOLs.json", node.getKol().getProfileLink());
             graphFactory.addNode(user, node);
         }
 
@@ -65,7 +64,7 @@ public class GraphFactory {
             List<String> followersList = userNode.getFollowersList();
 
             for(String followerLink : followersList) {
-                User followerUser = graphFactory.getUser("KOLs.json", followerLink);
+                User followerUser = (User) graphFactory.get(ObjectType.USER, "KOLs.json", followerLink);
                 GraphNode followerNode = graphFactory.getNode(followerUser);
                 graph.addEdge(followerNode, node, followWeight);
             }
@@ -76,7 +75,7 @@ public class GraphFactory {
         // add tweet node
         for (GraphNode tweetNode : tweetNodeList) {
             Tweet tweet = tweetNode.getTweet();
-            User userPost = graphFactory.getUser("KOLs.json", tweet.getUserLink());  //  lỗi chưa co link trong KOL.json
+            User userPost = (User) graphFactory.get(ObjectType.USER, "KOLs.json", tweet.getAuthorProfileLink());  //  lỗi chưa co link trong KOL.json
             GraphNode userPostNode = graphFactory.getNode(userPost);
 
             // add tweet node, user post node
@@ -88,7 +87,7 @@ public class GraphFactory {
 
             // add repost edge
             for(String userRepostLink : tweet.getRepostList()) {
-                User userRepost = graphFactory.getUser("KOLs.json", userRepostLink);  //  lỗi chưa co link trong KOL.json
+                User userRepost = (User) graphFactory.get(ObjectType.USER, "KOLs.json", userRepostLink);  //  lỗi chưa co link trong KOL.json
                 GraphNode userRepostNode = graphFactory.getNode(userRepost);
 
                 graph.addNode(userRepostNode);

@@ -31,9 +31,8 @@ public class WebNavigator implements Navigator {
     }
 
     @Override
-    public void clickButton(WebElement element, String buttonName) {
-        String scopedXPath = ".//button//span[text()='" + buttonName + "']"; // Scoped to element
-        String globalXPath = "//button//span[text()='" + buttonName + "']";
+    public void clickButton(String parentXPath, String buttonName) {
+        String xpathExpression = parentXPath + "//button//span[text()='" + buttonName + "']"; // Scoped to element
 
         try {
             WebElement button;
