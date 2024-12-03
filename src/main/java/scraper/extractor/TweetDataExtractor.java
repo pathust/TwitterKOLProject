@@ -17,6 +17,7 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClick
 import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated;
 import static utils.Math.toInt;
 import static utils.ObjectType.TWEET;
+import static utils.XPathExtension.getXPath;
 
 public class TweetDataExtractor extends DataExtractor<Tweet> implements Extractor<Tweet> {
     private static final int RETRY_ATTEMPTS = 3;
@@ -51,7 +52,7 @@ public class TweetDataExtractor extends DataExtractor<Tweet> implements Extracto
     @Override
     protected WebElement nextCell(WebElement tweetCell) {
         if (tweetCell == null) {
-            System.out.println("Next cell is null");
+            //System.out.println("Next cell is null");
             return getFirstCell();
         }
 
@@ -76,9 +77,9 @@ public class TweetDataExtractor extends DataExtractor<Tweet> implements Extracto
         String authorProfileLink = extractAuthorProfileLink(xpathExpression);
         String tweetLink = extractTweetLink(xpathExpression);
         String content = extractContent(xpathExpression);
-        int commentCount = extractCount("reply");
-        int repostCount = extractCount("retweet");
-        int likeCount = extractCount("like");
+        int commentCount = extractCount(xpathExpression, "reply");
+        int repostCount = extractCount(xpathExpression,"retweet");
+        int likeCount = extractCount(xpathExpression,"like");
 
         Tweet tweet = new Tweet(tweetLink, authorProfileLink, repostCount);
         tweet.setAuthorUsername(authorUsername);
@@ -117,8 +118,9 @@ public class TweetDataExtractor extends DataExtractor<Tweet> implements Extracto
             WebElement viewQuotesOption = wait.until(elementToBeClickable(By.xpath(".//span[text()='View Quotes']")));
             viewQuotesOption.click();
 
-            WebElement viewRepostsOption = wait.until(elementToBeClickable(By.xpath(".//span[text()='Reposts']")));
-            viewRepostsOption.click();
+
+            // WebElement viewRepostsOption = wait.until(elementToBeClickable(By.xpath(".//span[text()='Reposts']")));
+            // viewRepostsOption.click();
 
         } catch (Exception e) {
             out.println("Error: Unable to click 'Repost' or 'View Quotes' button.");
@@ -126,10 +128,45 @@ public class TweetDataExtractor extends DataExtractor<Tweet> implements Extracto
             return;
         }
 
+        // Begin inline logic of extractEachTweet
+        int maxListSize = 3;
+        int maxNewRepostUsers = 3;
+        int countNewUser = 0;
         List<Tweet> repostList = new ArrayList<>();
+
+        WebElement userCell = null;
+        boolean success = false;
+        while (!success) {
+            try {
+                //userCell = wait.until(presenceOfElementLocated(By.xpath("//article[contains(@data-testid, 'tweet')]")));
+                userCell = wait.withTimeout(Duration.ofSeconds(5))
+                        .until(presenceOfElementLocated(By.xpath("//article[contains(@data-testid, 'tweet')]")));
+                success = true;
+            } catch (Exception e) {
+                System.out.println("No Quotes yet, ...");
+                return;
+            }
+        }
+
+        while (repostList.size() < maxListSize && countNewUser < maxNewRepostUsers) {
+            String xpathExpression = getXPath(driver, userCell);
+            String usernameText = extractAuthorUsername(xpathExpression);
+            String userLink = extractAuthorProfileLink(xpathExpression);
+            int repostCount = 0;
+            Tweet newTweet = new Tweet(userLink, userLink, repostCount);
+            repostList.add(newTweet);
+            out.println("Added user: " + usernameText);
+            countNewUser++;
+            userCell = nextCell(userCell);
+            if (userCell == null) {
+                break;
+            } else {
+                navigator.scrollToElement(userCell);
+            }
+        }
+        // End inline logic of extractEachTweet
+
         List<String> repostLinks = new ArrayList<>();
-
-
         for (Tweet repost : repostList) {
             repostLinks.add(repost.getAuthorProfileLink());
         }
@@ -143,6 +180,7 @@ public class TweetDataExtractor extends DataExtractor<Tweet> implements Extracto
             e.printStackTrace();
         }
     }
+
 
     private String extractAuthorUsername(String parentXPath) {
         String xpathExpression = parentXPath + "//div[@data-testid='User-Name']/div[1]";
@@ -164,8 +202,9 @@ public class TweetDataExtractor extends DataExtractor<Tweet> implements Extracto
         return driver.findElement(By.xpath(xpathExpression)).getText();
     }
 
-    private int extractCount(String attributeValue) {
-        String xpathExpression = "//*[@data-testid='" + attributeValue + "']";
+    //Thêm parenXpath để đếm đúng
+    private int extractCount(String parentXpath, String attributeValue) {
+        String xpathExpression = parentXpath + "//*[@data-testid='" + attributeValue + "']//span";
         WebElement interactElement = wait.until(
                 presenceOfElementLocated(By.xpath(xpathExpression))
         );

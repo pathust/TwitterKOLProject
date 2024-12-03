@@ -1,6 +1,7 @@
 package scraper;
 
 import UI.waiting.WaitingScene;
+import javafx.application.Platform;
 import model.User;
 import model.Tweet;
 import org.openqa.selenium.WebDriver;
@@ -18,6 +19,7 @@ import scraper.storage.DataRepository;
 import scraper.storage.StorageHandler;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import static utils.ObjectType.TWEET;
@@ -34,9 +36,7 @@ public class TwitterScraperController {
     private final Extractor<Tweet> tweetDataExtractor;
 
     public TwitterScraperController() {
-        System.setProperty(
-                "webdriver.chrome.driver",
-                "/Users/phananhtai/Downloads/chromedriver-mac-arm64/chromedriver");
+        System.setProperty("webdriver.chrome.driver", "D:\\Selenium\\chromedriver-win64\\chromedriver.exe");
         driver = new ChromeDriver();
         this.navigator = new WebNavigator(driver);
         this.authenticator = new TwitterAuthenticator(driver, navigator);
@@ -47,14 +47,12 @@ public class TwitterScraperController {
     }
 
     public void login(String username, String email, String password) {
-        WaitingScene.updateStatus("Logging");
-
+        Platform.runLater(() -> WaitingScene.updateStatus("Logging"));
         authenticator.login(username, email, password);
     }
 
     public void applyFilter(List<String> keywords, int minLikes, int minReplies, int minReposts) {
-        WaitingScene.updateStatus("Advance Search Setting");
-
+        Platform.runLater(() -> WaitingScene.updateStatus("Advance Search Setting"));
         filter.advancedSearch(keywords, minLikes, minReplies, minReposts);
     }
 
@@ -69,7 +67,19 @@ public class TwitterScraperController {
                 System.out.println("Scraping user " + user.getUsername());
             }
 
-            WaitingScene.updateStatus("Collecting " + user.getProfileLink());
+            Platform.runLater(() -> WaitingScene.updateStatus("Collecting " + user.getProfileLink()));
+
+            //Lấy các tweet tại trang cá nhân
+            driver.get(user.getProfileLink());
+            System.out.println("Extracting tweets from user: " + user.getUsername());
+            //navigator.navigateToSection("highlights");
+            extractTweetsFromProfileLink("Tweet.json", user, 3);
+
+            // Lưu dữ liệu tweet vào file
+            List<Tweet> userTweets = getTweets("Tweet.json");
+            System.out.println("Number of tweets for user " + user.getUsername() + ": " + userTweets.size());
+
+            //Làm việc với user
             userDataExtractor.extractData(user.getProfileLink());
             dataRepository.save(USER,"KOLs.json");
         }
@@ -105,7 +115,7 @@ public class TwitterScraperController {
     public List<Tweet> getTweets(String filePath) throws IOException {
         return dataRepository.getAll(TWEET, filePath)
                 .stream()
-                .filter(item -> item instanceof User)
+                .filter(item -> item instanceof Tweet)
                 .map(item -> (Tweet) item)
                 .toList();
     }
@@ -127,7 +137,7 @@ public class TwitterScraperController {
     private void extractInitialTweetsTo(String filePath) throws IOException {
         System.out.println("Start collecting tweet data...");
 
-        List <Tweet> tweets = tweetDataExtractor.extractItems(5, true);
+        List <Tweet> tweets = tweetDataExtractor.extractItems(7, true);
         for (Tweet tweet : tweets) {
             dataRepository.add(TWEET, filePath,tweet);
         }
@@ -135,33 +145,62 @@ public class TwitterScraperController {
         dataRepository.save(TWEET, filePath);
     }
 
-    public static void main(String[] args) throws IOException, InterruptedException {
-        TwitterScraperController controller = new TwitterScraperController();
-
-        controller.login("@21Oop36301","penaldomessy21@gmail.com","123456789@21oop");
-        controller.applyFilter(
-                List.of(args),
-                1000,
-                1000,
-                250);
-
-        String searchResultLink = driver.getCurrentUrl();
-        // Extract data from tweets
-        controller.extractInitialTweetsTo("Tweet.json");
-        List<Tweet> tweets = controller.getTweets("Tweet.json");
-        System.out.println("Number of tweets: " + tweets.size());
-        controller.scrapeTweetsData(tweets);
-
-        while (!driver.getCurrentUrl().contains("search")) {
-            driver.get(searchResultLink);
+    // Thêm phương thức để lấy tweet từ trang các nhân của các KOLs
+    public void extractTweetsFromProfileLink(String filePath, User user, int maxListSize) throws IOException {
+        List<Tweet> tweets = tweetDataExtractor.extractItems(maxListSize, true);
+        for (Tweet tweet : tweets) {
+            if (!tweet.getAuthorProfileLink().equals(user.getProfileLink())) {
+                // Tạo danh sách mới và thêm profile link của user
+                List<String> repostList = new ArrayList<>();
+                repostList.add(user.getProfileLink());
+                tweet.setRepostList(repostList);
+            }
+            dataRepository.add(TWEET, filePath, tweet);
         }
 
-        // Extract data from users
-        controller.extractInitialKOLsTo("KOLs.json");
-        List<User> users = controller.getUsers("KOLs.json");
-        System.out.println("Number of users: " + users.size());
-        controller.scrapeUsersData(users);
-
-        driver.quit();
+        dataRepository.save(TWEET, filePath);
     }
+
+
+
+
+    public static void main(String[] args) throws IOException, InterruptedException {
+    Platform.startup(() -> {
+        System.out.println("JavaFX Application Thread initialized.");
+
+        TwitterScraperController controller = new TwitterScraperController();
+
+        try {
+            controller.login("@21Oop36301", "penaldomessy21@gmail.com", "123456789@21oop");
+            controller.applyFilter(
+                    List.of("blockchain"),
+                    1000,
+                    1000,
+                    250);
+
+            String searchResultLink = driver.getCurrentUrl();
+
+            // Extract data from tweets
+            Thread.sleep(3000);
+            controller.extractInitialTweetsTo("Tweet.json");
+            List<Tweet> tweets = controller.getTweets("Tweet.json");
+            System.out.println("Number of tweets: " + tweets.size());
+            controller.scrapeTweetsData(tweets);
+
+            while (!driver.getCurrentUrl().contains("search")) {
+                driver.get(searchResultLink);
+            }
+
+            // Extract data from users
+            controller.extractInitialKOLsTo("KOLs.json");
+            List<User> users = controller.getUsers("KOLs.json");
+            System.out.println("Number of users: " + users.size());
+            controller.scrapeUsersData(users);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            driver.quit();
+        }
+    });
+}
 }

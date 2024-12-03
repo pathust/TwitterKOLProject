@@ -14,6 +14,7 @@ public class Math {
         }
         else
             followersCount = followersCount.replace(",", "");
-        return (int) parseDouble(followersCount) * factor;
+        //return (int) parseDouble(followersCount) * factor;
+        return (int) (Double.parseDouble(followersCount) * factor);
     }
 }
