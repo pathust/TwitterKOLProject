@@ -9,13 +9,17 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #FFF0F5;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.home.HomeScene">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #FFF0F5;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.home.startscraper.Searching" stylesheets="style.css">
+>>>>>>> 1ba4dad9c183f293db50feffd56a4449c3e619a1:src/main/resources/searching.fxml
    <children>
+<!--       <fx:include source="/menu.fxml" />-->
       <VBox prefHeight="400.0" prefWidth="105.0" spacing="10.0" style="-fx-background-color: #FFCCCC;">
          <children>
-            <Button fx:id="crawlDataButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="111.0" style="-fx-background-color: #FFE4E1;" text="Crawl data" />
-            <Button fx:id="uploadDataButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="107.0" style="-fx-background-color: #FFE4E1;" text="Upload data" />
-            <Button fx:id="dataStatisticButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="111.0" style="-fx-background-color: #FFE4E1;" text="Data statistic" />
+
+            <Button fx:id="Crawl" mnemonicParsing="false" prefHeight="25.0" prefWidth="111.0" style="-fx-background-color: #FFE4E1;" text="Crawl data" />
+            <Button fx:id="Upload" mnemonicParsing="false" prefHeight="25.0" prefWidth="107.0" style="-fx-background-color: #FFE4E1;" text="Upload data" />
+            <Button fx:id="Static" mnemonicParsing="false" prefHeight="25.0" prefWidth="111.0" style="-fx-background-color: #FFE4E1;" text="Data statistic" />
+>>>>>>> 1ba4dad9c183f293db50feffd56a4449c3e619a1:src/main/resources/searching.fxml
          </children>
          <padding>
             <Insets top="90.0" />
@@ -23,7 +27,7 @@
       </VBox>
       <ImageView fitHeight="284.0" fitWidth="503.0" layoutX="110.0" layoutY="-101.0">
          <image>
-            <Image url="@../../../resources/images/linh3.png" />
+            <Image url="@images/linh3.png" />
          </image>
       </ImageView>
       <Text layoutX="270.0" layoutY="51.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CRAWL DATA">
@@ -31,25 +35,25 @@
             <Font name="Berlin Sans FB Demi Bold" size="29.0" />
          </font>
       </Text>
-      <VBox layoutX="137.0" layoutY="105.0" prefHeight="191.0" prefWidth="451.0">
+      <VBox fx:id="VBox" layoutX="137.0" layoutY="105.0" prefHeight="191.0" prefWidth="451.0">
          <children>
-            <HBox prefHeight="42.0" prefWidth="428.0" spacing="40.0">
-               <children>
-                  <TextField prefHeight="25.0" prefWidth="347.0" />
-                  <Button mnemonicParsing="false" style="-fx-background-color: #FFE4E1;" text="x" textFill="#141414" />
-               </children>
-            </HBox>
-            <Button mnemonicParsing="false" style="-fx-background-color: #FFE4E1;" text="Add +" />
+<!--            <HBox styleClass="hBoxStyle" fx:id="HBox1">-->
+<!--               <children>-->
+<!--                  <TextField fx:id="TextField1"  styleClass="textFieldStyle" />-->
+<!--                  <Button fx:id="Button1" mnemonicParsing="false" styleClass="xButtonStyle" />-->
+<!--               </children>-->
+<!--            </HBox>-->
+            <Button fx:id="AddButton" mnemonicParsing="false" style="-fx-background-color: #FFE4E1;" text="Add +" />
          </children>
       </VBox>
       <ImageView fitHeight="112.0" fitWidth="200.0" layoutX="387.0" layoutY="-24.0">
          <image>
-            <Image url="@../../../resources/images/linh4.png" />
+            <Image url="@images/linh4.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="112.0" fitWidth="200.0" layoutX="132.0" layoutY="-24.0" rotate="-109.4">
          <image>
-            <Image url="@../../../resources/images/linh4.png" />
+            <Image url="@images/linh4.png" />
          </image>
       </ImageView>
       <Button fx:id="searchButton" layoutX="294.0" layoutY="303.0" mnemonicParsing="false" style="-fx-background-color: #FFE4E1; -fx-background-radius: 50; -fx-border-width: 20;" text="SEARCH">
@@ -59,7 +63,7 @@
       </Button>
       <ImageView fitHeight="151.0" fitWidth="272.0" layoutX="14.0" layoutY="-19.0">
          <image>
-            <Image url="@../../../resources/images/lih2.png" />
+            <Image url="@images/lih2.png" />
          </image>
       </ImageView>
    </children>

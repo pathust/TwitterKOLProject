@@ -14,3 +14,20 @@
     -fx-background-color:#104e8b;
 }
 
+.textFieldStyle {
+    -fx-pref-height: 25px;
+    -fx-pref-width: 347px;
+}
+
+.xButtonStyle {
+    -fx-background-color: #FFE4E1; /* Màu nền */
+    -fx-text-fill: #141414; /* Màu chữ */
+    -fx-font-size: 14px; /* Kích thước chữ */
+}
+
+.hBoxStyle {
+    -fx-pref-height: 42px; /* Chiều cao ưu tiên */
+    -fx-pref-width: 428px; /* Chiều rộng ưu tiên */
+    -fx-spacing: 40px; /* Khoảng cách giữa các phần tử */
+}
+
