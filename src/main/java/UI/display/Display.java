@@ -20,6 +20,9 @@ public class Display {
     private Scene scene;
     private FXMLLoader loader;
     private Button crawl, upload, staticData;
+    private Parent root;
+    private UserStorage handle;
+    private KOLTableController controller;
 
     public Display() {}
 
@@ -28,7 +31,7 @@ public class Display {
         switchingScene = switching;
 
         loader = new FXMLLoader(getClass().getResource("/display.fxml"));
-        Parent root = null;
+        root = null;
         try {
             root = loader.load();
         } catch (IOException e) {
@@ -36,20 +39,14 @@ public class Display {
             throw new RuntimeException(e);
         }
 
-        UserStorage handle = new UserStorage();
+        handle = new UserStorage();
         try {
             handle.loadUsers("KOLs.json");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        List<User> kolList = handle.getUsers();
 
-        KOLTableController controller = new KOLTableController();
-        VBox table = controller.getTable(kolList);
-
-        VBox vbox = (VBox) loader.getNamespace().get("Table");
-
-        vbox.getChildren().add(table);
+        controller = new KOLTableController();
 
         crawl = (Button) loader.getNamespace().get("Crawl");
         System.out.println(crawl);
@@ -71,11 +68,21 @@ public class Display {
         staticData.setOnAction(event -> {
             switchingScene.switchToDisplay();
         });
+    }
+
+    private void init() {
+        List<User> kolList = handle.getUsers();
+        VBox table = controller.getTable(kolList);
+
+        VBox vbox = (VBox) loader.getNamespace().get("Table");
+
+        vbox.getChildren().add(table);
 
         scene = new Scene(root);
     }
 
     public void start() {
+        init();
         stage.setScene(scene);
         stage.show();
     }
