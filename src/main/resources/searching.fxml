@@ -10,16 +10,13 @@
 <?import javafx.scene.layout.*?>
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #FFF0F5;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.home.startscraper.Searching" stylesheets="style.css">
->>>>>>> 1ba4dad9c183f293db50feffd56a4449c3e619a1:src/main/resources/searching.fxml
    <children>
 <!--       <fx:include source="/menu.fxml" />-->
       <VBox prefHeight="400.0" prefWidth="105.0" spacing="10.0" style="-fx-background-color: #FFCCCC;">
          <children>
-
             <Button fx:id="Crawl" mnemonicParsing="false" prefHeight="25.0" prefWidth="111.0" style="-fx-background-color: #FFE4E1;" text="Crawl data" />
             <Button fx:id="Upload" mnemonicParsing="false" prefHeight="25.0" prefWidth="107.0" style="-fx-background-color: #FFE4E1;" text="Upload data" />
             <Button fx:id="Static" mnemonicParsing="false" prefHeight="25.0" prefWidth="111.0" style="-fx-background-color: #FFE4E1;" text="Data statistic" />
->>>>>>> 1ba4dad9c183f293db50feffd56a4449c3e619a1:src/main/resources/searching.fxml
          </children>
          <padding>
             <Insets top="90.0" />

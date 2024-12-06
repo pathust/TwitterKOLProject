@@ -14,7 +14,6 @@ import javafx.scene.control.Label;
 import javafx.animation.TranslateTransition;
 import javafx.util.Duration;
 import javafx.stage.WindowEvent;
-import scraper.TwitterScraperController;
 
 import java.util.ArrayList;
 
