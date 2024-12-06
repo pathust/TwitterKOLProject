@@ -4,8 +4,8 @@ import model.*;
 
 import java.io.IOException;
 import java.util.List;
-import storage.DataRepository;
-import storage.StorageHandler;
+
+import storage.main.StorageHandler;
 import utils.ObjectType;
 
 public class GraphFactory {
@@ -13,36 +13,28 @@ public class GraphFactory {
     public static final double postWeight = 1.0;
     public static final double repostWeight = 1.0;
 
-    private final DataRepository dataRepository;
-    private final NodeDataHandle nodeDataHandle;
+    private final StorageHandler storageHandler;
+    private final GraphNodeStorage graphNodeStorage;
 
     public GraphFactory() {
-        this.dataRepository = new StorageHandler();
-        this.nodeDataHandle = new GraphNodeStorage();
+        this.storageHandler = new StorageHandler();
+        this.graphNodeStorage = new GraphNodeStorage();
     }
 
     public void load(ObjectType type, String filePath) throws IOException {
-        dataRepository.load(type, filePath);
+        storageHandler.load(type, filePath);
     }
 
     public DataModel get(ObjectType type, String filePath, String uniqueKey) throws IOException {
-        return dataRepository.get(type, filePath, uniqueKey);
+        return storageHandler.get(type, filePath, uniqueKey);
     }
 
-    public void addNode(User user, GraphNode userNode) throws IOException {
-        nodeDataHandle.addNode(user, userNode);
+    public void addNode(String uniqueKey, GraphNode userNode) {
+        graphNodeStorage.addNode(uniqueKey, userNode);
     }
 
-    public void addNode(Tweet tweet, GraphNode tweetNode) throws IOException {
-        nodeDataHandle.addNode(tweet, tweetNode);
-    }
-
-    public GraphNode getNode(User user) throws IOException {
-        return nodeDataHandle.getNode(user);
-    }
-
-    public GraphNode getNode(Tweet tweet) throws IOException {
-        return nodeDataHandle.getNode(tweet);
+    public GraphNode getNode(String uniqueKey) {
+        return graphNodeStorage.getNode(uniqueKey);
     }
 
     public static Graph createGraph(List<GraphNode> userNodeList, List<GraphNode> tweetNodeList) throws IOException {

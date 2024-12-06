@@ -22,6 +22,11 @@ public class Tweet extends DataModel{
         repostList = new ArrayList<>();
     }
 
+    @Override
+    public String getUniqueKey() {
+        return tweetLink;
+    }
+
     public int getRepostCount(){
         return repostCount;
     }

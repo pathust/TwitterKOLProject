@@ -4,7 +4,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import scraper.navigation.Navigator;
-import storage.DataRepository;
+import storage.main.StorageHandler;
 
 import java.io.IOException;
 import java.time.Duration;
@@ -17,9 +17,9 @@ public abstract class DataExtractor<T> {
     protected final WebDriver driver;
     protected final WebDriverWait wait;
     protected final Navigator navigator;
-    protected final DataRepository storageHandler;
+    protected final StorageHandler storageHandler;
 
-    public DataExtractor(WebDriver driver, Navigator navigator, DataRepository storageHandler) {
+    public DataExtractor(WebDriver driver, Navigator navigator, StorageHandler storageHandler) {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(5));
         this.navigator = navigator;

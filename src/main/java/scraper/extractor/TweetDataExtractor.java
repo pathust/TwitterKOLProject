@@ -5,7 +5,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import scraper.navigation.Navigator;
-import storage.DataRepository;
+import storage.main.StorageHandler;
 
 import java.io.IOException;
 import java.time.Duration;
@@ -21,7 +21,7 @@ import static utils.ObjectType.TWEET;
 public class TweetDataExtractor extends DataExtractor<Tweet> implements Extractor<Tweet> {
     private static final int RETRY_ATTEMPTS = 3;
 
-    public TweetDataExtractor(WebDriver driver, Navigator navigator, DataRepository storageHandler) {
+    public TweetDataExtractor(WebDriver driver, Navigator navigator, StorageHandler storageHandler) {
         super(driver, navigator, storageHandler);
     }
 

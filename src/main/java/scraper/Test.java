@@ -1,8 +1,7 @@
 package scraper;
 
 import model.User;
-import storage.DataRepository;
-import storage.StorageHandler;
+import storage.main.StorageHandler;
 import utils.ObjectType;
 
 import java.io.IOException;
@@ -10,7 +9,7 @@ import java.util.List;
 
 public class Test {
     public static void main(String[] args) throws IOException {
-        DataRepository storageHandler = new StorageHandler();
+        StorageHandler storageHandler = new StorageHandler();
         System.out.println("Loading");
         storageHandler.load(ObjectType.USER, "KOLs.json");
         System.out.println("Loaded");

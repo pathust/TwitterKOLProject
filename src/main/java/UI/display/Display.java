@@ -8,8 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import model.User;
-import storage.DataRepository;
-import storage.StorageHandler;
+import storage.main.StorageHandler;
 
 import java.io.IOException;
 import java.util.List;
@@ -39,15 +38,15 @@ public class Display {
             throw new RuntimeException(e);
         }
 
-        DataRepository dataRepository = new StorageHandler();
+        StorageHandler storageHandler = new StorageHandler();
         try {
-            dataRepository.load(USER, "KOLs.json");
+            storageHandler.load(USER, "KOLs.json");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
         List<User> kolList = null;
         try {
-            kolList = dataRepository.getAll(USER, "KOLs.json")
+            kolList = storageHandler.getAll(USER, "KOLs.json")
                     .stream()
                     .filter(item -> item instanceof User)
                     .map(item -> (User) item)

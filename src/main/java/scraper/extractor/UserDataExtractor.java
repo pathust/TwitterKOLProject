@@ -6,7 +6,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import scraper.navigation.Navigator;
-import storage.DataRepository;
+import storage.main.StorageHandler;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -20,7 +20,7 @@ import static utils.ObjectType.USER;
 
 public class UserDataExtractor extends DataExtractor<User> implements Extractor<User> {
     private Extractor<Tweet> tweetExtractor;
-    public UserDataExtractor(WebDriver driver, Navigator navigator, DataRepository storageHandler) {
+    public UserDataExtractor(WebDriver driver, Navigator navigator, StorageHandler storageHandler) {
         super(driver, navigator, storageHandler);
         tweetExtractor = new TweetDataExtractor(driver, navigator, storageHandler);
     }

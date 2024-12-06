@@ -1,7 +1,5 @@
 package graph;
 
-import model.GraphNode;
-
 import java.util.*;
 
 public class Graph {
