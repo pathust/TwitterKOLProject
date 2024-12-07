@@ -33,7 +33,7 @@ public class StartedController {
         stage = primaryStage;
         switchingScene = switching;
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/main/resources/started.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/started.fxml"));
 //        if(loader == null) System.out.println("No File Found");
         Parent root = null;
         try {
@@ -46,7 +46,7 @@ public class StartedController {
         getStartedButton = (Button) loader.getNamespace().get("getStartedButton");
 
         getStartedButton.setOnAction(event -> {
-            switchingScene.switchToSearching();
+            switchingScene.switchToAddFile();
         });
 
         scene = new Scene(root);
@@ -54,12 +54,6 @@ public class StartedController {
 //        primaryStage.setScene(scene);
         primaryStage.setTitle("Twitter KOL Project");
     }
-
-//    public void initialize() {
-//        getStartedButton.setOnAction(event -> {
-//            this.switchingScene.switchToHome();
-//        });
-//    }
 
     public void start() {
         stage.setScene(scene);

@@ -3,7 +3,9 @@ package UI.home.startscraper;
 import UI.SwitchingScene;
 
 import UI.menu.MenuController;
+import javafx.beans.binding.Bindings;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -18,19 +20,12 @@ public class Searching {
     private Scene scene;
     private Stage stage;
     private SwitchingScene switchingScene;
-//    @FXML
-//    private Button addButton;
-//    @FXML
-//    private Button searchButton;
     private int counting = 0;
     private ArrayList<HBox> array;
     private ArrayList<TextField> arrayText;
     private FXMLLoader loader;
     private MenuController menuController;
     private VBox search;
-//    private static Button crawl, upload, staticData;
-//    private static AnchorPane anchorPane;
-//    private static VBox menu;
 
     private void createMoreTextField() {
         if(array.size() == 5) return ;
@@ -77,7 +72,7 @@ public class Searching {
         switchingScene = switching;
 //        menuController = new MenuController(switching);
 
-        loader = new FXMLLoader(getClass().getResource("/main/resources/searching.fxml"));
+        loader = new FXMLLoader(getClass().getResource("/searching.fxml"));
         Parent root = null;
         try {
             root = loader.load();
@@ -93,6 +88,16 @@ public class Searching {
         menu.prefHeightProperty().bind(anchorPane.heightProperty().multiply(1));
 
         search = (VBox)loader.getNamespace().get("Search");
+
+        search.prefWidthProperty().addListener((obs, oldWidth, newWidth) -> {
+//            search.setPrefWidth(anchorPane.getWidth() - newWidth);
+//            System.out.println(search.getWidth()+" "+search.getLayoutX()+" "+search.getLayoutY());
+            search.setLayoutX(menu.getWidth() + 20.0);
+        });
+
+        search.prefWidthProperty().bind(anchorPane.widthProperty().subtract(menu.widthProperty()));
+
+        System.out.println(search.getLayoutX()+" "+search.getLayoutY());
         array = new ArrayList<>();
         arrayText = new ArrayList<>();
 

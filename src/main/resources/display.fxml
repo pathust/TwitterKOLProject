@@ -14,24 +14,28 @@
         <!--       <fx:include source="/menu.fxml" />-->
         <VBox prefHeight="400.0" prefWidth="105.0" spacing="10.0" style="-fx-background-color: #FFCCCC;">
             <children>
-                <Button fx:id="Crawl" mnemonicParsing="false" prefHeight="25.0" prefWidth="111.0" style="-fx-background-color: #FFE4E1;" text="Crawl data" />
-                <Button fx:id="Upload" mnemonicParsing="false" prefHeight="25.0" prefWidth="107.0" style="-fx-background-color: #FFE4E1;" text="Upload data" />
-                <Button fx:id="Static" mnemonicParsing="false" prefHeight="25.0" prefWidth="111.0" style="-fx-background-color: #FFE4E1;" text="Data statistic" />
+                <Button fx:id="Crawl" mnemonicParsing="false" prefHeight="25.0" prefWidth="111.0" style="-fx-background-color: #FFE4E1; -fx-border-color: pink; -fx-border-width: 2;" text="Crawl data">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Button>
+                <Button fx:id="Upload" mnemonicParsing="false" prefHeight="25.0" prefWidth="107.0" style="-fx-background-color: #FFE4E1; -fx-border-color: pink; -fx-border-width: 2;" text="Upload data">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Button>
+                <Button fx:id="Static" mnemonicParsing="false" prefHeight="25.0" prefWidth="111.0" style="-fx-background-color: #FFE4E1; -fx-border-color: pink; -fx-border-width: 2;" text="Data statistic">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Button>
             </children>
             <padding>
                 <Insets top="90.0" />
             </padding>
         </VBox>
-        <ImageView fitHeight="284.0" fitWidth="503.0" layoutX="110.0" layoutY="-101.0">
+        <ImageView fitHeight="300.0" fitWidth="558.0" layoutX="82.0" layoutY="-113.0">
             <image>
                 <Image url="@images/linh3.png" />
             </image>
         </ImageView>
-        <Text layoutX="269.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="KOL LIST" textAlignment="CENTER" wrappingWidth="183.24755859375">
-            <font>
-                <Font name="Berlin Sans FB Demi Bold" size="29.0" />
-            </font>
-        </Text>
         <VBox fx:id="Table" layoutX="137.0" layoutY="105.0" prefHeight="260.0" prefWidth="451.0" />
         <ImageView fitHeight="112.0" fitWidth="200.0" layoutX="387.0" layoutY="-24.0">
             <image>
@@ -43,10 +47,15 @@
                 <Image url="@images/linh4.png" />
             </image>
         </ImageView>
-        <ImageView fitHeight="151.0" fitWidth="272.0" layoutX="14.0" layoutY="-19.0">
+        <ImageView fitHeight="151.0" fitWidth="272.0" layoutX="21.0" layoutY="-20.0">
             <image>
                 <Image url="@images/lih2.png" />
             </image>
         </ImageView>
+      <Text layoutX="259.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="KOL SEARCH LIST" wrappingWidth="238.0">
+         <font>
+            <Font name="Calibri Bold" size="29.0" />
+         </font>
+      </Text>
     </children>
 </AnchorPane>

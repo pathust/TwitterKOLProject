@@ -36,7 +36,7 @@ public class TwitterScraperController {
     public TwitterScraperController() {
         System.setProperty(
                 "webdriver.chrome.driver",
-                "C://Users//pc11w//Downloads//chromedriver-win64//chromedriver-win64//chromedriver.exe");
+                "D:\\Dowload\\chromedriver-win64\\chromedriver-win64\\chromedriver.exe");
         driver = new ChromeDriver();
         this.navigator = new WebNavigator(driver);
         this.authenticator = new TwitterAuthenticator(driver, navigator);
