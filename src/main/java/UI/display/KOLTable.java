@@ -1,24 +1,13 @@
 package UI.display;
 
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
-import javafx.scene.control.*;
+import javafx.scene.control.Hyperlink;
+import javafx.scene.control.TableCell;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import model.User;
 
-import java.util.function.Function;
-
-public class KOLTable {
-
-    // Hàm tạo cột chung
-    public <T> TableColumn<User, T> createColumn(String title, Function<User, T> mapper) {
-        TableColumn<User, T> column = new TableColumn<>(title);
-        column.setCellValueFactory(cellData ->
-                new SimpleObjectProperty<>(mapper.apply(cellData.getValue()))
-        );
-        return column;
-    }
-
+public class KOLTable extends TableCreate{
     public TableView<User> createTable(ObservableList<User> data) {
         TableView<User> tableView = new TableView<>();
 
@@ -55,18 +44,4 @@ public class KOLTable {
 
         return tableView;
     }
-
-    public void setupRowClickHandler(TableView<User> tableView, java.util.function.Consumer<User> onClickAction) {
-        tableView.setRowFactory(tv -> {
-            TableRow<User> row = new TableRow<>();
-            row.setOnMouseClicked(event -> {
-                if (!row.isEmpty() && event.getClickCount() == 1) {
-                    User clickedUser = row.getItem();
-                    onClickAction.accept(clickedUser);
-                }
-            });
-            return row;
-        });
-    }
 }
-
