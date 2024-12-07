@@ -3,7 +3,6 @@ package UI.home.startscraper;
 import UI.SwitchingScene;
 
 import UI.menu.MenuController;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -19,17 +18,19 @@ public class Searching {
     private Scene scene;
     private Stage stage;
     private SwitchingScene switchingScene;
-    @FXML
-    private Button addButton;
-    @FXML
-    private Button searchButton;
+//    @FXML
+//    private Button addButton;
+//    @FXML
+//    private Button searchButton;
     private int counting = 0;
     private ArrayList<HBox> array;
     private ArrayList<TextField> arrayText;
     private FXMLLoader loader;
     private MenuController menuController;
-    private VBox vbox;
-    private static Button crawl, upload, staticData;
+    private VBox search;
+//    private static Button crawl, upload, staticData;
+//    private static AnchorPane anchorPane;
+//    private static VBox menu;
 
     private void createMoreTextField() {
         if(array.size() == 5) return ;
@@ -51,7 +52,7 @@ public class Searching {
                 }
             }
 
-            vbox.getChildren().remove(xButton.getParent());
+            search.getChildren().remove(xButton.getParent());
         });
 
         hBox.getChildren().add(textField);
@@ -59,11 +60,11 @@ public class Searching {
 
         ++counting;
         hBox.setId("HBox"+counting);
-        System.out.println(textField.getId());
 
-        vbox.getChildren().remove(addButton);
-        vbox.getChildren().add(hBox);
-        vbox.getChildren().add(addButton);
+        Button addButton = (Button) loader.getNamespace().get("AddButton");
+        search.getChildren().remove(addButton);
+        search.getChildren().add(hBox);
+        search.getChildren().add(addButton);
         array.add(hBox);
         arrayText.add(textField);
     }
@@ -85,19 +86,23 @@ public class Searching {
             throw new RuntimeException(e);
         }
 
-        System.out.println(loader.getNamespace().get("Menu"));
+        AnchorPane anchorPane = (AnchorPane) loader.getNamespace().get("AnchorPane");
 
-        vbox = (VBox)loader.getNamespace().get("VBox");
+        VBox menu = (VBox) loader.getNamespace().get("Menu");
+        menu.prefWidthProperty().bind(anchorPane.widthProperty().multiply(0.2));
+        menu.prefHeightProperty().bind(anchorPane.heightProperty().multiply(1));
+
+        search = (VBox)loader.getNamespace().get("Search");
         array = new ArrayList<>();
         arrayText = new ArrayList<>();
 
-        addButton = (Button) loader.getNamespace().get("AddButton");
+        Button addButton = (Button) loader.getNamespace().get("AddButton");
         addButton.setOnAction(event -> {
             createMoreTextField();
         });
 
         // Khi ấn sẽ bắt đầu crawl data
-        searchButton = (Button) loader.getNamespace().get("searchButton");
+        Button searchButton = (Button) loader.getNamespace().get("searchButton");
         searchButton.setOnAction(event -> {
             if(array.isEmpty()) return ;
             StringBuilder text = new StringBuilder();
@@ -112,23 +117,20 @@ public class Searching {
             startScraperHandler.startCrawl(text.toString());
         });
 
-        crawl = (Button) loader.getNamespace().get("Crawl");
-        System.out.println(crawl);
-
+        Button crawl = (Button) loader.getNamespace().get("Crawl");
+        crawl.prefWidthProperty().bind(menu.widthProperty());
         crawl.setOnAction(event -> {
-//            System.out.println("Hello");
             switchingScene.switchToSearching();
         });
 
-        upload = (Button) loader.getNamespace().get("Upload");
-        System.out.println(upload);
-
+        Button upload = (Button) loader.getNamespace().get("Upload");
+        upload.prefWidthProperty().bind(menu.widthProperty());
         upload.setOnAction(event -> {
-            System.out.println("Hello");
             switchingScene.switchToAddFile();
         });
 
-        staticData = (Button) loader.getNamespace().get("Static");
+        Button staticData = (Button) loader.getNamespace().get("Static");
+        staticData.prefWidthProperty().bind(menu.widthProperty());
         staticData.setOnAction(event -> {
             switchingScene.switchToDisplay();
         });

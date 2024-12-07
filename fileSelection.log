@@ -120,6 +120,7 @@ Dec 01, 2024 3:13:05 PM UI.home.addfile.AddFileHandler openFileDialog
 INFO: User selected file: D:\GitHub\Dataset.json
 Dec 01, 2024 3:13:06 PM UI.home.addfile.AddFileHandler copyFile
 INFO: File copied successfully to: D:\GitHub\TwitterKOLProject\Tweet.json
+<<<<<<< HEAD
 Dec 01, 2024 6:06:51 PM UI.home.addfile.AddFileHandler openFileDialog
 INFO: User selected file: /Users/phananhtai/intelliJ IDEA workspace/TwitterKOLProject/KOLs.json
 Dec 01, 2024 6:06:55 PM UI.home.addfile.AddFileHandler copyFile
@@ -136,3 +137,17 @@ Dec 01, 2024 6:07:09 PM UI.home.addfile.AddFileHandler copyFile
 INFO: File copied successfully to: /Users/phananhtai/intelliJ IDEA workspace/TwitterKOLProject\KOLs.json
 Dec 07, 2024 12:20:28 PM UI.home.addfile.AddFileHandler openFileDialog
 INFO: User cancelled file selection.
+=======
+Dec 01, 2024 7:02:50 PM UI.home.addfile.AddFileHandler openFileDialog
+INFO: User selected file: D:\GitHub\Dataset.json
+Dec 01, 2024 7:02:52 PM UI.home.addfile.AddFileHandler copyFile
+INFO: File copied successfully to: D:\GitHub\TwitterKOLProject\KOLs.json
+Dec 01, 2024 7:02:59 PM UI.home.addfile.AddFileHandler copyFile
+INFO: File copied successfully to: D:\GitHub\TwitterKOLProject\KOLs.json
+Dec 01, 2024 7:03:50 PM UI.home.addfile.AddFileHandler copyFile
+INFO: File copied successfully to: D:\GitHub\TwitterKOLProject\KOLs.json
+Dec 01, 2024 7:16:15 PM UI.home.addfile.AddFileHandler openFileDialog
+INFO: User selected file: D:\GitHub\Dataset.json
+Dec 01, 2024 7:16:16 PM UI.home.addfile.AddFileHandler copyFile
+INFO: File copied successfully to: D:\GitHub\TwitterKOLProject\KOLs.json
+>>>>>>> 9a4e9cfd548f36be0ab81b9a158c8a447c05fb8d
