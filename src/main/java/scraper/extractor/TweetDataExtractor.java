@@ -9,8 +9,6 @@ import storage.main.StorageHandler;
 
 import java.io.IOException;
 import java.time.Duration;
-import java.util.ArrayList;
-import java.util.List;
 
 import static java.lang.System.*;
 import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
@@ -76,9 +74,9 @@ public class TweetDataExtractor extends DataExtractor<Tweet> implements Extracto
         String authorProfileLink = extractAuthorProfileLink(xpathExpression);
         String tweetLink = extractTweetLink(xpathExpression);
         String content = extractContent(xpathExpression);
-        int commentCount = extractCount("reply");
-        int repostCount = extractCount("retweet");
-        int likeCount = extractCount("like");
+        int commentCount = extractCount(xpathExpression, "reply");
+        int repostCount = extractCount(xpathExpression,"retweet");
+        int likeCount = extractCount(xpathExpression,"like");
 
         Tweet tweet = new Tweet(tweetLink, authorProfileLink, repostCount);
         tweet.setAuthorUsername(authorUsername);
@@ -123,24 +121,6 @@ public class TweetDataExtractor extends DataExtractor<Tweet> implements Extracto
         } catch (Exception e) {
             out.println("Error: Unable to click 'Repost' or 'View Quotes' button.");
             e.printStackTrace();
-            return;
-        }
-
-        List<Tweet> repostList = new ArrayList<>();
-        List<String> repostLinks = new ArrayList<>();
-
-
-        for (Tweet repost : repostList) {
-            repostLinks.add(repost.getAuthorProfileLink());
-        }
-
-        tweet.setRepostList(repostLinks);
-
-        try {
-            storageHandler.add(TWEET, "Tweet.json", tweet);
-        } catch (IOException e) {
-            out.println("Error: Unable to save tweet data.");
-            e.printStackTrace();
         }
     }
 
@@ -164,11 +144,16 @@ public class TweetDataExtractor extends DataExtractor<Tweet> implements Extracto
         return driver.findElement(By.xpath(xpathExpression)).getText();
     }
 
-    private int extractCount(String attributeValue) {
-        String xpathExpression = "//*[@data-testid='" + attributeValue + "']";
-        WebElement interactElement = wait.until(
-                presenceOfElementLocated(By.xpath(xpathExpression))
-        );
-        return toInt(interactElement.getText());
+    private int extractCount(String parentXpath, String attributeValue) {
+        String xpathExpression = parentXpath + "//*[@data-testid='" + attributeValue + "']//span";
+        try {
+            WebElement interactElement = wait.until(
+                    presenceOfElementLocated(By.xpath(xpathExpression))
+            );
+            return toInt(interactElement.getText());
+        }
+        catch (Exception e) {
+            return 0;
+        }
     }
 }

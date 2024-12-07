@@ -1,48 +1,34 @@
 package scraper;
 
 import UI.waiting.WaitingScene;
-import model.User;
-import model.Tweet;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import scraper.authentication.Authenticator;
 import scraper.authentication.TwitterAuthenticator;
-import scraper.extractor.UserDataExtractor;
-import scraper.extractor.TweetDataExtractor;
-import scraper.extractor.Extractor;
+import scraper.extractor.ExtractorController;
 import scraper.filtering.Filter;
 import scraper.filtering.TwitterFilter;
 import scraper.navigation.Navigator;
 import scraper.navigation.WebNavigator;
-import storage.main.StorageHandler;
 
 import java.io.IOException;
 import java.util.List;
-
-import static utils.ObjectType.TWEET;
-import static utils.ObjectType.USER;
-
 
 public class TwitterScraperController {
     private static WebDriver driver;
     private final Navigator navigator;
     private final Authenticator authenticator;
     private final Filter filter;
-    private final StorageHandler storageHandler;
-    private final Extractor<User> userDataExtractor;
-    private final Extractor<Tweet> tweetDataExtractor;
+    private final ExtractorController extractorController;
 
     public TwitterScraperController() {
-        System.setProperty(
-                "webdriver.chrome.driver",
-                "/Users/dungnguyenn/Downloads/chromedriver-mac-arm64/chromedriver");
+        System.setProperty("webdriver.chrome.driver", "D:\\Selenium\\chromedriver-win64\\chromedriver.exe");
         driver = new ChromeDriver();
         this.navigator = new WebNavigator(driver);
         this.authenticator = new TwitterAuthenticator(driver, navigator);
         this.filter = new TwitterFilter(driver, navigator);
-        this.storageHandler = new StorageHandler();
-        this.userDataExtractor = new UserDataExtractor(driver, navigator, storageHandler) {};
-        this.tweetDataExtractor = new TweetDataExtractor(driver, navigator, storageHandler);
+        this.extractorController = new ExtractorController(driver);
+
     }
 
     public void login(String username, String email, String password) {
@@ -57,81 +43,12 @@ public class TwitterScraperController {
         filter.advancedSearch(keywords, minLikes, minReplies, minReposts);
     }
 
-    public void scrapeUsersData(List<User> users) throws IOException {
-        for (User user : users) {
-            if (user == null) {
-                System.out.println("Skipping scrape user ");
-                continue;
-
-            }
-            else {
-                System.out.println("Scraping user " + user.getUsername());
-            }
-
-            WaitingScene.updateStatus("Collecting " + user.getProfileLink());
-            userDataExtractor.extractData(user.getProfileLink());
-            storageHandler.save(USER,"KOLs.json");
-        }
-    }
-
-    public void scrapeTweetsData(List<Tweet> tweets) throws IOException {
-        for (Tweet tweet : tweets) {
-            if (tweet == null) {
-                System.out.println("Skipping scrape tweet ");
-                continue;
-
-            }
-            else {
-                System.out.println("Scraping tweet " + tweet.getAuthorProfileLink());
-            }
-            tweetDataExtractor.extractData(tweet.getTweetLink());
-            storageHandler.save(TWEET, "Tweet.json");
-        }
-    }
-
     public static void close() {
         driver.close();
     }
 
-    public List<User> getUsers(String filePath) throws IOException {
-        return storageHandler.getAll(USER, filePath)
-                .stream()
-                .filter(item -> item instanceof User)
-                .map(item -> (User) item)
-                .toList();
-    }
-
-    public List<Tweet> getTweets(String filePath) throws IOException {
-        return storageHandler.getAll(TWEET, filePath)
-                .stream()
-                .filter(item -> item instanceof User)
-                .map(item -> (Tweet) item)
-                .toList();
-    }
-
-    private void extractInitialKOLsTo(String filePath) throws IOException {
-        System.out.println("Start collecting user data...");
-
-        navigator.navigateToSection("user");
-
-        List <User> users = userDataExtractor.extractItems(10, true);
-        for (User user : users) {
-            System.out.println("User " + user.getUsername());
-            storageHandler.add(USER, filePath, user);
-        }
-
-        storageHandler.save(USER, filePath);
-    }
-
-    private void extractInitialTweetsTo(String filePath) throws IOException {
-        System.out.println("Start collecting tweet data...");
-
-        List <Tweet> tweets = tweetDataExtractor.extractItems(5, true);
-        for (Tweet tweet : tweets) {
-            storageHandler.add(TWEET, filePath,tweet);
-        }
-
-        storageHandler.save(TWEET, filePath);
+    public void extractData() throws IOException, InterruptedException {
+        extractorController.extractData();
     }
 
     public static void main(String[] args) throws IOException, InterruptedException {
@@ -143,24 +60,7 @@ public class TwitterScraperController {
                 1000,
                 1000,
                 250);
-
-        String searchResultLink = driver.getCurrentUrl();
-        // Extract data from tweets
-        controller.extractInitialTweetsTo("Tweet.json");
-        List<Tweet> tweets = controller.getTweets("Tweet.json");
-        System.out.println("Number of tweets: " + tweets.size());
-        controller.scrapeTweetsData(tweets);
-
-        while (!driver.getCurrentUrl().contains("search")) {
-            driver.get(searchResultLink);
-        }
-
-        // Extract data from users
-        controller.extractInitialKOLsTo("KOLs.json");
-        List<User> users = controller.getUsers("KOLs.json");
-        System.out.println("Number of users: " + users.size());
-        controller.scrapeUsersData(users);
-
+        controller.extractData();
         driver.quit();
     }
 }

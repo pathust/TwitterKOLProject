@@ -75,7 +75,6 @@ public class UserDataExtractor extends DataExtractor<User> implements Extractor<
     @Override
     public void extractData(String userLink) {
         System.out.println("Extracting data from " + userLink);
-        driver.get(userLink);
         waitBeforeRetry(2000);
 
         checkAndClickRestrictedButton();
