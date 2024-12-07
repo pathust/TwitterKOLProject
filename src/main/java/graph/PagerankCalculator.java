@@ -1,5 +1,7 @@
 package graph;
 
+import model.DataModel;
+
 import java.util.List;
 import java.util.Set;
 
@@ -8,11 +10,11 @@ public class PagerankCalculator {
     private static final double THRESHOLD = 0.0001;
 
     public static void calculatePageRank(Graph graph, int maxIterations) {
-        Set<GraphNode> nodeList = graph.getNodes();
+        Set<DataModel> nodeList = graph.getNodes();
         int numNodes = nodeList.size();
 
         // initial all node's pagerank
-        for(GraphNode node : nodeList) {
+        for(DataModel node : nodeList) {
             node.setPagerankScore(0.0);
         }
 
@@ -20,11 +22,11 @@ public class PagerankCalculator {
         while(maxIterations > 0) {
             double totalChange = 0.0;
 
-            for(GraphNode node : nodeList) {
+            for(DataModel node : nodeList) {
                 double rankSum = 0.0;
 
-                List<GraphNode> edgeList = graph.getEdgeListTo(node);
-                for(GraphNode otherNode : edgeList) {
+                List<DataModel> edgeList = graph.getEdgeListTo(node);
+                for(DataModel otherNode : edgeList) {
                     double weight = graph.getWeight(otherNode, node);
                     if(weight == 0.0)
                         continue;
