@@ -13,6 +13,10 @@ public class GraphFactory {
 
     private static final GraphNodeStorage graphNodeStorage = new GraphNodeStorage();
 
+    private static void add(ObjectType type, Graph graph, List<GraphNode> nodeList, double inWeight) {
+        add(type, graph, nodeList, inWeight, 0.0); // Call the overloaded method with default outWeight
+    }
+
     private static void add(ObjectType type, Graph graph, List<GraphNode> nodeList, double inWeight, double outWeight) {
         for (GraphNode node : nodeList) {
             graph.addNode(node);
@@ -57,7 +61,7 @@ public class GraphFactory {
         Graph graph = new Graph();
 
         // add node
-        add(ObjectType.USER, graph, userNodeList, followWeight, 0.0);
+        add(ObjectType.USER, graph, userNodeList, followWeight);
         add(ObjectType.TWEET, graph, tweetNodeList, repostWeight, postWeight);
 
         return graph;
