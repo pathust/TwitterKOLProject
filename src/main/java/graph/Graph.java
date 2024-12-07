@@ -1,35 +1,37 @@
 package graph;
 
+import model.DataModel;
+
 import java.util.*;
 
 public class Graph {
-    private Map<GraphNode, Map<GraphNode, Double>> graph;
-    private Map<GraphNode, List<GraphNode>> inEdges;
+    private Map<DataModel, Map<DataModel, Double>> graph;
+    private Map<DataModel, List<DataModel>> inEdges;
 
     public Graph() {
         this.graph = new HashMap<>();
         this.inEdges = new HashMap<>();
     }
 
-    public Set<GraphNode> getNodes() {
+    public Set<DataModel> getNodes() {
         return graph.keySet();
     }
 
-    public void addNode(GraphNode node) {
+    public void addNode(DataModel node) {
         if(!graph.containsKey(node)) {
             graph.putIfAbsent(node, new HashMap<>());
             inEdges.putIfAbsent(node, new ArrayList<>());
         }
     }
 
-    public void addEdge(GraphNode node, GraphNode targetNode, Double weight) {
+    public void addEdge(DataModel node, DataModel targetNode, Double weight) {
         addNode(node);
         addNode(targetNode);
         graph.get(node).put(targetNode, weight);
         inEdges.get(targetNode).add(node);
     }
 
-    public Double getWeight(GraphNode node, GraphNode targetNode) {
+    public Double getWeight(DataModel node, DataModel targetNode) {
         Double weight = 0.0;
         if(graph.containsKey(node)) {
             if(graph.get(node).containsKey(targetNode)) {
@@ -40,20 +42,20 @@ public class Graph {
         return weight;
     }
 
-    public Double getTotalOutweight(GraphNode node) {
+    public Double getTotalOutweight(DataModel node) {
         Double total = 0.0;
-        for(GraphNode targetNode : graph.get(node).keySet()) {
+        for(DataModel targetNode : graph.get(node).keySet()) {
             total += graph.get(node).get(targetNode);
         }
 
         return total;
     }
 
-    public List<GraphNode> getEdgeListTo(GraphNode node) {
+    public List<DataModel> getEdgeListTo(DataModel node) {
         return inEdges.get(node);
     }
 
-    public Map<GraphNode, Map<GraphNode, Double>> getGraph() {
+    public Map<DataModel, Map<DataModel, Double>> getGraph() {
         return graph;
     }
 }

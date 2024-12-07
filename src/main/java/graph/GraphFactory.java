@@ -13,14 +13,13 @@ public class GraphFactory {
 
     private static final GraphNodeStorage graphNodeStorage = new GraphNodeStorage();
 
-    private static void add(ObjectType type, Graph graph, List<GraphNode> nodeList, double inWeight, double outWeight) {
-        for (GraphNode node : nodeList) {
+    private static void add(ObjectType type, Graph graph, List<DataModel> nodeList, double inWeight, double outWeight) {
+        for (DataModel node : nodeList) {
             graph.addNode(node);
-            node.setType(type);
-            graphNodeStorage.addNode(node.getDataModel().getUniqueKey(), node);
+            graphNodeStorage.addNode(node.getUniqueKey(), node);
         }
 
-        for (GraphNode node : nodeList) {
+        for (DataModel node : nodeList) {
             List<String> interactors = getInteractors(type, node);
             for (String uniqueKey : interactors) {
                 graph.addEdge(graphNodeStorage.getNode(uniqueKey), node, inWeight);
@@ -33,27 +32,27 @@ public class GraphFactory {
         }
     }
 
-    private static List<String> getInteractors(ObjectType type, GraphNode node) {
+    private static List<String> getInteractors(ObjectType type, DataModel node) {
         if(type == ObjectType.USER) {
-            return ((User) node.getDataModel()).getFollowersList();
+            return ((User) node).getFollowersList();
         }
 
         if(type == ObjectType.TWEET) {
-            return ((Tweet) node.getDataModel()).getRepostList();
+            return ((Tweet) node).getRepostList();
         }
 
         return null;
     }
 
-    private static String getParent(ObjectType type, GraphNode node) {
+    private static String getParent(ObjectType type, DataModel node) {
         if(type == ObjectType.TWEET) {
-            return ((Tweet) node.getDataModel()).getAuthorProfileLink();
+            return ((Tweet) node).getAuthorProfileLink();
         }
 
         return null;
     }
 
-    public static Graph createGraph(List<GraphNode> userNodeList, List<GraphNode> tweetNodeList) throws IOException {
+    public static Graph createGraph(List<DataModel> userNodeList, List<DataModel> tweetNodeList) throws IOException {
         Graph graph = new Graph();
 
         add(ObjectType.USER, graph, userNodeList, followWeight, 0.0);
