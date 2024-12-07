@@ -6,7 +6,6 @@ import UI.home.startscraper.Searching;
 import UI.menu.MenuController;
 import UI.start.StartedController;
 import UI.waiting.WaitingScene;
-import UI.startedScene.started;
 import graph.Graph;
 import graph.PagerankCalculator;
 import javafx.application.Application;

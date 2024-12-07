@@ -134,3 +134,5 @@ Dec 01, 2024 6:07:08 PM UI.home.addfile.AddFileHandler copyFile
 INFO: File copied successfully to: /Users/phananhtai/intelliJ IDEA workspace/TwitterKOLProject\KOLs.json
 Dec 01, 2024 6:07:09 PM UI.home.addfile.AddFileHandler copyFile
 INFO: File copied successfully to: /Users/phananhtai/intelliJ IDEA workspace/TwitterKOLProject\KOLs.json
+Dec 07, 2024 12:20:28 PM UI.home.addfile.AddFileHandler openFileDialog
+INFO: User cancelled file selection.
