@@ -25,7 +25,7 @@ public class User extends DataModel{
     }
 
     @Override
-    String getUniqueKey() {
+    public String getUniqueKey() {
         return profileLink;
     }
 
