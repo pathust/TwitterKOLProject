@@ -56,7 +56,6 @@ public class GraphFactory {
     public static Graph createGraph(List<GraphNode> userNodeList, List<GraphNode> tweetNodeList) throws IOException {
         Graph graph = new Graph();
 
-        // add node
         add(ObjectType.USER, graph, userNodeList, followWeight, 0.0);
         add(ObjectType.TWEET, graph, tweetNodeList, repostWeight, postWeight);
 
