@@ -47,12 +47,6 @@ public class StartedController {
         primaryStage.setTitle("Twitter KOL Project");
     }
 
-//    public void initialize() {
-//        getStartedButton.setOnAction(event -> {
-//            this.switchingScene.switchToHome();
-//        });
-//    }
-
     public void start() {
         stage.setScene(scene);
         stage.show();
