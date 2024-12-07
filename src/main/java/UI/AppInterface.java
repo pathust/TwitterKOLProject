@@ -1,6 +1,5 @@
 package UI;
 
-//import UI.home.HomeScene;
 import UI.display.Display;
 import UI.home.addfile.UploadFile;
 import UI.home.startscraper.Searching;

@@ -8,10 +8,13 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import model.User;
-import scraper.storage.UserStorage;
+import storage.DataRepository;
+import storage.StorageHandler;
 
 import java.io.IOException;
 import java.util.List;
+
+import static utils.ObjectType.USER;
 
 // Class để quản lý giao diện và hiển thị bảng
 public class Display {
@@ -20,9 +23,9 @@ public class Display {
     private Scene scene;
     private FXMLLoader loader;
     private Button crawl, upload, staticData;
-    private Parent root;
-    private UserStorage handle;
+    private DataRepository dataRepository;
     private KOLTableController controller;
+    private Parent root;
 
     public Display() {}
 
@@ -39,25 +42,39 @@ public class Display {
             throw new RuntimeException(e);
         }
 
-        handle = new UserStorage();
-        try {
-            handle.loadUsers("KOLs.json");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        dataRepository = new StorageHandler();
+//        try {
+//            dataRepository.load(USER, "KOLs.json");
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+//
+//        kolList = null;
+//        try {
+//            kolList = dataRepository.getAll(USER, "KOLs.json")
+//                    .stream()
+//                    .filter(item -> item instanceof User)
+//                    .map(item -> (User) item)
+//                    .toList();
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
 
         controller = new KOLTableController();
+//        VBox table = controller.getTable(kolList);
+//
+//        VBox vbox = (VBox) loader.getNamespace().get("Table");
+//
+//        vbox.getChildren().add(table);
 
         crawl = (Button) loader.getNamespace().get("Crawl");
         System.out.println(crawl);
 
         crawl.setOnAction(event -> {
-//            System.out.println("Hello");
             switchingScene.switchToSearching();
         });
 
         upload = (Button) loader.getNamespace().get("Upload");
-        System.out.println(upload);
 
         upload.setOnAction(event -> {
             System.out.println("Hello");
@@ -68,17 +85,41 @@ public class Display {
         staticData.setOnAction(event -> {
             switchingScene.switchToDisplay();
         });
+
+        scene = new Scene(root);
+    }
+
+    List<User> readDataFromKols() {
+        try {
+            dataRepository.load(USER, "KOLs.json");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        List<User> kolList = null;
+        try {
+            kolList = dataRepository.getAll(USER, "KOLs.json")
+                    .stream()
+                    .filter(item -> item instanceof User)
+                    .map(item -> (User) item)
+                    .toList();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        return kolList;
     }
 
     private void init() {
-        List<User> kolList = handle.getUsers();
-        VBox table = controller.getTable(kolList);
+        VBox table = controller.getTable(readDataFromKols());
 
         VBox vbox = (VBox) loader.getNamespace().get("Table");
-
+//
+        vbox.getChildren().clear();
+//
         vbox.getChildren().add(table);
 
-        scene = new Scene(root);
+        scene.setRoot(root);
     }
 
     public void start() {

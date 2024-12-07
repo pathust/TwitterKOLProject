@@ -1,7 +1,6 @@
 package UI.home.addfile;
 
 import UI.SwitchingScene;
-import UI.menu.MenuController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
