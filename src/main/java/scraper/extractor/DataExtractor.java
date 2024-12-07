@@ -4,7 +4,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import scraper.navigation.Navigator;
-import storage.main.StorageHandler;
+import storage.StorageHandler;
 
 import java.io.IOException;
 import java.time.Duration;

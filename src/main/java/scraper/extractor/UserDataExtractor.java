@@ -6,7 +6,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import scraper.navigation.Navigator;
-import storage.main.StorageHandler;
+import storage.StorageHandler;
 
 import java.io.IOException;
 import java.util.ArrayList;

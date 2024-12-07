@@ -3,7 +3,7 @@ package UI.display;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import model.User;
-import storage.main.StorageHandler;
+import storage.StorageHandler;
 
 import java.io.IOException;
 import java.util.List;

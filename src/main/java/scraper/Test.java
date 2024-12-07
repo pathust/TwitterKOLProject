@@ -1,7 +1,7 @@
 package scraper;
 
 import model.User;
-import storage.main.StorageHandler;
+import storage.StorageHandler;
 import utils.ObjectType;
 
 import java.io.IOException;

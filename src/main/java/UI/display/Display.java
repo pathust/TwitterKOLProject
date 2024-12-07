@@ -8,7 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import model.User;
-import storage.main.StorageHandler;
+import storage.StorageHandler;
 
 import java.io.IOException;
 import java.util.List;
