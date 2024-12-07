@@ -77,7 +77,6 @@ public class UploadFile{
         System.out.println(upload);
 
         upload.setOnAction(event -> {
-            System.out.println("Hello");
             switchingScene.switchToAddFile();
         });
 

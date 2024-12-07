@@ -1,0 +1,51 @@
+/*startButton*/
+.getStartedButton {
+    -fx-background-color:  linear-gradient(to bottom, #42a5f5, #155995);
+    -fx-text-fill: white;
+    -fx-background-radius: 50;
+    -fx-border-radius: 40;
+    -fx-border-width: 2;
+    -fx-border-color: white;
+}
+
+.getStartedButton:hover {
+    -fx-background-color: #1c86ee;
+    -fx-text-fill: white;
+    -fx-border-radius: 30;
+    -fx-background-radius: 60;
+}
+
+.getStartedButton:pressed {
+    -fx-background-color: linear-gradient(to right, #1e3c72, #2a5298);
+    -fx-text-fill: white;
+    -fx-border-radius: 30;
+    -fx-background-radius: 60;
+}
+
+
+/*squareButton*/
+
+/*roundButton*/
+.roundButton {
+    -fx-background-color:  #FFE4E1;
+    -fx-border-color: black;
+    -fx-border-width: 2;
+    -fx-background-radius: 20;
+    -fx-border-radius: 20;
+}
+
+.roundButton:hover {
+    -fx-background-color: #FFCCCC;
+    -fx-border-color: black;
+    -fx-border-width: 2;
+    -fx-background-radius: 20;
+    -fx-border-radius: 20;
+}
+
+.roundButton:pressed {
+    -fx-background-color: #FF99CC;
+    -fx-border-color: black;
+    -fx-border-width: 2;
+    -fx-background-radius: 20;
+    -fx-border-radius: 20;
+}

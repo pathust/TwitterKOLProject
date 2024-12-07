@@ -18,12 +18,12 @@ public class StartedController {
     @FXML
     private Button getStartedButton;
 
-    @FXML
-    private void initialize(){
-        getStartedButton.setOnMousePressed(e -> getStartedButton.setStyle("-fx-background-color: #104e8b; -fx-text-fill: white; -fx-border-radius: 30; -fx-background-radius: 60;"));
-        getStartedButton.setOnMouseMoved(e -> getStartedButton.setStyle("-fx-background-color: #1c86ee; -fx-text-fill: white;-fx-border-radius: 30; -fx-background-radius: 60;"));
-        getStartedButton.setOnMouseExited(e -> getStartedButton.setStyle("-fx-background-color: linear-gradient(to bottom, #42a5f5, #1e88e5); -fx-text-fill: white;-fx-border-radius: 30; -fx-background-radius: 60;"));
-    }
+//    @FXML
+//    private void initialize(){
+//        getStartedButton.setOnMousePressed(e -> getStartedButton.setStyle("-fx-background-color: #104e8b; -fx-text-fill: white; -fx-border-radius: 30; -fx-background-radius: 60;"));
+//        getStartedButton.setOnMouseMoved(e -> getStartedButton.setStyle("-fx-background-color: #1c86ee; -fx-text-fill: white;-fx-border-radius: 30; -fx-background-radius: 60;"));
+//        getStartedButton.setOnMouseExited(e -> getStartedButton.setStyle("-fx-background-color: linear-gradient(to bottom, #42a5f5, #1e88e5); -fx-text-fill: white;-fx-border-radius: 30; -fx-background-radius: 60;"));
+//    }
 
     public StartedController() {
 
