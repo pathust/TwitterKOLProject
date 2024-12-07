@@ -18,14 +18,22 @@ public class StartedController {
     @FXML
     private Button getStartedButton;
 
+    @FXML
+    private void initialize(){
+        getStartedButton.setOnMousePressed(e -> getStartedButton.setStyle("-fx-background-color: #104e8b; -fx-text-fill: white; -fx-border-radius: 30; -fx-background-radius: 60;"));
+        getStartedButton.setOnMouseMoved(e -> getStartedButton.setStyle("-fx-background-color: #1c86ee; -fx-text-fill: white;-fx-border-radius: 30; -fx-background-radius: 60;"));
+        getStartedButton.setOnMouseExited(e -> getStartedButton.setStyle("-fx-background-color: linear-gradient(to bottom, #42a5f5, #1e88e5); -fx-text-fill: white;-fx-border-radius: 30; -fx-background-radius: 60;"));
+    }
+
     public StartedController() {
 
     }
+
     public StartedController(Stage primaryStage, SwitchingScene switching) throws IOException {
         stage = primaryStage;
         switchingScene = switching;
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/started.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/main/resources/started.fxml"));
 //        if(loader == null) System.out.println("No File Found");
         Parent root = null;
         try {

@@ -10,8 +10,7 @@ import javafx.stage.StageStyle;
 public class test extends Application {
    @Override
    public void start(Stage primaryStage) throws Exception {
-       FXMLLoader loader = new FXMLLoader(getClass().getResource("/started.fxml"));
-       Parent root = loader.load();
+       Parent root = FXMLLoader.load(getClass().getResource("/main/java/UI/startedScene/started.fxml"));
 
        Scene scene = new Scene(root);
        primaryStage.initStyle(StageStyle.DECORATED);
