@@ -18,14 +18,9 @@
         <URL value="@button.css" />
     </stylesheets>
     <children>
-      <ImageView fitHeight="400.0" fitWidth="758.0" layoutX="-82.0" opacity="0.54">
+      <ImageView fitHeight="400.0" fitWidth="600.0">
          <image>
-            <Image url="@images/kolsearch1.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="428.0" fitWidth="748.0" layoutX="79.0" layoutY="-120.0">
-         <image>
-            <Image url="@images/kolsearch2.png" />
+            <Image url="@images/START.jpg" />
          </image>
       </ImageView>
         <Button fx:id="getStartedButton" layoutX="215.0" layoutY="336.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="179.0" styleClass="getStartedButton" text="GET STARTED">

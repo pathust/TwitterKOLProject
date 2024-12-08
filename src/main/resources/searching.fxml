@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.*?>
 <?import javafx.scene.effect.*?>
 <?import java.lang.*?>
 <?import javafx.geometry.*?>
@@ -20,22 +21,32 @@
 <!--<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #FFF0F5;" stylesheets="style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.home.startscraper.Searching">-->
 <!--=======-->
 
+<?import java.net.URL?>
+
 <AnchorPane fx:id="AnchorPane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #FFF0F5;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.home.startscraper.Searching">
+   <stylesheets>
+      <URL value="@button.css" />
+   </stylesheets>
    <children>
+      <ImageView fitHeight="404.0" fitWidth="740.0">
+         <image>
+            <Image url="@images/CRAWLDATA.png" />
+         </image>
+      </ImageView>
 <!--       <fx:include source="/menu.fxml" />-->
       <VBox fx:id="Menu" prefHeight="405.0" prefWidth="105.0" spacing="10.0" style="-fx-background-color: #FFCCCC;">
          <children>
-            <Button fx:id="Crawl" mnemonicParsing="false" prefHeight="25.0" prefWidth="111.0" style="-fx-background-color: #FFE4E1; -fx-text-fill: black; -fx-border-color: pink; -fx-border-width: 2;" text="Crawl data">
+            <Button fx:id="Crawl" mnemonicParsing="false" prefHeight="25.0" prefWidth="111.0" styleClass="squareButton" text="Crawl data">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Button>
-            <Button fx:id="Upload" mnemonicParsing="false" prefHeight="25.0" prefWidth="107.0" style="-fx-background-color: #FFE4E1; -fx-text-fill: black; -fx-border-color: pink; -fx-border-width: 2;" text="Upload data">
+            <Button fx:id="Upload" mnemonicParsing="false" prefHeight="25.0" prefWidth="107.0" styleClass="squareButton" text="Upload data">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Button>
-            <Button fx:id="Static" mnemonicParsing="false" prefHeight="25.0" prefWidth="111.0" style="-fx-background-color: #FFE4E1; -fx-text-fill: black; -fx-border-color: pink; -fx-border-width: 2;" text="Data statistic">
+            <Button fx:id="Static" mnemonicParsing="false" prefHeight="25.0" prefWidth="111.0" styleClass="squareButton" text="Data statistic">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
@@ -47,28 +58,8 @@
       </VBox>
       <VBox layoutX="105.0" prefHeight="405.0" prefWidth="513.0">
          <children>
-            <AnchorPane prefHeight="404.0" prefWidth="513.0">
+            <AnchorPane prefHeight="404.0" prefWidth="627.0">
                <children>
-                  <ImageView fitHeight="284.0" fitWidth="503.0" layoutX="5.0" layoutY="-92.0">
-                     <image>
-                        <Image url="@images/linh3.png" />
-                     </image>
-                  </ImageView>
-                  <ImageView fitHeight="112.0" fitWidth="200.0" layoutX="37.0" layoutY="-13.0" rotate="-128.2">
-                     <image>
-                        <Image url="@images/linh4.png" />
-                     </image>
-                  </ImageView>
-                  <ImageView fitHeight="112.0" fitWidth="200.0" layoutX="287.0" layoutY="-6.0">
-                     <image>
-                        <Image url="@images/linh4.png" />
-                     </image>
-                  </ImageView>
-                  <Text layoutX="165.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CRAWL DATA">
-                     <font>
-                        <Font name="Berlin Sans FB Demi Bold" size="29.0" />
-                     </font>
-                  </Text>
                   <VBox fx:id="Search" layoutX="36.0" layoutY="131.0" prefHeight="191.0" prefWidth="451.0">
                      <children>
             <!--            <HBox styleClass="hBoxStyle" fx:id="HBox1">-->
@@ -77,14 +68,14 @@
             <!--                  <Button fx:id="Button1" mnemonicParsing="false" styleClass="xButtonStyle" />-->
             <!--               </children>-->
             <!--            </HBox>-->
-                        <Button fx:id="AddButton" mnemonicParsing="false" style="-fx-background-color: #FFE4E1; -fx-text-fill: black; -fx-font-weight: bold; -fx-border-width: 2; -fx-border-color: black;" text="Add +">
+                        <Button fx:id="AddButton" mnemonicParsing="false" styleClass="roundButton" text="Add +">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
                         </Button>
                      </children>
                   </VBox>
-                  <Button fx:id="searchButton" layoutX="198.0" layoutY="340.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="127.0" style="-fx-background-color: #FFE4E1; -fx-background-radius: 50; -fx-border-width: 2; -fx-text-fill: black; -fx-font-weight: bold; -fx-border-color: black; -fx-border-radius: 50;" text="SEARCH">
+                  <Button fx:id="searchButton" layoutX="198.0" layoutY="340.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="127.0" styleClass="searchButton" text="SEARCH">
                      <font>
                         <Font name="Berlin Sans FB Demi Bold" size="24.0" />
                      </font>

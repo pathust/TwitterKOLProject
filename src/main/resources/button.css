@@ -22,8 +22,24 @@
     -fx-background-radius: 60;
 }
 
-
 /*squareButton*/
+.squareButton {
+    -fx-background-color: #FFE4E1;
+    -fx-border-color: pink;
+    -fx-border-width: 2;
+}
+
+.squareButton:hover {
+    -fx-background-color: #FFCCCC;
+    -fx-border-color: pink;
+    -fx-border-width: 2;
+}
+
+.squareButton:pressed {
+    -fx-background-color: #FF99CC;
+    -fx-border-color: pink;
+    -fx-border-width: 2;
+}
 
 /*roundButton*/
 .roundButton {
@@ -48,4 +64,29 @@
     -fx-border-width: 2;
     -fx-background-radius: 20;
     -fx-border-radius: 20;
+}
+
+/*searchBigButton*/
+.searchButton {
+    -fx-border-color: black;
+    -fx-background-color: #FFE4E1;
+    -fx-border-width: 2;
+    -fx-border-radius: 50;
+    -fx-background-radius: 50;
+}
+
+.searchButton:hover {
+    -fx-border-color: black;
+    -fx-background-color: #FFCCCC;
+    -fx-border-width: 2;
+    -fx-border-radius: 50;
+    -fx-background-radius: 50;
+}
+
+.searchButton:pressed {
+    -fx-border-color: black;
+    -fx-background-color: #FF99CC;
+    -fx-border-width: 2;
+    -fx-border-radius: 40;
+    -fx-background-radius: 40;
 }

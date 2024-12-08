@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.*?>
 <?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
@@ -14,21 +15,30 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
+<?import java.net.URL?>
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #FFF0F5;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.display.Display">
+    <stylesheets>
+        <URL value="@button.css" />
+    </stylesheets>
     <children>
+      <ImageView fitHeight="400.0" fitWidth="621.0" layoutX="104.0">
+         <image>
+            <Image url="@images/STATISTIC.png" />
+         </image>
+      </ImageView>
         <!--       <fx:include source="/menu.fxml" />-->
         <VBox prefHeight="400.0" prefWidth="105.0" spacing="10.0" style="-fx-background-color: #FFCCCC;">
             <children>
-                <Button fx:id="Crawl" mnemonicParsing="false" prefHeight="25.0" prefWidth="111.0" style="-fx-background-color: #FFE4E1; -fx-border-color: pink; -fx-border-width: 2;" text="Crawl data">
+                <Button fx:id="Crawl" mnemonicParsing="false" prefHeight="25.0" prefWidth="111.0" styleClass="squareButton" text="Crawl data">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font></Button>
-                <Button fx:id="Upload" mnemonicParsing="false" prefHeight="25.0" prefWidth="107.0" style="-fx-background-color: #FFE4E1; -fx-border-color: pink; -fx-border-width: 2;" text="Upload data">
+                <Button fx:id="Upload" mnemonicParsing="false" prefHeight="25.0" prefWidth="107.0" styleClass="squareButton" text="Upload data">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font></Button>
-                <Button fx:id="Static" mnemonicParsing="false" prefHeight="25.0" prefWidth="111.0" style="-fx-background-color: #FFE4E1; -fx-border-color: pink; -fx-border-width: 2;" text="Data statistic">
+                <Button fx:id="Static" mnemonicParsing="false" prefHeight="25.0" prefWidth="111.0" styleClass="squareButton" text="Data statistic">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font></Button>
@@ -37,31 +47,6 @@
                 <Insets top="90.0" />
             </padding>
         </VBox>
-        <ImageView fitHeight="307.0" fitWidth="557.0" layoutX="84.0" layoutY="-100.0">
-            <image>
-                <Image url="@images/linh3.png" />
-            </image>
-        </ImageView>
         <VBox fx:id="Table" layoutX="137.0" layoutY="105.0" prefHeight="260.0" prefWidth="451.0" />
-        <ImageView fitHeight="112.0" fitWidth="200.0" layoutX="397.0" layoutY="-14.0">
-            <image>
-                <Image url="@images/linh4.png" />
-            </image>
-        </ImageView>
-        <ImageView fitHeight="112.0" fitWidth="200.0" layoutX="123.0" layoutY="-6.0" rotate="-109.4">
-            <image>
-                <Image url="@images/linh4.png" />
-            </image>
-        </ImageView>
-        <ImageView fitHeight="151.0" fitWidth="272.0" layoutX="22.0" layoutY="-6.0">
-            <image>
-                <Image url="@images/lih2.png" />
-            </image>
-        </ImageView>
-      <Text layoutX="259.0" layoutY="64.0" strokeType="OUTSIDE" strokeWidth="0.0" text="KOL SEARCH LIST" wrappingWidth="238.0">
-         <font>
-            <Font name="Calibri Bold" size="29.0" />
-         </font>
-      </Text>
     </children>
 </AnchorPane>
