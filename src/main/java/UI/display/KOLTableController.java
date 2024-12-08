@@ -25,12 +25,12 @@ public class KOLTableController {
         TableView<User> tableView = kolTable.createTable(masterData);
 
         // Lớp bộ lọc
-        KOLFilter kolFilter = new KOLFilter();
+        Filter kolFilter = new Filter();
         TextField searchField = new TextField();
-        filteredData = kolFilter.applyFilter(searchField, masterData, tableView);
+        filteredData = kolFilter.applyKOLFilter(searchField, masterData, tableView);
 
         // Lớp hiển thị chi tiết
-        KOLDetails kolDetails = new KOLDetails();
+        Details kolDetails = new Details();
         kolTable.setupRowClickHandler(tableView, kolDetails::showDetails);
 
         // Layout tổng thể
@@ -53,12 +53,12 @@ public class KOLTableController {
         TableView<User> tableView = kolTable.createTable(masterData);
 
         // Lớp bộ lọc
-        KOLFilter kolFilter = new KOLFilter();
+        Filter kolFilter = new Filter();
         TextField searchField = new TextField();
-        filteredData = kolFilter.applyFilter(searchField, masterData, tableView);
+        filteredData = kolFilter.applyKOLFilter(searchField, masterData, tableView);
 
         // Lớp hiển thị chi tiết
-        KOLDetails kolDetails = new KOLDetails();
+        Details kolDetails = new Details();
         kolTable.setupRowClickHandler(tableView, kolDetails::showDetails);
 
         // Layout tổng thể
