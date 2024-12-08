@@ -34,6 +34,7 @@ public class Display {
         switchingScene = switching;
 
         loader = new FXMLLoader(getClass().getResource("/main/resources/display.fxml"));
+
         root = null;
         try {
             root = loader.load();
@@ -43,29 +44,8 @@ public class Display {
         }
 
         dataRepository = new StorageHandler();
-//        try {
-//            dataRepository.load(USER, "KOLs.json");
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
-//
-//        kolList = null;
-//        try {
-//            kolList = dataRepository.getAll(USER, "KOLs.json")
-//                    .stream()
-//                    .filter(item -> item instanceof User)
-//                    .map(item -> (User) item)
-//                    .toList();
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
 
         controller = new KOLTableController();
-//        VBox table = controller.getTable(kolList);
-//
-//        VBox vbox = (VBox) loader.getNamespace().get("Table");
-//
-//        vbox.getChildren().add(table);
 
         crawl = (Button) loader.getNamespace().get("Crawl");
         System.out.println(crawl);

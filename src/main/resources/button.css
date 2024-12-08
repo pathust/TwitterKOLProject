@@ -90,3 +90,21 @@
     -fx-border-radius: 40;
     -fx-background-radius: 40;
 }
+
+.menuButton {
+    -fx-background-color: #FFE4E1;
+    -fx-border-color: pink;
+    -fx-border-width: 2;
+}
+
+.menuButton:hover {
+    -fx-background-color: #FFCCCC;
+    -fx-border-color: pink;
+    -fx-border-width: 2;
+}
+
+.menuButton:pressed {
+    -fx-background-color: #ca90ac;
+    -fx-border-color: pink;
+    -fx-border-width: 2;
+}

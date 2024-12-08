@@ -47,6 +47,15 @@
                 <Insets top="90.0" />
             </padding>
         </VBox>
-        <VBox fx:id="Table" layoutX="137.0" layoutY="105.0" prefHeight="260.0" prefWidth="451.0" />
+        <VBox fx:id="Table" layoutX="137.0" layoutY="143.0" prefHeight="250.0" prefWidth="473.0" />
+      <MenuButton layoutX="564.0" layoutY="97.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="121.0" styleClass="menuButton" text="Tweet or KOL">
+        <items>
+          <MenuItem mnemonicParsing="false" styleClass="squareButton" text="Tweet" />
+          <MenuItem mnemonicParsing="false" styleClass="squareButton" text="KOL" />
+        </items>
+         <font>
+            <Font name="System Bold" size="11.0" />
+         </font>
+      </MenuButton>
     </children>
 </AnchorPane>
