@@ -1,13 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.net.*?>
-<?import javafx.scene.effect.*?>
-<?import java.lang.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.image.Image?>
@@ -15,20 +8,17 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
 <!--<<<<<<< HEAD-->
 <!--<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #FFF0F5;" stylesheets="style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.home.startscraper.Searching">-->
 <!--=======-->
 
-<?import java.net.URL?>
-
-<AnchorPane fx:id="AnchorPane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #FFF0F5;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.home.startscraper.Searching">
+<AnchorPane fx:id="anchorPane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #FFF0F5;" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.home.startscraper.Searching">
    <stylesheets>
       <URL value="@button.css" />
    </stylesheets>
    <children>
-      <ImageView fitHeight="404.0" fitWidth="740.0">
+      <ImageView fx:id="Background" fitHeight="404.0" fitWidth="845.0">
          <image>
             <Image url="@images/CRAWLDATA.png" />
          </image>
@@ -56,7 +46,7 @@
             <Insets top="90.0" />
          </padding>
       </VBox>
-      <VBox layoutX="105.0" prefHeight="405.0" prefWidth="513.0">
+      <VBox fx:id="SearchField" layoutX="105.0" prefHeight="405.0" prefWidth="740.0">
          <children>
             <AnchorPane prefHeight="404.0" prefWidth="627.0">
                <children>

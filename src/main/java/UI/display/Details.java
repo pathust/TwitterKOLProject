@@ -7,8 +7,6 @@ import javafx.stage.Stage;
 import model.Tweet;
 import model.User;
 
-import java.lang.reflect.Field;
-
 public class Details {
 
     public void showDetails(User user) {

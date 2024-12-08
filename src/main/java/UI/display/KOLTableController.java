@@ -12,6 +12,8 @@ import java.util.List;
 
 public class KOLTableController {
 
+    private FilteredList<User> filteredData;
+
     public VBox getTable(List<User> kolList) {
         // Dữ liệu chính
         ObservableList<User> masterData = FXCollections.observableArrayList(kolList);
