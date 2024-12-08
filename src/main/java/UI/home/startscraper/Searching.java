@@ -72,7 +72,7 @@ public class Searching {
         switchingScene = switching;
 //        menuController = new MenuController(switching);
 
-        loader = new FXMLLoader(getClass().getResource("/main/resources/searching.fxml"));
+        loader = new FXMLLoader(getClass().getResource("/searching.fxml"));
         Parent root = null;
         try {
             root = loader.load();

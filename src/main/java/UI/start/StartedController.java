@@ -33,7 +33,7 @@ public class StartedController {
         stage = primaryStage;
         switchingScene = switching;
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/main/resources/started.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/started.fxml"));
 //        if(loader == null) System.out.println("No File Found");
         Parent root = null;
         try {
