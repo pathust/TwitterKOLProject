@@ -6,6 +6,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -21,6 +26,90 @@ public class UploadFile{
     private Button chooseFile, kol, tweet;
     private Button crawl, upload, staticData;
     private TextField textField;
+    private VBox vBox, menu;
+    private HBox hBox1, hBox2;
+    private AnchorPane anchorPane;
+    private ImageView background;
+
+    private void addEventListener() {
+        textField.setText("No json file seclected");
+        addFileHandler = new AddFileHandler(stage);
+
+        chooseFile.setOnAction(event -> {
+            File selectedFile = addFileHandler.openFileDialog();
+
+            if(selectedFile != null) {
+                textField.setText(selectedFile.getAbsolutePath());
+            }
+        });
+
+        kol.setOnAction(event -> {
+            addFileHandler.copyFile("\\KOLs.json");
+        });
+
+        tweet.setOnAction(event -> {
+            addFileHandler.copyFile("\\Tweet.json");
+        });
+
+        crawl.setOnAction(event -> {
+//            System.out.println("Hello");
+            switchingScene.switchToSearching();
+        });
+
+        upload.setOnAction(event -> {
+            switchingScene.switchToAddFile();
+        });
+
+        staticData.setOnAction(event -> {
+            switchingScene.switchToDisplay();
+        });
+    }
+
+    void binding() {
+        menu.prefWidthProperty().bind(anchorPane.widthProperty().multiply(0.2));
+        menu.prefHeightProperty().bind(anchorPane.heightProperty());
+
+        background.fitWidthProperty().bind(anchorPane.widthProperty());
+        background.fitHeightProperty().bind(anchorPane.heightProperty());
+
+        crawl.prefWidthProperty().bind(menu.widthProperty());
+        upload.prefWidthProperty().bind(menu.widthProperty());
+        staticData.prefWidthProperty().bind(menu.widthProperty());
+
+        stage.widthProperty().addListener((obs, oldWidth, newWidth) -> {
+            vBox.setLayoutX(newWidth.doubleValue() * 0.3);
+            vBox.setPrefWidth(newWidth.doubleValue() * 0.5);
+            System.out.println("1");
+        });
+
+        stage.heightProperty().addListener((obs, oldHeight, newHeight) -> {
+            vBox.setLayoutY(newHeight.doubleValue() * 0.5);
+            vBox.setSpacing(newHeight.doubleValue() * 0.1);
+        });
+
+        hBox1.prefHeightProperty().bind(vBox.widthProperty());
+        hBox1.prefHeightProperty().bind(vBox.heightProperty().multiply(0.45));
+        hBox1.spacingProperty().bind(vBox.widthProperty().multiply(0.01));
+
+        textField.prefWidthProperty().bind(hBox1.widthProperty().multiply(0.7));
+        textField.prefHeightProperty().bind(hBox1.heightProperty());
+
+        chooseFile.setWrapText(true);
+        chooseFile.prefWidthProperty().bind(hBox1.widthProperty().multiply(0.29));
+        chooseFile.prefHeightProperty().bind(hBox1.heightProperty());
+
+        hBox2.prefHeightProperty().bind(vBox.widthProperty());
+        hBox2.prefHeightProperty().bind(vBox.heightProperty().multiply(0.45));
+        hBox2.spacingProperty().bind(vBox.widthProperty().multiply(0.2));
+
+        kol.setWrapText(true);
+        kol.prefWidthProperty().bind(hBox2.widthProperty().multiply(0.3));
+        kol.prefHeightProperty().bind(hBox2.heightProperty());
+
+        tweet.setWrapText(true);
+        tweet.prefWidthProperty().bind(hBox2.widthProperty().multiply(0.3));
+        tweet.prefHeightProperty().bind(hBox2.heightProperty());
+    }
 
     public UploadFile(){}
 
@@ -40,50 +129,22 @@ public class UploadFile{
             throw new RuntimeException(e);
         }
 
-        addFileHandler = new AddFileHandler(stage);
-
+        background = (ImageView) loader.getNamespace().get("Background");
         textField = (TextField) loader.getNamespace().get("TextField");
         chooseFile = (Button) loader.getNamespace().get("ChooseFile");
         kol = (Button) loader.getNamespace().get("KOL");
         tweet = (Button) loader.getNamespace().get("Tweet");
-
-        textField.setText("No json file seclected");
-
-        chooseFile.setOnAction(event -> {
-            File selectedFile = addFileHandler.openFileDialog();
-
-            if(selectedFile != null) {
-                textField.setText(selectedFile.getAbsolutePath());
-            }
-        });
-
-        kol.setOnAction(event -> {
-            addFileHandler.copyFile("\\KOLs.json");
-        });
-
-        tweet.setOnAction(event -> {
-            addFileHandler.copyFile("\\Tweet.json");
-        });
-
         crawl = (Button) loader.getNamespace().get("Crawl");
-        System.out.println(crawl);
-
-        crawl.setOnAction(event -> {
-//            System.out.println("Hello");
-            switchingScene.switchToSearching();
-        });
-
         upload = (Button) loader.getNamespace().get("Upload");
-        System.out.println(upload);
-
-        upload.setOnAction(event -> {
-            switchingScene.switchToAddFile();
-        });
-
         staticData = (Button) loader.getNamespace().get("Static");
-        staticData.setOnAction(event -> {
-            switchingScene.switchToDisplay();
-        });
+        vBox = (VBox) loader.getNamespace().get("VBox");
+        hBox1 = (HBox) loader.getNamespace().get("HBox1");
+        hBox2 = (HBox) loader.getNamespace().get("HBox2");
+        menu = (VBox) loader.getNamespace().get("menu");
+        anchorPane = (AnchorPane) loader.getNamespace().get("AnchorPane");
+
+        addEventListener();
+        binding();
 
         scene = new Scene(root);
     }

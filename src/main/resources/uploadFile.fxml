@@ -19,18 +19,18 @@
 <?import javafx.scene.text.Text?>
 <?import java.net.URL?>
 
-<AnchorPane prefHeight="406.0" prefWidth="643.0" style="-fx-background-color: #FFF0F5;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.home.addfile.UploadFile">
+<AnchorPane fx:id="AnchorPane" prefHeight="406.0" prefWidth="643.0" style="-fx-background-color: #FFF0F5;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.home.addfile.UploadFile">
    <stylesheets>
       <URL value="@button.css" />
    </stylesheets>
    <children>
-      <ImageView fitHeight="406.0" fitWidth="714.0">
+      <ImageView fx:id="Background" fitHeight="406.0" fitWidth="714.0">
          <image>
             <Image url="@images/UPLOAD.png" />
          </image>
       </ImageView>
 <!--      <fx:include source="/menu.fxml" />-->
-            <VBox prefHeight="406.0" prefWidth="115.0" spacing="10.0" style="-fx-background-color: #FFCCCC;">
+            <VBox fx:id="menu" prefHeight="406.0" prefWidth="115.0" spacing="10.0" style="-fx-background-color: #FFCCCC;">
                <children>
                   <Button fx:id="Crawl" mnemonicParsing="false" prefHeight="25.0" prefWidth="117.0" styleClass="squareButton" text=" Crawl data">
                <font>
@@ -49,9 +49,9 @@
                   <Insets top="90.0" />
                </padding>
             </VBox>
-      <VBox layoutX="131.0" layoutY="163.0" prefHeight="97.0" prefWidth="407.0" style="-fx-spacing: 20;">
+      <VBox fx:id="VBox" layoutX="131.0" layoutY="163.0" prefHeight="97.0" prefWidth="407.0" style="-fx-spacing: 20;">
          <children>
-            <HBox alignment="TOP_RIGHT" prefHeight="36.0" prefWidth="417.0" spacing="20.0">
+            <HBox fx:id="HBox1" alignment="TOP_RIGHT" prefHeight="36.0" prefWidth="417.0" spacing="20.0">
                <children>
                   <TextField fx:id="TextField" prefHeight="41.0" prefWidth="289.0" />
                   <Button fx:id="ChooseFile" mnemonicParsing="false" prefHeight="34.0" prefWidth="85.0" styleClass="roundButton" text="Choose File">
@@ -61,7 +61,7 @@
                   </Button>
                </children>
             </HBox>
-            <HBox prefHeight="37.0" prefWidth="430.0" spacing="10.0" style="-fx-spacing: 50; -fx-alignment: CENTER;">
+            <HBox fx:id="HBox2" prefHeight="37.0" prefWidth="430.0" spacing="10.0" style="-fx-spacing: 50; -fx-alignment: CENTER;">
                <children>
                   <Button fx:id="KOL" mnemonicParsing="false" prefHeight="42.0" prefWidth="86.0" styleClass="roundButton" text="Add KOL">
                      <font>

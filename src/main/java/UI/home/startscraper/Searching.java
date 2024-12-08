@@ -36,13 +36,18 @@ public class Searching {
     private void createMoreTextField() {
         if(array.size() == 5) return ;
         HBox hBox = new HBox();
-        hBox.getStyleClass().add("hBoxStyle");
+        hBox.prefWidthProperty().bind(search.widthProperty());
+        hBox.prefHeightProperty().bind(search.heightProperty().multiply(0.15));
+        hBox.spacingProperty().bind(search.widthProperty().multiply(0.1));
 
         TextField textField = new TextField();
-        textField.getStyleClass().add("textFieldStyle");
+        textField.prefWidthProperty().bind(hBox.widthProperty().multiply(0.8));
+        textField.prefHeightProperty().bind(hBox.heightProperty());
 
-        Button xButton = new Button();
-        xButton.getStyleClass().add("xButtonStyle");
+        Button xButton = new Button("X");
+        xButton.prefHeightProperty().bind(hBox.heightProperty());
+        xButton.prefWidthProperty().bind(hBox.widthProperty().multiply(0.1));
+
 
         xButton.setOnAction(event -> {
             for(int i=0; i<array.size(); ++i) {
@@ -72,8 +77,9 @@ public class Searching {
 
     private void binding() {
         menu.prefWidthProperty().bind(anchorPane.widthProperty().multiply(0.2));
-        menu.prefHeightProperty().bind(anchorPane.heightProperty().multiply(1));
+        menu.prefHeightProperty().bind(anchorPane.heightProperty());
         searchField.prefWidthProperty().bind(anchorPane.widthProperty().subtract(menu.widthProperty()));
+        searchField.prefHeightProperty().bind(anchorPane.heightProperty());
 
         background.fitWidthProperty().bind(anchorPane.widthProperty());
         background.fitHeightProperty().bind(anchorPane.heightProperty());
@@ -84,9 +90,18 @@ public class Searching {
 //        });
 
         searchField.prefWidthProperty().addListener((obs, oldWidth, newWidth) -> {
-            search.setLayoutX(menu.getWidth());
+            search.setLayoutX(newWidth.doubleValue()*0.25);
+            search.setPrefWidth(newWidth.doubleValue()*0.6);
             addButton.setLayoutX(search.getLayoutX());
             searchButton.setLayoutX((newWidth.doubleValue()-searchButton.getWidth())/2);
+            System.out.println(addButton.getLayoutX());
+        });
+
+        searchField.prefHeightProperty().addListener((obs, oldHeight, newHeight) -> {
+            search.setLayoutY(newHeight.doubleValue()*0.35);
+            search.setSpacing(newHeight.doubleValue()*0.01);
+//            addButton.setLayoutX(search.getLayoutX());
+            searchButton.setLayoutY(newHeight.doubleValue()*0.8);
             System.out.println(addButton.getLayoutX());
         });
 
