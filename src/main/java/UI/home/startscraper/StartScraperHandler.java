@@ -34,7 +34,7 @@ public class StartScraperHandler {
 
                     Platform.runLater(() -> {
                         switchingScene.closeWaiting();
-                        switchingScene.switchToDisplay();
+                        switchingScene.switchToDisplayKOL();
 //                        switchingScene.switchToDisplay();
                     });
                 } catch (IOException | InterruptedException ex) {

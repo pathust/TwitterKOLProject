@@ -12,8 +12,6 @@ import java.util.List;
 
 public class KOLTableController {
 
-    private FilteredList<User> filteredData;
-
     public VBox getTable(List<User> kolList) {
         // Dữ liệu chính
         ObservableList<User> masterData = FXCollections.observableArrayList(kolList);
@@ -23,9 +21,15 @@ public class KOLTableController {
         TableView<User> tableView = kolTable.createTable(masterData);
 
         // Lớp bộ lọc
-        KOLFilter kolFilter = new KOLFilter();
+        Filter kolFilter = new Filter();
         TextField searchField = new TextField();
-        filteredData = kolFilter.applyFilter(searchField, masterData, tableView);
+        FilteredList<User> filteredData = kolFilter.applyFilter(
+                searchField,         // TextField for filtering
+                masterData,      // Master list of users
+                tableView,       // TableView for displaying the users
+                User::getUsername,   // Attribute to search (username)
+                User::getProfileLink // Attribute to search (profile link)
+        );
 
         // Lớp hiển thị chi tiết
         Details kolDetails = new Details();

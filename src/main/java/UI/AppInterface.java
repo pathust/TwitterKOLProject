@@ -54,8 +54,13 @@ public class AppInterface extends Application implements SwitchingScene{
     }
 
     @Override
-    public void switchToDisplay() {
-        display.start();
+    public void switchToDisplayKOL() {
+        display.startKOL();
+    }
+
+    @Override
+    public void switchToDisplayTweet() {
+        display.startTweet();
     }
 
     @Override
