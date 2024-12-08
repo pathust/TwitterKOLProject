@@ -6,12 +6,21 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.io.IOException;
 
 public class StartedController {
+    @FXML
+    private ImageView kolsearch1;
+    @FXML
+    private ImageView kolsearch2;
+    @FXML
+    private AnchorPane anchorPane;
     private Stage stage;
     private SwitchingScene switchingScene;
     private Scene scene;
@@ -42,6 +51,17 @@ public class StartedController {
             System.out.println("No FIle found");
             throw new RuntimeException(e);
         }
+
+        kolsearch1 = (ImageView) loader.getNamespace().get("kolsearch1");
+        kolsearch2 = (ImageView) loader.getNamespace().get("kolsearch2");
+        anchorPane = (AnchorPane) loader.getNamespace().get("anchorPane");
+
+//        kolsearch1.layoutXProperty().bind(anchorPane.heightProperty().multiply(0.2));
+        kolsearch1.fitWidthProperty().bind(anchorPane.widthProperty().multiply(1.3));
+        kolsearch1.fitHeightProperty().bind(anchorPane.heightProperty());
+
+        kolsearch2.fitWidthProperty().bind(anchorPane.widthProperty().multiply(1.3));
+        kolsearch2.fitHeightProperty().bind(anchorPane.heightProperty());
 
         getStartedButton = (Button) loader.getNamespace().get("getStartedButton");
 

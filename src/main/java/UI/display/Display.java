@@ -33,7 +33,7 @@ public class Display {
         stage = primaryStage;
         switchingScene = switching;
 
-        loader = new FXMLLoader(getClass().getResource("/main/resources/display.fxml"));
+        loader = new FXMLLoader(getClass().getResource("/display.fxml"));
         root = null;
         try {
             root = loader.load();

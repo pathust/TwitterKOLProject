@@ -1,0 +1,6 @@
+.root {
+    -fx-background-image: url("/images/linh1.png"), url("/images/linh2.png");
+    -fx-background-position: center, top left;
+    -fx-background-repeat: no-repeat, repeat-x;
+    -fx-background-size: cover, auto;
+}
