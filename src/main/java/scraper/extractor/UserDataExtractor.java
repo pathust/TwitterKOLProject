@@ -1,6 +1,5 @@
 package scraper.extractor;
 
-import model.Tweet;
 import model.User;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -11,27 +10,27 @@ import storage.StorageHandler;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated;
+import static utils.Math.getLastInt;
 import static utils.Math.toInt;
 import static utils.ObjectType.USER;
 
 public class UserDataExtractor extends DataExtractor<User> implements Extractor<User> {
-    private Extractor<Tweet> tweetExtractor;
     public UserDataExtractor(WebDriver driver, Navigator navigator, StorageHandler storageHandler) {
         super(driver, navigator, storageHandler);
-        tweetExtractor = new TweetDataExtractor(driver, navigator, storageHandler);
     }
 
     @Override
     protected WebElement getFirstCell() {
-        return wait.until(
-                        presenceOfElementLocated(
-                                By.xpath("//button[@data-testid='UserCell']")
-                        )
-        );
+        System.out.println("first uCell");
+        try {
+            String xpathExpression = "//button[@data-testid='UserCell']";
+            return wait.until(presenceOfElementLocated(By.xpath(xpathExpression)));
+        }
+        catch (Exception e) {
+            return null;
+        }
     };
 
     @Override
@@ -40,20 +39,14 @@ public class UserDataExtractor extends DataExtractor<User> implements Extractor<
             return getFirstCell();
         }
 
-        for (int attempt = 0; attempt < 3; attempt++) {
-            try {
-                WebElement parentDiv = userCell.findElement(
-                        By.xpath("./ancestor::div[@data-testid='cellInnerDiv']"));
-
-                return parentDiv.findElement(
-                        By.xpath("(following-sibling::div[@data-testid='cellInnerDiv'])//button[@data-testid='UserCell']"));
-            } catch (Exception e) {
-                System.out.println("Attempt " + (attempt + 1) + " failed, retrying...");
-                waitBeforeRetry(2000);
-            }
+        String parentDivXpathExpression = "./ancestor::div[@data-testid='cellInnerDiv']";
+        String nextCellXpathExpression = "(following-sibling::div[@data-testid='cellInnerDiv'])//button[@data-testid='UserCell']";
+        try {
+            WebElement parentDiv = userCell.findElement(By.xpath(parentDivXpathExpression));
+            return parentDiv.findElement(By.xpath(nextCellXpathExpression));
+        } catch (Exception e) {
+            return null;
         }
-        System.out.println("Next UserCell not found after 3 attempts.");
-        return null;
     }
 
     @Override
@@ -63,126 +56,85 @@ public class UserDataExtractor extends DataExtractor<User> implements Extractor<
 
         String username = extractUserName(xpathExpression);
         String profileLink = extractProfileLink(xpathExpression);
-        User user = new User(profileLink, username);
-        return user;
+        return new User(profileLink, username);
     }
 
     @Override
-    protected void Write(User user) {
-        System.out.println("Writing user: " + user.getUsername() + " " + user.getProfileLink());
-    }
-
-    @Override
-    public void extractData(String userLink) {
+    public void extractData(String userLink) throws IOException, InterruptedException {
         System.out.println("Extracting data from " + userLink);
-        waitBeforeRetry(2000);
+        navigator.wait(2000);
 
-        checkAndClickRestrictedButton();
         String followersCount = extractCount("followers");
         String followingCount = extractCount("following");
 
-        try {
-            int knownFollowersCount = extractKnownFollowersCount();
-            System.out.println("Known followers count: " + knownFollowersCount);
-            navigator.navigateToSection("followers_you_follow");
-            List<User> followersList = extractItems(knownFollowersCount, false);
+        int knownFollowersCount = extractKnownFollowersCount();
+        navigator.navigateToSection("followers_you_follow");
+        List<User> followersList = extractItems(knownFollowersCount, false);
 
-            List<String> followersLinks = new ArrayList<>();
-            for (User user : followersList) {
-                storageHandler.add(USER, "KOLs.json", user);
-                followersLinks.add(user.getProfileLink());
-            }
+        List<String> followersLinks = new ArrayList<>();
+        for (User user : followersList) {
+            followersLinks.add(user.getProfileLink());
+        }
 
-            User newUser = (User) storageHandler.get(USER, "KOLs.json", userLink);
-            if (newUser != null) {
-                newUser.setFollowersCount(toInt(followersCount));
-                newUser.setFollowingCount(toInt(followingCount));
-                newUser.setFollowersList(followersLinks);
-                storageHandler.add(USER, "KOLs.json", newUser);
-            }
-        } catch (IOException e) {
-            throw new RuntimeException("Error updating user data: " + e.getMessage());
-        } catch (Exception e) {
-            System.out.println("Cannot extract data from " + userLink);
+        User newUser = (User) storageHandler.get(USER, "KOLs", userLink);
+        if (newUser != null) {
+            newUser.setFollowersCount(toInt(followersCount));
+            newUser.setFollowingCount(toInt(followingCount));
+            newUser.setFollowersList(followersLinks);
+            storageHandler.add(USER, "KOLs", newUser);
         }
     }
 
     private String extractUserName(String parentXPath) {
-        try {
-            String xpathExpression = parentXPath + "//div[last()]//a//span";
-            WebElement userNameElement = driver.findElement(By.xpath(xpathExpression));
-            return userNameElement.getText();
-        } catch (Exception e) {
-            System.out.println("Unable to extract username.");
-            return "Unknown";
+        String xpathExpression = parentXPath + "//div[last()]//a//span";
+        boolean success = false;
+        while (!success) {
+            try {
+                WebElement userNameElement = wait.until(presenceOfElementLocated(By.xpath(xpathExpression)));
+                return userNameElement.getText();
+            }
+            catch (Exception e) {
+                throw new RuntimeException(e);
+            }
         }
+        return null;
     }
 
     private String extractProfileLink(String parentXPath) {
-        try {
-            String xpathExpression = parentXPath + "//div[last()]//a";
-            WebElement userNameElement = driver.findElement(By.xpath(xpathExpression));
-            return userNameElement.getAttribute("href");
-        } catch (Exception e) {
-            System.out.println("Unable to extract username.");
-            return "Unknown";
-        }
-    }
-
-    private void checkAndClickRestrictedButton() {
-        waitBeforeRetry(1000);
-        try {
-            List<WebElement> restrictedButtons = driver.findElements(
-                    By.xpath("//button[div/span/span[text()='Yes, view profile']]"));
-            if (!restrictedButtons.isEmpty()) {
-                restrictedButtons.get(0).click();
-                System.out.println("Clicked on restricted button.");
+        boolean success = false;
+        while (!success) {
+            try {
+                String xpathExpression = parentXPath + "//div[last()]//a";
+                WebElement userNameElement = driver.findElement(By.xpath(xpathExpression));
+                return userNameElement.getAttribute("href");
+            } catch (Exception e) {
+                throw new RuntimeException(e);
             }
-        } catch (Exception e) {
-            System.out.println("No restricted button found.");
         }
+        return null;
     }
 
     private String extractCount(String section) {
+        String xpathExpression = "//a[contains(@href, '" + section + "')]//span/span";
         try {
-            WebElement countElement = wait.until(
-                    presenceOfElementLocated(By.xpath("//a[contains(@href, '" + section + "')]//span/span")));
+            WebElement countElement = wait.until(presenceOfElementLocated(By.xpath(xpathExpression)));
             return countElement.getText();
         } catch (Exception e) {
-            System.out.println("Failed to extract " + section + " count.");
             return "0";
         }
     }
 
     private int extractKnownFollowersCount() {
         String xpathExpression = "//div[contains(text(),'Followed by')]";
-        WebElement knownFollowersDiv = null;
         try {
-            knownFollowersDiv = driver.findElement(By.xpath(xpathExpression));
+            WebElement knownFollowersDiv = driver.findElement(By.xpath(xpathExpression));
+            xpathExpression += "/span";
+            int res = driver.findElements(By.xpath(xpathExpression)).size();
+            res += getLastInt(knownFollowersDiv.getText());
+            return res;
         }
         catch (Exception e) {
             return 0;
-        }
-
-        String text = knownFollowersDiv.getText();
-        Pattern pattern = Pattern.compile("\\d+");
-        Matcher matcher = pattern.matcher(text);
-        int res = 0;
-        while (matcher.find()) {
-            res = Integer.parseInt(matcher.group());
-        }
-
-        xpathExpression += "/span";
-        res += driver.findElements(By.xpath(xpathExpression)).size();
-
-        return res;
-    }
-
-    private void waitBeforeRetry(int milliseconds) {
-        try {
-            Thread.sleep(milliseconds);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
         }
     }
 }

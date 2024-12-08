@@ -17,13 +17,13 @@ public class Main extends Application {
         // Tạo danh sách KOL giả lập (dữ liệu mẫu)
         StorageHandler storageHandler = new StorageHandler();
         try {
-            storageHandler.load(USER, "KOLs.json");
+            storageHandler.load(USER, "KOLs");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
         List<User> kolList = null;
         try {
-            kolList = storageHandler.getAll(USER, "KOLs.json")
+            kolList = storageHandler.getAll(USER, "KOLs")
                     .stream()
                     .filter(item -> item instanceof User)
                     .map(item -> (User) item)

@@ -9,8 +9,8 @@ import java.util.List;
 
 public class MainTest {
     public static void main(String[] args) throws IOException {
-        List<DataModel> userNodeList = NodeExtract.extract(ObjectType.USER, "KOLs.json");
-        List<DataModel> tweetNodeList = NodeExtract.extract(ObjectType.TWEET, "Tweet.json");
+        List<DataModel> userNodeList = NodeExtract.extract(ObjectType.USER, "KOLs");
+        List<DataModel> tweetNodeList = NodeExtract.extract(ObjectType.TWEET, "Tweet");
 
         Graph graph = GraphFactory.createGraph(userNodeList, tweetNodeList);
         PagerankCalculator.calculatePageRank(graph, 100);

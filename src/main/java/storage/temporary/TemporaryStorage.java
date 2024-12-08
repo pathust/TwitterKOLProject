@@ -2,27 +2,54 @@ package storage.temporary;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.Deque;
+import java.util.List;
 
-public class TemporaryStorage <T> {
-    private final ObjectMapper objectMapper = new ObjectMapper();
+public class TemporaryStorage{
+    private TemporaryState temporaryState;
 
-    public void save(String filePath, TemporaryState<T> temporaryState) {
-        try {
-            objectMapper.writeValue(new File(filePath), temporaryState.getRemainingItems());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+    public TemporaryStorage() {
+        temporaryState = new TemporaryState();
+    }
+
+    public TemporaryState getTemporaryState() {
+        return temporaryState;
+    }
+
+    public void setTemporaryState(TemporaryState temporaryState) {
+        this.temporaryState = temporaryState;
+    }
+
+    public void add(String link){
+        temporaryState.getRemainingItems().add(link);
+    }
+
+    public void save(String filePath) throws IOException {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
+            for (String remaining : temporaryState.getRemainingItems()) {
+                writer.write(remaining);
+                writer.newLine();
+            }
         }
     }
 
-    public TemporaryState<T> load(String filePath) throws IOException {
+    public TemporaryState load(String filePath) throws IOException {
+        TemporaryState state = new TemporaryState();
         File file = new File(filePath);
         if (!file.exists()) {
-            return null;
+            return state;
         }
-        TemporaryState<T> temporaryState = objectMapper.readValue(file, TemporaryState.class);
-        return temporaryState;
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                state.getRemainingItems().add(line);
+            }
+        }
+        return state;
     }
 
     public void clearTemporaryStorage(String filePath) throws IOException {
@@ -30,5 +57,9 @@ public class TemporaryStorage <T> {
         if (file.exists()) {
             file.delete();
         }
+    }
+
+    public void pop() throws IOException {
+        temporaryState.getRemainingItems().pop();
     }
 }

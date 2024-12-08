@@ -19,6 +19,8 @@ public abstract class DataExtractor<T> {
     protected final Navigator navigator;
     protected final StorageHandler storageHandler;
 
+    private final int MAX_RETRY_COUNT = 3;
+
     public DataExtractor(WebDriver driver, Navigator navigator, StorageHandler storageHandler) {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(5));
@@ -27,32 +29,35 @@ public abstract class DataExtractor<T> {
     }
 
     protected abstract WebElement getFirstCell();
-    protected abstract WebElement nextCell(WebElement currentCell);
+    protected abstract WebElement nextCell(WebElement currentCell) throws InterruptedException;
     protected abstract T extractItem(String xpathExpression, boolean addToStorage);
-    protected abstract void Write(T item);
-    public abstract void extractData(String link) throws IOException;
-    public List<T> extractItems(int maxListSize, boolean addToStorage) {
+    public abstract void extractData(String link) throws IOException, InterruptedException;
+    public List<T> extractItems(int maxListSize, boolean addToStorage) throws InterruptedException {
         List<T> items = new ArrayList<>();
         if (maxListSize == 0) {
             return items;
         }
 
-        WebElement currentCell = null;
+        WebElement previousCell = null, currentCell = null;
         int counter = 1;
         do {
-            currentCell = nextCell(currentCell);
+            currentCell = nextCell(previousCell);
             if (currentCell == null) {
                 break;
             }
-            navigator.scrollToElement(currentCell);
-            String xpathExpression = getXPath(driver, currentCell);
-            System.out.println(xpathExpression);
-            T newItem = extractItem(xpathExpression, addToStorage);
-            System.out.println(counter);
-            Write(newItem);
-            items.add(newItem);
-        } while (++counter <= maxListSize);
 
+            System.out.println("Retrieving " + counter);
+
+            navigator.scrollToElement(currentCell);
+            System.out.println("Scrolled to " + counter);
+            String xpathExpression = getXPath(driver, currentCell);
+            T newItem = extractItem(xpathExpression, addToStorage);
+            System.out.println("Retrieved " + counter);
+            items.add(newItem);
+
+            previousCell = currentCell;
+        } while (++counter <= maxListSize);
+        System.out.println("Retrieved " + items.size() + " items");
         return items;
     }
 }

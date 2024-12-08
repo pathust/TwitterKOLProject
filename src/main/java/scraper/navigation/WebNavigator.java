@@ -50,6 +50,14 @@ public class WebNavigator implements Navigator {
         }
     }
 
+    public void wait(int milliseconds) {
+        try {
+            Thread.sleep(milliseconds);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public void fillingFieldBySpan(String spanText, String text) {
         WebElement field = wait.until(presenceOfElementLocated(
                 By.xpath("//label[div/div/div/span[text()='" + spanText + "']]//div[2]/div/input")));

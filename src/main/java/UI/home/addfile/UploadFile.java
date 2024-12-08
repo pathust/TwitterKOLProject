@@ -58,11 +58,11 @@ public class UploadFile{
         });
 
         kol.setOnAction(event -> {
-            addFileHandler.copyFile("\\KOLs.json");
+            addFileHandler.copyFile("\\KOLs");
         });
 
         tweet.setOnAction(event -> {
-            addFileHandler.copyFile("\\Tweet.json");
+            addFileHandler.copyFile("\\Tweet");
         });
 
         crawl = (Button) loader.getNamespace().get("Crawl");
