@@ -5,55 +5,42 @@ import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import model.Tweet;
-import model.User;
+
+import java.util.function.Function;
 
 public class Filter {
 
-    public FilteredList<User> applyKOLFilter(TextField searchField, ObservableList<User> masterData, TableView<User> tableView) {
-        FilteredList<User> filteredData = new FilteredList<>(masterData, p -> true);
+    public static <T> FilteredList<T> applyFilter(
+            TextField searchField,
+            ObservableList<T> masterData,
+            TableView<T> tableView,
+            Function<T, String>... attributesToSearch) {
 
-        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
-            filteredData.setPredicate(user -> {
-                if (newValue == null || newValue.isEmpty()) {
-                    return true;
-                }
-                String lowerCaseFilter = newValue.toLowerCase();
-                return user.getUsername().toLowerCase().contains(lowerCaseFilter) ||
-                        user.getProfileLink().toLowerCase().contains(lowerCaseFilter);
-            });
-        });
-
-        SortedList<User> sortedData = new SortedList<>(filteredData);
-        sortedData.comparatorProperty().bind(tableView.comparatorProperty());
-        tableView.setItems(sortedData);
-
-        return filteredData;
-    }
-
-    public FilteredList<Tweet> applyTweetFilter(TextField searchField, ObservableList<Tweet> masterData, TableView<Tweet> tableView) {
-        // Create a FilteredList for Tweet data
-        FilteredList<Tweet> filteredData = new FilteredList<>(masterData, p -> true);
+        // Create a FilteredList for the given data
+        FilteredList<T> filteredData = new FilteredList<>(masterData, p -> true);
 
         // Add a listener to filter data when the search text changes
         searchField.textProperty().addListener((observable, oldValue, newValue) -> {
-            filteredData.setPredicate(tweet -> {
+            filteredData.setPredicate(item -> {
                 if (newValue == null || newValue.isEmpty()) {
                     return true;
                 }
 
                 String lowerCaseFilter = newValue.toLowerCase();
 
-                // Filtering logic based on Tweet attributes
-                return tweet.getAuthorUsername().toLowerCase().contains(lowerCaseFilter) ||
-                        tweet.getAuthorProfileLink().toLowerCase().contains(lowerCaseFilter) ||
-                        tweet.getContent() != null && tweet.getContent().toLowerCase().contains(lowerCaseFilter) ||
-                        tweet.getTweetLink().toLowerCase().contains(lowerCaseFilter);
+                // Check all specified attributes for a match
+                for (Function<T, String> attribute : attributesToSearch) {
+                    String value = attribute.apply(item);
+                    if (value != null && value.toLowerCase().contains(lowerCaseFilter)) {
+                        return true;
+                    }
+                }
+                return false;
             });
         });
 
         // Wrap the filtered data in a SortedList for sorting
-        SortedList<Tweet> sortedData = new SortedList<>(filteredData);
+        SortedList<T> sortedData = new SortedList<>(filteredData);
 
         // Bind the SortedList comparator to the TableView comparator
         sortedData.comparatorProperty().bind(tableView.comparatorProperty());

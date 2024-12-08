@@ -27,7 +27,7 @@ public class KOLTableController {
         // Lớp bộ lọc
         Filter kolFilter = new Filter();
         TextField searchField = new TextField();
-        filteredData = kolFilter.applyKOLFilter(searchField, masterData, tableView);
+        filteredData = kolFilter.applyFilter(searchField, masterData, tableView);
 
         // Lớp hiển thị chi tiết
         Details kolDetails = new Details();
@@ -55,7 +55,13 @@ public class KOLTableController {
         // Lớp bộ lọc
         Filter kolFilter = new Filter();
         TextField searchField = new TextField();
-        filteredData = kolFilter.applyKOLFilter(searchField, masterData, tableView);
+        filteredData = kolFilter.applyFilter(
+                searchField,         // TextField for filtering
+                masterData,      // Master list of users
+                tableView,       // TableView for displaying the users
+                User::getUsername,   // Attribute to search (username)
+                User::getProfileLink // Attribute to search (profile link)
+        );
 
         // Lớp hiển thị chi tiết
         Details kolDetails = new Details();

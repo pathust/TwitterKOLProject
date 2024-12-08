@@ -7,6 +7,8 @@ import javafx.stage.Stage;
 import model.Tweet;
 import model.User;
 
+import java.lang.reflect.Field;
+
 public class Details {
 
     public void showDetails(User user) {
@@ -42,4 +44,26 @@ public class Details {
         stage.setScene(scene);
         stage.show();
     }
+//    public <T> void showDetails(T item) {
+//        Stage stage = new Stage();
+//        stage.setTitle(item.getClass().getSimpleName() + " Details");
+//
+//        VBox vbox = new VBox(10);
+//
+//        // Use reflection to get all fields of the class
+//        for (Field field : item.getClass().getDeclaredFields()) {
+//            field.setAccessible(true); // Allow access to private fields
+//            try {
+//                Object value = field.get(item); // Get the value of the field
+//                String labelText = field.getName() + ": " + (value != null ? value.toString() : "null");
+//                vbox.getChildren().add(new Label(labelText));
+//            } catch (IllegalAccessException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//
+//        Scene scene = new Scene(vbox, 300, 200);
+//        stage.setScene(scene);
+//        stage.show();
+//    }
 }
