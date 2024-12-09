@@ -7,18 +7,18 @@ public class TemporaryState {
     int lastSavedIndex;
     private List<String> itemUniqueKeys;
 
+    TemporaryState() {
+        this.itemUniqueKeys = new ArrayList<>();
+        currentIndex = 0;
+        lastSavedIndex = 0;
+    }
+
     public int getLastSavedIndex() {
         return lastSavedIndex;
     }
 
     public void setLastSavedIndex(int lastSavedIndex) {
         this.lastSavedIndex = lastSavedIndex;
-    }
-
-    TemporaryState() {
-        this.itemUniqueKeys = new ArrayList<>();
-        currentIndex = 0;
-        lastSavedIndex = 0;
     }
 
     public int getCurrentIndex() {

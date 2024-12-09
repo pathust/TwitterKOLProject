@@ -6,8 +6,6 @@ import model.User;
 import model.Tweet;
 import org.openqa.selenium.WebDriver;
 import scraper.navigation.Navigator;
-import scraper.navigation.WebNavigator;
-import storage.Storage;
 import storage.StorageHandler;
 
 import java.io.IOException;
@@ -33,15 +31,43 @@ public class ExtractorController {
         navigator.wait(5000);
     }
 
-    public void scrapeUsersData(String filePath, int maxTweetListSize) throws IOException, InterruptedException {
+    public void scrapeUsersData(String filePath, int maxTweetListSize) {
+        List<String> links = storageHandler.getUnprocessedItemUniqueKeys(USER, filePath);
+        System.out.println("Scraping " + links.size() + " unique items from " + filePath);
+
         for (String profileLink : storageHandler.getUnprocessedItemUniqueKeys(USER, filePath)) {
+            if (profileLink == null) {
+                continue;
+            }
+            System.out.println(profileLink);
             Platform.runLater(() -> WaitingScene.updateStatus("Collecting " + profileLink));
 
             driver.get(profileLink);
-            extractTweetsFromProfileLink("Tweet", profileLink, maxTweetListSize);
-            userDataExtractor.extractData(filePath, profileLink);
+            try {
+                extractTweetsFromProfileLink("Tweet", profileLink, maxTweetListSize);
+                System.out.println("Finished extracting tweets");
+            }
+            catch (Exception e) {
+               System.out.println("Error: " + e.getMessage());
+            }
 
-            storageHandler.transferToMainStorage(USER,filePath, storageHandler.get(USER, "KOLs", profileLink));
+            try {
+                userDataExtractor.extractData(filePath, profileLink);
+                System.out.println("Finished extracting user data");
+            }
+            catch (Exception e) {
+                System.out.println("Error: " + e.getMessage());;
+            }
+
+            try {
+                User user = (User) storageHandler.get(USER, filePath, profileLink);
+                storageHandler.transferToMainStorage(USER, filePath, user);
+                System.out.println("Finished transfer user data");
+            }
+            catch (Exception e) {
+                System.out.println("Error: " + e.getMessage());;
+            }
+
         }
     }
 
@@ -53,7 +79,7 @@ public class ExtractorController {
             tweetDataExtractor.extractData(filePath, tweetLink);
             extractRepostList(filePath, tweetLink, maxRepostListSize);
 
-            storageHandler.transferToMainStorage(TWEET, filePath, storageHandler.get(TWEET, "Tweet", tweetLink));
+            storageHandler.transferToMainStorage(TWEET, filePath, storageHandler.get(TWEET, filePath, tweetLink));
         }
     }
 
@@ -93,14 +119,15 @@ public class ExtractorController {
 
     public void extractData() throws IOException, InterruptedException {
         // Extract data from tweets
-        extractInitialTweetsTo("Tweet", 100);
+        extractInitialTweetsTo("Tweet", 20);
 
         navigator.navigateToSection("user");
 
         // Extract data from users
-        extractInitialKOLsTo("KOLs", 100);
+        extractInitialKOLsTo("KOLs", 50);
 
         // Scrape data
+
         scrapeUsersData("KOLs", 20);
         scrapeTweetsData("Tweet", 10);
     }

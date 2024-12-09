@@ -48,18 +48,18 @@ public class Storage<T extends DataModel> {
     }
 
     public boolean exists(String identifier) {
-        return this.mainStorage.exists(identifier);
+        return mainStorage.exists(identifier);
     }
 
     public T get(String identifier) {
-        return this.mainStorage.get(identifier);
+        return mainStorage.get(identifier);
     }
 
     public List<T> getAll() {
-        return this.mainStorage.getAll();
+        return mainStorage.getAll();
     }
 
     public List<String> getUnprocessedItemUniqueKeys() {
-        return this.temporaryStorage.getUnprocessedItemUniqueKeys();
+        return temporaryStorage.getUnprocessedItemUniqueKeys();
     }
 }

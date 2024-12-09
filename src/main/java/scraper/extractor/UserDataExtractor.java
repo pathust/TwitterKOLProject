@@ -62,7 +62,7 @@ public class UserDataExtractor extends DataExtractor<User> implements Extractor<
 
         String username = extractUserName(xpathExpression);
         String profileLink = extractProfileLink(xpathExpression);
-        User user = new User(username, profileLink);
+        User user = new User(profileLink, username);
 
         if (addToStorage)
             storageHandler.add(USER, "KOLs", user);
@@ -81,7 +81,7 @@ public class UserDataExtractor extends DataExtractor<User> implements Extractor<
         int knownFollowersCount = extractKnownFollowersCount();
         navigator.navigateToSection("followers_you_follow");
         List<User> followersList = extractItems(filePath, knownFollowersCount, false);
-
+        System.out.println("Number of followers: " + followersList.size());
         List<String> followersLinks = new ArrayList<>();
         for (User follower : followersList) {
             followersLinks.add(follower.getProfileLink());

@@ -31,7 +31,7 @@ public class TwitterScraperController {
     private final StorageHandler storageHandler;
     private final ScheduledExecutorService scheduler;
 
-    public TwitterScraperController() {
+    public TwitterScraperController() throws IOException {
         System.setProperty(
                 "webdriver.chrome.driver",
                 "/Users/phananhtai/Downloads/chromedriver-mac-arm64/chromedriver");
@@ -41,6 +41,12 @@ public class TwitterScraperController {
         this.filter = new TwitterFilter(driver, navigator);
         this.storageHandler = new StorageHandler();
         this.extractorController = new ExtractorController(driver, navigator, storageHandler);
+
+
+//        this.storageHandler.load(USER, "KOLs");
+//        this.storageHandler.load(TWEET, "Tweets");
+
+        System.out.println("loaded");
 
         this.scheduler = Executors.newScheduledThreadPool(1);
         schedulePeriodicSave();

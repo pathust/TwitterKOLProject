@@ -3,6 +3,9 @@ package storage;
 import model.DataModel;
 import model.Tweet;
 import model.User;
+import storage.main.TweetMainStorage;
+import storage.main.UserMainStorage;
+import storage.temporary.TemporaryStorage;
 import utils.ObjectType;
 
 import java.io.IOException;
@@ -34,6 +37,9 @@ public class StorageHandler {
     }
 
     public void add(ObjectType type, String filePath, DataModel item) throws IOException {
+        if (item == null || item.getUniqueKey() == null) {
+            return;
+        }
         try {
             StorageManager<DataModel> manager = getStorageManager(type);
             manager.add(filePath, item, getModelClass(type));
@@ -54,7 +60,7 @@ public class StorageHandler {
         return manager.getAll(filePath, getModelClass(type));
     }
 
-    public List<String> getUnprocessedItemUniqueKeys(ObjectType type, String filePath) throws IOException {
+    public List<String> getUnprocessedItemUniqueKeys(ObjectType type, String filePath) {
         StorageManager<DataModel> manager = getStorageManager(type);
         return manager.getUnprocessedItemUniqueKeys(filePath, getModelClass(type));
     }
