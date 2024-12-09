@@ -34,8 +34,8 @@ public class Display {
     @FXML
     private AnchorPane anchorPane;
     private DataRepository dataRepository;
-    private KOLTableController kolController;
-    private TweetTableController tweetController;
+    private TableController kolController;
+    private TableController tweetController;
     private Parent root;
     private ImageView background;
     private ChoiceBox<String> choiceBox;
