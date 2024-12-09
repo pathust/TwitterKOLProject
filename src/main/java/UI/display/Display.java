@@ -7,19 +7,17 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import model.Tweet;
 import model.User;
-import storage.DataRepository;
 import storage.StorageHandler;
 import utils.ObjectType;
 
-import java.awt.*;
 import java.io.IOException;
 import java.util.List;
+
+import static utils.ObjectType.USER;
 
 // Class để quản lý giao diện và hiển thị bảng
 public class Display {
@@ -28,56 +26,49 @@ public class Display {
     private SwitchingScene switchingScene;
     private Scene scene;
     private FXMLLoader loader;
+<<<<<<< HEAD
     private Button crawl, upload, staticData;
     @FXML
     private VBox vBox, menu;
     @FXML
     private AnchorPane anchorPane;
     private DataRepository dataRepository;
+=======
+>>>>>>> 542ec2a37dff1cebec488a4faa3487ee409e46f3
     private TableController kolController;
     private TableController tweetController;
     private Parent root;
-    private ImageView background;
-    private ChoiceBox<String> choiceBox;
+    private VBox tableZone;
+    private StorageHandler storageHandler;
 
-    private void binding() {
-        menu.prefWidthProperty().bind(anchorPane.widthProperty().multiply(0.2));
-        menu.prefHeightProperty().bind(anchorPane.heightProperty());
+    public void clickChoiceBox(ChoiceBox<String> choiceBox) {
+        String selected = choiceBox.getValue();
 
-        background.fitWidthProperty().bind(anchorPane.widthProperty());
-        background.fitHeightProperty().bind(anchorPane.heightProperty());
+        if(selected.equals("KOL Table")) {
+            switchingScene.switchToDisplayKOL();
+        }
+        else if(selected.equals("Tweet Table")) {
+            switchingScene.switchToDisplayTweet();
+        }
+    }
 
-        crawl.prefWidthProperty().bind(menu.widthProperty());
-        upload.prefWidthProperty().bind(menu.widthProperty());
-        staticData.prefWidthProperty().bind(menu.widthProperty());
+    public void clickCrawl() {
+        switchingScene.switchToSearching();
+    }
 
-        vBox.prefWidthProperty().bind(anchorPane.widthProperty().multiply(0.7));
-        vBox.prefHeightProperty().bind(anchorPane.heightProperty().multiply(0.5));
-
-        choiceBox.prefWidthProperty().bind(anchorPane.widthProperty().multiply(0.3));
-//        choiceBox.prefHeightProperty().bind(anchorPane.heightProperty().multiply());
-
-        stage.widthProperty().addListener((obs, oldWidth, newWidth) -> {
-            vBox.setLayoutX(newWidth.doubleValue() * 0.25);
-//            vBox.setPrefWidth(newWidth.doubleValue() * 0.7);
-
-            choiceBox.setLayoutX(newWidth.doubleValue() * 0.25);
-//            choiceBox.setPrefWidth(newWidth.doubleValue() * 0.3);
-        });
-
-        stage.heightProperty().addListener((obs, oldHeight, newHeight) -> {
-            vBox.setLayoutY(newHeight.doubleValue() * 0.4);
-
-            choiceBox.setLayoutY(newHeight.doubleValue() * 0.3);
-        });
+    public void clickUpload() {
+        switchingScene.switchToAddFile();
     }
 
     public Display() {}
 
-    public Display(Stage primaryStage, SwitchingScene switching) {
+    public Display(Stage primaryStage, SwitchingScene switching, Parent rootPane, VBox zone) {
         stage = primaryStage;
         switchingScene = switching;
+        root = rootPane;
+        tableZone = zone;
 
+<<<<<<< HEAD
         loader = new FXMLLoader(getClass().getResource("/main/resources/display.fxml"));
 
         root = null;
@@ -99,40 +90,11 @@ public class Display {
         choiceBox =(ChoiceBox<String>) loader.getNamespace().get("ChoiceBox");
 
         dataRepository = new StorageHandler();
+=======
+        storageHandler = new StorageHandler();
+>>>>>>> 542ec2a37dff1cebec488a4faa3487ee409e46f3
         kolController = new KOLTableController();
         tweetController = new TweetTableController();
-
-        binding();
-
-        choiceBox.getItems().addAll("KOL Table","Tweet Table");
-        choiceBox.setValue("KOL Table");
-
-        choiceBox.getSelectionModel().selectedItemProperty().addListener((obs, oldValue, newValue) -> {
-
-        });
-
-        choiceBox.setOnAction(event -> {
-            String selected = choiceBox.getValue();
-
-            if(selected.equals("KOL Table")) {
-                switchingScene.switchToDisplayKOL();
-            }
-            else if(selected.equals("Tweet Table")) {
-                switchingScene.switchToDisplayTweet();
-            }
-        });
-
-        crawl.setOnAction(event -> {
-            switchingScene.switchToSearching();
-        });
-
-        upload.setOnAction(event -> {
-            switchingScene.switchToAddFile();
-        });
-
-        staticData.setOnAction(event -> {
-            switchingScene.switchToDisplayKOL();
-        });
 
         scene = new Scene(root);
     }
@@ -143,23 +105,23 @@ public class Display {
         ObjectType type = null;
 
         if(signal == 0) {
-            filePath = "KOLs.json";
+            filePath = "KOLs";
             type = ObjectType.valueOf("USER");
         }
         else if(signal == 1) {
-            filePath = "Tweet.json";
+            filePath = "Tweet";
             type = ObjectType.valueOf("TWEET");
         }
 
         try {
-            dataRepository.load(type, filePath);
+            storageHandler.load(type, filePath);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
         List<T> list = null;
         try {
-            list = dataRepository.getAll(type, filePath)
+            list = storageHandler.getAll(type, filePath)
                     .stream()
                     .filter(item -> objType.isInstance(item))
                     .map(item -> (T) item)
@@ -171,7 +133,7 @@ public class Display {
         return list;
     }
 
-    private void init(int signal) {
+    private void addTableToUI(int signal) {
         VBox table = null;
 
         if(signal == 0) {
@@ -181,21 +143,21 @@ public class Display {
         }
 
 //
-        vBox.getChildren().clear();
+        tableZone.getChildren().clear();
 //
-        vBox.getChildren().add(table);
+        tableZone.getChildren().add(table);
 
         scene.setRoot(root);
     }
 
     public void startKOL() {
-        init(0);
+        addTableToUI(0);
         stage.setScene(scene);
         stage.show();
     }
 
     public void startTweet() {
-        init(1);
+        addTableToUI(1);
         stage.setScene(scene);
         stage.show();
     }

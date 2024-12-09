@@ -13,16 +13,15 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import java.io.File;
 import java.io.IOException;
 
 public class UploadFile{
     private Stage stage;
     private SwitchingScene switchingScene;
     private Scene scene;
-    //    private MenuController menuController;
+    private UploadFileLogic uploadFileLogic;
+
     private FXMLLoader loader;
-    private AddFileHandler addFileHandler;
     private Button chooseFile, kol, tweet;
     private Button crawl, upload, staticData;
     private TextField textField;
@@ -31,40 +30,6 @@ public class UploadFile{
     private HBox hBox1, hBox2;
     private AnchorPane anchorPane;
     private ImageView background;
-
-    private void addEventListener() {
-        textField.setText("No json file seclected");
-        addFileHandler = new AddFileHandler(stage);
-
-        chooseFile.setOnAction(event -> {
-            File selectedFile = addFileHandler.openFileDialog();
-
-            if(selectedFile != null) {
-                textField.setText(selectedFile.getAbsolutePath());
-            }
-        });
-
-        kol.setOnAction(event -> {
-            addFileHandler.copyFile("\\KOLs.json");
-        });
-
-        tweet.setOnAction(event -> {
-            addFileHandler.copyFile("\\Tweet.json");
-        });
-
-        crawl.setOnAction(event -> {
-//            System.out.println("Hello");
-            switchingScene.switchToSearching();
-        });
-
-        upload.setOnAction(event -> {
-            switchingScene.switchToAddFile();
-        });
-
-        staticData.setOnAction(event -> {
-            switchingScene.switchToDisplayKOL();
-        });
-    }
 
     void binding() {
         menu.prefWidthProperty().bind(anchorPane.widthProperty().multiply(0.2));
@@ -118,10 +83,7 @@ public class UploadFile{
         stage = primaryStage;
         switchingScene = switching;
 
-//        menuController = new MenuController(switching);
-
         loader = new FXMLLoader(getClass().getResource("/uploadFile.fxml"));
-//        if(loader == null) System.out.println("No File Found");
         Parent root = null;
         try {
             root = loader.load();
@@ -144,8 +106,30 @@ public class UploadFile{
         menu = (VBox) loader.getNamespace().get("menu");
         anchorPane = (AnchorPane) loader.getNamespace().get("AnchorPane");
 
-        addEventListener();
+        textField.setText("No json file selected");
         binding();
+
+        uploadFileLogic = new UploadFileLogic(stage, switchingScene);
+
+        chooseFile.setOnAction(event -> {
+            uploadFileLogic.clickChooseFile(textField);
+        });
+
+        kol.setOnAction(event -> {
+            uploadFileLogic.clickAddKOL();
+        });
+
+        tweet.setOnAction(event -> {
+            uploadFileLogic.clickAddTweet();
+        });
+
+        crawl.setOnAction(event -> {
+            uploadFileLogic.clickCrawl();
+        });
+
+        staticData.setOnAction(event -> {
+            uploadFileLogic.clickStatic();
+        });
 
         scene = new Scene(root);
     }

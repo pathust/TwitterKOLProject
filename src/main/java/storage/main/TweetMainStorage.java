@@ -1,4 +1,4 @@
-package storage;
+package storage.main;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
@@ -9,7 +9,7 @@ import model.Tweet;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TweetStorage extends Storage {
+public class TweetMainStorage extends MainStorage<Tweet> {
 
     @Override
     protected Tweet parseItem(JsonNode itemNode) {
@@ -25,8 +25,7 @@ public class TweetStorage extends Storage {
     }
 
     @Override
-    protected ObjectNode createItemNode(DataModel dataModel) {
-        Tweet tweet = (Tweet) dataModel;
+    protected ObjectNode createItemNode(Tweet tweet) {
         ObjectNode tweetNode = mapper.createObjectNode();
         tweetNode.put("authorUsername", tweet.getAuthorUsername());
         tweetNode.put("authorProfileLink", tweet.getAuthorProfileLink());
@@ -38,15 +37,13 @@ public class TweetStorage extends Storage {
     }
 
     @Override
-    protected void updateItemFields(ObjectNode tweetNode, DataModel dataModel) {
-        Tweet tweet = (Tweet) dataModel;
+    protected void updateItemFields(ObjectNode tweetNode, Tweet tweet) {
         tweetNode.put("repostCount", tweet.getRepostCount());
         tweetNode.set("repostList", createRepostLinksNode(tweet.getRepostList()));
     }
 
     @Override
-    protected String getIdentifier(DataModel dataModel) {
-        Tweet tweet = (Tweet) dataModel;
+    protected String getIdentifier(Tweet tweet) {
         return tweet.getTweetLink();
     }
 

@@ -14,6 +14,8 @@ public class WaitingScene {
     private SwitchingScene switchingScene;
     private static WaitingView waitingView;
 
+    private String currentScene = "WaitingScene";
+
     public WaitingScene(Stage stage, SwitchingScene switching) {
         this.stage = stage;
         switchingScene = switching;
@@ -48,11 +50,10 @@ public class WaitingScene {
 
     private void handleCloseRequest(WindowEvent event) {
         Platform.runLater(() -> {
-//            System.out.print("Hello");
             this.close();
-
+//            switchingScene.switchToSearching();
             StartScraperHandler.closeThread();
-            System.exit(0);
+//            System.exit(0);
         });
     }
 }
