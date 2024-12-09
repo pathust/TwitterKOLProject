@@ -1,5 +1,6 @@
 package scraper.extractor;
 
+import model.DataModel;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -13,13 +14,11 @@ import java.util.List;
 
 import static utils.XPathExtension.getXPath;
 
-public abstract class DataExtractor<T> {
+public abstract class DataExtractor<T extends DataModel> {
     protected final WebDriver driver;
     protected final WebDriverWait wait;
     protected final Navigator navigator;
     protected final StorageHandler storageHandler;
-
-    private final int MAX_RETRY_COUNT = 3;
 
     public DataExtractor(WebDriver driver, Navigator navigator, StorageHandler storageHandler) {
         this.driver = driver;
@@ -30,15 +29,16 @@ public abstract class DataExtractor<T> {
 
     protected abstract WebElement getFirstCell();
     protected abstract WebElement nextCell(WebElement currentCell) throws InterruptedException;
-    protected abstract T extractItem(String xpathExpression, boolean addToStorage);
-    public abstract void extractData(String link) throws IOException, InterruptedException;
-    public List<T> extractItems(int maxListSize, boolean addToStorage) throws InterruptedException {
+    protected abstract T extractItem(String filePath, String xpathExpression, boolean addToStorage) throws IOException;
+    public abstract void extractData(String filePath, String key) throws IOException, InterruptedException;
+
+    public List<T> extractItems(String filePath, int maxListSize, boolean addToStorage) throws InterruptedException, IOException {
         List<T> items = new ArrayList<>();
         if (maxListSize == 0) {
             return items;
         }
 
-        WebElement previousCell = null, currentCell = null;
+        WebElement previousCell = null, currentCell;
         int counter = 1;
         do {
             currentCell = nextCell(previousCell);
@@ -51,7 +51,7 @@ public abstract class DataExtractor<T> {
             navigator.scrollToElement(currentCell);
             System.out.println("Scrolled to " + counter);
             String xpathExpression = getXPath(driver, currentCell);
-            T newItem = extractItem(xpathExpression, addToStorage);
+            T newItem = extractItem(filePath, xpathExpression, addToStorage);
             System.out.println("Retrieved " + counter);
             items.add(newItem);
 

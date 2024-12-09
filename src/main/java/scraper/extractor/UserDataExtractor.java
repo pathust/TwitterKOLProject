@@ -56,18 +56,23 @@ public class UserDataExtractor extends DataExtractor<User> implements Extractor<
     }
 
     @Override
-    protected User extractItem(String xpathExpression, boolean addToStorage) {
+    protected User extractItem(String filePath, String xpathExpression, boolean addToStorage) throws IOException {
         if (addToStorage)
             navigator.clickButton(xpathExpression, "Follow");
 
         String username = extractUserName(xpathExpression);
         String profileLink = extractProfileLink(xpathExpression);
-        return new User(profileLink, username);
+        User user = new User(username, profileLink);
+
+        if (addToStorage)
+            storageHandler.add(USER, "KOLs", user);
+
+        return user;
     }
 
     @Override
-    public void extractData(String userLink) throws IOException, InterruptedException {
-        System.out.println("Extracting data from " + userLink);
+    public void extractData(String filePath, String profileLink) throws IOException, InterruptedException {
+        System.out.println("Extracting data from " + profileLink);
         navigator.wait(2000);
 
         String followersCount = extractCount("followers");
@@ -75,20 +80,18 @@ public class UserDataExtractor extends DataExtractor<User> implements Extractor<
 
         int knownFollowersCount = extractKnownFollowersCount();
         navigator.navigateToSection("followers_you_follow");
-        List<User> followersList = extractItems(knownFollowersCount, false);
+        List<User> followersList = extractItems(filePath, knownFollowersCount, false);
 
         List<String> followersLinks = new ArrayList<>();
-        for (User user : followersList) {
-            followersLinks.add(user.getProfileLink());
+        for (User follower : followersList) {
+            followersLinks.add(follower.getProfileLink());
         }
 
-        User newUser = (User) storageHandler.get(USER, "KOLs", userLink);
-        if (newUser != null) {
-            newUser.setFollowersCount(toInt(followersCount));
-            newUser.setFollowingCount(toInt(followingCount));
-            newUser.setFollowersList(followersLinks);
-            storageHandler.add(USER, "KOLs", newUser);
-        }
+        User user = (User) storageHandler.get(USER, "KOLs", profileLink);
+        user.setFollowersCount(toInt(followersCount));
+        user.setFollowingCount(toInt(followingCount));
+        user.setFollowersList(followersLinks);
+        storageHandler.add(USER, "KOLs", user);
     }
 
     private String extractUserName(String parentXPath) {

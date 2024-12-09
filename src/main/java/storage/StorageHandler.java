@@ -34,7 +34,6 @@ public class StorageHandler {
     }
 
     public void add(ObjectType type, String filePath, DataModel item) throws IOException {
-        System.out.println("saving " + item.getUniqueKey());
         try {
             StorageManager<DataModel> manager = getStorageManager(type);
             manager.add(filePath, item, getModelClass(type));
@@ -53,6 +52,11 @@ public class StorageHandler {
     public List<? extends DataModel> getAll(ObjectType type, String filePath) throws IOException {
         StorageManager<DataModel> manager = getStorageManager(type);
         return manager.getAll(filePath, getModelClass(type));
+    }
+
+    public List<String> getUnprocessedItemUniqueKeys(ObjectType type, String filePath) throws IOException {
+        StorageManager<DataModel> manager = getStorageManager(type);
+        return manager.getUnprocessedItemUniqueKeys(filePath, getModelClass(type));
     }
 
     public void transferToMainStorage(ObjectType type, String filePath, DataModel item) throws IOException {

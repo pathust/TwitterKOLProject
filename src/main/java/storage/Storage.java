@@ -4,7 +4,6 @@ import model.DataModel;
 import storage.main.MainStorage;
 import storage.temporary.TemporaryStorage;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -37,13 +36,15 @@ public class Storage<T extends DataModel> {
     }
 
     public void add(T item) {
+        System.out.println("add " + item.getUniqueKey());
         this.mainStorage.add(item);
         this.temporaryStorage.add(item.getUniqueKey());
+        System.out.println(this.temporaryStorage.getTemporaryState().getItemUniqueKeys().size());
     }
 
     public void transferToMainStorage(T item) {
         this.mainStorage.add(item);
-        this.temporaryStorage.remove(item.getUniqueKey());
+        this.temporaryStorage.setProcessed();
     }
 
     public boolean exists(String identifier) {
@@ -56,5 +57,9 @@ public class Storage<T extends DataModel> {
 
     public List<T> getAll() {
         return this.mainStorage.getAll();
+    }
+
+    public List<String> getUnprocessedItemUniqueKeys() {
+        return this.temporaryStorage.getUnprocessedItemUniqueKeys();
     }
 }

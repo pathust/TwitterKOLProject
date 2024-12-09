@@ -56,6 +56,11 @@ public abstract class StorageManager<T extends DataModel> {
         return storage.getAll();
     }
 
+    public List<String> getUnprocessedItemUniqueKeys(String filePath, Class<T> clazz) {
+        Storage<T> storage = getStorage(filePath, clazz);
+        return storage.getUnprocessedItemUniqueKeys();
+    }
+
     public boolean exists(String filePath, String uniqueKey, Class<T> clazz) {
         Storage<T> storage = getStorage(filePath, clazz);
         return storage.exists(uniqueKey);

@@ -55,7 +55,7 @@ public class TweetDataExtractor extends DataExtractor<Tweet> implements Extracto
     }
 
     @Override
-    protected Tweet extractItem(String xpathExpression, boolean addToStorage) {
+    protected Tweet extractItem(String filePath, String xpathExpression, boolean addToStorage) throws IOException {
         System.out.println("extract item...");
         String authorUsername = extractAuthorUsername(xpathExpression);
         String authorProfileLink = extractAuthorProfileLink(xpathExpression);
@@ -71,11 +71,14 @@ public class TweetDataExtractor extends DataExtractor<Tweet> implements Extracto
         tweet.setContent(content);
         tweet.setCommentCount(commentCount);
         tweet.setLikeCount(likeCount);
+
+        if (addToStorage)
+            storageHandler.add(TWEET, filePath, tweet);
         return tweet;
     }
 
     @Override
-    public void extractData(String tweetLink) throws IOException {
+    public void extractData(String filePath, String tweetLink) throws IOException {
         out.println("Extracting data from " + tweetLink);
         try {
             Thread.sleep(3000);
@@ -88,6 +91,7 @@ public class TweetDataExtractor extends DataExtractor<Tweet> implements Extracto
             out.println("Error: Tweet not found in Tweet.json for link: " + tweetLink);
             return;
         }
+        storageHandler.add(TWEET, "Tweet", tweet);
 
         try {
             WebElement repostButton = wait.until(elementToBeClickable(By.xpath(".//button[@data-testid='retweet']")));

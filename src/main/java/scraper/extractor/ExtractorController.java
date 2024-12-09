@@ -7,6 +7,7 @@ import model.Tweet;
 import org.openqa.selenium.WebDriver;
 import scraper.navigation.Navigator;
 import scraper.navigation.WebNavigator;
+import storage.Storage;
 import storage.StorageHandler;
 
 import java.io.IOException;
@@ -23,109 +24,84 @@ public class ExtractorController {
     private final Extractor<User> userDataExtractor;
     private final Extractor<Tweet> tweetDataExtractor;
 
-    public ExtractorController(WebDriver driver) {
+    public ExtractorController(WebDriver driver, Navigator navigator, StorageHandler storageHandler) {
         this.driver = driver;
-        this.navigator = new WebNavigator(driver);
-        this.storageHandler = new StorageHandler();
+        this.navigator = navigator;
+        this.storageHandler = storageHandler;
         this.userDataExtractor = new UserDataExtractor(driver, navigator, storageHandler);
         this.tweetDataExtractor = new TweetDataExtractor(driver, navigator, storageHandler);
         navigator.wait(5000);
     }
 
-    public void scrapeUsersData(List<User> users, int maxTweetListSize) throws IOException, InterruptedException {
-        for (User user : users) {
-            if (user == null) {
-                continue;
+    public void scrapeUsersData(String filePath, int maxTweetListSize) throws IOException, InterruptedException {
+        for (String profileLink : storageHandler.getUnprocessedItemUniqueKeys(USER, filePath)) {
+            Platform.runLater(() -> WaitingScene.updateStatus("Collecting " + profileLink));
 
-            }
-            Platform.runLater(() -> WaitingScene.updateStatus("Collecting " + user.getProfileLink()));
+            driver.get(profileLink);
+            extractTweetsFromProfileLink("Tweet", profileLink, maxTweetListSize);
+            userDataExtractor.extractData(filePath, profileLink);
 
-            driver.get(user.getProfileLink());
-            extractTweetsFromProfileLink("Tweet", user, maxTweetListSize);
-
-            userDataExtractor.extractData(user.getProfileLink());
-            storageHandler.transferToMainStorage(USER,"KOLs", user);
+            storageHandler.transferToMainStorage(USER,filePath, storageHandler.get(USER, "KOLs", profileLink));
         }
     }
 
-    public void scrapeTweetsData(List<Tweet> tweets, int maxRepostListSize) throws IOException, InterruptedException {
-        for (Tweet tweet : tweets) {
-            if (tweet == null) {
-                continue;
-            }
+    public void scrapeTweetsData(String filePath, int maxRepostListSize) throws IOException, InterruptedException {
+        for (String tweetLink : storageHandler.getUnprocessedItemUniqueKeys(TWEET, filePath)) {
+            Platform.runLater(() -> WaitingScene.updateStatus("Collecting " + tweetLink));
 
-            driver.get(tweet.getTweetLink());
-            tweetDataExtractor.extractData(tweet.getTweetLink());
-            extractRepostList(tweet, maxRepostListSize);
-            storageHandler.transferToMainStorage(TWEET, "Tweet", tweet);
+            driver.get(tweetLink);
+            tweetDataExtractor.extractData(filePath, tweetLink);
+            extractRepostList(filePath, tweetLink, maxRepostListSize);
+
+            storageHandler.transferToMainStorage(TWEET, filePath, storageHandler.get(TWEET, "Tweet", tweetLink));
         }
     }
 
     private List<User> extractInitialKOLsTo(String filePath, int maxListSize) throws IOException, InterruptedException {
-        List <User> users = userDataExtractor.extractItems(maxListSize, true);
-        for (User user : users) {
-            storageHandler.add(USER, filePath, user);
-        }
-        storageHandler.save(USER, filePath);
-        return users;
+        return userDataExtractor.extractItems(filePath, maxListSize, true);
     }
 
     private List<Tweet> extractInitialTweetsTo(String filePath, int maxListSize) throws IOException, InterruptedException {
-        List <Tweet> tweets = tweetDataExtractor.extractItems(maxListSize, true);
-        System.out.println("copy " + tweets.size());
-        for (Tweet tweet : tweets) {
-            User user = new User (tweet.getAuthorProfileLink(), tweet.getAuthorUsername());
-            storageHandler.add(USER, "KOLs", user);
-            System.out.println(tweet.getTweetLink());
-            storageHandler.add(TWEET, filePath, tweet);
-            System.out.println("done " + tweet.getTweetLink());
-        }
-        System.out.println(tweets.size());
-        return tweets;
+        return tweetDataExtractor.extractItems(filePath, maxListSize, true);
     }
 
-    public void extractTweetsFromProfileLink(String filePath, User user, int maxListSize) throws IOException, InterruptedException {
-        List<Tweet> tweets = tweetDataExtractor.extractItems(maxListSize, true);
+    public void extractTweetsFromProfileLink(String filePath, String profileLink, int maxListSize) throws IOException, InterruptedException {
+        List<Tweet> tweets = tweetDataExtractor.extractItems(filePath, maxListSize, true);
         for (Tweet tweet : tweets) {
-            if (!tweet.getAuthorProfileLink().equals(user.getProfileLink())) {
+            if (!tweet.getAuthorProfileLink().equals(profileLink)) {
                 List<String> repostList = new ArrayList<>();
-                repostList.add(user.getProfileLink());
+                repostList.add(profileLink);
                 tweet.setRepostList(repostList);
             }
             storageHandler.add(TWEET, filePath, tweet);
         }
-
-        storageHandler.save(TWEET, filePath);
     }
 
-    public void extractRepostList(Tweet tweet, int maxListSize) throws IOException, InterruptedException {
-        List<User> repostList = userDataExtractor.extractItems(maxListSize, false);
+    public Tweet extractRepostList(String filePath, String tweetLink, int maxListSize) throws IOException, InterruptedException {
+        List<User> repostList = userDataExtractor.extractItems(filePath, maxListSize, false);
 
         List<String> repostLinks = new ArrayList<>();
         for (User repost : repostList) {
             repostLinks.add(repost.getProfileLink());
         }
 
+        Tweet tweet = (Tweet) storageHandler.get(TWEET, "Tweet", tweetLink);
         tweet.setRepostList(repostLinks);
 
-        storageHandler.add(TWEET, "Tweet", tweet);
+        return tweet;
     }
 
     public void extractData() throws IOException, InterruptedException {
         // Extract data from tweets
-        System.out.println("Extracting data... from tweet");
-        List<Tweet> tweets = extractInitialTweetsTo("Tweet", 100);
+        extractInitialTweetsTo("Tweet", 100);
 
-        System.out.println(tweets.size());
         navigator.navigateToSection("user");
 
         // Extract data from users
-        List<User> users = extractInitialKOLsTo("KOLs", 100);
-        for (Tweet tweet : tweets) {
-            users.add(new User (tweet.getAuthorProfileLink(), tweet.getAuthorUsername()));
-        }
+        extractInitialKOLsTo("KOLs", 100);
+
         // Scrape data
-        scrapeUsersData(users, 20);
-        scrapeTweetsData(tweets, 10);
+        scrapeUsersData("KOLs", 20);
+        scrapeTweetsData("Tweet", 10);
     }
 }
