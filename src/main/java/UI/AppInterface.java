@@ -1,6 +1,7 @@
 package UI;
 
 import UI.display.Display;
+import UI.display.DisplayView;
 import UI.home.addfile.UploadFile;
 import UI.home.startscraper.Searching;
 import UI.menu.MenuController;
@@ -18,6 +19,7 @@ public class AppInterface extends Application implements SwitchingScene{
     private UploadFile uploadFile;
     private WaitingScene waitingScene;
     private Display display;
+    private DisplayView displayView;
 //    private DisplayScene displayScene;
     private StartedController startedController;
     private MenuController menuController;
@@ -37,7 +39,8 @@ public class AppInterface extends Application implements SwitchingScene{
         menuController = new MenuController(this);
         uploadFile = new UploadFile(primaryStage, this);
         startedController = new StartedController(primaryStage, this);
-        display = new Display(primaryStage, this);
+        displayView = new DisplayView(primaryStage, this);
+//        display = new Display(primaryStage, this);
 //
 //        homeScene.start();
         startedController.start();
@@ -55,12 +58,12 @@ public class AppInterface extends Application implements SwitchingScene{
 
     @Override
     public void switchToDisplayKOL() {
-        display.startKOL();
+        displayView.startKOL();
     }
 
     @Override
     public void switchToDisplayTweet() {
-        display.startTweet();
+        displayView.startTweet();
     }
 
     @Override
