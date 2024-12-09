@@ -29,7 +29,6 @@ public class Display {
     private TableController kolController;
     private TableController tweetController;
     private Parent root;
-    private VBox tableZone;
     private StorageHandler storageHandler;
 
     public void clickChoiceBox(ChoiceBox<String> choiceBox) {
@@ -53,11 +52,10 @@ public class Display {
 
     public Display() {}
 
-    public Display(Stage primaryStage, SwitchingScene switching, Parent rootPane, VBox zone) {
+    public Display(Stage primaryStage, SwitchingScene switching, Parent rootPane) {
         stage = primaryStage;
         switchingScene = switching;
         root = rootPane;
-        tableZone = zone;
 
         storageHandler = new StorageHandler();
         kolController = new KOLTableController();
@@ -100,7 +98,7 @@ public class Display {
         return list;
     }
 
-    private void addTableToUI(int signal) {
+    private void addTableToUI(VBox tableZone, int signal) {
         VBox table = null;
 
         if(signal == 0) {
@@ -117,14 +115,14 @@ public class Display {
         scene.setRoot(root);
     }
 
-    public void startKOL() {
-        addTableToUI(0);
+    public void startKOL(VBox tableZone) {
+        addTableToUI(tableZone,0);
         stage.setScene(scene);
         stage.show();
     }
 
-    public void startTweet() {
-        addTableToUI(1);
+    public void startTweet(VBox tableZone) {
+        addTableToUI(tableZone,1);
         stage.setScene(scene);
         stage.show();
     }
