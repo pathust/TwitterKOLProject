@@ -1,34 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.net.*?>
-<?import java.lang.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
-<?import java.net.URL?>
 
-<AnchorPane fx:id="anchorPane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #FFF0F5;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.display.Display">
+<AnchorPane fx:id="anchorPane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #FFF0F5;" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.display.Display">
     <stylesheets>
         <URL value="@button.css" />
     </stylesheets>
     <children>
-      <ImageView fitHeight="400.0" fitWidth="621.0" layoutX="104.0">
+      <ImageView fx:id="Background" fitHeight="400.0" fitWidth="621.0" layoutX="104.0">
          <image>
             <Image url="@images/STATISTIC.png" />
          </image>
       </ImageView>
-        <!--       <fx:include source="/menu.fxml" />-->
-        <VBox prefHeight="400.0" prefWidth="105.0" spacing="10.0" style="-fx-background-color: #FFCCCC;">
+<!--               <fx:include source="/menu.fxml" />-->
+        <VBox fx:id="menu" prefHeight="400.0" prefWidth="105.0" spacing="10.0" style="-fx-background-color: #FFCCCC;">
             <children>
                 <Button fx:id="Crawl" mnemonicParsing="false" prefHeight="25.0" prefWidth="111.0" styleClass="squareButton" text="Crawl data">
                <font>
@@ -47,15 +40,19 @@
                 <Insets top="90.0" />
             </padding>
         </VBox>
-        <VBox fx:id="Table" layoutX="137.0" layoutY="143.0" prefHeight="250.0" prefWidth="473.0" />
-      <MenuButton layoutX="564.0" layoutY="97.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="121.0" styleClass="menuButton" text="Tweet or KOL">
-        <items>
-          <MenuItem mnemonicParsing="false" styleClass="squareButton" text="Tweet" />
-          <MenuItem mnemonicParsing="false" styleClass="squareButton" text="KOL" />
-        </items>
-         <font>
-            <Font name="System Bold" size="11.0" />
-         </font>
-      </MenuButton>
+<!--<<<<<<< HEAD-->
+<!--        <VBox fx:id="Table" layoutX="137.0" layoutY="143.0" prefHeight="250.0" prefWidth="473.0" />-->
+<!--      <MenuButton layoutX="564.0" layoutY="97.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="121.0" styleClass="menuButton" text="Tweet or KOL">-->
+<!--        <items>-->
+<!--          <MenuItem mnemonicParsing="false" styleClass="squareButton" text="Tweet" />-->
+<!--          <MenuItem mnemonicParsing="false" styleClass="squareButton" text="KOL" />-->
+<!--        </items>-->
+<!--         <font>-->
+<!--            <Font name="System Bold" size="11.0" />-->
+<!--         </font>-->
+<!--      </MenuButton>-->
+<!--=======-->
+        <VBox fx:id="Table" layoutX="137.0" layoutY="165.0" prefHeight="216.0" prefWidth="556.0" />
+      <ChoiceBox fx:id="ChoiceBox" layoutX="137.0" layoutY="134.0" prefWidth="150.0" />
     </children>
 </AnchorPane>

@@ -3,9 +3,7 @@ package UI.home.startscraper;
 import UI.SwitchingScene;
 
 import UI.menu.MenuController;
-import javafx.beans.binding.Bindings;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -141,7 +139,7 @@ public class Searching {
         });
 
         staticData.setOnAction(event -> {
-            switchingScene.switchToDisplay();
+            switchingScene.switchToDisplayKOL();
         });
     }
 
