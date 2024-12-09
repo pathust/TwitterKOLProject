@@ -1,7 +1,7 @@
 package UI.waiting;
 
 import UI.SwitchingScene;
-import UI.home.startscraper.StartScraperHandler;
+import UI.startscraper.StartScraperHandler;
 import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;

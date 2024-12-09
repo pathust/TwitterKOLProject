@@ -4,6 +4,7 @@ import UI.SwitchingScene;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.image.ImageView;
@@ -19,17 +20,17 @@ public class DisplayView {
     private Display display;
 
     @FXML
-    protected Button crawl, upload, staticData;
+    private Button crawl, upload, staticData;
     @FXML
-    protected VBox table, menu;
+    private VBox table, menu;
     @FXML
-    protected AnchorPane anchorPane;
+    private AnchorPane anchorPane;
     @FXML
-    protected Parent root;
+    private Parent root;
     @FXML
-    protected ImageView background;
+    private ImageView background;
     @FXML
-    protected ChoiceBox<String> choiceBox;
+    private ChoiceBox<String> choiceBox;
 
     public DisplayView() {}
 
@@ -104,16 +105,16 @@ public class DisplayView {
         staticData = (Button) loader.getNamespace().get("staticData");
         choiceBox =(ChoiceBox<String>) loader.getNamespace().get("choiceBox");
 
-        display = new Display(stage, switchingScene, root, table);
+        display = new Display(stage, switchingScene, root);
 
         binding();
     }
 
     public void startKOL() {
-        display.startKOL();
+        display.startKOL(table);
     }
 
     public void startTweet() {
-        display.startTweet();
+        display.startTweet(table);
     }
 }

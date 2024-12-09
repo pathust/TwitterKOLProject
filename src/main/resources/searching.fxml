@@ -13,7 +13,7 @@
 <!--<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #FFF0F5;" stylesheets="style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.home.startscraper.Searching">-->
 <!--=======-->
 
-<AnchorPane fx:id="anchorPane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #FFF0F5;" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.home.startscraper.Searching">
+<AnchorPane fx:id="anchorPane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #FFF0F5;" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.startscraper.Searching">
    <stylesheets>
       <URL value="@button.css" />
    </stylesheets>
