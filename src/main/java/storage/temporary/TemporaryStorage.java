@@ -24,7 +24,7 @@ public class TemporaryStorage{
     }
 
     public void add(String link){
-        Deque<String> remainingItems = temporaryState.getRemainingItems();
+        List<String> remainingItems = temporaryState.getRemainingItems();
         remainingItems.add(link);
         temporaryState.setRemainingItems(remainingItems);
     }
@@ -61,9 +61,9 @@ public class TemporaryStorage{
         }
     }
 
-    public void pop() {
-        Deque<String> remainingItems = temporaryState.getRemainingItems();
-        remainingItems.pop();
+    public void remove(String link) {
+        List<String> remainingItems = temporaryState.getRemainingItems();
+        remainingItems.remove(link);
         temporaryState.setRemainingItems(remainingItems);
     }
 }

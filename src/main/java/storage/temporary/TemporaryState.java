@@ -3,17 +3,17 @@ package storage.temporary;
 import java.util.*;
 
 public class TemporaryState {
-    private Deque<String> remainingItems;
+    private List<String> remainingItems;
 
     TemporaryState() {
-        this.remainingItems = new ArrayDeque<>();
+        this.remainingItems = new ArrayList<>();
     }
 
-    public Deque<String> getRemainingItems() {
+    public List<String> getRemainingItems() {
         return remainingItems;
     }
 
-    public void setRemainingItems(Deque<String> remainingItems) {
+    public void setRemainingItems(List<String> remainingItems) {
         this.remainingItems = remainingItems;
     }
 }

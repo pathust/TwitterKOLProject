@@ -33,10 +33,7 @@ public class Storage<T extends DataModel> {
     public void save(String filePath) throws IOException {
         System.out.println(filePath);
         this.mainStorage.save(filePath + ".json");
-        if (this.temporaryStorage.getTemporaryState().getRemainingItems().isEmpty()) {
-            this.temporaryStorage.clearTemporaryStorage(filePath + ".txt");
-        }
-        else this.temporaryStorage.save(filePath + ".txt");
+        this.temporaryStorage.save(filePath + ".txt");
     }
 
     public void add(T item) {
@@ -44,9 +41,9 @@ public class Storage<T extends DataModel> {
         this.temporaryStorage.add(item.getUniqueKey());
     }
 
-    public void transferToMainStorage(T item) throws IOException {
+    public void transferToMainStorage(T item) {
         this.mainStorage.add(item);
-        this.temporaryStorage.pop();
+        this.temporaryStorage.remove(item.getUniqueKey());
     }
 
     public boolean exists(String identifier) {

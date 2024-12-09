@@ -46,6 +46,7 @@ public class StorageHandler {
 
     public void save(ObjectType type, String filePath) throws IOException {
         StorageManager<DataModel> manager = getStorageManager(type);
+        System.out.println("chosen manager: " + manager);
         manager.save(filePath, getModelClass(type));
     }
 
@@ -59,7 +60,7 @@ public class StorageHandler {
         manager.transferToMainStorage(item, filePath, getModelClass(type));
     }
 
-    public boolean exists(ObjectType type, String filePath, String uniqueKey) throws IOException {
+    public boolean exists(ObjectType type, String filePath, String uniqueKey) {
         StorageManager<DataModel> manager = getStorageManager(type);
         return manager.exists(filePath, uniqueKey, getModelClass(type));
     }

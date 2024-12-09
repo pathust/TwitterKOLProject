@@ -81,8 +81,6 @@ public class ExtractorController {
             System.out.println("done " + tweet.getTweetLink());
         }
         System.out.println(tweets.size());
-        storageHandler.save(USER, filePath);
-        storageHandler.save(TWEET, filePath);
         return tweets;
     }
 
