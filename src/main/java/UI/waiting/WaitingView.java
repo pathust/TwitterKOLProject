@@ -44,7 +44,7 @@ public class WaitingView {
        hbox1.setPrefSize(200,100);
        hbox1.setAlignment(Pos.CENTER);
        label.setText("Waiting for Data !");
-       hbox.getChildren().add(label);
+       hbox1.getChildren().add(label);
        getLabel().setStyle("-fx-text-fill: black; -fx-font-weight: Bold; -fx-font-size: 15; -fx-alignment: center;");
        label.styleProperty().bind(
                Bindings.createStringBinding(
