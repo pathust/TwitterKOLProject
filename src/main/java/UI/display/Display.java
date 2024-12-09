@@ -26,15 +26,6 @@ public class Display {
     private SwitchingScene switchingScene;
     private Scene scene;
     private FXMLLoader loader;
-<<<<<<< HEAD
-    private Button crawl, upload, staticData;
-    @FXML
-    private VBox vBox, menu;
-    @FXML
-    private AnchorPane anchorPane;
-    private DataRepository dataRepository;
-=======
->>>>>>> 542ec2a37dff1cebec488a4faa3487ee409e46f3
     private TableController kolController;
     private TableController tweetController;
     private Parent root;
@@ -68,31 +59,7 @@ public class Display {
         root = rootPane;
         tableZone = zone;
 
-<<<<<<< HEAD
-        loader = new FXMLLoader(getClass().getResource("/main/resources/display.fxml"));
-
-        root = null;
-        try {
-            root = loader.load();
-        } catch (IOException e) {
-            System.out.println("No FIle found");
-            throw new RuntimeException(e);
-        }
-
-        anchorPane = (AnchorPane) loader.getNamespace().get("anchorPane");
-        vBox = (VBox) loader.getNamespace().get("Table");
-        menu = (VBox) loader.getNamespace().get("menu");
-        background = (ImageView) loader.getNamespace().get("Background");
-
-        crawl = (Button) loader.getNamespace().get("Crawl");
-        upload = (Button) loader.getNamespace().get("Upload");
-        staticData = (Button) loader.getNamespace().get("Static");
-        choiceBox =(ChoiceBox<String>) loader.getNamespace().get("ChoiceBox");
-
-        dataRepository = new StorageHandler();
-=======
         storageHandler = new StorageHandler();
->>>>>>> 542ec2a37dff1cebec488a4faa3487ee409e46f3
         kolController = new KOLTableController();
         tweetController = new TweetTableController();
 
