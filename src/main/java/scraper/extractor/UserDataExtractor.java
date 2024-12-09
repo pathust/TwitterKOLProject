@@ -24,13 +24,16 @@ public class UserDataExtractor extends DataExtractor<User> implements Extractor<
     @Override
     protected WebElement getFirstCell() {
         System.out.println("first uCell");
-        try {
-            String xpathExpression = "//button[@data-testid='UserCell']";
-            return wait.until(presenceOfElementLocated(By.xpath(xpathExpression)));
+        for (int i = 0; i < 3; i++) {
+            try {
+                String xpathExpression = "//button[@data-testid='UserCell']";
+                return wait.until(presenceOfElementLocated(By.xpath(xpathExpression)));
+            }
+            catch (Exception e) {
+                navigator.wait(2000);
+            }
         }
-        catch (Exception e) {
-            return null;
-        }
+        return null;
     }
 
     @Override
@@ -41,12 +44,15 @@ public class UserDataExtractor extends DataExtractor<User> implements Extractor<
 
         String parentDivXpathExpression = "./ancestor::div[@data-testid='cellInnerDiv']";
         String nextCellXpathExpression = "(following-sibling::div[@data-testid='cellInnerDiv'])//button[@data-testid='UserCell']";
-        try {
-            WebElement parentDiv = userCell.findElement(By.xpath(parentDivXpathExpression));
-            return parentDiv.findElement(By.xpath(nextCellXpathExpression));
-        } catch (Exception e) {
-            return null;
+        for (int i = 0; i < 3; i++) {
+            try {
+                WebElement parentDiv = userCell.findElement(By.xpath(parentDivXpathExpression));
+                return parentDiv.findElement(By.xpath(nextCellXpathExpression));
+            } catch (Exception e) {
+                navigator.wait(2000);
+            }
         }
+        return null;
     }
 
     @Override
