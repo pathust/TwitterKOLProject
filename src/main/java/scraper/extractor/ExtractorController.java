@@ -116,20 +116,18 @@ public class ExtractorController {
     public void extractData() throws IOException, InterruptedException {
         // Extract data from tweets
         System.out.println("Extracting data... from tweet");
-        //List<Tweet> tweets = extractInitialTweetsTo("Tweet", 100);
-        List<Tweet> tweets = extractInitialTweetsTo("Tweet", 10);
+        List<Tweet> tweets = extractInitialTweetsTo("Tweet", 100);
 
         System.out.println(tweets.size());
         navigator.navigateToSection("user");
 
         // Extract data from users
-        //List<User> users = extractInitialKOLsTo("KOLs", 1000);
-        List<User> users = extractInitialKOLsTo("KOLs", 10);
-
+        List<User> users = extractInitialKOLsTo("KOLs", 1000);
+        for (Tweet tweet : tweets) {
+            users.add(new User (tweet.getAuthorProfileLink(), tweet.getAuthorUsername()));
+        }
         // Scrape data
-        //scrapeUsersData(users, 20);
-        //scrapeTweetsData(tweets, 10);
-        scrapeUsersData(users, 3);
-        scrapeTweetsData(tweets, 3);
+        scrapeUsersData(users, 20);
+        scrapeTweetsData(tweets, 10);
     }
 }

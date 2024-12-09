@@ -93,19 +93,14 @@ public class UserDataExtractor extends DataExtractor<User> implements Extractor<
 
     private String extractUserName(String parentXPath) {
         String xpathExpression = parentXPath + "//div[last()]//a//span";
-        int maxRetries = 3;
-        int attempt = 0;
 
-        while (attempt < maxRetries) {
+        for (int i = 0; i < 3; i++) {
             try {
                 WebElement userNameElement = wait.until(presenceOfElementLocated(By.xpath(xpathExpression)));
                 return userNameElement.getText();
             } catch (Exception e) {
-                attempt++;
-                System.out.println("Retry attempt " + attempt + ": Error extracting username");
-                if (attempt == maxRetries) {
-                    throw new RuntimeException("Failed to extract username after " + maxRetries + " attempts", e);
-                }
+                System.out.println("Retry attempt " + i + ": Error extracting username");
+                navigator.wait(2000);
             }
         }
 
@@ -114,19 +109,13 @@ public class UserDataExtractor extends DataExtractor<User> implements Extractor<
 
     private String extractProfileLink(String parentXPath) {
         String xpathExpression = parentXPath + "//div[last()]//a";
-        int maxRetries = 3;
-        int attempt = 0;
-
-        while (attempt < maxRetries) {
+        for (int i = 0; i < 3; i++) {
             try {
                 WebElement userNameElement = driver.findElement(By.xpath(xpathExpression));
                 return userNameElement.getAttribute("href");
             } catch (Exception e) {
-                attempt++;
-                System.out.println("Retry attempt " + attempt + ": Error extracting profile link");
-                if (attempt == maxRetries) {
-                    throw new RuntimeException("Failed to extract profile link after " + maxRetries + " attempts", e);
-                }
+                System.out.println("Retry attempt " + i + ": Error extracting profile link");
+                navigator.wait(2000);
             }
         }
         return null;
@@ -134,12 +123,15 @@ public class UserDataExtractor extends DataExtractor<User> implements Extractor<
 
     private String extractCount(String section) {
         String xpathExpression = "//a[contains(@href, '" + section + "')]//span/span";
-        try {
-            WebElement countElement = wait.until(presenceOfElementLocated(By.xpath(xpathExpression)));
-            return countElement.getText();
-        } catch (Exception e) {
-            return "0";
+        for (int i = 0; i < 3; i++) {
+            try {
+                WebElement countElement = wait.until(presenceOfElementLocated(By.xpath(xpathExpression)));
+                return countElement.getText();
+            } catch (Exception e) {
+                navigator.wait(2000);
+            }
         }
+        return "0";
     }
 
     private int extractKnownFollowersCount() {
