@@ -5,12 +5,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import scraper.navigation.Navigator;
-import storage.DataRepository;
+import storage.StorageHandler;
 
 import java.io.IOException;
-import java.time.Duration;
-import java.util.ArrayList;
-import java.util.List;
 
 import static java.lang.System.*;
 import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
@@ -19,96 +16,82 @@ import static utils.Math.toInt;
 import static utils.ObjectType.TWEET;
 
 public class TweetDataExtractor extends DataExtractor<Tweet> implements Extractor<Tweet> {
-    private static final int RETRY_ATTEMPTS = 3;
-
-    public TweetDataExtractor(WebDriver driver, Navigator navigator, DataRepository storageHandler) {
+    public TweetDataExtractor(WebDriver driver, Navigator navigator, StorageHandler storageHandler) {
         super(driver, navigator, storageHandler);
     }
 
     @Override
     protected WebElement getFirstCell() {
-        WebElement tweetCell = null;
-        boolean success = false;
-        while (!success) {
+        System.out.println("first cell...");
+        for (int i = 0; i < 3; i++) {
             try {
-                tweetCell = wait.until(presenceOfElementLocated(
-                        By.xpath("//article[contains(@data-testid, 'tweet')]")));
-                success = true;
+                String xpathExpression = "//article[contains(@data-testid, 'tweet')]";
+                return wait.until(presenceOfElementLocated(By.xpath(xpathExpression)));
             }
             catch (Exception e) {
-                System.out.println("Finding tweet failed, retrying...");
-
-                try {
-                    Thread.sleep(500);
-                } catch (InterruptedException ex) {
-                    throw new RuntimeException(ex);
-                }
+                navigator.wait(2000);
             }
         }
-        return tweetCell;
+        return null;
     }
 
     @Override
     protected WebElement nextCell(WebElement tweetCell) {
         if (tweetCell == null) {
-            System.out.println("Next cell is null");
             return getFirstCell();
         }
 
-        for (int attempt = 0; attempt < RETRY_ATTEMPTS; attempt++) {
+        String parentDivXpathExpression = "./ancestor::div[@data-testid='cellInnerDiv']";
+        String nextCellXpathExpression = "(following-sibling::div[@data-testid='cellInnerDiv'])//article[contains(@data-testid, 'tweet')]";
+        for (int i = 0; i < 3; i++) {
             try {
-                WebElement parentDiv = tweetCell.findElement(
-                        By.xpath("./ancestor::div[@data-testid='cellInnerDiv']"));
-                return parentDiv.findElement(
-                        By.xpath("(following-sibling::div[@data-testid='cellInnerDiv'])//article[contains(@data-testid, 'tweet')]"));
+                WebElement parentDiv = tweetCell.findElement(By.xpath(parentDivXpathExpression));
+                return parentDiv.findElement(By.xpath(nextCellXpathExpression));
             } catch (Exception e) {
-                out.println("Attempt " + attempt + " failed, retrying...");
-                wait.withTimeout(Duration.ofSeconds(1)); // Shorter wait for retries
+                navigator.wait(2000);
             }
         }
-        out.println("Next TweetCell not found after " + RETRY_ATTEMPTS + " attempts.");
         return null;
     }
 
     @Override
-    protected Tweet extractItem(String xpathExpression, boolean addToStorage) {
+    protected Tweet extractItem(String filePath, String xpathExpression, boolean addToStorage) throws IOException {
+        System.out.println("extract item...");
         String authorUsername = extractAuthorUsername(xpathExpression);
         String authorProfileLink = extractAuthorProfileLink(xpathExpression);
         String tweetLink = extractTweetLink(xpathExpression);
         String content = extractContent(xpathExpression);
-        int commentCount = extractCount("reply");
-        int repostCount = extractCount("retweet");
-        int likeCount = extractCount("like");
+        int commentCount = extractCount(xpathExpression, "reply");
+        int repostCount = extractCount(xpathExpression,"retweet");
+        int likeCount = extractCount(xpathExpression,"like");
 
+        System.out.println("author: " + authorUsername);
         Tweet tweet = new Tweet(tweetLink, authorProfileLink, repostCount);
         tweet.setAuthorUsername(authorUsername);
         tweet.setContent(content);
         tweet.setCommentCount(commentCount);
         tweet.setLikeCount(likeCount);
+
+        if (addToStorage)
+            storageHandler.add(TWEET, filePath, tweet);
         return tweet;
     }
 
     @Override
-    protected void Write(Tweet tweet) {
-        System.out.println("Writing tweet: " + tweet.getAuthorUsername() + " posted " + tweet.getTweetLink());
-    }
-
-    @Override
-    public void extractData(String tweetLink) throws IOException {
+    public void extractData(String filePath, String tweetLink) throws IOException {
         out.println("Extracting data from " + tweetLink);
-        driver.get(tweetLink);
-
         try {
             Thread.sleep(3000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
 
-        Tweet tweet = (Tweet) storageHandler.get(TWEET, "Tweet.json", tweetLink);
+        Tweet tweet = (Tweet) storageHandler.get(TWEET, "Tweet", tweetLink);
         if (tweet == null) {
             out.println("Error: Tweet not found in Tweet.json for link: " + tweetLink);
             return;
         }
+        storageHandler.add(TWEET, "Tweet", tweet);
 
         try {
             WebElement repostButton = wait.until(elementToBeClickable(By.xpath(".//button[@data-testid='retweet']")));
@@ -121,54 +104,94 @@ public class TweetDataExtractor extends DataExtractor<Tweet> implements Extracto
             viewRepostsOption.click();
 
         } catch (Exception e) {
-            out.println("Error: Unable to click 'Repost' or 'View Quotes' button.");
-            e.printStackTrace();
-            return;
-        }
-
-        List<Tweet> repostList = new ArrayList<>();
-        List<String> repostLinks = new ArrayList<>();
-
-
-        for (Tweet repost : repostList) {
-            repostLinks.add(repost.getAuthorProfileLink());
-        }
-
-        tweet.setRepostList(repostLinks);
-
-        try {
-            storageHandler.add(TWEET, "Tweet.json", tweet);
-        } catch (IOException e) {
-            out.println("Error: Unable to save tweet data.");
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 
     private String extractAuthorUsername(String parentXPath) {
-        String xpathExpression = parentXPath + "//div[@data-testid='User-Name']/div[1]";
-        return driver.findElement(By.xpath(xpathExpression)).getText();
+        int maxRetries = 3;
+        int attempt = 0;
+
+        while (attempt < maxRetries) {
+            try {
+                String xpathExpression = parentXPath + "//div[@data-testid='User-Name']/div[1]";
+                return driver.findElement(By.xpath(xpathExpression)).getText();
+            } catch (Exception e) {
+                attempt++;
+                navigator.wait(2000);
+                System.out.println("Error extracting author name, attempt " + attempt);
+            }
+        }
+
+        System.out.println("Failed to extract author name after " + maxRetries + " attempts.");
+        return null;
     }
 
     private String extractAuthorProfileLink(String parentXPath) {
-        String xpathExpression = parentXPath + "//div[@data-testid='User-Name']/div[1]//a";
-        return driver.findElement(By.xpath(xpathExpression)).getAttribute("href");
+        int maxRetries = 3;
+        int attempt = 0;
+
+        while (attempt < maxRetries) {
+            try {
+                String xpathExpression = parentXPath + "//div[@data-testid='User-Name']/div[1]//a";
+                return driver.findElement(By.xpath(xpathExpression)).getAttribute("href");
+            } catch (Exception e) {
+                attempt++;
+                navigator.wait(2000);
+                System.out.println("Error extracting author profile link, attempt " + attempt);
+            }
+        }
+
+        System.out.println("Failed to extract author profile link after " + maxRetries + " attempts.");
+        return null;
     }
 
     private String extractTweetLink(String parentXPath) {
-        String xpathExpression = parentXPath + "//a[contains(@href, 'status')]";
-        return driver.findElement(By.xpath(xpathExpression)).getAttribute("href");
+        int maxRetries = 3;
+        int attempt = 0;
+
+        while (attempt < maxRetries) {
+            try {
+                String xpathExpression = parentXPath + "//a[contains(@href, 'status')]";
+                return driver.findElement(By.xpath(xpathExpression)).getAttribute("href");
+            } catch (Exception e) {
+                attempt++;
+                navigator.wait(2000);
+                System.out.println("Error extracting tweet link, attempt " + attempt);
+            }
+        }
+
+        System.out.println("Failed to extract tweet link after " + maxRetries + " attempts.");
+        return null;
     }
 
     private String extractContent(String parentXPath) {
-        String xpathExpression = parentXPath + "//div[@data-testid='tweetText']";
-        return driver.findElement(By.xpath(xpathExpression)).getText();
+        int maxRetries = 3;
+        int attempt = 0;
+
+        while (attempt < maxRetries) {
+            try {
+                String xpathExpression = parentXPath + "//div[@data-testid='tweetText']";
+                return driver.findElement(By.xpath(xpathExpression)).getText();
+            } catch (Exception e) {
+                attempt++;
+                navigator.wait(2000);
+                System.out.println("Error extracting content, attempt " + attempt);
+            }
+        }
+
+        System.out.println("Failed to extract content after " + maxRetries + " attempts.");
+        return null;
     }
 
-    private int extractCount(String attributeValue) {
-        String xpathExpression = "//*[@data-testid='" + attributeValue + "']";
-        WebElement interactElement = wait.until(
-                presenceOfElementLocated(By.xpath(xpathExpression))
-        );
-        return toInt(interactElement.getText());
+    private int extractCount(String parentXpath, String attributeValue) {
+        String xpathExpression = parentXpath + "//*[@data-testid='" + attributeValue + "']//span";
+        try {
+            WebElement interactElement = driver.findElement(By.xpath(xpathExpression));
+            return toInt(interactElement.getText());
+        }
+        catch (Exception e) {
+            return 0;
+        }
     }
 }

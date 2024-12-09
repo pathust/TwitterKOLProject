@@ -6,19 +6,17 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import model.Tweet;
 import model.User;
-import storage.DataRepository;
 import storage.StorageHandler;
 import utils.ObjectType;
 
-import java.awt.*;
 import java.io.IOException;
 import java.util.List;
+
+import static utils.ObjectType.USER;
 
 // Class để quản lý giao diện và hiển thị bảng
 public class Display {
@@ -27,11 +25,11 @@ public class Display {
     private SwitchingScene switchingScene;
     private Scene scene;
     private FXMLLoader loader;
-    private DataRepository dataRepository;
     private TableController kolController;
     private TableController tweetController;
     private Parent root;
     private VBox tableZone;
+    private StorageHandler storageHandler;
 
     public void clickChoiceBox(ChoiceBox<String> choiceBox) {
         String selected = choiceBox.getValue();
@@ -59,55 +57,10 @@ public class Display {
         switchingScene = switching;
         root = rootPane;
         tableZone = zone;
-//        loader = new FXMLLoader(getClass().getResource("/display.fxml"));
-//        root = null;
-//        try {
-//            root = loader.load();
-//        } catch (IOException e) {
-//            System.out.println("No FIle found");
-//            throw new RuntimeException(e);
-//        }
 
-//        anchorPane = (AnchorPane) loader.getNamespace().get("anchorPane");
-//        vBox = (VBox) loader.getNamespace().get("Table");
-//        menu = (VBox) loader.getNamespace().get("menu");
-//        background = (ImageView) loader.getNamespace().get("Background");
-//        crawl = (Button) loader.getNamespace().get("Crawl");
-//        upload = (Button) loader.getNamespace().get("Upload");
-//        staticData = (Button) loader.getNamespace().get("Static");
-//        choiceBox =(ChoiceBox<String>) loader.getNamespace().get("ChoiceBox");
-
-        dataRepository = new StorageHandler();
+        storageHandler = new StorageHandler();
         kolController = new KOLTableController();
         tweetController = new TweetTableController();
-
-//        binding();
-
-//        choiceBox.getItems().addAll("KOL Table","Tweet Table");
-//        choiceBox.setValue("KOL Table");
-
-//        choiceBox.setOnAction(event -> {
-//            String selected = choiceBox.getValue();
-//
-//            if(selected.equals("KOL Table")) {
-//                switchingScene.switchToDisplayKOL();
-//            }
-//            else if(selected.equals("Tweet Table")) {
-//                switchingScene.switchToDisplayTweet();
-//            }
-//        });
-
-//        crawl.setOnAction(event -> {
-//            switchingScene.switchToSearching();
-//        });
-//
-//        upload.setOnAction(event -> {
-//            switchingScene.switchToAddFile();
-//        });
-//
-//        staticData.setOnAction(event -> {
-//            switchingScene.switchToDisplayKOL();
-//        });
 
         scene = new Scene(root);
     }
@@ -118,23 +71,23 @@ public class Display {
         ObjectType type = null;
 
         if(signal == 0) {
-            filePath = "KOLs.json";
+            filePath = "KOLs";
             type = ObjectType.valueOf("USER");
         }
         else if(signal == 1) {
-            filePath = "Tweet.json";
+            filePath = "Tweet";
             type = ObjectType.valueOf("TWEET");
         }
 
         try {
-            dataRepository.load(type, filePath);
+            storageHandler.load(type, filePath);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
         List<T> list = null;
         try {
-            list = dataRepository.getAll(type, filePath)
+            list = storageHandler.getAll(type, filePath)
                     .stream()
                     .filter(item -> objType.isInstance(item))
                     .map(item -> (T) item)
