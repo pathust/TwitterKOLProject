@@ -1,6 +1,7 @@
 package UI.home.addfile;
 
 import UI.SwitchingScene;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -25,6 +26,7 @@ public class UploadFile{
     private Button chooseFile, kol, tweet;
     private Button crawl, upload, staticData;
     private TextField textField;
+    @FXML
     private VBox vBox, menu;
     private HBox hBox1, hBox2;
     private AnchorPane anchorPane;

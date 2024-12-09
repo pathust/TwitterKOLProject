@@ -1,7 +1,31 @@
 [ {
-  "authorUsername" : "PrizePicks",
-  "authorProfileLink" : "https://x.com/PrizePicks",
-  "tweetLink" : "https://x.com/PrizePicks/status/1756804317343093012",
-  "repostCount" : 7000,
+  "authorUsername" : "Alex Mason △",
+  "authorProfileLink" : "https://x.com/AlexMasonCrypto",
+  "tweetLink" : "https://x.com/AlexMasonCrypto/status/1865804805878304967",
+  "repostCount" : 356,
+  "repostList" : [ ]
+}, {
+  "authorUsername" : "SWFT Blockchain",
+  "authorProfileLink" : "https://x.com/SwftCoin",
+  "tweetLink" : "https://x.com/SwftCoin/status/1866082526382669844",
+  "repostCount" : 356,
+  "repostList" : [ ]
+}, {
+  "authorUsername" : "Dream",
+  "authorProfileLink" : "https://x.com/DreamCryptoX",
+  "tweetLink" : "https://x.com/DreamCryptoX/status/1866227547299836297",
+  "repostCount" : 356,
+  "repostList" : [ ]
+}, {
+  "authorUsername" : "Midwest Blockchain Conference",
+  "authorProfileLink" : "https://x.com/MBC_Conference",
+  "tweetLink" : "https://x.com/MBC_Conference/status/1866230384863883677",
+  "repostCount" : 356,
+  "repostList" : [ ]
+}, {
+  "authorUsername" : "Corey Costa’s Crypto Coins",
+  "authorProfileLink" : "https://x.com/coreycosta123",
+  "tweetLink" : "https://x.com/coreycosta123/status/1866231690571759914",
+  "repostCount" : 357,
   "repostList" : [ ]
 } ]
