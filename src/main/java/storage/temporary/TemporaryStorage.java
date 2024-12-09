@@ -24,7 +24,9 @@ public class TemporaryStorage{
     }
 
     public void add(String link){
-        temporaryState.getRemainingItems().add(link);
+        Deque<String> remainingItems = temporaryState.getRemainingItems();
+        remainingItems.add(link);
+        temporaryState.setRemainingItems(remainingItems);
     }
 
     public void save(String filePath) throws IOException {
@@ -59,7 +61,9 @@ public class TemporaryStorage{
         }
     }
 
-    public void pop() throws IOException {
-        temporaryState.getRemainingItems().pop();
+    public void pop() {
+        Deque<String> remainingItems = temporaryState.getRemainingItems();
+        remainingItems.pop();
+        temporaryState.setRemainingItems(remainingItems);
     }
 }

@@ -122,7 +122,7 @@ public class ExtractorController {
         navigator.navigateToSection("user");
 
         // Extract data from users
-        List<User> users = extractInitialKOLsTo("KOLs", 1000);
+        List<User> users = extractInitialKOLsTo("KOLs", 100);
         for (Tweet tweet : tweets) {
             users.add(new User (tweet.getAuthorProfileLink(), tweet.getAuthorUsername()));
         }

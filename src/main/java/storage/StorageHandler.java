@@ -35,8 +35,13 @@ public class StorageHandler {
 
     public void add(ObjectType type, String filePath, DataModel item) throws IOException {
         System.out.println("saving " + item.getUniqueKey());
-        StorageManager<DataModel> manager = getStorageManager(type);
-        manager.add(filePath, item, getModelClass(type));
+        try {
+            StorageManager<DataModel> manager = getStorageManager(type);
+            manager.add(filePath, item, getModelClass(type));
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void save(ObjectType type, String filePath) throws IOException {

@@ -71,6 +71,17 @@ public class TwitterScraperController {
                 1000,
                 1000,
                 250);
+
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            try {
+                System.out.println("Saving data before exiting...");
+                controller.saveData();
+                System.out.println("Data saved successfully.");
+            } catch (IOException | InterruptedException e) {
+                System.err.println("Error saving data: " + e.getMessage());
+            }
+        }));
+
         try {
             controller.extractData();
         }
