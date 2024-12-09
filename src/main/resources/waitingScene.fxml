@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox fx:id="Background" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #FFF0F5;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.waiting.WaitingScene">
+   <children>
+      <HBox fx:id="pinkrec" alignment="CENTER" prefHeight="72.0" prefWidth="600.0" spacing="20.0" style="-fx-background-color: #FFF0F5;">
+         <children>
+            <Rectangle fx:id="rec1" arcHeight="5.0" arcWidth="5.0" fill="#e88ae3" height="21.0" stroke="BLACK" strokeType="INSIDE" width="19.0" />
+            <Rectangle fx:id="rec2" arcHeight="5.0" arcWidth="5.0" fill="#e88ae3" height="21.0" stroke="BLACK" strokeType="INSIDE" width="19.0" />
+            <Rectangle fx:id="rec3" arcHeight="5.0" arcWidth="5.0" fill="#e88ae3" height="21.0" stroke="BLACK" strokeType="INSIDE" width="19.0" />
+            <Rectangle fx:id="rec4" arcHeight="5.0" arcWidth="5.0" fill="#e88ae3" height="21.0" stroke="BLACK" strokeType="INSIDE" width="19.0" />
+         </children>
+      </HBox>
+      <HBox fx:id="hbox1" alignment="CENTER" prefHeight="65.0" prefWidth="600.0">
+         <children>
+            <Label fx:id="label" prefHeight="44.0" prefWidth="354.0" text="WAITNG FOR DATA" textFill="#141314">
+               <font>
+                  <Font name="Berlin Sans FB Demi Bold" size="38.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+      <HBox fx:id="hboxButton" alignment="CENTER" prefHeight="72.0" prefWidth="600.0">
+         <children>
+            <Button fx:id="stopButton" mnemonicParsing="false" prefHeight="35.0" prefWidth="97.0" text="Stop Scraping">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+         </children>
+      </HBox>
+   </children>
+   <padding>
+      <Insets bottom="30.0" top="130.0" />
+   </padding>
+</VBox>

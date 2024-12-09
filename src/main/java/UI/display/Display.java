@@ -1,6 +1,7 @@
 package UI.display;
 
 import UI.SwitchingScene;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -28,7 +29,9 @@ public class Display {
     private Scene scene;
     private FXMLLoader loader;
     private Button crawl, upload, staticData;
+    @FXML
     private VBox vBox, menu;
+    @FXML
     private AnchorPane anchorPane;
     private DataRepository dataRepository;
     private KOLTableController kolController;
