@@ -21,6 +21,7 @@ public class StartScraperHandler {
                                    .map(String::trim) // Xóa khoảng trắng ở đầu và cuối
                                    .filter(line -> !line.isEmpty()) // Loại bỏ dòng trống
                                    .collect(Collectors.toList());
+        System.out.println(lines.size());
         return lines;
     }
 
@@ -29,7 +30,7 @@ public class StartScraperHandler {
             @Override
             protected Void call() {
                 try {
-                    if(filter().isEmpty()) return null;
+                    if(filter().size() == 0) return null;
                     TwitterScraperController.main(filter().toArray(new String[0]));
 
                     Platform.runLater(() -> {

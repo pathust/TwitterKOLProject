@@ -109,10 +109,6 @@ public class DisplayView {
         binding();
     }
 
-    public void initialize() {
-
-    }
-
     public void startKOL() {
         display.startKOL();
     }
