@@ -31,7 +31,7 @@ public class UserDataExtractor extends DataExtractor<User> implements Extractor<
         catch (Exception e) {
             return null;
         }
-    };
+    }
 
     @Override
     protected WebElement nextCell(WebElement userCell) {
@@ -87,28 +87,40 @@ public class UserDataExtractor extends DataExtractor<User> implements Extractor<
 
     private String extractUserName(String parentXPath) {
         String xpathExpression = parentXPath + "//div[last()]//a//span";
-        boolean success = false;
-        while (!success) {
+        int maxRetries = 3;
+        int attempt = 0;
+
+        while (attempt < maxRetries) {
             try {
                 WebElement userNameElement = wait.until(presenceOfElementLocated(By.xpath(xpathExpression)));
                 return userNameElement.getText();
-            }
-            catch (Exception e) {
-                throw new RuntimeException(e);
+            } catch (Exception e) {
+                attempt++;
+                System.out.println("Retry attempt " + attempt + ": Error extracting username");
+                if (attempt == maxRetries) {
+                    throw new RuntimeException("Failed to extract username after " + maxRetries + " attempts", e);
+                }
             }
         }
+
         return null;
     }
 
     private String extractProfileLink(String parentXPath) {
-        boolean success = false;
-        while (!success) {
+        String xpathExpression = parentXPath + "//div[last()]//a";
+        int maxRetries = 3;
+        int attempt = 0;
+
+        while (attempt < maxRetries) {
             try {
-                String xpathExpression = parentXPath + "//div[last()]//a";
                 WebElement userNameElement = driver.findElement(By.xpath(xpathExpression));
                 return userNameElement.getAttribute("href");
             } catch (Exception e) {
-                throw new RuntimeException(e);
+                attempt++;
+                System.out.println("Retry attempt " + attempt + ": Error extracting profile link");
+                if (attempt == maxRetries) {
+                    throw new RuntimeException("Failed to extract profile link after " + maxRetries + " attempts", e);
+                }
             }
         }
         return null;

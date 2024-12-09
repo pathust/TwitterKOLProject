@@ -11,7 +11,7 @@ import scraper.filtering.TwitterFilter;
 import scraper.navigation.Navigator;
 import scraper.navigation.WebNavigator;
 import storage.StorageHandler;
-import utils.ObjectType;
+
 
 import java.io.IOException;
 import java.util.List;
@@ -21,18 +21,15 @@ import static utils.ObjectType.USER;
 
 public class TwitterScraperController {
     private static WebDriver driver;
-    private final Navigator navigator;
     private final Authenticator authenticator;
     private final Filter filter;
     private final ExtractorController extractorController;
     private final StorageHandler storageHandler;
 
     public TwitterScraperController() {
-        System.setProperty(
-                "webdriver.chrome.driver",
-                "/Users/phananhtai/Downloads/chromedriver-mac-arm64/chromedriver");
+        System.setProperty("webdriver.chrome.driver", "D:\\Selenium\\chromedriver-win64\\chromedriver.exe");
         driver = new ChromeDriver();
-        this.navigator = new WebNavigator(driver);
+        Navigator navigator = new WebNavigator(driver);
         this.authenticator = new TwitterAuthenticator(driver, navigator);
         this.filter = new TwitterFilter(driver, navigator);
         this.extractorController = new ExtractorController(driver);
@@ -65,7 +62,8 @@ public class TwitterScraperController {
     public static void main(String[] args) throws IOException, InterruptedException {
         TwitterScraperController controller = new TwitterScraperController();
 
-        controller.login("@21Oop36301","penaldomessy21@gmail.com","123456789@21oop");
+        //controller.login("@21Oop36301","penaldomessy21@gmail.com","123456789@21oop");
+        controller.login("@nhom_8_OOP","nqkien199hy@gmail.com","kien1992005t1chy");
         controller.applyFilter(
                 List.of(args),
                 1000,
@@ -78,6 +76,6 @@ public class TwitterScraperController {
             controller.saveData();
             System.out.println("Haven't completed!");
         }
-        controller.close();
+        close();
     }
 }

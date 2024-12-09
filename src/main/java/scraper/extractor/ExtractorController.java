@@ -62,12 +62,11 @@ public class ExtractorController {
     }
 
     private List<User> extractInitialKOLsTo(String filePath, int maxListSize) throws IOException, InterruptedException {
-        navigator.navigateToSection("user");
-
         List <User> users = userDataExtractor.extractItems(maxListSize, true);
         for (User user : users) {
             storageHandler.add(USER, filePath, user);
         }
+        storageHandler.save(USER, filePath);
         return users;
     }
 
@@ -75,11 +74,15 @@ public class ExtractorController {
         List <Tweet> tweets = tweetDataExtractor.extractItems(maxListSize, true);
         System.out.println("copy " + tweets.size());
         for (Tweet tweet : tweets) {
+            User user = new User (tweet.getAuthorProfileLink(), tweet.getAuthorUsername());
+            storageHandler.add(USER, "KOLs", user);
             System.out.println(tweet.getTweetLink());
             storageHandler.add(TWEET, filePath, tweet);
             System.out.println("done " + tweet.getTweetLink());
         }
         System.out.println(tweets.size());
+        storageHandler.save(USER, filePath);
+        storageHandler.save(TWEET, filePath);
         return tweets;
     }
 
@@ -113,21 +116,20 @@ public class ExtractorController {
     public void extractData() throws IOException, InterruptedException {
         // Extract data from tweets
         System.out.println("Extracting data... from tweet");
-        List<Tweet> tweets = extractInitialTweetsTo("Tweet", 100);
+        //List<Tweet> tweets = extractInitialTweetsTo("Tweet", 100);
+        List<Tweet> tweets = extractInitialTweetsTo("Tweet", 10);
 
         System.out.println(tweets.size());
         navigator.navigateToSection("user");
 
         // Extract data from users
-        List<User> users = extractInitialKOLsTo("KOLs", 1000);
-
-        for(Tweet tweet: tweets){
-            User user = new User (tweet.getAuthorProfileLink(), tweet.getAuthorUsername());
-            storageHandler.add(USER, "KOLs", user);
-        }
+        //List<User> users = extractInitialKOLsTo("KOLs", 1000);
+        List<User> users = extractInitialKOLsTo("KOLs", 10);
 
         // Scrape data
-        scrapeUsersData(users, 20);
-        scrapeTweetsData(tweets, 10);
+        //scrapeUsersData(users, 20);
+        //scrapeTweetsData(tweets, 10);
+        scrapeUsersData(users, 3);
+        scrapeTweetsData(tweets, 3);
     }
 }

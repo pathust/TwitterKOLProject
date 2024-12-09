@@ -2,7 +2,6 @@ package scraper.extractor;
 
 import model.Tweet;
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import scraper.navigation.Navigator;
@@ -34,7 +33,7 @@ public class TweetDataExtractor extends DataExtractor<Tweet> implements Extracto
             }
         }
         return null;
-    };
+    }
 
     @Override
     protected WebElement nextCell(WebElement tweetCell) {
@@ -106,59 +105,78 @@ public class TweetDataExtractor extends DataExtractor<Tweet> implements Extracto
     }
 
     private String extractAuthorUsername(String parentXPath) {
-        boolean success = false;
-        while (!success) {
+        int maxRetries = 3;
+        int attempt = 0;
+
+        while (attempt < maxRetries) {
             try {
                 String xpathExpression = parentXPath + "//div[@data-testid='User-Name']/div[1]";
                 return driver.findElement(By.xpath(xpathExpression)).getText();
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
+                attempt++;
                 navigator.wait(2000);
-                System.out.println("error extracting author username");
+                System.out.println("Error extracting author name, attempt " + attempt);
             }
         }
+
+        System.out.println("Failed to extract author name after " + maxRetries + " attempts.");
         return null;
     }
 
     private String extractAuthorProfileLink(String parentXPath) {
-        boolean success = false;
-        while (!success) {
+        int maxRetries = 3;
+        int attempt = 0;
+
+        while (attempt < maxRetries) {
             try {
                 String xpathExpression = parentXPath + "//div[@data-testid='User-Name']/div[1]//a";
                 return driver.findElement(By.xpath(xpathExpression)).getAttribute("href");
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
+                attempt++;
                 navigator.wait(2000);
-                System.out.println("error extracting author profile link");
+                System.out.println("Error extracting author profile link, attempt " + attempt);
             }
         }
+
+        System.out.println("Failed to extract author profile link after " + maxRetries + " attempts.");
         return null;
     }
 
     private String extractTweetLink(String parentXPath) {
-        boolean success = false;
-        while (!success) {
+        int maxRetries = 3;
+        int attempt = 0;
+
+        while (attempt < maxRetries) {
             try {
                 String xpathExpression = parentXPath + "//a[contains(@href, 'status')]";
                 return driver.findElement(By.xpath(xpathExpression)).getAttribute("href");
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
+                attempt++;
                 navigator.wait(2000);
-                System.out.println("error extracting tweet link");
+                System.out.println("Error extracting tweet link, attempt " + attempt);
             }
         }
+
+        System.out.println("Failed to extract tweet link after " + maxRetries + " attempts.");
         return null;
     }
 
     private String extractContent(String parentXPath) {
-        try {
-            String xpathExpression = parentXPath + "//div[@data-testid='tweetText']";
-            return driver.findElement(By.xpath(xpathExpression)).getText();
+        int maxRetries = 3;
+        int attempt = 0;
+
+        while (attempt < maxRetries) {
+            try {
+                String xpathExpression = parentXPath + "//div[@data-testid='tweetText']";
+                return driver.findElement(By.xpath(xpathExpression)).getText();
+            } catch (Exception e) {
+                attempt++;
+                navigator.wait(2000);
+                System.out.println("Error extracting content, attempt " + attempt);
+            }
         }
-        catch (Exception e) {
-            navigator.wait(2000);
-            System.out.println("error extracting tweet content");
-        }
+
+        System.out.println("Failed to extract content after " + maxRetries + " attempts.");
         return null;
     }
 
