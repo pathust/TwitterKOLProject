@@ -2,12 +2,15 @@ package scraper.extractor;
 
 import model.Tweet;
 import org.openqa.selenium.By;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import scraper.navigation.Navigator;
 import storage.StorageHandler;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import static java.lang.System.*;
 import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
@@ -56,25 +59,59 @@ public class TweetDataExtractor extends DataExtractor<Tweet> implements Extracto
 
     @Override
     protected Tweet extractItem(String filePath, String xpathExpression, boolean addToStorage) throws IOException {
-        System.out.println("extract item...");
-        String authorUsername = extractAuthorUsername(xpathExpression);
-        String authorProfileLink = extractAuthorProfileLink(xpathExpression);
-        String tweetLink = extractTweetLink(xpathExpression);
-        String content = extractContent(xpathExpression);
+        int tweetType = checkTweet(xpathExpression);
+        System.out.println(tweetType);
+        //3 trường tương tác đều có chung xpath
         int commentCount = extractCount(xpathExpression, "reply");
-        int repostCount = extractCount(xpathExpression,"retweet");
-        int likeCount = extractCount(xpathExpression,"like");
+        int repostCount = extractCount(xpathExpression, "retweet");
+        int likeCount = extractCount(xpathExpression, "like");
+        //Tweet thường và reposted giống nhau, chỉ khác là reposted thêm repostlist
+        if(tweetType != 3) {
+            System.out.println("extract item...");
+            String authorUsername = extractAuthorUsername(xpathExpression);
+            String authorProfileLink = extractAuthorProfileLink(xpathExpression);
+            String tweetLink = extractTweetLink(xpathExpression);
+            String content = extractContent(xpathExpression);
 
-        System.out.println("author: " + authorUsername);
-        Tweet tweet = new Tweet(tweetLink, authorProfileLink, repostCount);
-        tweet.setAuthorUsername(authorUsername);
-        tweet.setContent(content);
-        tweet.setCommentCount(commentCount);
-        tweet.setLikeCount(likeCount);
 
-        if (addToStorage)
-            storageHandler.add(TWEET, filePath, tweet);
-        return tweet;
+            System.out.println("author: " + authorUsername);
+            Tweet tweet = new Tweet(tweetLink, authorProfileLink, repostCount);
+            tweet.setAuthorUsername(authorUsername);
+            tweet.setContent(content);
+            tweet.setCommentCount(commentCount);
+            tweet.setLikeCount(likeCount);
+            if (addToStorage)
+                storageHandler.add(TWEET, filePath, tweet);
+            return tweet;
+        }//Quote
+        else{
+            String newXPathExpression = xpathExpression + "//div[div//span[contains(text(), 'Quote')]]//span[not(*)]";
+            System.out.println("extract item...");
+            String authorUsername = extractAuthorUsername(newXPathExpression);
+            String quoteProfileLink = extractAuthorProfileLink(xpathExpression);
+            String authorProfileLink = extractAuthorProfileLink(newXPathExpression);
+            String tweetLink = extractTweetLink(newXPathExpression);
+            //String content = extractContent(xpathExpression + "//div[contains(@aria-labelledby, 'id')]");
+            String content = extractContent(newXPathExpression);
+
+            System.out.println("author: " + authorUsername);
+            Tweet tweet = new Tweet(tweetLink, authorProfileLink, repostCount);
+            tweet.setAuthorUsername(authorUsername);
+            tweet.setContent(content);
+            tweet.setCommentCount(commentCount);
+            tweet.setLikeCount(likeCount);
+
+            //Có trường hợp quote lại bài của chính mình
+            if (!tweet.getAuthorProfileLink().equals(quoteProfileLink)) {
+                List<String> repostList = new ArrayList<>();
+                repostList.add(quoteProfileLink);
+                tweet.setRepostList(repostList);
+            }
+
+            if (addToStorage)
+                storageHandler.add(TWEET, filePath, tweet);
+            return tweet;
+        }
     }
 
     @Override
@@ -192,6 +229,25 @@ public class TweetDataExtractor extends DataExtractor<Tweet> implements Extracto
         }
         catch (Exception e) {
             return 0;
+        }
+    }
+
+    private boolean elementExist(String xpathExpression) {
+        return !driver.findElements(By.xpath(xpathExpression)).isEmpty();
+    }
+
+
+    private int checkTweet(String parentXpath){
+        String repostedXpath = parentXpath + "//span[contains(text(), 'reposted')]";
+        String quoteXpath = parentXpath + "//span[contains(text(), 'Quote')]";
+        if(elementExist(repostedXpath)){
+            return 2;
+        }
+        else if(elementExist(quoteXpath)){
+            return 3;
+        }
+        else{
+            return 1;
         }
     }
 }
