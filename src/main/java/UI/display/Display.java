@@ -1,13 +1,13 @@
 package UI.display;
 
 import UI.SwitchingScene;
+import UI.table.KOLTableController;
+import UI.table.TableController;
+import UI.table.TweetTableController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import model.Tweet;
@@ -16,7 +16,6 @@ import storage.DataRepository;
 import storage.StorageHandler;
 import utils.ObjectType;
 
-import java.awt.*;
 import java.io.IOException;
 import java.util.List;
 

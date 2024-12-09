@@ -1,4 +1,4 @@
-package UI.display;
+package UI.table;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

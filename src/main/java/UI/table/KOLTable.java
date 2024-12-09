@@ -1,4 +1,4 @@
-package UI.display;
+package UI.table;
 
 import javafx.collections.ObservableList;
 import javafx.scene.control.Hyperlink;
@@ -7,7 +7,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import model.User;
 
-public class KOLTable extends TableCreate{
+public class KOLTable extends TableCreate {
     public TableView<User> createTable(ObservableList<User> data) {
         TableView<User> tableView = new TableView<>();
 

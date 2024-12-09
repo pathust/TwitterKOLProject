@@ -1,4 +1,4 @@
-package UI.display;
+package UI.table;
 
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -6,8 +6,6 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import model.Tweet;
 import model.User;
-
-import java.lang.reflect.Field;
 
 public class Details {
 

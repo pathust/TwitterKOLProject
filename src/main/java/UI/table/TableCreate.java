@@ -1,8 +1,7 @@
-package UI.display;
+package UI.table;
 
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.control.*;
-import model.DataModel;
 
 import java.util.function.Function;
 
