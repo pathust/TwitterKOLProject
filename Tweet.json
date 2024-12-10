@@ -3,12 +3,24 @@
   "authorProfileLink" : "https://x.com/ice_blockchain",
   "tweetLink" : "https://x.com/ice_blockchain/status/1732328789911261223",
   "repostCount" : 1000000,
-  "repostList" : [ "https://x.com/Prodiweb3", "https://x.com/aramamiscrypto", "https://x.com/0xGreensecret", "https://x.com/rayaweb3", "https://x.com/Jerry187741" ]
+  "repostList" : [ ]
+}, {
+  "authorUsername" : "Ice Open Network",
+  "authorProfileLink" : "https://x.com/ice_blockchain",
+  "tweetLink" : "https://x.com/ice_blockchain/status/1748284167337529515",
+  "repostCount" : 793000,
+  "repostList" : [ ]
 }, {
   "authorUsername" : "Ice Open Network",
   "authorProfileLink" : "https://x.com/ice_blockchain",
   "tweetLink" : "https://x.com/ice_blockchain/status/1746835454463283636",
   "repostCount" : 61000,
+  "repostList" : [ ]
+}, {
+  "authorUsername" : "Luca Netz",
+  "authorProfileLink" : "https://x.com/LucaNetz",
+  "tweetLink" : "https://x.com/LucaNetz/status/1706687294109864390",
+  "repostCount" : 1000,
   "repostList" : [ ]
 }, {
   "authorUsername" : "Ice Open Network",
@@ -17,23 +29,161 @@
   "repostCount" : 1000000,
   "repostList" : [ ]
 }, {
-  "authorUsername" : "CZ BNB",
-  "authorProfileLink" : "https://x.com/cz_binance",
-  "tweetLink" : "https://x.com/uniultra_xyz/status/1864288684456980890",
-  "repostCount" : 9000,
+  "authorUsername" : "Leonidas $DOG",
+  "authorProfileLink" : "https://x.com/LeonidasNFT",
+  "tweetLink" : "https://x.com/LeonidasNFT/status/1768278249589608624",
+  "repostCount" : 6000,
   "repostList" : [ ]
 }, {
-  "authorUsername" : "Leonidas $DOG OKX",
-  "authorProfileLink" : "https://x.com/LeonidasNFT",
-  "tweetLink" : "https://x.com/AltcoinDailyio/status/1863299033176965250",
-  "repostCount" : 789,
+  "authorUsername" : "Peter Schiff",
+  "authorProfileLink" : "https://x.com/PeterSchiff",
+  "tweetLink" : "https://x.com/PeterSchiff/status/1856100384873558400",
+  "repostCount" : 1000,
   "repostList" : [ ]
 }, {
   "authorUsername" : "GAIMIN",
   "authorProfileLink" : "https://x.com/GaiminIo",
   "tweetLink" : "https://x.com/GaiminIo/status/1766432308054122968",
+  "repostCount" : 790,
+  "repostList" : [ ]
+}, {
+  "authorUsername" : "Everyworld",
+  "authorProfileLink" : "https://x.com/JoinEveryworld",
+  "tweetLink" : "https://x.com/JoinEveryworld/status/1772113679988703498",
+  "repostCount" : 7000,
+  "repostList" : [ ]
+}, {
+  "authorUsername" : "Richard Heart",
+  "authorProfileLink" : "https://x.com/RichardHeartWin",
+  "tweetLink" : "https://x.com/RichardHeartWin/status/1744858068981268985",
+  "repostCount" : 3000,
+  "repostList" : [ ]
+}, {
+  "authorUsername" : "U2U Network",
+  "authorProfileLink" : "https://x.com/uniultra_xyz",
+  "tweetLink" : "https://x.com/uniultra_xyz/status/1864288684456980890",
   "repostCount" : 118000,
   "repostList" : [ ]
+}, {
+  "authorUsername" : "Everyworld",
+  "authorProfileLink" : "https://x.com/JoinEveryworld",
+  "tweetLink" : "https://x.com/JoinEveryworld/status/1773433285361721782",
+  "repostCount" : 15000,
+  "repostList" : [ ]
+}, {
+  "authorUsername" : "TON",
+  "authorProfileLink" : "https://x.com/ton_blockchain",
+  "tweetLink" : "https://x.com/ton_blockchain/status/1792087800101163338",
+  "repostCount" : 5000,
+  "repostList" : [ ]
+}, {
+  "authorUsername" : "Movement Network Foundation",
+  "authorProfileLink" : "https://x.com/movementfdn",
+  "tweetLink" : "https://x.com/movementfdn/status/1864766883909767636",
+  "repostCount" : 2000,
+  "repostList" : [ ]
+}, {
+  "authorUsername" : "Saakuru Protocol - Empowering Next-Gen Gaming",
+  "authorProfileLink" : "https://x.com/saakuru_labs",
+  "tweetLink" : "https://x.com/saakuru_labs/status/1775534882422157678",
+  "repostCount" : 36000,
+  "repostList" : [ ]
+}, {
+  "authorUsername" : "CZ",
+  "authorProfileLink" : "https://x.com/cz_binance",
+  "tweetLink" : "https://x.com/cz_binance/status/1844392002521276566",
+  "repostCount" : 4000,
+  "repostList" : [ ]
+}, {
+  "authorUsername" : "Saakuru Protocol - Empowering Next-Gen Gaming",
+  "authorProfileLink" : "https://x.com/saakuru_labs",
+  "tweetLink" : "https://x.com/saakuru_labs/status/1795803286366249198",
+  "repostCount" : 12000,
+  "repostList" : [ ]
+}, {
+  "authorUsername" : "John of Blockchain Alpha",
+  "authorProfileLink" : "https://x.com/jofawole",
+  "tweetLink" : "https://x.com/jofawole/status/1790696008357146899",
+  "repostCount" : 23,
+  "repostList" : [ ]
+}, {
+  "authorUsername" : "Dami.base.eth",
+  "authorProfileLink" : "https://x.com/Sir_Damilare",
+  "tweetLink" : "https://x.com/Sir_Damilare/status/1866298332852732402",
+  "repostCount" : 0,
+  "repostList" : [ "https://x.com/jofawole" ]
+}, {
+  "authorUsername" : "John of Blockchain Alpha",
+  "authorProfileLink" : "https://x.com/jofawole",
+  "tweetLink" : "https://x.com/jofawole/status/1866227778040865075",
+  "repostCount" : 0,
+  "repostList" : [ ]
+}, {
+  "authorUsername" : "DappaDan",
+  "authorProfileLink" : "https://x.com/DAppaDanDev",
+  "tweetLink" : "https://x.com/DAppaDanDev/status/1865056787982061695",
+  "repostCount" : 34,
+  "repostList" : [ "https://x.com/jofawole" ]
+}, {
+  "authorUsername" : "John of Blockchain Alpha",
+  "authorProfileLink" : "https://x.com/jofawole",
+  "tweetLink" : "https://x.com/jofawole/status/1775059792479826304",
+  "repostCount" : 5,
+  "repostList" : [ ]
+}, {
+  "authorUsername" : "Cointelegraph",
+  "authorProfileLink" : "https://x.com/Cointelegraph",
+  "tweetLink" : "https://x.com/Cointelegraph/status/1865598856219771029",
+  "repostCount" : 0,
+  "repostList" : [ "https://x.com/jofawole" ]
+}, {
+  "authorUsername" : "Pat Gelsinger",
+  "authorProfileLink" : "https://x.com/PGelsinger",
+  "tweetLink" : "https://x.com/PGelsinger/status/1865806043357331776",
+  "repostCount" : 62,
+  "repostList" : [ "https://x.com/jofawole" ]
+}, {
+  "authorUsername" : "John of Blockchain Alpha",
+  "authorProfileLink" : "https://x.com/jofawole",
+  "tweetLink" : "https://x.com/jofawole/status/1864207913092284830",
+  "repostCount" : 0,
+  "repostList" : [ ]
+}, {
+  "authorUsername" : "Luke Harries",
+  "authorProfileLink" : "https://x.com/LukeHarries_",
+  "tweetLink" : "https://x.com/LukeHarries_/status/1864245258646700351",
+  "repostCount" : 0,
+  "repostList" : [ "https://x.com/jofawole" ]
+}, {
+  "authorUsername" : "John of Blockchain Alpha",
+  "authorProfileLink" : "https://x.com/jofawole",
+  "tweetLink" : "https://x.com/jofawole/status/1864663288476295239",
+  "repostCount" : 0,
+  "repostList" : [ ]
+}, {
+  "authorUsername" : "John of Blockchain Alpha",
+  "authorProfileLink" : "https://x.com/jofawole",
+  "tweetLink" : "https://x.com/jofawole/status/1864217893535154404",
+  "repostCount" : 0,
+  "repostList" : [ ]
+}, {
+  "authorUsername" : "George Whitefield",
+  "authorProfileLink" : "https://x.com/WhitefieldG",
+  "tweetLink" : "https://x.com/WhitefieldG/status/1864142591304061417",
+  "repostCount" : 14,
+  "repostList" : [ "https://x.com/jofawole" ]
+}, {
+  "authorUsername" : "nwankwo.eth (",
+  "authorProfileLink" : "https://x.com/judicodes",
+  "tweetLink" : "https://x.com/judicodes/status/1864083397179572444",
+  "repostCount" : 6,
+  "repostList" : [ "https://x.com/jofawole" ]
+}, {
+  "authorUsername" : "Jeffrey Scholz",
+  "authorProfileLink" : "https://x.com/Jeyffre",
+  "tweetLink" : "https://x.com/Jeyffre/status/1864191239085605073",
+  "repostCount" : 0,
+  "repostList" : [ "https://x.com/jofawole" ]
 }, {
   "authorUsername" : "Mint",
   "authorProfileLink" : "https://x.com/Mint_Blockchain",
@@ -41,40 +191,64 @@
   "repostCount" : 12000,
   "repostList" : [ ]
 }, {
+  "authorUsername" : "Mint Ecosystem",
+  "authorProfileLink" : "https://x.com/Mint_Ecosystem",
+  "tweetLink" : "https://x.com/Mint_Ecosystem/status/1866348196253069565",
+  "repostCount" : 2,
+  "repostList" : [ "https://x.com/Mint_Blockchain" ]
+}, {
+  "authorUsername" : "IFreqs.btc",
+  "authorProfileLink" : "https://x.com/IfreqsYusuf",
+  "tweetLink" : "https://x.com/IfreqsYusuf/status/1866192776578072691",
+  "repostCount" : 35,
+  "repostList" : [ "https://x.com/Mint_Blockchain" ]
+}, {
+  "authorUsername" : "GoPlus Intern",
+  "authorProfileLink" : "https://x.com/AppGoPlus",
+  "tweetLink" : "https://x.com/AppGoPlus/status/1863886955391726044",
+  "repostCount" : 11,
+  "repostList" : [ "https://x.com/Mint_Blockchain" ]
+}, {
+  "authorUsername" : "Mint",
+  "authorProfileLink" : "https://x.com/Mint_Blockchain",
+  "tweetLink" : "https://x.com/Mint_Blockchain/status/1866138538640846930",
+  "repostCount" : 0,
+  "repostList" : [ ]
+}, {
+  "authorUsername" : "Optimism",
+  "authorProfileLink" : "https://x.com/Optimism",
+  "tweetLink" : "https://x.com/Optimism/status/1866095114374045969",
+  "repostCount" : 50,
+  "repostList" : [ "https://x.com/Mint_Blockchain" ]
+}, {
+  "authorUsername" : "Superchain Eco (",
+  "authorProfileLink" : "https://x.com/SuperchainEco",
+  "tweetLink" : "https://x.com/SuperchainEco/status/1865777588930576471",
+  "repostCount" : 2,
+  "repostList" : [ "https://x.com/Mint_Blockchain" ]
+}, {
+  "authorUsername" : "Katerina_Fit",
+  "authorProfileLink" : "https://x.com/rezanceva23",
+  "tweetLink" : "https://x.com/rezanceva23/status/1865736305994555828",
+  "repostCount" : 3,
+  "repostList" : [ "https://x.com/Mint_Blockchain" ]
+}, {
+  "authorUsername" : "LBS Blockchain Society",
+  "authorProfileLink" : "https://x.com/lbsblockchain",
+  "tweetLink" : "https://x.com/lbsblockchain/status/1848652503308505386",
+  "repostCount" : 6,
+  "repostList" : [ ]
+}, {
+  "authorUsername" : "LBS Blockchain Society",
+  "authorProfileLink" : "https://x.com/lbsblockchain",
+  "tweetLink" : "https://x.com/lbsblockchain/status/1862452133406093549",
+  "repostCount" : 4,
+  "repostList" : [ ]
+}, {
   "authorUsername" : "Solana",
   "authorProfileLink" : "https://x.com/solana",
   "tweetLink" : "https://x.com/solana/status/1865799989663805464",
-  "repostCount" : 316,
-  "repostList" : [ ]
-}, {
-  "authorUsername" : "Chiliz - The Sports Blockchain",
-  "authorProfileLink" : "https://x.com/Chiliz",
-  "tweetLink" : "https://x.com/Chiliz/status/1866075417905619168",
-  "repostCount" : 57,
-  "repostList" : [ ]
-}, {
-  "authorUsername" : "Chiliz - The Sports Blockchain",
-  "authorProfileLink" : "https://x.com/Chiliz",
-  "tweetLink" : "https://x.com/Chiliz/status/1866135916324225495",
-  "repostCount" : 34,
-  "repostList" : [ ]
-}, {
-  "authorUsername" : "Chiliz - The Sports Blockchain",
-  "authorProfileLink" : "https://x.com/Chiliz",
-  "tweetLink" : "https://x.com/Chiliz/status/1866135929238470668",
-  "repostCount" : 1,
-  "repostList" : [ ]
-}, {
-  "authorUsername" : "Chiliz - The Sports Blockchain",
-  "authorProfileLink" : "https://x.com/Chiliz",
-  "tweetLink" : "https://x.com/Chiliz/status/1866121805599248771",
-  "repostCount" : 14,
-  "repostList" : [ ]
-}, {
-  "authorUsername" : "Chiliz - The Sports Blockchain",
-  "authorProfileLink" : "https://x.com/Chiliz",
-  "tweetLink" : "https://x.com/Chiliz/status/1866121818517729729",
-  "repostCount" : 6,
+  "repostCount" : 363,
   "repostList" : [ ]
 }, {
   "authorUsername" : "Partisia Blockchain",
@@ -83,9 +257,201 @@
   "repostCount" : 111,
   "repostList" : [ ]
 }, {
-  "authorUsername" : "Partisia Blockchain",
-  "authorProfileLink" : "https://x.com/partisiampc",
-  "tweetLink" : "https://x.com/partisiampc/status/1866181133412466883",
-  "repostCount" : 81,
+  "authorUsername" : "Professor Crypto",
+  "authorProfileLink" : "https://x.com/profcryptotalks",
+  "tweetLink" : "https://x.com/profcryptotalks/status/1866169022477140455",
+  "repostCount" : 19,
+  "repostList" : [ "https://x.com/partisiampc" ]
+}, {
+  "authorUsername" : "Chiliz - The Sports Blockchain",
+  "authorProfileLink" : "https://x.com/Chiliz",
+  "tweetLink" : "https://x.com/Chiliz/status/1866075417905619168",
+  "repostCount" : 63,
+  "repostList" : [ ]
+}, {
+  "authorUsername" : "Chiliz - The Sports Blockchain",
+  "authorProfileLink" : "https://x.com/Chiliz",
+  "tweetLink" : "https://x.com/Chiliz/status/1866135916324225495",
+  "repostCount" : 41,
+  "repostList" : [ ]
+}, {
+  "authorUsername" : "Cardano Community",
+  "authorProfileLink" : "https://x.com/Cardano",
+  "tweetLink" : "https://x.com/Cardano/status/1866173510441447683",
+  "repostCount" : 48,
+  "repostList" : [ ]
+}, {
+  "authorUsername" : "Cardano Community",
+  "authorProfileLink" : "https://x.com/Cardano",
+  "tweetLink" : "https://x.com/Cardano/status/1866234290847039744",
+  "repostCount" : 21,
+  "repostList" : [ ]
+}, {
+  "authorUsername" : "TON Society",
+  "authorProfileLink" : "https://x.com/ton_society",
+  "tweetLink" : "https://x.com/ton_society/status/1828446248841441467",
+  "repostCount" : 9000,
+  "repostList" : [ "https://x.com/ton_blockchain" ]
+}, {
+  "authorUsername" : "TON",
+  "authorProfileLink" : "https://x.com/ton_blockchain",
+  "tweetLink" : "https://x.com/ton_blockchain/status/1866392412790104189",
+  "repostCount" : 10,
+  "repostList" : [ ]
+}, {
+  "authorUsername" : "TON",
+  "authorProfileLink" : "https://x.com/ton_blockchain",
+  "tweetLink" : "https://x.com/ton_blockchain/status/1866267765667197048",
+  "repostCount" : 31,
+  "repostList" : [ ]
+}, {
+  "authorUsername" : "Ledger",
+  "authorProfileLink" : "https://x.com/Ledger",
+  "tweetLink" : "https://x.com/Ledger/status/1863592326909579595",
+  "repostCount" : 66,
+  "repostList" : [ "https://x.com/ton_blockchain" ]
+}, {
+  "authorUsername" : "TON",
+  "authorProfileLink" : "https://x.com/ton_blockchain",
+  "tweetLink" : "https://x.com/ton_blockchain/status/1866152669787635774",
+  "repostCount" : 102,
+  "repostList" : [ ]
+}, {
+  "authorUsername" : "TON",
+  "authorProfileLink" : "https://x.com/ton_blockchain",
+  "tweetLink" : "https://x.com/ton_blockchain/status/1866041083421176061",
+  "repostCount" : 178,
+  "repostList" : [ ]
+}, {
+  "authorUsername" : "Vlad Degen",
+  "authorProfileLink" : "https://x.com/VladDegen",
+  "tweetLink" : "https://x.com/VladDegen/status/1864393195142172867",
+  "repostCount" : 87,
+  "repostList" : [ "https://x.com/ton_blockchain" ]
+}, {
+  "authorUsername" : "Neo Smart Economy",
+  "authorProfileLink" : "https://x.com/Neo_Blockchain",
+  "tweetLink" : "https://x.com/Neo_Blockchain/status/1852173787170508960",
+  "repostCount" : 52,
+  "repostList" : [ ]
+}, {
+  "authorUsername" : "Neo Smart Economy JAPAN",
+  "authorProfileLink" : "https://x.com/NeoWorldJapan",
+  "tweetLink" : "https://x.com/NeoWorldJapan/status/1866315023339098471",
+  "repostCount" : 2,
+  "repostList" : [ "https://x.com/Neo_Blockchain" ]
+}, {
+  "authorUsername" : "Neo Smart Economy",
+  "authorProfileLink" : "https://x.com/Neo_Blockchain",
+  "tweetLink" : "https://x.com/Neo_Blockchain/status/1865025820525498731",
+  "repostCount" : 6,
+  "repostList" : [ ]
+}, {
+  "authorUsername" : "Neo Akıllı Ekonomi",
+  "authorProfileLink" : "https://x.com/Neo_Turkish",
+  "tweetLink" : "https://x.com/Neo_Turkish/status/1865018417448677462",
+  "repostCount" : 38,
+  "repostList" : [ "https://x.com/Neo_Blockchain" ]
+}, {
+  "authorUsername" : "COZ",
+  "authorProfileLink" : "https://x.com/coz_official",
+  "tweetLink" : "https://x.com/coz_official/status/1864656077733732821",
+  "repostCount" : 38,
+  "repostList" : [ "https://x.com/Neo_Blockchain" ]
+}, {
+  "authorUsername" : "Neo Smart Economy",
+  "authorProfileLink" : "https://x.com/Neo_Blockchain",
+  "tweetLink" : "https://x.com/Neo_Blockchain/status/1864251621800333322",
+  "repostCount" : 19,
+  "repostList" : [ ]
+}, {
+  "authorUsername" : "Neo Smart Economy",
+  "authorProfileLink" : "https://x.com/Neo_Blockchain",
+  "tweetLink" : "https://x.com/Neo_Blockchain/status/1864580473089085814",
+  "repostCount" : 62,
+  "repostList" : [ ]
+}, {
+  "authorUsername" : "Neo Smart Economy",
+  "authorProfileLink" : "https://x.com/Neo_Blockchain",
+  "tweetLink" : "https://x.com/Neo_Blockchain/status/1864251634341302492",
+  "repostCount" : 4,
+  "repostList" : [ ]
+}, {
+  "authorUsername" : "Neo Smart Economy",
+  "authorProfileLink" : "https://x.com/Neo_Blockchain",
+  "tweetLink" : "https://x.com/Neo_Blockchain/status/1864251637944177059",
+  "repostCount" : 2,
+  "repostList" : [ ]
+}, {
+  "authorUsername" : "Neo Smart Economy",
+  "authorProfileLink" : "https://x.com/Neo_Blockchain",
+  "tweetLink" : "https://x.com/Neo_Blockchain/status/1864233191642718319",
+  "repostCount" : 49,
+  "repostList" : [ ]
+}, {
+  "authorUsername" : "Neo Smart Economy",
+  "authorProfileLink" : "https://x.com/Neo_Blockchain",
+  "tweetLink" : "https://x.com/Neo_Blockchain/status/1863873796039663773",
+  "repostCount" : 42,
+  "repostList" : [ ]
+}, {
+  "authorUsername" : "Neo Smart Economy",
+  "authorProfileLink" : "https://x.com/Neo_Blockchain",
+  "tweetLink" : "https://x.com/Neo_Blockchain/status/1863874328867336338",
+  "repostCount" : 3,
+  "repostList" : [ ]
+}, {
+  "authorUsername" : "Neo Smart Economy",
+  "authorProfileLink" : "https://x.com/Neo_Blockchain",
+  "tweetLink" : "https://x.com/Neo_Blockchain/status/1863855698829824333",
+  "repostCount" : 32,
+  "repostList" : [ ]
+}, {
+  "authorUsername" : "Neo Smart Economy",
+  "authorProfileLink" : "https://x.com/Neo_Blockchain",
+  "tweetLink" : "https://x.com/Neo_Blockchain/status/1863840592360272044",
+  "repostCount" : 36,
+  "repostList" : [ ]
+}, {
+  "authorUsername" : "Flow (",
+  "authorProfileLink" : "https://x.com/flow_blockchain",
+  "tweetLink" : "https://x.com/flow_blockchain/status/1846676590614515898",
+  "repostCount" : 55,
+  "repostList" : [ ]
+}, {
+  "authorUsername" : "Kahuna",
+  "authorProfileLink" : "https://x.com/kahunahq",
+  "tweetLink" : "https://x.com/kahunahq/status/1864714092625432589",
+  "repostCount" : 9,
+  "repostList" : [ "https://x.com/flow_blockchain" ]
+}, {
+  "authorUsername" : "Oasys | Blockchain for Games",
+  "authorProfileLink" : "https://x.com/oasys_games",
+  "tweetLink" : "https://x.com/oasys_games/status/1758083736124731738",
+  "repostCount" : 640,
+  "repostList" : [ ]
+}, {
+  "authorUsername" : "Oasys | Blockchain for Games",
+  "authorProfileLink" : "https://x.com/oasys_games",
+  "tweetLink" : "https://x.com/oasys_games/status/1865051035632308632",
+  "repostCount" : 13,
+  "repostList" : [ ]
+}, {
+  "authorUsername" : "Dallas Cowboys",
+  "authorProfileLink" : "https://x.com/dallascowboys",
+  "tweetLink" : "https://x.com/dallascowboys/status/1866259023634280607",
+  "repostCount" : 1,
+  "repostList" : [ "https://x.com/blockchain" ]
+}, {
+  "authorUsername" : "Ice Open Network",
+  "authorProfileLink" : "https://x.com/ice_blockchain",
+  "tweetLink" : "https://x.com/ice_blockchain/status/1851635909508153844",
+  "repostCount" : 128000,
+  "repostList" : [ ]
+}, {
+  "authorUsername" : "Ice Open Network",
+  "authorProfileLink" : "https://x.com/ice_blockchain",
+  "tweetLink" : "https://x.com/ice_blockchain/status/1865698086565343573",
+  "repostCount" : 303,
   "repostList" : [ ]
 } ]

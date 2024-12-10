@@ -1,6 +1,10 @@
 package scraper;
 
 import UI.waiting.WaitingScene;
+import graph.Graph;
+import graph.GraphFactory;
+import graph.PagerankCalculator;
+import model.DataModel;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import scraper.authentication.Authenticator;
@@ -15,6 +19,7 @@ import storage.StorageHandler;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -46,7 +51,7 @@ public class TwitterScraperController {
 //        this.storageHandler.load(USER, "KOLs");
 //        this.storageHandler.load(TWEET, "Tweets");
 
-        System.out.println("loaded");
+//        System.out.println("loaded");
 
         this.scheduler = Executors.newScheduledThreadPool(1);
         schedulePeriodicSave();
@@ -71,20 +76,18 @@ public class TwitterScraperController {
     }
 
     public void saveData() throws IOException {
-        this.storageHandler.save(USER, "KOLs");
-        this.storageHandler.save(TWEET, "Tweet");
+        storageHandler.save(USER, "KOLs");
+        storageHandler.save(TWEET, "Tweet");
     }
 
     public void schedulePeriodicSave() {
         scheduler.scheduleAtFixedRate(() -> {
             try {
-                System.out.println("Periodic save started...");
                 saveData();
-                System.out.println("Periodic save completed.");
             } catch (IOException e) {
                 System.err.println("Error during periodic save: " + e.getMessage());
             }
-        }, 5, 5, TimeUnit.SECONDS); // Delay lần đầu là 30s, lặp lại mỗi 30s
+        }, 10, 10, TimeUnit.SECONDS);
     }
 
     public void stopScheduler() {
@@ -111,24 +114,39 @@ public class TwitterScraperController {
                 250);
 
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-            try {
-                System.out.println("Saving data before exiting...");
-                controller.saveData();
-                controller.stopScheduler(); // Dừng scheduler khi chương trình kết thúc
-                System.out.println("Data saved successfully.");
-            } catch (IOException e) {
-                System.err.println("Error saving data: " + e.getMessage());
-            }
+            System.out.println("Saving data before exiting...");
+            controller.stopScheduler(); // Dừng scheduler khi chương trình kết thúc
+            System.out.println("Data saved successfully.");
         }));
 
         try {
             controller.extractData();
         }
         catch (Exception e) {
-            System.out.println("Haven't completed!");
+            e.printStackTrace();
         }
 
-        controller.saveData();
+        List<DataModel> userList = controller.storageHandler.getAll(USER, "KOLs")
+                .stream()
+                .filter(Objects::nonNull)
+                .map(item -> (DataModel) item)
+                .toList();
+        List<DataModel> tweetList = controller.storageHandler.getAll(TWEET, "Tweet")
+                .stream()
+                .filter(Objects::nonNull)
+                .map(item -> (DataModel) item)
+                .toList();
+
+        Graph graph = GraphFactory.createGraph(userList, tweetList);
+        PagerankCalculator.calculatePageRank(graph, 100);
+
+        for (DataModel user : userList) {
+            System.out.println(user.getUniqueKey() + ": " + user.getPagerankScore());
+        }
+        for (DataModel tweet : tweetList) {
+            System.out.println(tweet.getUniqueKey() + ": " + tweet.getPagerankScore());
+        }
+
         close();
     }
 }

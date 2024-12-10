@@ -20,14 +20,12 @@ public class TemporaryStorage{
     }
 
     public void add(String key){
-        System.out.println("Size before added in TemporaryStorage: " + temporaryState.getItemUniqueKeys().size());
-        this.temporaryState.addItemUniqueKey(key);
-        System.out.println("Size after added in TemporaryStorage: " + temporaryState.getItemUniqueKeys().size());
+        if (!temporaryState.isExist(key)) {
+            temporaryState.addItemUniqueKey(key);
+        }
     }
 
     public void save(String filePath) {
-        System.out.println("Saving temporary state to " + filePath);
-        System.out.println("Temporary state size is " + temporaryState.getItemUniqueKeys().size());
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             int i = 0;
             writer.write("Processed:" + temporaryState.getLastSavedIndex());
@@ -37,7 +35,6 @@ public class TemporaryStorage{
                 writer.write(tag + ":" + key);
                 writer.newLine();
             }
-            System.out.println("Saved " + temporaryState.getItemUniqueKeys().size() + " items to " + filePath);
         }
         catch (IOException e) {
             e.printStackTrace();
@@ -57,7 +54,6 @@ public class TemporaryStorage{
 
             if ((line = reader.readLine()) != null && line.startsWith("Processed:")) {
                 int lastSavedIndex = Integer.parseInt(line.split(":")[1]);
-                System.out.println("Last saved index is " + lastSavedIndex);
                 state.setLastSavedIndex(lastSavedIndex);
                 state.setCurrentIndex(lastSavedIndex);
             }
@@ -65,14 +61,12 @@ public class TemporaryStorage{
             while ((line = reader.readLine()) != null) {
                 if (line.startsWith("SAVED") || line.startsWith("UNSAVED")) {
                     String key = line.split(":", 2)[1];
-                    String tag = line.split(":", 2)[0];
-                    System.out.println("Key: " + key + " Tag: " + tag);
                     state.addItemUniqueKey(key);
                 }
             }
         }
 
-        this.temporaryState = state;
+        temporaryState = state;
     }
 
     public void clearTemporaryStorage(String filePath) throws IOException {
@@ -83,15 +77,14 @@ public class TemporaryStorage{
     }
 
     public void setProcessed() {
-        this.temporaryState.setCurrentIndex(temporaryState.getCurrentIndex() + 1);
+        temporaryState.setCurrentIndex(temporaryState.getCurrentIndex() + 1);
     }
 
     public List<String> getUnprocessedItemUniqueKeys() {
-        List<String> itemUniqueKeys = temporaryState.getItemUniqueKeys();
-        System.out.println("itemUniqueKeys size: " + itemUniqueKeys.size());
-        System.out.println("current index: " + temporaryState.getCurrentIndex());
-        itemUniqueKeys = itemUniqueKeys.subList(temporaryState.getCurrentIndex(), itemUniqueKeys.size() - 1);
-        System.out.println(itemUniqueKeys.size());
+        List<String> itemUniqueKeys = new ArrayList<>();
+        List<String> keys = temporaryState.getItemUniqueKeys();
+        for (int i = temporaryState.getCurrentIndex(); i < keys.size(); i++)
+            itemUniqueKeys.add(keys.get(i));
         return itemUniqueKeys;
     }
 }

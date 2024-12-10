@@ -7,9 +7,9 @@ import java.io.IOException;
 import java.util.List;
 
 public class GraphFactory {
-    public static final double followWeight = 1.0;
-    public static final double postWeight = 1.0;
-    public static final double repostWeight = 1.0;
+    public static final double followWeight = 0.4;
+    public static final double postWeight = 0.3;
+    public static final double repostWeight = 0.6;
 
     private static final GraphNodeStorage graphNodeStorage = new GraphNodeStorage();
 

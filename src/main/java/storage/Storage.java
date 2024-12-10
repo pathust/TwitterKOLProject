@@ -25,26 +25,23 @@ public class Storage<T extends DataModel> {
     }
 
     public void load(String filePath) throws IOException {
-        this.mainStorage.load(filePath + ".json");
-        this.temporaryStorage.load(filePath + ".txt");
+        mainStorage.load(filePath + ".json");
+        temporaryStorage.load(filePath + ".txt");
     }
 
     public void save(String filePath) throws IOException {
-        System.out.println(filePath);
-        this.mainStorage.save(filePath + ".json");
-        this.temporaryStorage.save(filePath + ".txt");
+        mainStorage.save(filePath + ".json");
+        temporaryStorage.save(filePath + ".txt");
     }
 
     public void add(T item) {
-        System.out.println("add " + item.getUniqueKey());
-        this.mainStorage.add(item);
-        this.temporaryStorage.add(item.getUniqueKey());
-        System.out.println(this.temporaryStorage.getTemporaryState().getItemUniqueKeys().size());
+        mainStorage.add(item);
+        temporaryStorage.add(item.getUniqueKey());
     }
 
     public void transferToMainStorage(T item) {
-        this.mainStorage.add(item);
-        this.temporaryStorage.setProcessed();
+        mainStorage.add(item);
+        temporaryStorage.setProcessed();
     }
 
     public boolean exists(String identifier) {

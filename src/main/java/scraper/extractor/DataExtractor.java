@@ -46,14 +46,15 @@ public abstract class DataExtractor<T extends DataModel> {
                 break;
             }
 
-            System.out.println("Retrieving " + counter);
+//            System.out.println("Retrieving " + counter);
 
             navigator.scrollToElement(currentCell);
-            System.out.println("Scrolled to " + counter);
+//            System.out.println("Scrolled to " + counter);
             String xpathExpression = getXPath(driver, currentCell);
             T newItem = extractItem(filePath, xpathExpression, addToStorage);
-            System.out.println("Retrieved " + counter);
-            items.add(newItem);
+//            System.out.println("Retrieved " + counter);
+            if (newItem != null)
+                items.add(newItem);
 
             previousCell = currentCell;
         } while (++counter <= maxListSize);

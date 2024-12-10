@@ -33,19 +33,15 @@ public class ExtractorController {
 
     public void scrapeUsersData(String filePath, int maxTweetListSize) {
         List<String> links = storageHandler.getUnprocessedItemUniqueKeys(USER, filePath);
-        System.out.println("Scraping " + links.size() + " unique items from " + filePath);
-
-        for (String profileLink : storageHandler.getUnprocessedItemUniqueKeys(USER, filePath)) {
+        for (String profileLink : links) {
             if (profileLink == null) {
                 continue;
             }
-            System.out.println(profileLink);
             Platform.runLater(() -> WaitingScene.updateStatus("Collecting " + profileLink));
 
             driver.get(profileLink);
             try {
                 extractTweetsFromProfileLink("Tweet", profileLink, maxTweetListSize);
-                System.out.println("Finished extracting tweets");
             }
             catch (Exception e) {
                System.out.println("Error: " + e.getMessage());
@@ -53,7 +49,6 @@ public class ExtractorController {
 
             try {
                 userDataExtractor.extractData(filePath, profileLink);
-                System.out.println("Finished extracting user data");
             }
             catch (Exception e) {
                 System.out.println("Error: " + e.getMessage());;
@@ -62,12 +57,10 @@ public class ExtractorController {
             try {
                 User user = (User) storageHandler.get(USER, filePath, profileLink);
                 storageHandler.transferToMainStorage(USER, filePath, user);
-                System.out.println("Finished transfer user data");
             }
             catch (Exception e) {
                 System.out.println("Error: " + e.getMessage());;
             }
-
         }
     }
 
@@ -127,8 +120,8 @@ public class ExtractorController {
         extractInitialKOLsTo("KOLs", 50);
 
         // Scrape data
-
         scrapeUsersData("KOLs", 20);
+        System.out.println("Scraping tweets");
         scrapeTweetsData("Tweet", 10);
     }
 }

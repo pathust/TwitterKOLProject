@@ -23,7 +23,7 @@ public class UserDataExtractor extends DataExtractor<User> implements Extractor<
 
     @Override
     protected WebElement getFirstCell() {
-        System.out.println("first uCell");
+//        System.out.println("first uCell");
         for (int i = 0; i < 3; i++) {
             try {
                 String xpathExpression = "//button[@data-testid='UserCell']";
@@ -80,7 +80,7 @@ public class UserDataExtractor extends DataExtractor<User> implements Extractor<
 
         int knownFollowersCount = extractKnownFollowersCount();
         navigator.navigateToSection("followers_you_follow");
-        List<User> followersList = extractItems(filePath, knownFollowersCount, false);
+        List<User> followersList = extractItems(filePath, knownFollowersCount, true);
         System.out.println("Number of followers: " + followersList.size());
         List<String> followersLinks = new ArrayList<>();
         for (User follower : followersList) {
@@ -91,6 +91,7 @@ public class UserDataExtractor extends DataExtractor<User> implements Extractor<
         user.setFollowersCount(toInt(followersCount));
         user.setFollowingCount(toInt(followingCount));
         user.setFollowersList(followersLinks);
+        System.out.println("Number of followers: " + user.getFollowersCount());
         storageHandler.add(USER, "KOLs", user);
     }
 
@@ -139,15 +140,18 @@ public class UserDataExtractor extends DataExtractor<User> implements Extractor<
 
     private int extractKnownFollowersCount() {
         String xpathExpression = "//div[contains(text(),'Followed by')]";
-        try {
-            WebElement knownFollowersDiv = driver.findElement(By.xpath(xpathExpression));
-            xpathExpression += "/span";
-            int res = driver.findElements(By.xpath(xpathExpression)).size();
-            res += getLastInt(knownFollowersDiv.getText());
-            return res;
+        for (int i = 0; i < 3; ++i) {
+            try {
+                WebElement knownFollowersDiv = driver.findElement(By.xpath(xpathExpression));
+                xpathExpression += "/span";
+                int res = driver.findElements(By.xpath(xpathExpression)).size();
+                res += getLastInt(knownFollowersDiv.getText());
+                return res;
+            }
+            catch (Exception e) {
+                navigator.wait(2000);
+            }
         }
-        catch (Exception e) {
-            return 0;
-        }
+        return 0;
     }
 }
