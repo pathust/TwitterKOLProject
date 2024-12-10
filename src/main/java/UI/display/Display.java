@@ -1,15 +1,7 @@
 package UI.display;
 
 import UI.SwitchingScene;
-import UI.table.KOLTableController;
-import UI.table.TableController;
-import UI.table.TweetTableController;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -21,8 +13,6 @@ import utils.ObjectType;
 
 import java.io.IOException;
 import java.util.List;
-
-import static utils.ObjectType.USER;
 
 // Class để quản lý giao diện và hiển thị bảng
 public class Display {
