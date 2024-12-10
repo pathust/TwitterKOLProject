@@ -17,5 +17,7 @@ public interface Navigator {
 
     void scrollBy(int pixels);
 
-    String getLink(WebElement element);
+    String getLink(String xpathExpression);
+
+    String getText(String xpathExpression);
 }
