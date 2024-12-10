@@ -19,6 +19,7 @@ public class Filter {
         // Create a FilteredList for the given data
         FilteredList<T> filteredData = new FilteredList<>(masterData, p -> true);
 
+        searchField.setPromptText("Search here");
         // Add a listener to filter data when the search text changes
         searchField.textProperty().addListener((observable, oldValue, newValue) -> {
             filteredData.setPredicate(item -> {
