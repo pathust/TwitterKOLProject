@@ -12,15 +12,16 @@ public class TweetTableController extends TableController<Tweet> {
     @Override
     protected TableView<Tweet> createTable(ObservableList<Tweet> data) {
         TweetTable tweetTable = new TweetTable();
-        return tweetTable.createTable(data);
+        return tweetTable.createTable(data);  // Sử dụng TweetTable để tạo bảng
     }
 
     @Override
     protected void showDetails(Tweet tweet) {
         Details details = new Details();
-        details.showDetails(tweet); // Hiển thị thông tin chi tiết của Tweet
+        details.showDetails(tweet);  // Hiển thị chi tiết của Tweet
     }
 
+    // Tạo bảng với bộ lọc và thuộc tính cần lọc
     public VBox getTable(List<Tweet> tweetsList) {
         return super.getTable(tweetsList, Tweet::getAuthorUsername, Tweet::getTweetLink, Tweet::getAuthorProfileLink);
     }

@@ -1,47 +1,36 @@
 package UI.table;
 
 import javafx.collections.ObservableList;
-import javafx.scene.control.Hyperlink;
-import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import model.User;
 
-public class KOLTable extends TableCreate {
-    public TableView<User> createTable(ObservableList<User> data) {
-        TableView<User> tableView = new TableView<>();
+import java.util.ArrayList;
+import java.util.List;
 
-        // Tạo các cột bằng hàm chung
-        TableColumn<User, String> usernameCol = createColumn("Username", User::getUsername);
+public class KOLTable extends Table<User> {
 
-        TableColumn<User, String> profileLinkCol = createColumn("Profile Link", User::getProfileLink);
-        profileLinkCol.setCellFactory(col -> new TableCell<>() {
-            @Override
-            protected void updateItem(String item, boolean empty) {
-                super.updateItem(item, empty);
-                if (empty || item == null) {
-                    setGraphic(null);
-                } else {
-                    Hyperlink link = new Hyperlink("Link");
-                    link.setOnAction(e -> {
-                        try {
-                            java.awt.Desktop.getDesktop().browse(new java.net.URI(item));
-                        } catch (Exception ex) {
-                            ex.printStackTrace();
-                        }
-                    });
-                    setGraphic(link);
-                }
-            }
-        });
+    @Override
+    protected List<TableColumn<User, ?>> getColumns() {
+        List<TableColumn<User, ?>> columns = new ArrayList<>();
 
-        TableColumn<User, Integer> followingCountCol = createColumn("Following Count", User::getFollowingCount);
-        TableColumn<User, Integer> followersCountCol = createColumn("Followers Count", User::getFollowersCount);
+        // Cột Username
+        TableColumn<User, String> usernameCol = createColumn("Username", "username");
 
-        // Thêm các cột vào bảng
-        tableView.getColumns().addAll(usernameCol, profileLinkCol, followingCountCol, followersCountCol);
-        tableView.setItems(data);
+        // Cột Profile Link (dùng LinkCellFactory để xử lý các liên kết)
+        TableColumn<User, String> profileLinkCol = createColumn("Profile Link", "profileLink");
+        LinkCellFactory.applyLinkToColumn(profileLinkCol);
 
-        return tableView;
+        // Cột Following Count
+        TableColumn<User, Integer> followingCountCol = createColumn("Following Count", "followingCount");
+
+        // Cột Followers Count
+        TableColumn<User, Integer> followersCountCol = createColumn("Followers Count", "followersCount");
+
+        columns.add(usernameCol);
+        columns.add(profileLinkCol);
+        columns.add(followingCountCol);
+        columns.add(followersCountCol);
+
+        return columns;
     }
 }
