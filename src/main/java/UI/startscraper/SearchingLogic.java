@@ -2,6 +2,7 @@ package UI.startscraper;
 
 import UI.SwitchingScene;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
@@ -24,6 +25,7 @@ public class SearchingLogic {
     public void createMoreTextField(VBox search, Button addButton) {
         if(array.size() == 5) return ;
         HBox hBox = new HBox();
+        search.setSpacing(10);
         hBox.prefWidthProperty().bind(search.widthProperty());
         hBox.prefHeightProperty().bind(search.heightProperty().multiply(0.15));
         hBox.spacingProperty().bind(search.widthProperty().multiply(0.1));
@@ -33,6 +35,7 @@ public class SearchingLogic {
         textField.prefHeightProperty().bind(hBox.heightProperty());
 
         Button xButton = new Button("X");
+        xButton.setStyle("-fx-font-size: 20;-fx-background-color: #FFE4E1;");
         xButton.prefHeightProperty().bind(hBox.heightProperty());
         xButton.prefWidthProperty().bind(hBox.widthProperty().multiply(0.1));
 
@@ -68,7 +71,6 @@ public class SearchingLogic {
         StringBuilder text = new StringBuilder();
 
         for (TextField tf : arrayText) {
-//            System.out.println(tf.getText());
             String txt = tf.getText();
             if(txt.isEmpty()) continue;
             text.append(txt);
@@ -80,7 +82,7 @@ public class SearchingLogic {
     }
 
     public void clickResumeButton() {
-        startScraperHandler.startCrawl(true,"");
+        startScraperHandler.startCrawl(true,"resume");
     }
 
     public void clickAddButton(VBox search, Button addButton) {
@@ -95,16 +97,28 @@ public class SearchingLogic {
         switchingScene.switchToDisplayKOL();
     }
 
-    public SearchingLogic(Stage primaryStage, SwitchingScene switching, Parent rootPane) {
+    private void setUpScene() {
+        stage.setResizable(false);
+    }
+
+    public SearchingLogic(Stage primaryStage, SwitchingScene switching) {
         stage = primaryStage;
         switchingScene = switching;
-        root = rootPane;
 
         array = new ArrayList<>();
         arrayText = new ArrayList<>();
 
         startScraperHandler = new StartScraperHandler(switchingScene);
+
+        setUpScene();
     }
 
+    public void start(Scene scene) {
+        stage.setScene(scene);
+        stage.show();
+    }
 
+    public void close() {
+        stage.close();
+    }
 }

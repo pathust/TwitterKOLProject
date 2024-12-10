@@ -1,4 +1,4 @@
-Processed:237
+Processed:243
 SAVED:https://x.com/krakenfx
 SAVED:https://x.com/Bitcoin
 SAVED:https://x.com/ethereumJoseph
@@ -236,12 +236,12 @@ SAVED:https://x.com/defipulse
 SAVED:https://x.com/DubaiBlockNet
 SAVED:https://x.com/pStakeFinance
 SAVED:https://x.com/WhiteWhaleDefi
-UNSAVED:https://x.com/saitamadiamonds
-UNSAVED:https://x.com/fractal_bitcoin
-UNSAVED:https://x.com/Bitcoinhabebe
-UNSAVED:https://x.com/BVMnetwork
-UNSAVED:https://x.com/ethereumreport
-UNSAVED:https://x.com/BitcoinPierre
+SAVED:https://x.com/saitamadiamonds
+SAVED:https://x.com/fractal_bitcoin
+SAVED:https://x.com/Bitcoinhabebe
+SAVED:https://x.com/BVMnetwork
+SAVED:https://x.com/ethereumreport
+SAVED:https://x.com/BitcoinPierre
 UNSAVED:https://x.com/DrDeFiHoldings
 UNSAVED:https://x.com/defidotapp
 UNSAVED:https://x.com/BlockchainToast

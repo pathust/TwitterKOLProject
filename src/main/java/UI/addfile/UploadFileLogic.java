@@ -1,6 +1,7 @@
 package UI.addfile;
 
 import UI.SwitchingScene;
+import javafx.scene.Scene;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -35,10 +36,20 @@ public class UploadFileLogic {
         switchingScene.switchToDisplayTweet();
     }
 
+    public void start(Scene scene) {
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    private void setUpScene() {
+        stage.setResizable(false);
+    }
+
     public UploadFileLogic(Stage primaryStage, SwitchingScene switching) {
         stage = primaryStage;
         switchingScene = switching;
 
         addFileHandler = new AddFileHandler(stage);
+        setUpScene();
     }
 }

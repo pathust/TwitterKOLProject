@@ -17,16 +17,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorPane" prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #FFF0F5;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.display.DisplayView">
+<AnchorPane fx:id="anchorPane" prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: linear-gradient(to bottom right, #6495ED, #DA70D6);" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.display.DisplayView">
     <stylesheets>
         <URL value="@button.css" />
     </stylesheets>
     <children>
-      <ImageView fx:id="background" fitHeight="600.0" fitWidth="900.0">
-         <image>
-            <Image url="@images/back.png" />
-         </image>
-      </ImageView>
 <!--               <fx:include source="/menu.fxml" />-->
         <VBox fx:id="menu" prefHeight="600.0" prefWidth="183.0" spacing="10.0" style="-fx-background-color: #FFD1DC; -fx-border-color: linear-gradient(to right, #FFB6C1, #DA70D6); -fx-border-width: 0 3px 0 0;">
             <children>
@@ -48,7 +43,7 @@
             </padding>
         </VBox>
         <VBox fx:id="table" layoutX="190.0" layoutY="139.0" prefHeight="460.0" prefWidth="704.0" />
-      <ChoiceBox fx:id="choiceBox" layoutX="190.0" layoutY="106.0" prefWidth="150.0" />
+      <ChoiceBox fx:id="choiceBox" layoutX="190.0" layoutY="106.0" prefWidth="150.0" styleClass="squareButton" />
       <HBox alignment="CENTER" layoutX="181.0" prefHeight="100.0" prefWidth="719.0">
          <children>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="KOL Search List">

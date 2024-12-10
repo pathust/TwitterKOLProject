@@ -107,14 +107,13 @@ public class TwitterScraperController {
 
         controller.login("@21Oop36301","penaldomessy21@gmail.com","123456789@21oop");
 //        controller.login("@nhom_8_OOP","nqkien199hy@gmail.com","kien1992005t1chy");
-//        System.out.println(controller.isResume);
-//        if (!controller.isResume) {
-//            controller.applyFilter(
-//                    List.of(args),
-//                    1000,
-//                    1000,
-//                    250);
-//        }
+        if (!controller.isResume) {
+            controller.applyFilter(
+                    List.of(args),
+                    1000,
+                    1000,
+                    250);
+        }
 
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             System.out.println("Saving data before exiting...");
@@ -122,34 +121,11 @@ public class TwitterScraperController {
             System.out.println("Data saved successfully.");
         }));
 
-//        try {
-//            controller.extractData();
-//        }
-//        catch (Exception e) {
-//            e.printStackTrace();
-//        }
-
-        List<DataModel> userList = controller.storageHandler.getAll(USER, "KOLs")
-                .stream()
-                .filter(Objects::nonNull)
-                .map(item -> (DataModel) item)
-                .toList();
-        List<DataModel> tweetList = controller.storageHandler.getAll(TWEET, "Tweet")
-                .stream()
-                .filter(Objects::nonNull)
-                .map(item -> (DataModel) item)
-                .toList();
-
-        Graph graph = GraphFactory.createGraph(userList, tweetList);
-        PagerankCalculator.calculatePageRank(graph, 100);
-
-//        System.out.println("userListSize: " + userList.size());
-
-        for (DataModel user : userList) {
-            System.out.println(user.getUniqueKey() + ": " + user.getPagerankScore());
+        try {
+            controller.extractData();
         }
-        for (DataModel tweet : tweetList) {
-            System.out.println(tweet.getUniqueKey() + ": " + tweet.getPagerankScore());
+        catch (Exception e) {
+            e.printStackTrace();
         }
 
         close();
