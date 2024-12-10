@@ -17,8 +17,9 @@ public class TweetMainStorage extends MainStorage<Tweet> {
         String tweetLink = itemNode.get("tweetLink").asText();
         int repostCount = itemNode.get("repostCount").asInt();
 
-        Tweet tweet = new Tweet(tweetLink, authorProfileLink, repostCount);
+        Tweet tweet = new Tweet(tweetLink, authorProfileLink);
         tweet.setAuthorUsername(authorUsername);
+        tweet.setRepostCount(repostCount);
         tweet.setRepostList(getRepostLinks(itemNode));
         return tweet;
     }

@@ -86,11 +86,12 @@ public class TweetDataExtractor extends DataExtractor<Tweet> implements Extracto
         String content = extractContent(xpathExpression);
 
         System.out.println("author: " + authorUsername);
-        Tweet tweet = new Tweet(tweetLink, authorProfileLink, repostCount);
+        Tweet tweet = new Tweet(tweetLink, authorProfileLink);
         tweet.setAuthorUsername(authorUsername);
         tweet.setContent(content);
         tweet.setCommentCount(commentCount);
         tweet.setLikeCount(likeCount);
+        tweet.setRepostCount(repostCount);
 
         if (repostLink != null && !tweet.getAuthorProfileLink().equals(repostLink)) {
             List<String> repostList = new ArrayList<>();

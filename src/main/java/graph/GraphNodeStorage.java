@@ -19,4 +19,8 @@ public class GraphNodeStorage {
     public DataModel getNode(String uniqueKey) {
         return graphNodeMap.get(uniqueKey);
     }
+
+    public boolean containsNode(String uniqueKey) {
+        return graphNodeMap.containsKey(uniqueKey);
+    }
 }

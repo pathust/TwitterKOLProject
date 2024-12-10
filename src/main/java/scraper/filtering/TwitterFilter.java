@@ -71,7 +71,7 @@ public class TwitterFilter implements Filter {
     private void fillAdvancedSearchForm(String wordsKey, int minReplies, int minLikes, int minReposts) {
         try {
 
-            navigator.fillingFieldBySpan("All of these words", wordsKey);
+            navigator.fillingFieldBySpan("Any of these words", wordsKey);
             navigator.fillingFieldBySpan("Minimum replies", String.valueOf(minReplies));
             navigator.fillingFieldBySpan("Minimum Likes", String.valueOf(minLikes));
             navigator.fillingFieldBySpan("Minimum reposts", String.valueOf(minReposts));

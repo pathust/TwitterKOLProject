@@ -40,7 +40,7 @@ public class TwitterScraperController {
     public TwitterScraperController(boolean resume) throws IOException {
         System.setProperty(
                 "webdriver.chrome.driver",
-                "D:\\Dowload\\chromedriver-win64\\chromedriver-win64/chromedriver.exe");
+                "/Users/phananhtai/Downloads/chromedriver-mac-arm64/chromedriver");
         driver = new ChromeDriver();
         this.navigator = new WebNavigator(driver);
         this.authenticator = new TwitterAuthenticator(driver, navigator);
@@ -50,7 +50,7 @@ public class TwitterScraperController {
         this.isResume = resume;
         if (isResume) {
             this.storageHandler.load(USER, "KOLs");
-            this.storageHandler.load(TWEET, "Tweets");
+            this.storageHandler.load(TWEET, "Tweet");
         }
 
         this.scheduler = Executors.newScheduledThreadPool(1);
@@ -107,13 +107,14 @@ public class TwitterScraperController {
 
         controller.login("@21Oop36301","penaldomessy21@gmail.com","123456789@21oop");
 //        controller.login("@nhom_8_OOP","nqkien199hy@gmail.com","kien1992005t1chy");
-        if (!controller.isResume) {
-            controller.applyFilter(
-                    List.of(args),
-                    1000,
-                    1000,
-                    250);
-        }
+//        System.out.println(controller.isResume);
+//        if (!controller.isResume) {
+//            controller.applyFilter(
+//                    List.of(args),
+//                    1000,
+//                    1000,
+//                    250);
+//        }
 
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             System.out.println("Saving data before exiting...");
@@ -121,12 +122,12 @@ public class TwitterScraperController {
             System.out.println("Data saved successfully.");
         }));
 
-        try {
-            controller.extractData();
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
+//        try {
+//            controller.extractData();
+//        }
+//        catch (Exception e) {
+//            e.printStackTrace();
+//        }
 
         List<DataModel> userList = controller.storageHandler.getAll(USER, "KOLs")
                 .stream()
@@ -141,6 +142,8 @@ public class TwitterScraperController {
 
         Graph graph = GraphFactory.createGraph(userList, tweetList);
         PagerankCalculator.calculatePageRank(graph, 100);
+
+//        System.out.println("userListSize: " + userList.size());
 
         for (DataModel user : userList) {
             System.out.println(user.getUniqueKey() + ": " + user.getPagerankScore());

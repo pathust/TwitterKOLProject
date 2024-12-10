@@ -17,10 +17,9 @@ public class Tweet extends DataModel{
     private List<String> repostList;
     //private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
-    public Tweet(String tweetLink, String authorProfileLink,  int repostCount) {
+    public Tweet(String tweetLink, String authorProfileLink) {
         this.tweetLink = tweetLink;
         this.authorProfileLink = authorProfileLink;
-        this.repostCount= repostCount;
         repostList = new ArrayList<>();
     }
 
