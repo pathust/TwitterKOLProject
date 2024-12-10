@@ -2,6 +2,7 @@ package UI.startscraper;
 
 import UI.SwitchingScene;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
@@ -95,10 +96,9 @@ public class SearchingLogic {
         switchingScene.switchToDisplayKOL();
     }
 
-    public SearchingLogic(Stage primaryStage, SwitchingScene switching, Parent rootPane) {
+    public SearchingLogic(Stage primaryStage, SwitchingScene switching) {
         stage = primaryStage;
         switchingScene = switching;
-        root = rootPane;
 
         array = new ArrayList<>();
         arrayText = new ArrayList<>();
@@ -106,5 +106,12 @@ public class SearchingLogic {
         startScraperHandler = new StartScraperHandler(switchingScene);
     }
 
+    public void start(Scene scene) {
+        stage.setScene(scene);
+        stage.show();
+    }
 
+    public void close() {
+        stage.close();
+    }
 }

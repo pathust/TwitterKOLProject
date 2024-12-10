@@ -16,8 +16,6 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class UploadFile{
-    private Stage stage;
-    private SwitchingScene switchingScene;
     private Scene scene;
     private UploadFileLogic uploadFileLogic;
 
@@ -31,58 +29,7 @@ public class UploadFile{
     private AnchorPane anchorPane;
     private ImageView background;
 
-//    void binding() {
-//        menu.prefWidthProperty().bind(anchorPane.widthProperty().multiply(0.2));
-//        menu.prefHeightProperty().bind(anchorPane.heightProperty());
-//
-//        background.fitWidthProperty().bind(anchorPane.widthProperty());
-//        background.fitHeightProperty().bind(anchorPane.heightProperty());
-//
-//        crawl.prefWidthProperty().bind(menu.widthProperty());
-//        upload.prefWidthProperty().bind(menu.widthProperty());
-//        staticData.prefWidthProperty().bind(menu.widthProperty());
-//
-//        stage.widthProperty().addListener((obs, oldWidth, newWidth) -> {
-//            vBox.setLayoutX(newWidth.doubleValue() * 0.3);
-//            vBox.setPrefWidth(newWidth.doubleValue() * 0.5);
-//            System.out.println("1");
-//        });
-//
-//        stage.heightProperty().addListener((obs, oldHeight, newHeight) -> {
-//            vBox.setLayoutY(newHeight.doubleValue() * 0.5);
-//            vBox.setSpacing(newHeight.doubleValue() * 0.1);
-//        });
-//
-//        hBox1.prefHeightProperty().bind(vBox.widthProperty());
-//        hBox1.prefHeightProperty().bind(vBox.heightProperty().multiply(0.45));
-//        hBox1.spacingProperty().bind(vBox.widthProperty().multiply(0.01));
-//
-//        textField.prefWidthProperty().bind(hBox1.widthProperty().multiply(0.7));
-//        textField.prefHeightProperty().bind(hBox1.heightProperty());
-//
-//        chooseFile.setWrapText(true);
-//        chooseFile.prefWidthProperty().bind(hBox1.widthProperty().multiply(0.29));
-//        chooseFile.prefHeightProperty().bind(hBox1.heightProperty());
-//
-//        hBox2.prefHeightProperty().bind(vBox.widthProperty());
-//        hBox2.prefHeightProperty().bind(vBox.heightProperty().multiply(0.45));
-//        hBox2.spacingProperty().bind(vBox.widthProperty().multiply(0.2));
-//
-//        kol.setWrapText(true);
-//        kol.prefWidthProperty().bind(hBox2.widthProperty().multiply(0.3));
-//        kol.prefHeightProperty().bind(hBox2.heightProperty());
-//
-//        tweet.setWrapText(true);
-//        tweet.prefWidthProperty().bind(hBox2.widthProperty().multiply(0.3));
-//        tweet.prefHeightProperty().bind(hBox2.heightProperty());
-//    }
-
-    public UploadFile(){}
-
-    public UploadFile(Stage primaryStage, SwitchingScene switching) {
-        stage = primaryStage;
-        switchingScene = switching;
-
+    void extractElement() {
         loader = new FXMLLoader(getClass().getResource("/uploadFile.fxml"));
         Parent root = null;
         try {
@@ -106,10 +53,11 @@ public class UploadFile{
         menu = (VBox) loader.getNamespace().get("menu");
         anchorPane = (AnchorPane) loader.getNamespace().get("AnchorPane");
 
-        textField.setText("No json file selected");
-//        binding();
+        scene = new Scene(root);
+    }
 
-        uploadFileLogic = new UploadFileLogic(stage, switchingScene);
+    private void addEventHandler() {
+        textField.setText("No json file selected");
 
         chooseFile.setOnAction(event -> {
             uploadFileLogic.clickChooseFile(textField);
@@ -130,12 +78,18 @@ public class UploadFile{
         staticData.setOnAction(event -> {
             uploadFileLogic.clickStatic();
         });
+    }
 
-        scene = new Scene(root);
+    public UploadFile(){}
+
+    public UploadFile(Stage primaryStage, SwitchingScene switching) {
+        uploadFileLogic = new UploadFileLogic(primaryStage, switching);
+
+        extractElement();
+        addEventHandler();
     }
 
     public void start() {
-        stage.setScene(scene);
-        stage.show();
+        uploadFileLogic.start(scene);
     }
 }

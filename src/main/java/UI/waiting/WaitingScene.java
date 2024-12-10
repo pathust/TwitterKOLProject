@@ -53,9 +53,7 @@ public class WaitingScene {
     private void handleCloseRequest(WindowEvent event) {
         Platform.runLater(() -> {
             this.close();
-//            switchingScene.switchToSearching();
             StartScraperHandler.closeThread();
-//            System.exit(0);
         });
     }
 }

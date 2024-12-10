@@ -15,10 +15,8 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class DisplayView {
-    private Stage stage;
-    private SwitchingScene switchingScene;
     private Display display;
-
+    private Scene scene;
     @FXML
     private Button crawl, upload, staticData;
     @FXML
@@ -32,22 +30,7 @@ public class DisplayView {
     @FXML
     private ChoiceBox<String> choiceBox;
 
-    public DisplayView() {}
-
-    void binding() {
-        choiceBox.getItems().addAll("KOL Table","Tweet Table");
-        choiceBox.setValue("KOL Table");
-
-        choiceBox.setOnAction(event -> display.clickChoiceBox(choiceBox));
-
-        crawl.setOnAction(event -> display.clickCrawl());
-        upload.setOnAction(event -> display.clickUpload());
-    }
-
-    public DisplayView(Stage primaryStage, SwitchingScene switching) {
-        stage = primaryStage;
-        switchingScene = switching;
-
+    private void extractElement() {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/display.fxml"));
         root = null;
         try {
@@ -66,16 +49,33 @@ public class DisplayView {
         staticData = (Button) loader.getNamespace().get("staticData");
         choiceBox =(ChoiceBox<String>) loader.getNamespace().get("choiceBox");
 
-        display = new Display(stage, switchingScene, root);
+        scene = new Scene(root);
+    }
+
+    void binding() {
+        choiceBox.getItems().addAll("KOL Table","Tweet Table");
+        choiceBox.setValue("KOL Table");
+
+        choiceBox.setOnAction(event -> display.clickChoiceBox(choiceBox));
+
+        crawl.setOnAction(event -> display.clickCrawl());
+        upload.setOnAction(event -> display.clickUpload());
+    }
+
+    public DisplayView() {}
+
+    public DisplayView(Stage primaryStage, SwitchingScene switchingScene) {
+        extractElement();
+        display = new Display(primaryStage, switchingScene);
 
         binding();
     }
 
     public void startKOL() {
-        display.startKOL(table);
+        display.startKOL(table, scene);
     }
 
     public void startTweet() {
-        display.startTweet(table);
+        display.startTweet(table, scene);
     }
 }

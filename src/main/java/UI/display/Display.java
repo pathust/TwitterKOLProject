@@ -1,12 +1,17 @@
 package UI.display;
 
 import UI.SwitchingScene;
+import UI.table.KOLTableController;
+import UI.table.TableController;
+import UI.table.TweetTableController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import model.Tweet;
@@ -24,11 +29,8 @@ public class Display {
     private static final Object T = null;
     private Stage stage;
     private SwitchingScene switchingScene;
-    private Scene scene;
-    private FXMLLoader loader;
     private TableController kolController;
     private TableController tweetController;
-    private Parent root;
     private StorageHandler storageHandler;
 
     public void clickChoiceBox(ChoiceBox<String> choiceBox) {
@@ -52,16 +54,13 @@ public class Display {
 
     public Display() {}
 
-    public Display(Stage primaryStage, SwitchingScene switching, Parent rootPane) {
+    public Display(Stage primaryStage, SwitchingScene switching) {
         stage = primaryStage;
         switchingScene = switching;
-        root = rootPane;
 
         storageHandler = new StorageHandler();
         kolController = new KOLTableController();
         tweetController = new TweetTableController();
-
-        scene = new Scene(root);
     }
 
     // signal = 0: KOL, = 1: Tweet
@@ -98,7 +97,7 @@ public class Display {
         return list;
     }
 
-    private void addTableToUI(VBox tableZone, int signal) {
+    private <T extends Pane> void addTableToUI(T tableZone, int signal) {
         VBox table = null;
 
         if(signal == 0) {
@@ -107,21 +106,18 @@ public class Display {
             table = tweetController.getTable(readData(Tweet.class, signal));
         }
 
-//
         tableZone.getChildren().clear();
-//
-        tableZone.getChildren().add(table);
 
-        scene.setRoot(root);
+        tableZone.getChildren().add(table);
     }
 
-    public void startKOL(VBox tableZone) {
+    public <T extends Pane> void startKOL(T tableZone, Scene scene) {
         addTableToUI(tableZone,0);
         stage.setScene(scene);
         stage.show();
     }
 
-    public void startTweet(VBox tableZone) {
+    public <T extends Pane> void startTweet(T tableZone, Scene scene) {
         addTableToUI(tableZone,1);
         stage.setScene(scene);
         stage.show();

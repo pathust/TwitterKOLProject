@@ -28,40 +28,32 @@ public class Searching {
     private Button crawl, upload, staticData, addButton, searchButton, resume;
     private ImageView background;
 
-    private void binding() {
-        menu.prefWidthProperty().bind(anchorPane.widthProperty().multiply(0.2));
-        menu.prefHeightProperty().bind(anchorPane.heightProperty());
-        searchField.prefWidthProperty().bind(anchorPane.widthProperty().subtract(menu.widthProperty()));
-        searchField.prefHeightProperty().bind(anchorPane.heightProperty());
+    private void extractElement() {
+        loader = new FXMLLoader(getClass().getResource("/searching.fxml"));
+        Parent root = null;
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            System.out.println("No FIle found");
+            throw new RuntimeException(e);
+        }
 
-        background.fitWidthProperty().bind(anchorPane.widthProperty());
-        background.fitHeightProperty().bind(anchorPane.heightProperty());
+        anchorPane = (AnchorPane) loader.getNamespace().get("anchorPane");
+        menu = (VBox) loader.getNamespace().get("Menu");
+        background = (ImageView) loader.getNamespace().get("Background");
+        search = (VBox)loader.getNamespace().get("Search");
+        addButton = (Button) loader.getNamespace().get("AddButton");
+        searchButton = (Button) loader.getNamespace().get("searchButton");
+        crawl = (Button) loader.getNamespace().get("Crawl");
+        upload = (Button) loader.getNamespace().get("Upload");
+        staticData = (Button) loader.getNamespace().get("Static");
+        searchField = (VBox) loader.getNamespace().get("SearchField");
+        resume = (Button) loader.getNamespace().get("resume");
 
-//        menu.prefWidthProperty().addListener((obs, oldWidth, newWidth) -> {
-//            searchField.setLayoutX(menu.getWidth());
-//            System.out.println(searchField.getLayoutX());
-//        });
-
-        searchField.prefWidthProperty().addListener((obs, oldWidth, newWidth) -> {
-            search.setLayoutX(newWidth.doubleValue()*0.25);
-            search.setPrefWidth(newWidth.doubleValue()*0.6);
-            addButton.setLayoutX(search.getLayoutX());
-            searchButton.setLayoutX((newWidth.doubleValue()-searchButton.getWidth())/2);
-        });
-
-        searchField.prefHeightProperty().addListener((obs, oldHeight, newHeight) -> {
-            search.setLayoutY(newHeight.doubleValue()*0.35);
-            search.setSpacing(newHeight.doubleValue()*0.01);
-//            addButton.setLayoutX(search.getLayoutX());
-            searchButton.setLayoutY(newHeight.doubleValue()*0.8);
-        });
-
-        crawl.prefWidthProperty().bind(menu.widthProperty());
-        upload.prefWidthProperty().bind(menu.widthProperty());
-        staticData.prefWidthProperty().bind(menu.widthProperty());
+        scene = new Scene(root);
     }
 
-    void addEventListener() {
+    private void addEventListener() {
         addButton.setOnAction(event -> searchingLogic.clickAddButton(search, addButton));
         searchButton.setOnAction(event -> searchingLogic.clickSearchButton());
         resume.setOnAction(event -> searchingLogic.clickResumeButton());
@@ -76,41 +68,18 @@ public class Searching {
         stage = primaryStage;
         switchingScene = switching;
 
-        loader = new FXMLLoader(getClass().getResource("/searching.fxml"));
-        Parent root = null;
-        try {
-            root = loader.load();
-        } catch (IOException e) {
-            System.out.println("No FIle found");
-            throw new RuntimeException(e);
-        }
+        searchingLogic = new SearchingLogic(stage, switchingScene);
 
-        searchingLogic = new SearchingLogic(stage, switchingScene, root);
-
-        anchorPane = (AnchorPane) loader.getNamespace().get("anchorPane");
-        menu = (VBox) loader.getNamespace().get("Menu");
-        background = (ImageView) loader.getNamespace().get("Background");
-        search = (VBox)loader.getNamespace().get("Search");
-        addButton = (Button) loader.getNamespace().get("AddButton");
-        searchButton = (Button) loader.getNamespace().get("searchButton");
-        crawl = (Button) loader.getNamespace().get("Crawl");
-        upload = (Button) loader.getNamespace().get("Upload");
-        staticData = (Button) loader.getNamespace().get("Static");
-        searchField = (VBox) loader.getNamespace().get("SearchField");
-        resume = (Button) loader.getNamespace().get("resume");
+        extractElement();
 
         addEventListener();
-        binding();
-
-        scene = new Scene(root);
     }
 
     public void start() {
-        stage.setScene(scene);
-        this.stage.show();
+        searchingLogic.start(scene);
     }
 
     public void close() {
-        this.stage.close();
+        searchingLogic.close();
     }
 }
