@@ -26,36 +26,6 @@ public class Searching {
     private VBox menu, searchField;
     @FXML
     private Button crawl, upload, staticData, addButton, searchButton, resume;
-//    private ImageView background;
-
-
-//    private void binding() {
-//        menu.prefWidthProperty().bind(anchorPane.widthProperty().multiply(0.2));
-//        menu.prefHeightProperty().bind(anchorPane.heightProperty());
-//        searchField.prefWidthProperty().bind(anchorPane.widthProperty().subtract(menu.widthProperty()));
-//        searchField.prefHeightProperty().bind(anchorPane.heightProperty());
-//
-//        background.fitWidthProperty().bind(anchorPane.widthProperty());
-//        background.fitHeightProperty().bind(anchorPane.heightProperty());
-//
-//        searchField.prefWidthProperty().addListener((obs, oldWidth, newWidth) -> {
-//            search.setLayoutX(newWidth.doubleValue()*0.25);
-//            search.setPrefWidth(newWidth.doubleValue()*0.6);
-//            addButton.setLayoutX(search.getLayoutX());
-//            searchButton.setLayoutX((newWidth.doubleValue()-searchButton.getWidth())/2);
-//        });
-//
-//        searchField.prefHeightProperty().addListener((obs, oldHeight, newHeight) -> {
-//            search.setLayoutY(newHeight.doubleValue()*0.35);
-//            search.setSpacing(newHeight.doubleValue()*0.01);
-////            addButton.setLayoutX(search.getLayoutX());
-//            searchButton.setLayoutY(newHeight.doubleValue()*0.8);
-//        });
-//
-//        crawl.prefWidthProperty().bind(menu.widthProperty());
-//        upload.prefWidthProperty().bind(menu.widthProperty());
-//        staticData.prefWidthProperty().bind(menu.widthProperty());
-//    }
 
     void addEventListener() {
         addButton.setOnAction(event -> searchingLogic.clickAddButton(search, addButton));
@@ -72,7 +42,7 @@ public class Searching {
         stage = primaryStage;
         switchingScene = switching;
 
-        loader = new FXMLLoader(getClass().getResource("/searching.fxml"));
+        loader = new FXMLLoader(getClass().getResource("/main/resources/search.fxml"));
         Parent root = null;
         try {
             root = loader.load();
@@ -85,7 +55,6 @@ public class Searching {
 
         anchorPane = (AnchorPane) loader.getNamespace().get("anchorPane");
         menu = (VBox) loader.getNamespace().get("Menu");
-//        background = (ImageView) loader.getNamespace().get("Background");
         search = (VBox)loader.getNamespace().get("Search");
         addButton = (Button) loader.getNamespace().get("AddButton");
         searchButton = (Button) loader.getNamespace().get("searchButton");
@@ -96,7 +65,6 @@ public class Searching {
         resume = (Button) loader.getNamespace().get("resume");
 
         addEventListener();
-//        binding();
 
         scene = new Scene(root);
     }

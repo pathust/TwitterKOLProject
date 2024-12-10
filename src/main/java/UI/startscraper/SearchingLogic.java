@@ -33,6 +33,7 @@ public class SearchingLogic {
         textField.prefHeightProperty().bind(hBox.heightProperty());
 
         Button xButton = new Button("X");
+        xButton.setStyle("-fx-font-size: 20;-fx-background-color: #FFE4E1;");
         xButton.prefHeightProperty().bind(hBox.heightProperty());
         xButton.prefWidthProperty().bind(hBox.widthProperty().multiply(0.1));
 

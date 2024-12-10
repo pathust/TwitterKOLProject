@@ -23,7 +23,7 @@ public class WaitingScene {
         waitingView = new WaitingView();
         Parent root = waitingView.getWaitingLayout();
 
-        waitingScene = new Scene(root, 600,400);
+        waitingScene = new Scene(root, 900,600);
 
         waitingView.getStopButton().setOnAction(event ->{
             Platform.runLater(() -> {
