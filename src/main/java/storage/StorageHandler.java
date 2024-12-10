@@ -3,9 +3,6 @@ package storage;
 import model.DataModel;
 import model.Tweet;
 import model.User;
-import storage.main.TweetMainStorage;
-import storage.main.UserMainStorage;
-import storage.temporary.TemporaryStorage;
 import utils.ObjectType;
 
 import java.io.IOException;
@@ -51,7 +48,6 @@ public class StorageHandler {
 
     public void save(ObjectType type, String filePath) throws IOException {
         StorageManager<DataModel> manager = getStorageManager(type);
-        System.out.println("chosen manager: " + manager);
         manager.save(filePath, getModelClass(type));
     }
 

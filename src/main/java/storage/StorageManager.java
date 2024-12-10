@@ -47,7 +47,6 @@ public abstract class StorageManager<T extends DataModel> {
 
     public void save(String filePath, Class<T> clazz) throws IOException {
         Storage<T> storage = getStorage(filePath, clazz);
-        System.out.println("chosen storage: " + storage.getClass().getName());
         storage.save(filePath);
     }
 

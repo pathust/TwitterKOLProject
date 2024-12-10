@@ -46,9 +46,7 @@ public class TemporaryState {
     }
 
     public void addItemUniqueKey(String key) {
-        System.out.println("size before added in TemporaryState: " + itemUniqueKeys.size());
-        this.itemUniqueKeys.add(key);
-        System.out.println("size after added in TemporaryState: " + itemUniqueKeys.size());
+        itemUniqueKeys.add(key);
     }
 
 }
