@@ -48,13 +48,6 @@ public class ExtractorController {
             }
 
             try {
-                userDataExtractor.extractData(filePath, profileLink);
-            }
-            catch (Exception e) {
-                System.out.println("Error: " + e.getMessage());;
-            }
-
-            try {
                 User user = (User) storageHandler.get(USER, filePath, profileLink);
                 storageHandler.transferToMainStorage(USER, filePath, user);
             }
@@ -111,17 +104,9 @@ public class ExtractorController {
     }
 
     public void extractData(boolean isResume) throws IOException, InterruptedException {
-        // Extract data from tweets
-        if (!isResume) {
-//            extractInitialTweetsTo("Tweet", 1000);
-            navigator.navigateToSection("user");
-//            driver.get("https://x.com/21Oop36301/following");
-            extractInitialKOLsTo("KOLs", 1010);
-        }
-
         // Scrape data
         scrapeUsersData("KOLs", 10);
         System.out.println("Scraping tweets");
-        scrapeTweetsData("Tweet", 20);
+        scrapeTweetsData("Tweet", 30);
     }
 }

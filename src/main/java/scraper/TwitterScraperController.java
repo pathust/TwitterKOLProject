@@ -106,14 +106,6 @@ public class TwitterScraperController {
         TwitterScraperController controller = new TwitterScraperController(resume);
 
         controller.login("@21Oop36301","penaldomessy21@gmail.com","123456789@21oop");
-//        controller.login("@nhom_8_OOP","nqkien199hy@gmail.com","kien1992005t1chy");
-        if (!controller.isResume) {
-            controller.applyFilter(
-                    List.of(args),
-                    1000,
-                    1000,
-                    250);
-        }
 
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             System.out.println("Saving data before exiting...");

@@ -40,6 +40,7 @@ public abstract class DataExtractor<T extends DataModel> {
 
         WebElement previousCell = null, currentCell;
         int counter = 1;
+        int skip = 0;
         do {
             currentCell = nextCell(previousCell);
             if (currentCell == null) {
@@ -53,8 +54,10 @@ public abstract class DataExtractor<T extends DataModel> {
             String xpathExpression = getXPath(driver, currentCell);
             T newItem = extractItem(filePath, xpathExpression, addToStorage);
 //            System.out.println("Retrieved " + counter);
-            if (newItem != null)
+            if (newItem != null) {
                 items.add(newItem);
+                counter -= ((++skip) < 5) ? 1 : 0;
+            }
 
             previousCell = currentCell;
         } while (++counter <= maxListSize);
