@@ -1,5 +1,7 @@
 package model;
 
+import javafx.util.Pair;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +22,11 @@ public class Tweet extends DataModel{
         this.authorProfileLink = authorProfileLink;
         this.repostCount= repostCount;
         repostList = new ArrayList<>();
+    }
+
+    @Override
+    public String getUniqueKey() {
+        return tweetLink;
     }
 
     public int getRepostCount(){

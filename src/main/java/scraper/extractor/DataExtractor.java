@@ -1,10 +1,11 @@
 package scraper.extractor;
 
+import model.DataModel;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import scraper.navigation.Navigator;
-import storage.DataRepository;
+import storage.StorageHandler;
 
 import java.io.IOException;
 import java.time.Duration;
@@ -13,13 +14,13 @@ import java.util.List;
 
 import static utils.XPathExtension.getXPath;
 
-public abstract class DataExtractor<T> {
+public abstract class DataExtractor<T extends DataModel> {
     protected final WebDriver driver;
     protected final WebDriverWait wait;
     protected final Navigator navigator;
-    protected final DataRepository storageHandler;
+    protected final StorageHandler storageHandler;
 
-    public DataExtractor(WebDriver driver, Navigator navigator, DataRepository storageHandler) {
+    public DataExtractor(WebDriver driver, Navigator navigator, StorageHandler storageHandler) {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(5));
         this.navigator = navigator;
@@ -27,32 +28,37 @@ public abstract class DataExtractor<T> {
     }
 
     protected abstract WebElement getFirstCell();
-    protected abstract WebElement nextCell(WebElement currentCell);
-    protected abstract T extractItem(String xpathExpression, boolean addToStorage);
-    protected abstract void Write(T item);
-    public abstract void extractData(String link) throws IOException;
-    public List<T> extractItems(int maxListSize, boolean addToStorage) {
+    protected abstract WebElement nextCell(WebElement currentCell) throws InterruptedException;
+    protected abstract T extractItem(String filePath, String xpathExpression, boolean addToStorage) throws IOException;
+    public abstract void extractData(String filePath, String key) throws IOException, InterruptedException;
+
+    public List<T> extractItems(String filePath, int maxListSize, boolean addToStorage) throws InterruptedException, IOException {
         List<T> items = new ArrayList<>();
         if (maxListSize == 0) {
             return items;
         }
 
-        WebElement currentCell = null;
+        WebElement previousCell = null, currentCell;
         int counter = 1;
         do {
-            currentCell = nextCell(currentCell);
+            currentCell = nextCell(previousCell);
             if (currentCell == null) {
                 break;
             }
-            navigator.scrollToElement(currentCell);
-            String xpathExpression = getXPath(driver, currentCell);
-            System.out.println(xpathExpression);
-            T newItem = extractItem(xpathExpression, addToStorage);
-            System.out.println(counter);
-            Write(newItem);
-            items.add(newItem);
-        } while (++counter <= maxListSize);
 
+//            System.out.println("Retrieving " + counter);
+
+            navigator.scrollToElement(currentCell);
+//            System.out.println("Scrolled to " + counter);
+            String xpathExpression = getXPath(driver, currentCell);
+            T newItem = extractItem(filePath, xpathExpression, addToStorage);
+//            System.out.println("Retrieved " + counter);
+            if (newItem != null)
+                items.add(newItem);
+
+            previousCell = currentCell;
+        } while (++counter <= maxListSize);
+        System.out.println("Retrieved " + items.size() + " items");
         return items;
     }
 }

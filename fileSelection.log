@@ -171,3 +171,11 @@ Dec 08, 2024 1:37:59 AM UI.home.addfile.AddFileHandler openFileDialog
 INFO: User cancelled file selection.
 Dec 09, 2024 1:58:30 AM UI.home.addfile.AddFileHandler openFileDialog
 INFO: User selected file: D:\KOLs.json
+Dec 10, 2024 6:06:34 AM UI.addfile.AddFileHandler openFileDialog
+INFO: User selected file: D:\KOLs.json
+Dec 10, 2024 6:06:36 AM UI.addfile.AddFileHandler copyFile
+INFO: File copied successfully to: D:\GitHub\TwitterKOLProject\KOLs
+Dec 10, 2024 6:06:39 AM UI.addfile.AddFileHandler copyFile
+INFO: File copied successfully to: D:\GitHub\TwitterKOLProject\Tweet
+Dec 10, 2024 8:42:26 PM UI.addfile.AddFileHandler openFileDialog
+INFO: User cancelled file selection.

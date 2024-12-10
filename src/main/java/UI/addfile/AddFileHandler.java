@@ -1,4 +1,4 @@
-package UI.home.addfile;
+package UI.addfile;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 

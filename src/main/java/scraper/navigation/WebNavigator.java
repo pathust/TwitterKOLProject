@@ -38,7 +38,7 @@ public class WebNavigator implements Navigator {
             WebElement button;
             button = driver.findElement(By.xpath(xpathExpression));
 
-            Thread.sleep(1000);
+            wait(1000);
             if (button == null) {
                 System.out.println("Button not found");
             }
@@ -46,7 +46,23 @@ public class WebNavigator implements Navigator {
             button.click();
         }
         catch (Exception e) {
-            System.out.println("Followed");
+
+        }
+    }
+
+//    public void wait(int milliseconds) {
+//        try {
+//            Thread.sleep(milliseconds);
+//        } catch (InterruptedException e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
+
+    public void wait(int milliseconds) {
+        try {
+            Thread.sleep(milliseconds);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -58,9 +74,12 @@ public class WebNavigator implements Navigator {
         field.sendKeys(text);
     }
 
-    public String getLink(WebElement element) {
-        return element.findElement(
-                By.xpath("//a[@role='link']")).getAttribute("href");
+    public String getLink(String xpathExpression) {
+        return driver.findElement(By.xpath(xpathExpression)).getAttribute("href");
+    }
+
+    public String getText(String xpathExpression) {
+        return driver.findElement(By.xpath(xpathExpression)).getText();
     }
 
     public void navigateToSection(String section) {

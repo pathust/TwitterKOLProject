@@ -1,4 +1,4 @@
-package UI.home.startscraper;
+package UI.startscraper;
 
 import UI.SwitchingScene;
 import javafx.application.Platform;
@@ -12,7 +12,6 @@ import java.util.stream.Collectors;
 
 public class StartScraperHandler {
     private static Thread crawler;
-    private Task<Void> scraper;
     private SwitchingScene switchingScene;
     private String text;
 
@@ -21,16 +20,19 @@ public class StartScraperHandler {
                                    .map(String::trim) // Xóa khoảng trắng ở đầu và cuối
                                    .filter(line -> !line.isEmpty()) // Loại bỏ dòng trống
                                    .collect(Collectors.toList());
+        System.out.println(lines.size());
         return lines;
     }
 
-    private void initTask() {
-        scraper = new Task<Void>() {
+    private Task<Void> initTask(boolean resume) {
+        Task<Void> scraper = new Task<Void>() {
             @Override
             protected Void call() {
                 try {
-                    if(filter().isEmpty()) return null;
-                    TwitterScraperController.main(filter().toArray(new String[0]));
+
+                    if(filter().size() == 0) return null;
+
+                    TwitterScraperController.main(resume, filter().toArray(new String[0]));
 
                     Platform.runLater(() -> {
                         switchingScene.closeWaiting();
@@ -44,9 +46,12 @@ public class StartScraperHandler {
                 return null;
             }
         };
+        return scraper;
     }
 
-    public void startCrawl(String searchingText) {
+    public void startCrawl(boolean resume, String searchingText) {
+//        crawler = new Thread(scraper);
+        crawler = new Thread(initTask(resume));
         text = searchingText;
         crawler.start();
         switchingScene.switchToWaiting();
@@ -59,7 +64,5 @@ public class StartScraperHandler {
 
     public StartScraperHandler(SwitchingScene switching) {
         this.switchingScene = switching;
-        initTask();
-        crawler = new Thread(scraper);
     }
 }

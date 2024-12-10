@@ -13,7 +13,11 @@ public interface Navigator {
 
     void navigateToSection(String section);
 
+    void wait(int milliseconds);
+
     void scrollBy(int pixels);
 
-    String getLink(WebElement element);
+    String getLink(String xpathExpression);
+
+    String getText(String xpathExpression);
 }

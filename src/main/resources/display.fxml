@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
@@ -10,37 +17,41 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorPane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #FFF0F5;" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.display.Display">
+<AnchorPane fx:id="anchorPane" prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: linear-gradient(to bottom right, #6495ED, #DA70D6);" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.display.DisplayView">
     <stylesheets>
         <URL value="@button.css" />
     </stylesheets>
     <children>
-      <ImageView fx:id="Background" fitHeight="400.0" fitWidth="621.0" layoutX="104.0">
-         <image>
-            <Image url="@images/STATISTIC.png" />
-         </image>
-      </ImageView>
-        <!--       <fx:include source="/menu.fxml" />-->
-        <VBox fx:id="menu" prefHeight="400.0" prefWidth="105.0" spacing="10.0" style="-fx-background-color: #FFCCCC;">
+<!--               <fx:include source="/menu.fxml" />-->
+        <VBox fx:id="menu" prefHeight="600.0" prefWidth="183.0" spacing="10.0" style="-fx-background-color: #FFD1DC; -fx-border-color: linear-gradient(to right, #FFB6C1, #DA70D6); -fx-border-width: 0 3px 0 0;">
             <children>
-                <Button fx:id="Crawl" mnemonicParsing="false" prefHeight="25.0" prefWidth="111.0" styleClass="squareButton" text="Crawl data">
+                <Button fx:id="crawl" mnemonicParsing="false" prefHeight="49.0" prefWidth="213.0" styleClass="squareButton" text="Crawl data">
                <font>
-                  <Font name="System Bold" size="12.0" />
+                  <Font name="System Bold" size="20.0" />
                </font></Button>
-                <Button fx:id="Upload" mnemonicParsing="false" prefHeight="25.0" prefWidth="107.0" styleClass="squareButton" text="Upload data">
+                <Button fx:id="upload" mnemonicParsing="false" prefHeight="49.0" prefWidth="213.0" styleClass="squareButton" text="Upload data">
                <font>
-                  <Font name="System Bold" size="12.0" />
+                  <Font name="System Bold" size="20.0" />
                </font></Button>
-                <Button fx:id="Static" mnemonicParsing="false" prefHeight="25.0" prefWidth="111.0" styleClass="squareButton" text="Data statistic">
+                <Button fx:id="staticData" mnemonicParsing="false" prefHeight="49.0" prefWidth="213.0" styleClass="squareButton" text="Data statistic">
                <font>
-                  <Font name="System Bold" size="12.0" />
+                  <Font name="System Bold" size="20.0" />
                </font></Button>
             </children>
             <padding>
                 <Insets top="90.0" />
             </padding>
         </VBox>
-        <VBox fx:id="Table" layoutX="137.0" layoutY="165.0" prefHeight="216.0" prefWidth="556.0" />
-      <ChoiceBox fx:id="ChoiceBox" layoutX="137.0" layoutY="134.0" prefWidth="150.0" />
+        <VBox fx:id="table" layoutX="190.0" layoutY="139.0" prefHeight="460.0" prefWidth="704.0" />
+      <ChoiceBox fx:id="choiceBox" layoutX="190.0" layoutY="106.0" prefWidth="150.0" styleClass="squareButton" />
+      <HBox alignment="CENTER" layoutX="181.0" prefHeight="100.0" prefWidth="719.0">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="KOL Search List">
+               <font>
+                  <Font name="System Bold" size="58.0" />
+               </font>
+            </Text>
+         </children>
+      </HBox>
     </children>
 </AnchorPane>

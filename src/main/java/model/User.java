@@ -24,6 +24,11 @@ public class User extends DataModel{
         this.followersList = new ArrayList<>();
     }
 
+    @Override
+    public String getUniqueKey() {
+        return profileLink;
+    }
+
     public List<String> getFollowersList() {
         return followersList;
     }

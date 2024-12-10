@@ -1,7 +1,6 @@
 package scraper;
 
 import model.User;
-import storage.DataRepository;
 import storage.StorageHandler;
 import utils.ObjectType;
 
@@ -10,11 +9,11 @@ import java.util.List;
 
 public class Test {
     public static void main(String[] args) throws IOException {
-        DataRepository storageHandler = new StorageHandler();
+        StorageHandler storageHandler = new StorageHandler();
         System.out.println("Loading");
-        storageHandler.load(ObjectType.USER, "KOLs.json");
+        storageHandler.load(ObjectType.USER, "KOLs");
         System.out.println("Loaded");
-        List<User> users = storageHandler.getAll(ObjectType.USER, "KOLs.json")
+        List<User> users = storageHandler.getAll(ObjectType.USER, "KOLs")
                 .stream()
                 .filter(item -> item instanceof User)
                 .map(item -> (User) item)
