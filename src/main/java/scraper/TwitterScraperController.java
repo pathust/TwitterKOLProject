@@ -37,17 +37,17 @@ public class TwitterScraperController {
     private final ScheduledExecutorService scheduler;
     private final boolean isResume;
 
-    public TwitterScraperController() throws IOException {
+    public TwitterScraperController(boolean resume) throws IOException {
         System.setProperty(
                 "webdriver.chrome.driver",
-                "/Users/phananhtai/Downloads/chromedriver-mac-arm64/chromedriver");
+                "D:\\Dowload\\chromedriver-win64\\chromedriver-win64/chromedriver.exe");
         driver = new ChromeDriver();
         this.navigator = new WebNavigator(driver);
         this.authenticator = new TwitterAuthenticator(driver, navigator);
         this.filter = new TwitterFilter(driver, navigator);
         this.storageHandler = new StorageHandler();
         this.extractorController = new ExtractorController(driver, navigator, storageHandler);
-        this.isResume = true;
+        this.isResume = resume;
         if (isResume) {
             this.storageHandler.load(USER, "KOLs");
             this.storageHandler.load(TWEET, "Tweets");
@@ -102,8 +102,8 @@ public class TwitterScraperController {
         }
     }
 
-    public static void main(String[] args) throws IOException, InterruptedException {
-        TwitterScraperController controller = new TwitterScraperController();
+    public static void main(boolean resume, String[] args) throws IOException, InterruptedException {
+        TwitterScraperController controller = new TwitterScraperController(resume);
 
         controller.login("@21Oop36301","penaldomessy21@gmail.com","123456789@21oop");
 //        controller.login("@nhom_8_OOP","nqkien199hy@gmail.com","kien1992005t1chy");

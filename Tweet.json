@@ -1,1 +1,91 @@
-[ ]
+[ {
+  "authorUsername" : "Drew",
+  "authorProfileLink" : "https://x.com/DMcIntyreWWE",
+  "tweetLink" : "https://x.com/DMcIntyreWWE/status/1777114915678937236",
+  "repostCount" : 34000,
+  "repostList" : [ ]
+}, {
+  "authorUsername" : "kesha",
+  "authorProfileLink" : "https://x.com/KeshaRose",
+  "tweetLink" : "https://x.com/KeshaRose/status/1802827756872384805",
+  "repostCount" : 11000,
+  "repostList" : [ ]
+}, {
+  "authorUsername" : "Wizkid",
+  "authorProfileLink" : "https://x.com/wizkidayo",
+  "tweetLink" : "https://x.com/wizkidayo/status/1804992104092807221",
+  "repostCount" : 14000,
+  "repostList" : [ ]
+}, {
+  "authorUsername" : "gm.ai",
+  "authorProfileLink" : "https://x.com/gm_dot_ai",
+  "tweetLink" : "https://x.com/gm_dot_ai/status/1819452710590226649",
+  "repostCount" : 70000,
+  "repostList" : [ ]
+}, {
+  "authorUsername" : "MrBeast",
+  "authorProfileLink" : "https://x.com/MrBeast",
+  "tweetLink" : "https://x.com/MrBeast/status/1727120642263380102",
+  "repostCount" : 36000,
+  "repostList" : [ ]
+}, {
+  "authorUsername" : "Jon Machota",
+  "authorProfileLink" : "https://x.com/jonmachota",
+  "tweetLink" : "https://x.com/jonmachota/status/1821688036851380536",
+  "repostCount" : 22000,
+  "repostList" : [ "https://x.com/_CeeDeeThree" ]
+}, {
+  "authorUsername" : "50cent",
+  "authorProfileLink" : "https://x.com/50cent",
+  "tweetLink" : "https://x.com/50cent/status/1839752404318720429",
+  "repostCount" : 11000,
+  "repostList" : [ ]
+}, {
+  "authorUsername" : "RiceGum",
+  "authorProfileLink" : "https://x.com/RiceGum",
+  "tweetLink" : "https://x.com/RiceGum/status/1619848776826621954",
+  "repostCount" : 5000,
+  "repostList" : [ ]
+}, {
+  "authorUsername" : "manny",
+  "authorProfileLink" : "https://x.com/mannyfidel",
+  "tweetLink" : "https://x.com/mannyfidel/status/1864712084321141018",
+  "repostCount" : 26000,
+  "repostList" : [ ]
+}, {
+  "authorUsername" : "zerohedge",
+  "authorProfileLink" : "https://x.com/zerohedge",
+  "tweetLink" : "https://x.com/zerohedge/status/1847299654959923256",
+  "repostCount" : 8000,
+  "repostList" : [ ]
+}, {
+  "authorUsername" : "✞ \uD835\uDD6C\uD835\uDD97\uD835\uDD99 ✞",
+  "authorProfileLink" : "https://x.com/art_is_found",
+  "tweetLink" : "https://x.com/art_is_found/status/1830972187354034621",
+  "repostCount" : 5000,
+  "repostList" : [ ]
+}, {
+  "authorUsername" : "Anonymous",
+  "authorProfileLink" : "https://x.com/YourAnonNews",
+  "tweetLink" : "https://x.com/YourAnonNews/status/1830946550002131240",
+  "repostCount" : 44000,
+  "repostList" : [ ]
+}, {
+  "authorUsername" : "Nicole",
+  "authorProfileLink" : "https://x.com/DonaldJTrumpJr",
+  "tweetLink" : "https://x.com/DonaldJTrumpJr/status/1815145902325006345",
+  "repostCount" : 37000,
+  "repostList" : [ ]
+}, {
+  "authorUsername" : "Steph ★✩*",
+  "authorProfileLink" : "https://x.com/n_e_rd",
+  "tweetLink" : "https://x.com/n_e_rd/status/1866271139040731570",
+  "repostCount" : 19000,
+  "repostList" : [ ]
+}, {
+  "authorUsername" : "Steph ★✩*",
+  "authorProfileLink" : "https://x.com/vanguard_pod",
+  "tweetLink" : "https://x.com/vanguard_pod/status/1635749284355211264",
+  "repostCount" : 19000,
+  "repostList" : [ ]
+} ]

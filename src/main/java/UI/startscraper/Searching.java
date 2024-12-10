@@ -25,7 +25,8 @@ public class Searching {
     private AnchorPane anchorPane;
     private VBox menu, searchField;
     @FXML
-    private Button crawl, upload, staticData, addButton, searchButton;
+    private Button crawl, upload, staticData, addButton, searchButton, resume;
+//    private ImageView background;
 
 
 //    private void binding() {
@@ -59,6 +60,7 @@ public class Searching {
     void addEventListener() {
         addButton.setOnAction(event -> searchingLogic.clickAddButton(search, addButton));
         searchButton.setOnAction(event -> searchingLogic.clickSearchButton());
+        resume.setOnAction(event -> searchingLogic.clickResumeButton());
 
         upload.setOnAction(event -> searchingLogic.clickUpload());
         staticData.setOnAction(event -> searchingLogic.clickStaticData());
@@ -91,6 +93,7 @@ public class Searching {
         upload = (Button) loader.getNamespace().get("Upload");
         staticData = (Button) loader.getNamespace().get("Static");
         searchField = (VBox) loader.getNamespace().get("SearchField");
+        resume = (Button) loader.getNamespace().get("resume");
 
         addEventListener();
 //        binding();

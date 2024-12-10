@@ -70,6 +70,8 @@
                            </Text>
                        </children>
                    </HBox>
+                  <Button fx:id="resume" layoutX="386.0" layoutY="340.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="112.0" text="Resume" />
+>>>>>>> 19c994e67536ec21a487a8ac22eac77c01a7c787
                </children>
             </AnchorPane>
          </children>
