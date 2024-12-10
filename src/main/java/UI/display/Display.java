@@ -1,9 +1,9 @@
 package UI.display;
 
 import UI.SwitchingScene;
-import UI.table.KOLTableController;
-import UI.table.TableController;
-import UI.table.TweetTableController;
+import UI.table.controller.KOLTableController;
+import UI.table.controller.TableController;
+import UI.table.controller.TweetTableController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
