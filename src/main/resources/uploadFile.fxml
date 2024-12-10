@@ -24,11 +24,6 @@
       <URL value="@button.css" />
    </stylesheets>
    <children>
-      <ImageView fx:id="background" fitHeight="600.0" fitWidth="901.0">
-         <image>
-            <Image url="@images/back.png" />
-         </image>
-      </ImageView>
 <!--      <fx:include source="/menu.fxml" />-->
             <VBox fx:id="menu" prefHeight="600.0" prefWidth="183.0" spacing="10.0" style="-fx-background-color: #FFD1DC; -fx-border-color: linear-gradient(to right, #FFB6C1, #DA70D6); -fx-border-width: 0 3px 0 0;">
                <children>

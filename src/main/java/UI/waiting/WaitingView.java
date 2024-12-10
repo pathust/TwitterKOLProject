@@ -76,22 +76,22 @@ public class WaitingView {
        waitingLayout.getChildren().addAll(hbox,hbox1,hboxButton);
     }
 
-    void binding() {
-        hbox.prefWidthProperty().bind(waitingLayout.widthProperty().multiply(0.3));
-        hbox.prefHeightProperty().bind(waitingLayout.heightProperty().multiply(0.2));
-
-        hbox1.prefWidthProperty().bind(waitingLayout.heightProperty().multiply(0.3));
-        hbox1.prefHeightProperty().bind(waitingLayout.widthProperty().multiply(0.2));
-        
-        hboxButton.prefWidthProperty().bind(waitingLayout.widthProperty().multiply(0.3));
-        hboxButton.prefHeightProperty().bind(waitingLayout.heightProperty().multiply(0.2));
-        
-        stopButton.prefWidthProperty().bind(hboxButton.widthProperty().multiply(0.3));
-        stopButton.prefHeightProperty().bind(hboxButton.heightProperty().multiply(0.5));
+//    void binding() {
+//        hbox.prefWidthProperty().bind(waitingLayout.widthProperty().multiply(0.3));
+//        hbox.prefHeightProperty().bind(waitingLayout.heightProperty().multiply(0.2));
+//
+//        hbox1.prefWidthProperty().bind(waitingLayout.heightProperty().multiply(0.3));
+//        hbox1.prefHeightProperty().bind(waitingLayout.widthProperty().multiply(0.2));
+//
+//        hboxButton.prefWidthProperty().bind(waitingLayout.widthProperty().multiply(0.3));
+//        hboxButton.prefHeightProperty().bind(waitingLayout.heightProperty().multiply(0.2));
+//
+//        stopButton.prefWidthProperty().bind(hboxButton.widthProperty().multiply(0.3));
+//        stopButton.prefHeightProperty().bind(hboxButton.heightProperty().multiply(0.5));
 
 //        label.prefWidthProperty().bind(labelContainer.widthProperty().multiply(0.5));
 //        label.prefHeightProperty().bind(labelContainer.heightProperty().multiply(0.5));
-    }
+//    }
 
     public VBox getWaitingLayout() {
         return waitingLayout;
