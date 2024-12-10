@@ -1,4 +1,4 @@
-package UI.display;
+package UI.table;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -12,14 +12,14 @@ import java.util.function.Function;
 
 public abstract class TableController<T> {
 
-    // Abstract method: Lớp con phải triển khai
+    // Phương thức trừu tượng để tạo bảng
     protected abstract TableView<T> createTable(ObservableList<T> data);
 
+    // Phương thức trừu tượng để hiển thị chi tiết
     protected abstract void showDetails(T item);
 
-    // Tạo bảng với bộ lọc và xử lý hàng
+    // Tạo bảng với bộ lọc và xử lý nhấp chuột
     public VBox getTable(List<T> dataList, Function<T, String>... filterAttributes) {
-        // Dữ liệu chính
         ObservableList<T> masterData = FXCollections.observableArrayList(dataList);
 
         // Tạo bảng
@@ -32,7 +32,7 @@ public abstract class TableController<T> {
                 searchField,
                 masterData,
                 tableView,
-                filterAttributes // Các thuộc tính cần lọc
+                filterAttributes
         );
 
         // Xử lý sự kiện khi nhấp vào hàng

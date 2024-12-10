@@ -54,7 +54,6 @@ public class WaitingScene {
         Platform.runLater(() -> {
             this.close();
             StartScraperHandler.closeThread();
-//            System.exit(0);
         });
     }
 }
