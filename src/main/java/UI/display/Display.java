@@ -1,6 +1,8 @@
 package UI.display;
 
 import UI.SwitchingScene;
+import UI.table.controller.KOLTableController;
+import UI.table.controller.TweetTableController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -16,7 +18,6 @@ import storage.DataRepository;
 import storage.StorageHandler;
 import utils.ObjectType;
 
-import java.awt.*;
 import java.io.IOException;
 import java.util.List;
 
