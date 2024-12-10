@@ -96,6 +96,10 @@ public class SearchingLogic {
         switchingScene.switchToDisplayKOL();
     }
 
+    private void setUpScene() {
+        stage.setResizable(false);
+    }
+
     public SearchingLogic(Stage primaryStage, SwitchingScene switching) {
         stage = primaryStage;
         switchingScene = switching;
@@ -104,6 +108,8 @@ public class SearchingLogic {
         arrayText = new ArrayList<>();
 
         startScraperHandler = new StartScraperHandler(switchingScene);
+
+        setUpScene();
     }
 
     public void start(Scene scene) {

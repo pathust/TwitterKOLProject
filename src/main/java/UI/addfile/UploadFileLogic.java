@@ -41,10 +41,15 @@ public class UploadFileLogic {
         stage.show();
     }
 
+    private void setUpScene() {
+        stage.setResizable(false);
+    }
+
     public UploadFileLogic(Stage primaryStage, SwitchingScene switching) {
         stage = primaryStage;
         switchingScene = switching;
 
         addFileHandler = new AddFileHandler(stage);
+        setUpScene();
     }
 }

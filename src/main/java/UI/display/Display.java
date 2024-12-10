@@ -52,6 +52,10 @@ public class Display {
         switchingScene.switchToAddFile();
     }
 
+    private void setUpScene() {
+        stage.setResizable(false);
+    }
+
     public Display() {}
 
     public Display(Stage primaryStage, SwitchingScene switching) {
@@ -61,6 +65,8 @@ public class Display {
         storageHandler = new StorageHandler();
         kolController = new KOLTableController();
         tweetController = new TweetTableController();
+
+        setUpScene();
     }
 
     // signal = 0: KOL, = 1: Tweet
