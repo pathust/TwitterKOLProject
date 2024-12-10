@@ -48,7 +48,7 @@ public class TwitterScraperController {
         this.storageHandler = new StorageHandler();
         this.extractorController = new ExtractorController(driver, navigator, storageHandler);
         this.isResume = resume;
-        if (isResume) {
+        if (true) {
             this.storageHandler.load(USER, "KOLs");
             this.storageHandler.load(TWEET, "Tweet");
         }
