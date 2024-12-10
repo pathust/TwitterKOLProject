@@ -35,43 +35,13 @@ public class DisplayView {
     public DisplayView() {}
 
     void binding() {
-        menu.prefWidthProperty().bind(anchorPane.widthProperty().multiply(0.2));
-        menu.prefHeightProperty().bind(anchorPane.heightProperty());
-
-        background.fitWidthProperty().bind(anchorPane.widthProperty());
-        background.fitHeightProperty().bind(anchorPane.heightProperty());
-
-        crawl.prefWidthProperty().bind(menu.widthProperty());
-        upload.prefWidthProperty().bind(menu.widthProperty());
-        staticData.prefWidthProperty().bind(menu.widthProperty());
-
-        table.prefWidthProperty().bind(anchorPane.widthProperty().multiply(0.7));
-        table.prefHeightProperty().bind(anchorPane.heightProperty().multiply(0.5));
-
-        choiceBox.prefWidthProperty().bind(anchorPane.widthProperty().multiply(0.3));
-//        choiceBox.prefHeightProperty().bind(anchorPane.heightProperty().multiply());
-
-        stage.widthProperty().addListener((obs, oldWidth, newWidth) -> {
-            table.setLayoutX(newWidth.doubleValue() * 0.25);
-//            vBox.setPrefWidth(newWidth.doubleValue() * 0.7);
-
-            choiceBox.setLayoutX(newWidth.doubleValue() * 0.25);
-//            choiceBox.setPrefWidth(newWidth.doubleValue() * 0.3);
-
-            choiceBox.setOnAction(event -> display.clickChoiceBox(choiceBox));
-
-            crawl.setOnAction(event -> display.clickCrawl());
-            upload.setOnAction(event -> display.clickUpload());
-        });
-
-        stage.heightProperty().addListener((obs, oldHeight, newHeight) -> {
-            table.setLayoutY(newHeight.doubleValue() * 0.4);
-
-            choiceBox.setLayoutY(newHeight.doubleValue() * 0.3);
-        });
-
         choiceBox.getItems().addAll("KOL Table","Tweet Table");
         choiceBox.setValue("KOL Table");
+
+        choiceBox.setOnAction(event -> display.clickChoiceBox(choiceBox));
+
+        crawl.setOnAction(event -> display.clickCrawl());
+        upload.setOnAction(event -> display.clickUpload());
     }
 
     public DisplayView(Stage primaryStage, SwitchingScene switching) {
@@ -79,15 +49,6 @@ public class DisplayView {
         switchingScene = switching;
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/display.fxml"));
-        root = null;
-        try {
-            root = loader.load();
-        } catch (IOException e) {
-            System.out.println("No FIle found");
-            throw new RuntimeException(e);
-        }
-
-                loader = new FXMLLoader(getClass().getResource("/display.fxml"));
         root = null;
         try {
             root = loader.load();
