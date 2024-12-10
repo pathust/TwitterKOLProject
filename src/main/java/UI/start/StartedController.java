@@ -37,35 +37,35 @@ public class StartedController {
             throw new RuntimeException(e);
         }
         AnchorPane anchorPane = (AnchorPane) loader.getNamespace().get("anchorPane");
-        ImageView backgroundImage = (ImageView) loader.getNamespace().get("background");
-
-        backgroundImage.fitWidthProperty().bind(anchorPane.widthProperty());
-        backgroundImage.fitHeightProperty().bind(anchorPane.heightProperty());
+//        ImageView backgroundImage = (ImageView) loader.getNamespace().get("background");
+//
+//        backgroundImage.fitWidthProperty().bind(anchorPane.widthProperty());
+//        backgroundImage.fitHeightProperty().bind(anchorPane.heightProperty());
 
         getStartedButton = (Button) loader.getNamespace().get("getStartedButton");
 
-        getStartedButton.setStyle("-fx-font-size: 14px;");
-        getStartedButton.setWrapText(true);
-        anchorPane.widthProperty().addListener((observable, oldvalue, newvalue) -> {
-                getStartedButton.setPrefWidth(anchorPane.getWidth() * 0.45);
-                getStartedButton.setPrefHeight(anchorPane.getHeight()*0.2);
+//        getStartedButton.setStyle("-fx-font-size: 14px;");
+//        getStartedButton.setWrapText(true);
+//        anchorPane.widthProperty().addListener((observable, oldvalue, newvalue) -> {
+//                getStartedButton.setPrefWidth(anchorPane.getWidth() * 0.45);
+//                getStartedButton.setPrefHeight(anchorPane.getHeight()*0.2);
+//
+//                getStartedButton.setLayoutX((anchorPane.getWidth() - getStartedButton.getWidth()) * 0.5);
+//                getStartedButton.setLayoutY(anchorPane.getHeight()*0.7);
+//            System.out.println(anchorPane.getWidth()+" "+anchorPane.getHeight());
+//                System.out.println("W "+getStartedButton.getWidth()+" "+getStartedButton.getHeight()+" "+getStartedButton.getLayoutX()+" "+getStartedButton.getLayoutY());
+//        });
 
-                getStartedButton.setLayoutX((anchorPane.getWidth() - getStartedButton.getWidth()) * 0.5);
-                getStartedButton.setLayoutY(anchorPane.getHeight()*0.7);
-            System.out.println(anchorPane.getWidth()+" "+anchorPane.getHeight());
-                System.out.println("W "+getStartedButton.getWidth()+" "+getStartedButton.getHeight()+" "+getStartedButton.getLayoutX()+" "+getStartedButton.getLayoutY());
-        });
-
-        anchorPane.heightProperty().addListener((observable, oldvalue, newvalue) -> {
-            getStartedButton.setPrefHeight(anchorPane.getHeight()*0.2);
-            getStartedButton.setPrefWidth(anchorPane.getWidth() * 0.45);
-            getStartedButton.setLayoutY(anchorPane.getHeight()*0.7);
-
-
-            getStartedButton.setLayoutX((anchorPane.getWidth() - getStartedButton.getWidth()) * 0.5);
-            System.out.println(anchorPane.getWidth()+" "+anchorPane.getHeight());
-            System.out.println("H "+getStartedButton.getWidth()+" "+getStartedButton.getHeight()+" "+getStartedButton.getLayoutX()+" "+getStartedButton.getLayoutY());
-        });
+//        anchorPane.heightProperty().addListener((observable, oldvalue, newvalue) -> {
+//            getStartedButton.setPrefHeight(anchorPane.getHeight()*0.2);
+//            getStartedButton.setPrefWidth(anchorPane.getWidth() * 0.45);
+//            getStartedButton.setLayoutY(anchorPane.getHeight()*0.7);
+//
+//
+//            getStartedButton.setLayoutX((anchorPane.getWidth() - getStartedButton.getWidth()) * 0.5);
+//            System.out.println(anchorPane.getWidth()+" "+anchorPane.getHeight());
+//            System.out.println("H "+getStartedButton.getWidth()+" "+getStartedButton.getHeight()+" "+getStartedButton.getLayoutX()+" "+getStartedButton.getLayoutY());
+//        });
 
         getStartedButton.setOnAction(event -> {
             switchingScene.switchToSearching();

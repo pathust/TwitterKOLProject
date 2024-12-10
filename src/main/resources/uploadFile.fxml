@@ -19,58 +19,61 @@
 <?import javafx.scene.text.Text?>
 <?import java.net.URL?>
 
-<AnchorPane fx:id="AnchorPane" prefHeight="406.0" prefWidth="643.0" style="-fx-background-color: #FFF0F5;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.addfile.UploadFile">
+<AnchorPane fx:id="AnchorPane" prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: linear-gradient(to bottom right, #6495ED, #DA70D6);" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.addfile.UploadFile">
    <stylesheets>
       <URL value="@button.css" />
    </stylesheets>
    <children>
-      <ImageView fx:id="Background" fitHeight="406.0" fitWidth="714.0">
+      <ImageView fx:id="background" fitHeight="600.0" fitWidth="901.0">
          <image>
-            <Image url="@images/UPLOAD.png" />
+            <Image url="@images/back.png" />
          </image>
       </ImageView>
 <!--      <fx:include source="/menu.fxml" />-->
-            <VBox fx:id="menu" prefHeight="406.0" prefWidth="115.0" spacing="10.0" style="-fx-background-color: #FFCCCC;">
+            <VBox fx:id="menu" prefHeight="600.0" prefWidth="183.0" spacing="10.0" style="-fx-background-color: #FFD1DC; -fx-border-color: linear-gradient(to right, #FFB6C1, #DA70D6); -fx-border-width: 0 3px 0 0;">
                <children>
-                  <Button fx:id="Crawl" mnemonicParsing="false" prefHeight="25.0" prefWidth="117.0" styleClass="squareButton" text=" Crawl data">
+                  <Button fx:id="Crawl" mnemonicParsing="false" prefHeight="49.0" prefWidth="213.0" styleClass="squareButton" text=" Crawl data">
                <font>
-                  <Font name="System Bold" size="12.0" />
+                  <Font name="System Bold" size="20.0" />
                </font></Button>
-                  <Button fx:id="Upload" mnemonicParsing="false" prefHeight="25.0" prefWidth="117.0" styleClass="squareButton" text="Upload data">
+                  <Button fx:id="Upload" mnemonicParsing="false" prefHeight="49.0" prefWidth="213.0" styleClass="squareButton" text="Upload data">
                <font>
-                  <Font name="System Bold" size="12.0" />
+                  <Font name="System Bold" size="20.0" />
                </font></Button>
-                  <Button fx:id="Static" mnemonicParsing="false" prefHeight="25.0" prefWidth="117.0" styleClass="squareButton" text="Data statistic">
+                  <Button fx:id="Static" mnemonicParsing="false" prefHeight="49.0" prefWidth="213.0" styleClass="squareButton" text="Data statistic">
                <font>
-                  <Font name="System Bold" size="12.0" />
+                  <Font name="System Bold" size="20.0" />
                </font></Button>
                </children>
                <padding>
                   <Insets top="90.0" />
                </padding>
             </VBox>
-      <VBox fx:id="VBox" layoutX="131.0" layoutY="163.0" prefHeight="97.0" prefWidth="407.0" style="-fx-spacing: 20;">
+      <VBox fx:id="VBox" layoutX="276.0" layoutY="265.0" prefHeight="132.0" prefWidth="531.0" style="-fx-spacing: 20;">
          <children>
-            <HBox fx:id="HBox1" alignment="TOP_RIGHT" prefHeight="36.0" prefWidth="417.0" spacing="20.0">
+            <HBox fx:id="HBox1" alignment="TOP_RIGHT" prefHeight="54.0" prefWidth="529.0" spacing="20.0">
                <children>
-                  <TextField fx:id="TextField" prefHeight="41.0" prefWidth="289.0" />
-                  <Button fx:id="ChooseFile" mnemonicParsing="false" prefHeight="34.0" prefWidth="85.0" styleClass="roundButton" text="Choose File">
+                  <TextField fx:id="TextField" prefHeight="53.0" prefWidth="411.0">
                      <font>
-                        <Font name="System Bold" size="12.0" />
+                        <Font size="20.0" />
+                     </font></TextField>
+                  <Button fx:id="ChooseFile" mnemonicParsing="false" prefHeight="54.0" prefWidth="108.0" styleClass="roundButton" text="Choose File">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
                      </font>
                   </Button>
                </children>
             </HBox>
-            <HBox fx:id="HBox2" prefHeight="37.0" prefWidth="430.0" spacing="10.0" style="-fx-spacing: 50; -fx-alignment: CENTER;">
+            <HBox fx:id="HBox2" prefHeight="56.0" prefWidth="430.0" spacing="10.0" style="-fx-spacing: 50; -fx-alignment: CENTER;">
                <children>
-                  <Button fx:id="KOL" mnemonicParsing="false" prefHeight="42.0" prefWidth="86.0" styleClass="roundButton" text="Add KOL">
+                  <Button fx:id="KOL" mnemonicParsing="false" prefHeight="54.0" prefWidth="108.0" styleClass="roundButton" text="Add KOL">
                      <font>
-                        <Font name="System Bold" size="12.0" />
+                        <Font name="System Bold" size="16.0" />
                      </font>
                   </Button>
-                  <Button fx:id="Tweet" mnemonicParsing="false" prefHeight="42.0" prefWidth="83.0" styleClass="roundButton" text="Add Tweet">
+                  <Button fx:id="Tweet" mnemonicParsing="false" prefHeight="54.0" prefWidth="108.0" styleClass="roundButton" text="Add Tweet">
                      <font>
-                        <Font name="System Bold" size="12.0" />
+                        <Font name="System Bold" size="16.0" />
                      </font>
                   </Button>
                </children>
@@ -80,5 +83,14 @@
             </HBox>
          </children>
       </VBox>
+      <HBox alignment="CENTER" layoutX="183.0" layoutY="14.0" prefHeight="86.0" prefWidth="718.0">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="UPLOAD DATA">
+               <font>
+                  <Font name="System Bold" size="58.0" />
+               </font>
+            </Text>
+         </children>
+      </HBox>
    </children>
 </AnchorPane>

@@ -3,28 +3,16 @@ package UI.waiting;
 import UI.SwitchingScene;
 import UI.startscraper.StartScraperHandler;
 import javafx.application.Platform;
-import javafx.geometry.Pos;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.paint.Color;
-import javafx.scene.control.Label;
-import javafx.animation.TranslateTransition;
-import javafx.util.Duration;
 import javafx.stage.WindowEvent;
 
-import java.util.ArrayList;
-
 public class WaitingScene {
-    private VBox waitingLayout;
-    private HBox hbox, hbox2;
     private Stage stage;
-    private ArrayList<Rectangle> squares;
-    private static Label label = new Label();
     private Scene waitingScene;
     private SwitchingScene switchingScene;
+    private static WaitingView waitingView;
 
     private String currentScene = "WaitingScene";
 
@@ -32,47 +20,24 @@ public class WaitingScene {
         this.stage = stage;
         switchingScene = switching;
 
-        waitingLayout = new VBox();
-        waitingLayout.setAlignment(Pos.CENTER);
+        waitingView = new WaitingView();
+        Parent root = waitingView.getWaitingLayout();
 
-        hbox = new HBox();
-        hbox.setAlignment(Pos.CENTER);
-        hbox.setSpacing(20);
-        waitingLayout.getChildren().add(this.hbox);
+        waitingScene = new Scene(root, 600,400);
 
-        squares = new ArrayList<>();
-        for(int i=0; i<3; ++i) {
-            Rectangle square = new Rectangle(10, 10, Color.GREY);
-
-            hbox.getChildren().add(square);
-
-            TranslateTransition transition = new TranslateTransition();
-            transition.setDuration(Duration.millis(1000)); // Thời gian di chuyển
-            transition.setNode(square); // Đặt node là hình chữ nhật
-            transition.setByY(10); // Khoảng cách di chuyển theo trục Y
-            transition.setCycleCount(TranslateTransition.INDEFINITE); // Lặp vô hạn
-            transition.setAutoReverse(true); // Di chuyển lên và xuống
-            transition.setDelay(Duration.millis(i * 200));
-
-            transition.play();
-        }
-
-        hbox2 = new HBox();
-        label.setText("Waiting for Data !");
-        //label.setPrefSize(200, 20);
-        hbox2.getChildren().add(label);
-        hbox2.setStyle("-fx-alignment: center; -fx-padding: 20;");
-
-        waitingLayout.getChildren().add(hbox2);
-
-        waitingScene = new Scene(waitingLayout, 600, 600);
-
+        waitingView.getStopButton().setOnAction(event ->{
+            Platform.runLater(() -> {
+                StartScraperHandler.closeThread();
+            });
+            switchingScene.switchToSearching();
+        });
+        waitingView.binding();
         stage.setOnCloseRequest(this::handleCloseRequest);
     }
 
     public static void updateStatus(String state) {
         Platform.runLater(() -> {
-            WaitingScene.label.setText(state);
+            WaitingScene.waitingView.getLabel().setText(state);
         });
     }
 

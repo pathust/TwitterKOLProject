@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class StartScraperHandler {
-    private static Thread crawler;
+    private Thread crawler;
     private Task<Void> scraper;
     private SwitchingScene switchingScene;
     private String text;
@@ -48,6 +48,7 @@ public class StartScraperHandler {
     }
 
     public void startCrawl(String searchingText) {
+        crawler = new Thread(scraper);
         text = searchingText;
         crawler.start();
         switchingScene.switchToWaiting();
@@ -55,7 +56,7 @@ public class StartScraperHandler {
 
     public static void closeThread() {
         TwitterScraperController.close();
-        crawler.interrupt();
+//        crawler.interrupt();
     }
 
     public StartScraperHandler(SwitchingScene switching) {
