@@ -26,6 +26,7 @@ public abstract class TableController<T> {
         // Tạo bảng
         TableView<T> tableView = createTable(masterData);
 
+//        System.out.println(filterAttributes.length);
         // Tạo bộ lọc
         TextField searchField = new TextField();
         Filter.applyFilter(

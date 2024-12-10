@@ -21,6 +21,7 @@ public class AppInterface extends Application implements SwitchingScene{
     private DisplayView displayView;
 //    private DisplayScene displayScene;
     private StartedController startedController;
+//    private MenuController menuController;
 
     public static void main(String[] args) {
         launch(args);
@@ -33,9 +34,13 @@ public class AppInterface extends Application implements SwitchingScene{
 
         searching = new Searching(primaryStage, this);
         waitingScene = new WaitingScene(primaryStage, this);
+//        displayScene = new DisplayScene(primaryStage, this);
         uploadFile = new UploadFile(primaryStage, this);
         startedController = new StartedController(primaryStage, this);
         displayView = new DisplayView(primaryStage, this);
+//        display = new Display(primaryStage, this);
+//
+//        homeScene.start();
         startedController.start();
     }
 
