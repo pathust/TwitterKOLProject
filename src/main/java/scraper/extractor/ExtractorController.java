@@ -21,7 +21,9 @@ public class ExtractorController {
     private final StorageHandler storageHandler;
     private final Extractor<User> userDataExtractor;
     private final Extractor<Tweet> tweetDataExtractor;
-
+    private static int counter = 0;
+    private static int sleepThreshold = 30;
+    private static int sleepDuration = 700_000;
     public ExtractorController(WebDriver driver, Navigator navigator, StorageHandler storageHandler) {
         this.driver = driver;
         this.navigator = navigator;
@@ -53,6 +55,11 @@ public class ExtractorController {
             }
             catch (Exception e) {
                 System.out.println("Error: " + e.getMessage());;
+            }
+
+            if (++counter > sleepThreshold) {
+                counter = 0;
+                navigator.wait(sleepDuration);
             }
         }
     }
