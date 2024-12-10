@@ -26,7 +26,9 @@ public class WaitingScene {
         waitingScene = new Scene(root, 600,400);
 
         waitingView.getStopButton().setOnAction(event ->{
-            Platform.runLater(StartScraperHandler::closeThread);
+            Platform.runLater(() -> {
+                StartScraperHandler.closeThread();
+            });
             switchingScene.switchToSearching();
         });
         waitingView.binding();

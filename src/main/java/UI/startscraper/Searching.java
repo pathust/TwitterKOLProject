@@ -2,6 +2,7 @@ package UI.startscraper;
 
 import UI.SwitchingScene;
 
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -20,8 +21,10 @@ public class Searching {
 
     private FXMLLoader loader;
     private VBox search;
+    @FXML
     private AnchorPane anchorPane;
     private VBox menu, searchField;
+    @FXML
     private Button crawl, upload, staticData, addButton, searchButton;
     private ImageView background;
 

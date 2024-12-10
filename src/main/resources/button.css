@@ -25,20 +25,20 @@
 /*squareButton*/
 .squareButton {
     -fx-background-color: #FFE4E1;
-    -fx-border-color: pink;
-    -fx-border-width: 2;
+    -fx-border-color: black;
+    -fx-border-width: 1;
 }
 
 .squareButton:hover {
     -fx-background-color: #FFCCCC;
-    -fx-border-color: pink;
-    -fx-border-width: 2;
+    -fx-border-color: black;
+    -fx-border-width: 1;
 }
 
 .squareButton:pressed {
     -fx-background-color: #FF99CC;
-    -fx-border-color: pink;
-    -fx-border-width: 2;
+    -fx-border-color: black;
+    -fx-border-width: 1;
 }
 
 /*roundButton*/
