@@ -10,44 +10,25 @@ import java.util.function.Function;
 
 public class Filter {
 
-    public static <T> FilteredList<T> applyFilter(
+    public static <T> void applyFilter(
             TextField searchField,
             ObservableList<T> masterData,
             TableView<T> tableView,
             Function<T, String>... attributesToSearch) {
 
-        // Create a FilteredList for the given data
+        // Tạo FilteredList từ masterData
         FilteredList<T> filteredData = new FilteredList<>(masterData, p -> true);
 
-        // Add a listener to filter data when the search text changes
-        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
-            filteredData.setPredicate(item -> {
-                if (newValue == null || newValue.isEmpty()) {
-                    return true;
-                }
+        // Áp dụng tìm kiếm
+        SearchFilter.applySearchFilter(searchField, filteredData, attributesToSearch);
 
-                String lowerCaseFilter = newValue.toLowerCase();
-
-                // Check all specified attributes for a match
-                for (Function<T, String> attribute : attributesToSearch) {
-                    String value = attribute.apply(item);
-                    if (value != null && value.toLowerCase().contains(lowerCaseFilter)) {
-                        return true;
-                    }
-                }
-                return false;
-            });
-        });
-
-        // Wrap the filtered data in a SortedList for sorting
+        // Tạo SortedList từ FilteredList
         SortedList<T> sortedData = new SortedList<>(filteredData);
 
-        // Bind the SortedList comparator to the TableView comparator
-        sortedData.comparatorProperty().bind(tableView.comparatorProperty());
+        // Áp dụng sắp xếp
+        SortFilter.applySortFilter(sortedData, tableView);
 
-        // Set the TableView items to the sorted and filtered data
+        // Đặt dữ liệu đã lọc và sắp xếp vào TableView
         tableView.setItems(sortedData);
-
-        return filteredData;
     }
 }
