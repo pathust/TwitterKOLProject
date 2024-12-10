@@ -29,6 +29,7 @@ public class StartScraperHandler {
             @Override
             protected Void call() {
                 try {
+
                     if(filter().size() == 0) return null;
 
                     TwitterScraperController.main(resume, filter().toArray(new String[0]));
