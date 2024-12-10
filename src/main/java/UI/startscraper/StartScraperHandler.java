@@ -12,7 +12,6 @@ import java.util.stream.Collectors;
 
 public class StartScraperHandler {
     private static Thread crawler;
-    private Task<Void> scraper;
     private SwitchingScene switchingScene;
     private String text;
 
@@ -25,8 +24,8 @@ public class StartScraperHandler {
         return lines;
     }
 
-    private void initTask(boolean resume) {
-        scraper = new Task<Void>() {
+    private Task<Void> initTask(boolean resume) {
+        Task<Void> scraper = new Task<Void>() {
             @Override
             protected Void call() {
                 try {
@@ -46,12 +45,12 @@ public class StartScraperHandler {
                 return null;
             }
         };
+        return scraper;
     }
 
     public void startCrawl(boolean resume, String searchingText) {
 //        crawler = new Thread(scraper);
-        initTask(resume);
-        crawler = new Thread(scraper);
+        crawler = new Thread(initTask(resume));
         text = searchingText;
         crawler.start();
         switchingScene.switchToWaiting();
