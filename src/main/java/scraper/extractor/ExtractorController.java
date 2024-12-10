@@ -22,8 +22,10 @@ public class ExtractorController {
     private final Extractor<User> userDataExtractor;
     private final Extractor<Tweet> tweetDataExtractor;
     private static int counter = 0;
-    private static int sleepThreshold = 30;
-    private static int sleepDuration = 700_000;
+    private static int userSleepThreshold = 30;
+    private static int userSleepDuration = 700_000;
+    private static int tweetSleepThreshold = 50;
+    private static int tweetSleepDuration = 700_000;
     public ExtractorController(WebDriver driver, Navigator navigator, StorageHandler storageHandler) {
         this.driver = driver;
         this.navigator = navigator;
@@ -57,9 +59,9 @@ public class ExtractorController {
                 System.out.println("Error: " + e.getMessage());;
             }
 
-            if (++counter > sleepThreshold) {
+            if (++counter > userSleepThreshold) {
                 counter = 0;
-                navigator.wait(sleepDuration);
+                navigator.wait(userSleepDuration);
             }
         }
     }
@@ -73,6 +75,10 @@ public class ExtractorController {
             extractRepostList(filePath, tweetLink, maxRepostListSize);
 
             storageHandler.transferToMainStorage(TWEET, filePath, storageHandler.get(TWEET, filePath, tweetLink));
+            if (++counter > tweetSleepThreshold) {
+                counter = 0;
+                navigator.wait(tweetSleepDuration);
+            }
         }
     }
 
