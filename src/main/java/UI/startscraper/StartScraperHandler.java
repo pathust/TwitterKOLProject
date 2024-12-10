@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class StartScraperHandler {
-    private Thread crawler;
+    private static Thread crawler;
     private Task<Void> scraper;
     private SwitchingScene switchingScene;
     private String text;
@@ -25,13 +25,14 @@ public class StartScraperHandler {
         return lines;
     }
 
-    private void initTask() {
+    private void initTask(boolean resume) {
         scraper = new Task<Void>() {
             @Override
             protected Void call() {
                 try {
                     if(filter().size() == 0) return null;
-                    TwitterScraperController.main(filter().toArray(new String[0]));
+
+                    TwitterScraperController.main(resume, filter().toArray(new String[0]));
 
                     Platform.runLater(() -> {
                         switchingScene.closeWaiting();
@@ -47,7 +48,9 @@ public class StartScraperHandler {
         };
     }
 
-    public void startCrawl(String searchingText) {
+    public void startCrawl(boolean resume, String searchingText) {
+//        crawler = new Thread(scraper);
+        initTask(resume);
         crawler = new Thread(scraper);
         text = searchingText;
         crawler.start();
@@ -56,12 +59,10 @@ public class StartScraperHandler {
 
     public static void closeThread() {
         TwitterScraperController.close();
-//        crawler.interrupt();
+        crawler.interrupt();
     }
 
     public StartScraperHandler(SwitchingScene switching) {
         this.switchingScene = switching;
-        initTask();
-        crawler = new Thread(scraper);
     }
 }

@@ -76,7 +76,11 @@ public class SearchingLogic {
         }
 
         if(text.length() == 0) return ;
-        startScraperHandler.startCrawl(text.toString());
+        startScraperHandler.startCrawl(false, text.toString());
+    }
+
+    public void clickResumeButton() {
+        startScraperHandler.startCrawl(true,"");
     }
 
     public void clickAddButton(VBox search, Button addButton) {
