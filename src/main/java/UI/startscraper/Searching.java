@@ -26,40 +26,35 @@ public class Searching {
     private VBox menu, searchField;
     @FXML
     private Button crawl, upload, staticData, addButton, searchButton;
-    private ImageView background;
 
-    private void binding() {
-        menu.prefWidthProperty().bind(anchorPane.widthProperty().multiply(0.2));
-        menu.prefHeightProperty().bind(anchorPane.heightProperty());
-        searchField.prefWidthProperty().bind(anchorPane.widthProperty().subtract(menu.widthProperty()));
-        searchField.prefHeightProperty().bind(anchorPane.heightProperty());
 
-        background.fitWidthProperty().bind(anchorPane.widthProperty());
-        background.fitHeightProperty().bind(anchorPane.heightProperty());
-
-//        menu.prefWidthProperty().addListener((obs, oldWidth, newWidth) -> {
-//            searchField.setLayoutX(menu.getWidth());
-//            System.out.println(searchField.getLayoutX());
-//        });
-
-        searchField.prefWidthProperty().addListener((obs, oldWidth, newWidth) -> {
-            search.setLayoutX(newWidth.doubleValue()*0.25);
-            search.setPrefWidth(newWidth.doubleValue()*0.6);
-            addButton.setLayoutX(search.getLayoutX());
-            searchButton.setLayoutX((newWidth.doubleValue()-searchButton.getWidth())/2);
-        });
-
-        searchField.prefHeightProperty().addListener((obs, oldHeight, newHeight) -> {
-            search.setLayoutY(newHeight.doubleValue()*0.35);
-            search.setSpacing(newHeight.doubleValue()*0.01);
+//    private void binding() {
+//        menu.prefWidthProperty().bind(anchorPane.widthProperty().multiply(0.2));
+//        menu.prefHeightProperty().bind(anchorPane.heightProperty());
+//        searchField.prefWidthProperty().bind(anchorPane.widthProperty().subtract(menu.widthProperty()));
+//        searchField.prefHeightProperty().bind(anchorPane.heightProperty());
+//
+//        background.fitWidthProperty().bind(anchorPane.widthProperty());
+//        background.fitHeightProperty().bind(anchorPane.heightProperty());
+//
+//        searchField.prefWidthProperty().addListener((obs, oldWidth, newWidth) -> {
+//            search.setLayoutX(newWidth.doubleValue()*0.25);
+//            search.setPrefWidth(newWidth.doubleValue()*0.6);
 //            addButton.setLayoutX(search.getLayoutX());
-            searchButton.setLayoutY(newHeight.doubleValue()*0.8);
-        });
-
-        crawl.prefWidthProperty().bind(menu.widthProperty());
-        upload.prefWidthProperty().bind(menu.widthProperty());
-        staticData.prefWidthProperty().bind(menu.widthProperty());
-    }
+//            searchButton.setLayoutX((newWidth.doubleValue()-searchButton.getWidth())/2);
+//        });
+//
+//        searchField.prefHeightProperty().addListener((obs, oldHeight, newHeight) -> {
+//            search.setLayoutY(newHeight.doubleValue()*0.35);
+//            search.setSpacing(newHeight.doubleValue()*0.01);
+////            addButton.setLayoutX(search.getLayoutX());
+//            searchButton.setLayoutY(newHeight.doubleValue()*0.8);
+//        });
+//
+//        crawl.prefWidthProperty().bind(menu.widthProperty());
+//        upload.prefWidthProperty().bind(menu.widthProperty());
+//        staticData.prefWidthProperty().bind(menu.widthProperty());
+//    }
 
     void addEventListener() {
         addButton.setOnAction(event -> searchingLogic.clickAddButton(search, addButton));
@@ -88,7 +83,7 @@ public class Searching {
 
         anchorPane = (AnchorPane) loader.getNamespace().get("anchorPane");
         menu = (VBox) loader.getNamespace().get("Menu");
-        background = (ImageView) loader.getNamespace().get("Background");
+//        background = (ImageView) loader.getNamespace().get("Background");
         search = (VBox)loader.getNamespace().get("Search");
         addButton = (Button) loader.getNamespace().get("AddButton");
         searchButton = (Button) loader.getNamespace().get("searchButton");
@@ -98,7 +93,7 @@ public class Searching {
         searchField = (VBox) loader.getNamespace().get("SearchField");
 
         addEventListener();
-        binding();
+//        binding();
 
         scene = new Scene(root);
     }

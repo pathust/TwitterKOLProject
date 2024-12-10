@@ -13,32 +13,29 @@
 <!--<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #FFF0F5;" stylesheets="style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.home.startscraper.Searching">-->
 <!--=======-->
 
-<AnchorPane fx:id="anchorPane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #FFF0F5;" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.startscraper.Searching">
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Text?>
+<AnchorPane fx:id="anchorPane" prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: linear-gradient(to bottom right, #6495ED, #DA70D6);" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.startscraper.Searching">
    <stylesheets>
       <URL value="@button.css" />
    </stylesheets>
    <children>
-      <ImageView fx:id="Background" fitHeight="404.0" fitWidth="845.0">
-         <image>
-            <Image url="@images/CRAWLDATA.png" />
-         </image>
-      </ImageView>
 <!--       <fx:include source="/menu.fxml" />-->
-      <VBox fx:id="Menu" prefHeight="405.0" prefWidth="105.0" spacing="10.0" style="-fx-background-color: #FFCCCC;">
+      <VBox fx:id="Menu" prefHeight="600.0" prefWidth="183.0" spacing="10.0" style="-fx-background-color: #FFD1DC; -fx-border-color: linear-gradient(to right, #FFB6C1, #DA70D6); -fx-border-width: 0 3px 0 0;">
          <children>
-            <Button fx:id="Crawl" mnemonicParsing="false" prefHeight="25.0" prefWidth="111.0" styleClass="squareButton" text="Crawl data">
+            <Button fx:id="Crawl" mnemonicParsing="false" prefHeight="49.0" prefWidth="213.0" styleClass="squareButton" text="Crawl data">
                <font>
-                  <Font name="System Bold" size="12.0" />
+                  <Font name="System Bold" size="20.0" />
                </font>
             </Button>
-            <Button fx:id="Upload" mnemonicParsing="false" prefHeight="25.0" prefWidth="107.0" styleClass="squareButton" text="Upload data">
+            <Button fx:id="Upload" mnemonicParsing="false" prefHeight="49.0" prefWidth="213.0" styleClass="squareButton" text="Upload data">
                <font>
-                  <Font name="System Bold" size="12.0" />
+                  <Font name="System Bold" size="20.0" />
                </font>
             </Button>
-            <Button fx:id="Static" mnemonicParsing="false" prefHeight="25.0" prefWidth="111.0" styleClass="squareButton" text="Data statistic">
+            <Button fx:id="Static" mnemonicParsing="false" prefHeight="49.0" prefWidth="213.0" styleClass="squareButton" text="Data statistic">
                <font>
-                  <Font name="System Bold" size="12.0" />
+                  <Font name="System Bold" size="20.0" />
                </font>
             </Button>
          </children>
@@ -52,12 +49,6 @@
                <children>
                   <VBox fx:id="Search" layoutX="36.0" layoutY="131.0" prefHeight="191.0" prefWidth="451.0">
                      <children>
-            <!--            <HBox styleClass="hBoxStyle" fx:id="HBox1">-->
-            <!--               <children>-->
-            <!--                  <TextField fx:id="TextField1"  styleClass="textFieldStyle" />-->
-            <!--                  <Button fx:id="Button1" mnemonicParsing="false" styleClass="xButtonStyle" />-->
-            <!--               </children>-->
-            <!--            </HBox>-->
                         <Button fx:id="AddButton" mnemonicParsing="false" styleClass="roundButton" text="Add +">
                            <font>
                               <Font name="System Bold" size="12.0" />
@@ -70,6 +61,15 @@
                         <Font name="Berlin Sans FB Demi Bold" size="24.0" />
                      </font>
                   </Button>
+                   <HBox alignment="CENTER" layoutX="181.0" prefHeight="100.0" prefWidth="719.0">
+                       <children>
+                           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="CRAWL DATA">
+                               <font>
+                                   <Font name="System Bold" size="58.0" />
+                               </font>
+                           </Text>
+                       </children>
+                   </HBox>
                </children>
             </AnchorPane>
          </children>
