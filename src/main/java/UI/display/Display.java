@@ -14,6 +14,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import model.DataModel;
 import model.Tweet;
 import model.User;
 import storage.StorageHandler;
@@ -29,8 +30,8 @@ public class Display {
     private static final Object T = null;
     private Stage stage;
     private SwitchingScene switchingScene;
-    private TableController kolController;
-    private TableController tweetController;
+    private KOLTableController kolController;
+    private TweetTableController tweetController;
     private StorageHandler storageHandler;
 
     public void clickChoiceBox(ChoiceBox<String> choiceBox) {
@@ -70,7 +71,7 @@ public class Display {
     }
 
     // signal = 0: KOL, = 1: Tweet
-    private <T> List<T> readData(Class<T> objType, int signal) {
+    private <T extends DataModel> List<T> readData(Class<T> objType, int signal) {
         String filePath = null;
         ObjectType type = null;
 
@@ -89,10 +90,17 @@ public class Display {
             throw new RuntimeException(e);
         }
 
+        List<DataModel> tmp = null;
         List<T> list = null;
+
         try {
-            list = storageHandler.getAll(type, filePath)
+           tmp  = storageHandler.getAll(type, filePath)
                     .stream()
+                    .filter(item -> objType.isInstance(item))
+                    .map(item -> (DataModel) item)
+                    .toList();
+
+           list = tmp.stream()
                     .filter(item -> objType.isInstance(item))
                     .map(item -> (T) item)
                     .toList();

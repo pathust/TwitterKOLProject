@@ -2,6 +2,7 @@ package UI.table.services;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 
@@ -9,26 +10,26 @@ import java.util.function.Function;
 
 public class Filter {
 
-    // Hàm áp dụng cả lọc tìm kiếm và sắp xếp
-    public static <T> FilteredList<T> applyFilter(
+    public static <T> void applyFilter(
             TextField searchField,
             ObservableList<T> masterData,
             TableView<T> tableView,
             Function<T, String>... attributesToSearch) {
 
-        // Tạo FilteredList từ dữ liệu ban đầu
+        // Tạo FilteredList từ masterData
         FilteredList<T> filteredData = new FilteredList<>(masterData, p -> true);
 
-        // Áp dụng lọc tìm kiếm
-        SearchFilter.applySearchFilter(searchField, masterData, tableView, attributesToSearch);
+//        System.out.println(attributesToSearch.length);
+        // Áp dụng tìm kiếm
+        SearchFilter.applySearchFilter(searchField, filteredData, attributesToSearch);
 
-        // Áp dụng lọc sắp xếp
-        SortFilter.applySortFilter(tableView);
+        // Tạo SortedList từ FilteredList
+        SortedList<T> sortedData = new SortedList<>(filteredData);
 
-        // Cập nhật lại dữ liệu lọc trong bảng
-        tableView.setItems(filteredData);
+        // Áp dụng sắp xếp
+        SortFilter.applySortFilter(sortedData, tableView);
 
-        System.out.println(masterData.toString());
-        return filteredData;
+        // Đặt dữ liệu đã lọc và sắp xếp vào TableView
+        tableView.setItems(sortedData);
     }
 }
