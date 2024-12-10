@@ -35,6 +35,7 @@ public class TwitterScraperController {
     private final ExtractorController extractorController;
     private final StorageHandler storageHandler;
     private final ScheduledExecutorService scheduler;
+    private final boolean isResume;
 
     public TwitterScraperController() throws IOException {
         System.setProperty(
@@ -46,12 +47,11 @@ public class TwitterScraperController {
         this.filter = new TwitterFilter(driver, navigator);
         this.storageHandler = new StorageHandler();
         this.extractorController = new ExtractorController(driver, navigator, storageHandler);
-
-
-//        this.storageHandler.load(USER, "KOLs");
-//        this.storageHandler.load(TWEET, "Tweets");
-
-//        System.out.println("loaded");
+        this.isResume = true;
+        if (isResume) {
+            this.storageHandler.load(USER, "KOLs");
+            this.storageHandler.load(TWEET, "Tweets");
+        }
 
         this.scheduler = Executors.newScheduledThreadPool(1);
         schedulePeriodicSave();
@@ -72,7 +72,7 @@ public class TwitterScraperController {
     }
 
     public void extractData() throws IOException, InterruptedException {
-        extractorController.extractData();
+        extractorController.extractData(isResume);
     }
 
     public void saveData() throws IOException {
@@ -107,11 +107,13 @@ public class TwitterScraperController {
 
         controller.login("@21Oop36301","penaldomessy21@gmail.com","123456789@21oop");
 //        controller.login("@nhom_8_OOP","nqkien199hy@gmail.com","kien1992005t1chy");
-        controller.applyFilter(
-                List.of(args),
-                1000,
-                1000,
-                250);
+        if (!controller.isResume) {
+            controller.applyFilter(
+                    List.of(args),
+                    1000,
+                    1000,
+                    250);
+        }
 
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             System.out.println("Saving data before exiting...");

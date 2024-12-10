@@ -110,18 +110,17 @@ public class ExtractorController {
         return tweet;
     }
 
-    public void extractData() throws IOException, InterruptedException {
+    public void extractData(boolean isResume) throws IOException, InterruptedException {
         // Extract data from tweets
-        extractInitialTweetsTo("Tweet", 20);
-
-        navigator.navigateToSection("user");
-
-        // Extract data from users
-        extractInitialKOLsTo("KOLs", 50);
+        if (!isResume) {
+            extractInitialTweetsTo("Tweet", 20);
+            navigator.navigateToSection("user");
+            extractInitialKOLsTo("KOLs", 50);
+        }
 
         // Scrape data
-        scrapeUsersData("KOLs", 20);
+        scrapeUsersData("KOLs", 10);
         System.out.println("Scraping tweets");
-        scrapeTweetsData("Tweet", 10);
+        scrapeTweetsData("Tweet", 20);
     }
 }
