@@ -110,11 +110,7 @@ public class TwitterScraperController {
                     250);
         }
 
-        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-            System.out.println("Saving data before exiting...");
-            controller.stopScheduler(); // Dừng scheduler khi chương trình kết thúc
-            System.out.println("Data saved successfully.");
-        }));
+        Runtime.getRuntime().addShutdownHook(new Thread(controller::stopScheduler));
 
         try {
             controller.extractData();
