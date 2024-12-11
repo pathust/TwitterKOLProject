@@ -1,8 +1,6 @@
 package scraper;
 
 import UI.waiting.WaitingScene;
-import model.DataModel;
-import model.Tweet;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import scraper.authentication.Authenticator;
@@ -17,7 +15,6 @@ import storage.StorageHandler;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Objects;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -38,7 +35,7 @@ public class TwitterScraperController {
     public TwitterScraperController(boolean resume) throws IOException {
         System.setProperty(
                 "webdriver.chrome.driver",
-                "D:\\GitHub\\TwitterKOLProject\\chromedriver-win64/chromedriver");
+                "/Users/phananhtai/Downloads/chromedriver-mac-arm64/chromedriver");
         driver = new ChromeDriver();
         this.navigator = new WebNavigator(driver);
         this.authenticator = new TwitterAuthenticator(driver, navigator);
@@ -46,7 +43,7 @@ public class TwitterScraperController {
         this.storageHandler = new StorageHandler();
         this.extractorController = new ExtractorController(driver, navigator, storageHandler);
         this.isResume = resume;
-        if (true) {
+        if (resume) {
             this.storageHandler.load(USER, "KOLs");
             this.storageHandler.load(TWEET, "Tweet");
         }

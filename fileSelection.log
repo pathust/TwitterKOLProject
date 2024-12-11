@@ -179,3 +179,7 @@ Dec 10, 2024 6:06:39 AM UI.addfile.AddFileHandler copyFile
 INFO: File copied successfully to: D:\GitHub\TwitterKOLProject\Tweet
 Dec 10, 2024 8:42:26 PM UI.addfile.AddFileHandler openFileDialog
 INFO: User cancelled file selection.
+Dec 11, 2024 3:25:06 PM UI.addfile.AddFileHandler openFileDialog
+INFO: User selected file: /Users/phananhtai/intelliJ IDEA workspace/TwitterKOLProject/KOLs.json
+Dec 11, 2024 3:25:10 PM UI.addfile.AddFileHandler copyFile
+INFO: File copied successfully to: /Users/phananhtai/intelliJ IDEA workspace/TwitterKOLProject\KOLs
