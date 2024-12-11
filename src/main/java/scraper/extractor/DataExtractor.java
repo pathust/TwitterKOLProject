@@ -29,11 +29,11 @@ public abstract class DataExtractor<T extends DataModel> {
     }
 
     protected abstract WebElement getFirstCell();
-    protected abstract WebElement nextCell(WebElement currentCell) throws RuntimeException;
+    protected abstract WebElement nextCell(WebElement currentCell);
     protected abstract T extractItem(String filePath, String xpathExpression, boolean addToStorage) throws IOException;
-    public abstract void extractData(String filePath, String key) throws IOException, InterruptedException;
+    public abstract void extractData(String filePath, String key) throws IOException;
 
-    public List<T> extractItems(String filePath, int maxListSize, boolean addToStorage) throws InterruptedException, IOException {
+    public List<T> extractItems(String filePath, int maxListSize, boolean addToStorage) throws IOException {
         List<T> items = new ArrayList<>();
         if (maxListSize == 0) {
             return items;

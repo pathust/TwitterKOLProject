@@ -27,7 +27,7 @@ public class TwitterFilter implements Filter {
         try {
             WebElement searchBox = wait.until(presenceOfElementLocated(
                     By.xpath("//input[@placeholder='Search']")));
-
+            System.out.println(searchBox.getText());
             String wordsKey = String.join(" ", words);
             searchBox.sendKeys(wordsKey);
             searchBox.submit();
@@ -46,32 +46,23 @@ public class TwitterFilter implements Filter {
                 WebElement advancedSearchForm = wait.until(visibilityOfElementLocated(
                         By.xpath("//div[@aria-labelledby='modal-header']")));
                 if (advancedSearchForm != null) {
+
                     fillAdvancedSearchForm(wordsKey, minLikes, minReplies, minReposts);
                 }
             } catch (Exception e) {
                 return;
             }
 
-            try {
-                navigator.clickButton("", "Search");
-            } catch (Exception e) {
-                System.out.println("Search button not found: " + e.getMessage());
-            }
+            navigator.clickButton("", "Search");
         } catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.println("Finish filtering with Advanced Search");
     }
 
     private void fillAdvancedSearchForm(String wordsKey, int minReplies, int minLikes, int minReposts) {
-        try {
-
-            navigator.fillingFieldBySpan("Any of these words", wordsKey);
-            navigator.fillingFieldBySpan("Minimum replies", String.valueOf(minReplies));
-            navigator.fillingFieldBySpan("Minimum Likes", String.valueOf(minLikes));
-            navigator.fillingFieldBySpan("Minimum reposts", String.valueOf(minReposts));
-        } catch (Exception e) {
-            System.out.println("Error filling advanced search form: " + e.getMessage());
-        }
+        navigator.fillingFieldBySpan("Any of these words", wordsKey);
+        navigator.fillingFieldBySpan("Minimum replies", String.valueOf(minReplies));
+        navigator.fillingFieldBySpan("Minimum Likes", String.valueOf(minLikes));
+        navigator.fillingFieldBySpan("Minimum reposts", String.valueOf(minReposts));
     }
 }

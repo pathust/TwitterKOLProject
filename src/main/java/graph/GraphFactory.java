@@ -3,7 +3,6 @@ package graph;
 import model.*;
 import utils.ObjectType;
 
-import java.io.IOException;
 import java.util.List;
 
 public class GraphFactory {

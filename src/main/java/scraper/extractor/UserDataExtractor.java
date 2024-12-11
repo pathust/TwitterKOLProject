@@ -70,7 +70,8 @@ public class UserDataExtractor extends DataExtractor<User> implements Extractor<
     }
 
     @Override
-    public void extractData(String filePath, String profileLink) throws IOException, InterruptedException {
+    public void extractData(String filePath, String profileLink) throws IOException {
+        System.out.println("Extracting data from " + profileLink);
         navigator.wait(2000);
 
         String followersCount = extractCount("followers");

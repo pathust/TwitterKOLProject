@@ -54,7 +54,6 @@ public abstract class MainStorage<T extends DataModel> {
     }
 
     public void save(String filePath) throws IOException {
-        System.out.println("saving " + filePath);
         mapper.writerWithDefaultPrettyPrinter().writeValue(new File(filePath), itemArray);
     }
 

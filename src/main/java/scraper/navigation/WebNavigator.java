@@ -40,7 +40,7 @@ public class WebNavigator implements Navigator {
             wait(500);
         }
         catch (Exception e) {
-            System.out.println("Button not found");
+            // skip this exception
         }
     }
 
@@ -70,7 +70,6 @@ public class WebNavigator implements Navigator {
 
     public void navigateToSection(String section) {
         if (section.isEmpty()) {
-            System.err.println("No section found");
             return;
         }
         String sectionLink = wait.until(

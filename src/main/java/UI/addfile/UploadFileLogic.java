@@ -21,11 +21,11 @@ public class UploadFileLogic {
     }
 
     public void clickAddKOL() {
-        addFileHandler.copyFile("\\KOLs.json");
+        addFileHandler.copyFile("/KOLs.json");
     }
 
     public void clickAddTweet() {
-        addFileHandler.copyFile("\\Tweet.json");
+        addFileHandler.copyFile("/Tweet.json");
     }
 
     public void clickCrawl() {

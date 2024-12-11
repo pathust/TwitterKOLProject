@@ -23,7 +23,7 @@ public class StartedController {
 
     public StartedController() {}
 
-    public StartedController(Stage primaryStage, SwitchingScene switching) throws IOException {
+    public StartedController(Stage primaryStage, SwitchingScene switching) {
         stage = primaryStage;
         switchingScene = switching;
 
