@@ -38,7 +38,7 @@ public class TwitterScraperController {
     public TwitterScraperController(boolean resume) throws IOException {
         System.setProperty(
                 "webdriver.chrome.driver",
-                "D:\\GitHub\\TwitterKOLProject\\chromedriver-win64/chromedriver");
+                "D:\\Dowload\\chromedriver-win64\\chromedriver-win64\\chromedriver.exe");
         driver = new ChromeDriver();
         this.navigator = new WebNavigator(driver);
         this.authenticator = new TwitterAuthenticator(driver, navigator);
@@ -92,7 +92,6 @@ public class TwitterScraperController {
         scheduler.shutdown();
         try {
             if (!scheduler.awaitTermination(5, TimeUnit.SECONDS)) {
-                System.out.println("Scheduler did not terminate in time. Forcing shutdown.");
                 scheduler.shutdownNow();
             }
         } catch (InterruptedException e) {
@@ -114,9 +113,7 @@ public class TwitterScraperController {
         }
 
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-            System.out.println("Saving data before exiting...");
             controller.stopScheduler(); // Dừng scheduler khi chương trình kết thúc
-            System.out.println("Data saved successfully.");
         }));
 
         try {

@@ -58,7 +58,6 @@ public class TweetDataExtractor extends DataExtractor<Tweet> implements Extracto
     @Override
     protected Tweet extractItem(String filePath, String xpathExpression, boolean addToStorage) throws IOException {
         int tweetType = checkTweet(xpathExpression);
-        System.out.println(tweetType);
 
         int commentCount = extractCount(xpathExpression, "reply");
         int repostCount = extractCount(xpathExpression, "retweet");

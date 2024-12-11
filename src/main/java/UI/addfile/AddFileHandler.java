@@ -26,7 +26,7 @@ public class AddFileHandler{
             fileHandler.setFormatter(new SimpleFormatter());
             logger.addHandler(fileHandler);
         } catch (IOException e) {
-            System.out.println("Lỗi khi thiết lập FileHandler: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 

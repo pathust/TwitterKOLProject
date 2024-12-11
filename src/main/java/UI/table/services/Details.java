@@ -44,19 +44,4 @@ public class Details {
         stage.setScene(scene);
         stage.show();
     }
-
-        public void showDetails(DataModel dataModel) {
-        Stage stage = new Stage();
-        stage.setTitle("DataModel Details");
-
-        VBox vbox = new VBox(10);
-        vbox.getChildren().addAll(
-                new Label("Unique Key: " + dataModel.getUniqueKey()),
-                new Label("Pagerank: " + dataModel.getPagerankScore())
-        );
-
-        Scene scene = new Scene(vbox, 300, 200);
-        stage.setScene(scene);
-        stage.show();
-    }
 }
