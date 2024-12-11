@@ -12,35 +12,23 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 
 public class AppInterface extends Application implements SwitchingScene{
-    private Graph graph;
-    private PagerankCalculator pagerankCalculator;
     private Searching searching;
     private UploadFile uploadFile;
     private WaitingScene waitingScene;
-    private Display display;
     private DisplayView displayView;
-//    private DisplayScene displayScene;
     private StartedController startedController;
-//    private MenuController menuController;
 
     public static void main(String[] args) {
         launch(args);
     }
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
-        graph = new Graph();
-        pagerankCalculator = new PagerankCalculator();
-
+    public void start(Stage primaryStage) {
         searching = new Searching(primaryStage, this);
         waitingScene = new WaitingScene(primaryStage, this);
-//        displayScene = new DisplayScene(primaryStage, this);
         uploadFile = new UploadFile(primaryStage, this);
         startedController = new StartedController(primaryStage, this);
         displayView = new DisplayView(primaryStage, this);
-//        display = new Display(primaryStage, this);
-//
-//        homeScene.start();
         startedController.start();
     }
 

@@ -97,7 +97,7 @@ public class TweetDataExtractor extends DataExtractor<Tweet> implements Extracto
     }
 
     @Override
-    public void extractData(String filePath, String tweetLink) throws IOException {
+    public void extractData(String filePath, String tweetLink) {
         navigator.wait(500);
         String currentURL = driver.getCurrentUrl();
         driver.get(currentURL + "/retweets");

@@ -23,7 +23,6 @@ public class UserDataExtractor extends DataExtractor<User> implements Extractor<
 
     @Override
     protected WebElement getFirstCell() {
-//        System.out.println("first uCell");
         for (int i = 0; i < 3; i++) {
             try {
                 String xpathExpression = "//button[@data-testid='UserCell']";
@@ -71,7 +70,7 @@ public class UserDataExtractor extends DataExtractor<User> implements Extractor<
     }
 
     @Override
-    public void extractData(String filePath, String profileLink) throws IOException, InterruptedException {
+    public void extractData(String filePath, String profileLink) throws IOException {
         System.out.println("Extracting data from " + profileLink);
         navigator.wait(2000);
 

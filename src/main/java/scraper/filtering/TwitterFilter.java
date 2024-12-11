@@ -25,7 +25,6 @@ public class TwitterFilter implements Filter {
     @Override
     public void advancedSearch(List<String> words, int minLikes, int minReplies, int minReposts) {
         try {
-            System.out.println("Start filtering with Advanced Search");
             WebElement searchBox = wait.until(presenceOfElementLocated(
                     By.xpath("//input[@placeholder='Search']")));
             System.out.println(searchBox.getText());
@@ -39,7 +38,6 @@ public class TwitterFilter implements Filter {
                     navigator.navigateToSection("search-advanced");
                     advancedSearchAvailable = true;
                 } catch (Exception e) {
-                    System.out.println("Advanced search button not found, reloading the page...");
                     driver.navigate().refresh();
                 }
             }
@@ -48,35 +46,23 @@ public class TwitterFilter implements Filter {
                 WebElement advancedSearchForm = wait.until(visibilityOfElementLocated(
                         By.xpath("//div[@aria-labelledby='modal-header']")));
                 if (advancedSearchForm != null) {
-                    System.out.println("Advanced search form found!");
 
                     fillAdvancedSearchForm(wordsKey, minLikes, minReplies, minReposts);
                 }
             } catch (Exception e) {
-                System.out.println("Advanced search form not found.");
                 return;
             }
 
-            try {
-                navigator.clickButton("", "Search");
-            } catch (Exception e) {
-                System.out.println("Search button not found: " + e.getMessage());
-            }
+            navigator.clickButton("", "Search");
         } catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.println("Finish filtering with Advanced Search");
     }
 
     private void fillAdvancedSearchForm(String wordsKey, int minReplies, int minLikes, int minReposts) {
-        try {
-
-            navigator.fillingFieldBySpan("Any of these words", wordsKey);
-            navigator.fillingFieldBySpan("Minimum replies", String.valueOf(minReplies));
-            navigator.fillingFieldBySpan("Minimum Likes", String.valueOf(minLikes));
-            navigator.fillingFieldBySpan("Minimum reposts", String.valueOf(minReposts));
-        } catch (Exception e) {
-            System.out.println("Error filling advanced search form: " + e.getMessage());
-        }
+        navigator.fillingFieldBySpan("Any of these words", wordsKey);
+        navigator.fillingFieldBySpan("Minimum replies", String.valueOf(minReplies));
+        navigator.fillingFieldBySpan("Minimum Likes", String.valueOf(minLikes));
+        navigator.fillingFieldBySpan("Minimum reposts", String.valueOf(minReposts));
     }
 }
