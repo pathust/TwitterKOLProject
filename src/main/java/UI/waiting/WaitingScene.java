@@ -26,6 +26,11 @@ public class WaitingScene {
         waitingView.getStopButton().setOnAction(event ->{
             Platform.runLater(() -> {
 //                stage.close();
+                try {
+                    Thread.sleep(5000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 StartScraperHandler.closeThread();
             });
             switchingScene.switchToSearching();
