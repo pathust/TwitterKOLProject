@@ -52,7 +52,7 @@ public class GraphFactory {
         return null;
     }
 
-    public static Graph createGraph(List<DataModel> userNodeList, List<DataModel> tweetNodeList) throws IOException {
+    public static Graph createGraph(List<DataModel> userNodeList, List<DataModel> tweetNodeList) {
         Graph graph = new Graph();
 
         add(ObjectType.USER, graph, userNodeList, followWeight, 0.0);

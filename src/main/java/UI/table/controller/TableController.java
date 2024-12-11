@@ -3,7 +3,6 @@ package UI.table.controller;
 import UI.table.services.Filter;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
@@ -21,6 +20,7 @@ public abstract class TableController<T> {
 
     // Tạo bảng với bộ lọc và xử lý nhấp chuột
     public VBox getTable(List<T> dataList, Function<T, String>... filterAttributes) {
+
         ObservableList<T> masterData = FXCollections.observableArrayList(dataList);
 
         // Tạo bảng

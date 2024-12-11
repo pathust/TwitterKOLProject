@@ -51,7 +51,7 @@ public class StorageHandler {
         manager.save(filePath, getModelClass(type));
     }
 
-    public List<? extends DataModel> getAll(ObjectType type, String filePath) throws IOException {
+    public List<? extends DataModel> getAll(ObjectType type, String filePath) {
         StorageManager<DataModel> manager = getStorageManager(type);
         return manager.getAll(filePath, getModelClass(type));
     }

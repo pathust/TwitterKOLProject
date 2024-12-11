@@ -2,27 +2,25 @@ package UI.display;
 
 import UI.SwitchingScene;
 import UI.table.controller.KOLTableController;
-import UI.table.controller.TableController;
 import UI.table.controller.TweetTableController;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
+import graph.Graph;
+import graph.GraphFactory;
+import graph.PagerankCalculator;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import model.DataModel;
-import model.Tweet;
-import model.User;
 import storage.StorageHandler;
 import utils.ObjectType;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
+import static utils.ObjectType.TWEET;
 import static utils.ObjectType.USER;
 
 // Class để quản lý giao diện và hiển thị bảng
@@ -71,41 +69,45 @@ public class Display {
     }
 
     // signal = 0: KOL, = 1: Tweet
-    private <T extends DataModel> List<T> readData(Class<T> objType, int signal) {
-        String filePath = null;
-        ObjectType type = null;
-
-        if(signal == 0) {
-            filePath = "KOLs";
-            type = ObjectType.valueOf("USER");
-        }
-        else if(signal == 1) {
-            filePath = "Tweet";
-            type = ObjectType.valueOf("TWEET");
-        }
-
+    private <T extends DataModel> List<T> readData(ObjectType type, int signal) {
+        String filePath = (signal == 1) ? "Tweet" : "KOLs";
         try {
-            storageHandler.load(type, filePath);
+            storageHandler.load(USER, "KOLs");
+            storageHandler.load(TWEET, "Tweet");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
-        List<DataModel> tmp = null;
-        List<T> list = null;
+        List<DataModel> userList = storageHandler.getAll(USER, "KOLs")
+                .stream()
+                .filter(Objects::nonNull)
+                .map(item -> (DataModel) item)
+                .toList();
+        List<DataModel> tweetList = storageHandler.getAll(TWEET, "Tweet")
+                .stream()
+                .filter(Objects::nonNull)
+                .map(item -> (DataModel) item)
+                .toList();
 
-        try {
-           tmp  = storageHandler.getAll(type, filePath)
-                    .stream()
-                    .filter(item -> objType.isInstance(item))
-                    .map(item -> (DataModel) item)
-                    .toList();
+        Graph graph = GraphFactory.createGraph(userList, tweetList);
+        PagerankCalculator.calculatePageRank(graph, 100);
 
-           list = tmp.stream()
-                    .filter(item -> objType.isInstance(item))
-                    .map(item -> (T) item)
-                    .toList();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        List<T> list = ((type == USER) ? userList : tweetList)
+                .stream()
+                .filter(Objects::nonNull)
+                .map(item -> (T) item)
+                .toList();
+
+        return list;
+    }
+
+    private List<DataModel> mergeFile(List<? extends DataModel> ...lists) {
+        List<DataModel> list = new ArrayList<>();
+
+        for(List<? extends DataModel> list1 : lists) {
+            for(DataModel dataModel : list1) {
+                list.add(dataModel);
+            }
         }
 
         return list;
@@ -115,9 +117,9 @@ public class Display {
         VBox table = null;
 
         if(signal == 0) {
-            table = kolController.getTable(readData(User.class, signal));
+            table = kolController.getTable(readData(USER, signal));
         } else if (signal == 1) {
-            table = tweetController.getTable(readData(Tweet.class, signal));
+            table = tweetController.getTable(readData(TWEET, signal));
         }
 
         tableZone.getChildren().clear();

@@ -1,7 +1,7 @@
 package model;
 
 public abstract class DataModel {
-    private double pagerankScore;
+    protected double pagerankScore;
 
     public double getPagerankScore() {
         return pagerankScore;

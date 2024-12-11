@@ -27,10 +27,14 @@ public class TweetTable extends Table<Tweet> {
         // Cột Repost Count
         TableColumn<Tweet, Integer> repostCountCol = createColumn("Repost Count", "repostCount");
 
+        // Cột Pagerank
+        TableColumn<Tweet, Double> pagerankCol = createColumn("Pagerank", "pagerankScore");
+
         columns.add(usernameCol);
         columns.add(profileLinkCol);
         columns.add(tweetLinkCol);
         columns.add(repostCountCol);
+        columns.add(pagerankCol);
 
         return columns;
     }

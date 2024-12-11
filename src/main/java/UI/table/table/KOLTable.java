@@ -26,10 +26,14 @@ public class KOLTable extends Table<User> {
         // Cột Followers Count
         TableColumn<User, Integer> followersCountCol = createColumn("Followers Count", "followersCount");
 
+        // Cột Pagerank
+        TableColumn<User, Double> pagerankCol = createColumn("PagerankScore", "pagerankScore");
+
         columns.add(usernameCol);
         columns.add(profileLinkCol);
         columns.add(followingCountCol);
         columns.add(followersCountCol);
+        columns.add(pagerankCol);
 
         return columns;
     }
