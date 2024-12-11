@@ -38,7 +38,7 @@ public class TwitterScraperController {
     public TwitterScraperController(boolean resume) throws IOException {
         System.setProperty(
                 "webdriver.chrome.driver",
-                "D:\\GitHub\\TwitterKOLProject\\chromedriver-win64/chromedriver");
+                "/Users/apple/Downloads/chromedriver-mac-arm64/chromedriver");
         driver = new ChromeDriver();
         this.navigator = new WebNavigator(driver);
         this.authenticator = new TwitterAuthenticator(driver, navigator);

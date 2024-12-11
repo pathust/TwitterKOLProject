@@ -179,3 +179,55 @@ Dec 10, 2024 6:06:39 AM UI.addfile.AddFileHandler copyFile
 INFO: File copied successfully to: D:\GitHub\TwitterKOLProject\Tweet
 Dec 10, 2024 8:42:26 PM UI.addfile.AddFileHandler openFileDialog
 INFO: User cancelled file selection.
+Dec 11, 2024 3:19:00 PM UI.addfile.AddFileHandler openFileDialog
+INFO: User selected file: /Users/apple/Downloads/KOLs.json
+Dec 11, 2024 3:19:01 PM UI.addfile.AddFileHandler copyFile
+INFO: File copied successfully to: /Users/apple/intelliJ IDEA workspace/TwitterKOLProject\KOLs
+Dec 11, 2024 4:00:42 PM UI.addfile.AddFileHandler openFileDialog
+INFO: User selected file: /Users/apple/Downloads/Tweet.json
+Dec 11, 2024 4:00:43 PM UI.addfile.AddFileHandler copyFile
+INFO: File copied successfully to: /Users/apple/intelliJ IDEA workspace/TwitterKOLProject\Tweet
+Dec 11, 2024 4:04:21 PM UI.addfile.AddFileHandler openFileDialog
+INFO: User selected file: /Users/apple/Downloads/KOLs.json
+Dec 11, 2024 4:04:23 PM UI.addfile.AddFileHandler copyFile
+INFO: File copied successfully to: /Users/apple/intelliJ IDEA workspace/TwitterKOLProject\KOLs
+Dec 11, 2024 4:04:25 PM UI.addfile.AddFileHandler copyFile
+INFO: File copied successfully to: /Users/apple/intelliJ IDEA workspace/TwitterKOLProject\KOLs
+Dec 11, 2024 4:04:53 PM UI.addfile.AddFileHandler copyFile
+INFO: File copied successfully to: /Users/apple/intelliJ IDEA workspace/TwitterKOLProject\KOLs
+Dec 11, 2024 4:11:52 PM UI.addfile.AddFileHandler openFileDialog
+INFO: User selected file: /Users/apple/Downloads/KOLs.json
+Dec 11, 2024 4:11:55 PM UI.addfile.AddFileHandler copyFile
+INFO: File copied successfully to: /Users/apple/intelliJ IDEA workspace/TwitterKOLProject\KOLs
+Dec 11, 2024 4:12:03 PM UI.addfile.AddFileHandler copyFile
+INFO: File copied successfully to: /Users/apple/intelliJ IDEA workspace/TwitterKOLProject\KOLs
+Dec 11, 2024 4:12:03 PM UI.addfile.AddFileHandler copyFile
+INFO: File copied successfully to: /Users/apple/intelliJ IDEA workspace/TwitterKOLProject\KOLs
+Dec 11, 2024 4:12:04 PM UI.addfile.AddFileHandler copyFile
+INFO: File copied successfully to: /Users/apple/intelliJ IDEA workspace/TwitterKOLProject\KOLs
+Dec 11, 2024 4:12:04 PM UI.addfile.AddFileHandler copyFile
+INFO: File copied successfully to: /Users/apple/intelliJ IDEA workspace/TwitterKOLProject\KOLs
+Dec 11, 2024 4:12:04 PM UI.addfile.AddFileHandler copyFile
+INFO: File copied successfully to: /Users/apple/intelliJ IDEA workspace/TwitterKOLProject\KOLs
+Dec 11, 2024 4:12:05 PM UI.addfile.AddFileHandler copyFile
+INFO: File copied successfully to: /Users/apple/intelliJ IDEA workspace/TwitterKOLProject\KOLs
+Dec 11, 2024 4:13:11 PM UI.addfile.AddFileHandler openFileDialog
+INFO: User selected file: /Users/apple/Downloads/KOLs.json
+Dec 11, 2024 4:13:12 PM UI.addfile.AddFileHandler copyFile
+INFO: File copied successfully to: /Users/apple/intelliJ IDEA workspace/TwitterKOLProject/KOLs
+Dec 11, 2024 4:13:14 PM UI.addfile.AddFileHandler copyFile
+INFO: File copied successfully to: /Users/apple/intelliJ IDEA workspace/TwitterKOLProject/KOLs
+Dec 11, 2024 4:13:15 PM UI.addfile.AddFileHandler copyFile
+INFO: File copied successfully to: /Users/apple/intelliJ IDEA workspace/TwitterKOLProject/KOLs
+Dec 11, 2024 4:13:15 PM UI.addfile.AddFileHandler copyFile
+INFO: File copied successfully to: /Users/apple/intelliJ IDEA workspace/TwitterKOLProject/KOLs
+Dec 11, 2024 4:14:17 PM UI.addfile.AddFileHandler openFileDialog
+INFO: User selected file: /Users/apple/Downloads/KOLs.json
+Dec 11, 2024 4:14:19 PM UI.addfile.AddFileHandler copyFile
+INFO: File copied successfully to: /Users/apple/intelliJ IDEA workspace/TwitterKOLProject/KOLs.json
+Dec 11, 2024 4:14:22 PM UI.addfile.AddFileHandler copyFile
+INFO: File copied successfully to: /Users/apple/intelliJ IDEA workspace/TwitterKOLProject/KOLs.json
+Dec 11, 2024 4:18:29 PM UI.addfile.AddFileHandler openFileDialog
+INFO: User selected file: /Users/apple/Downloads/KOLs.json
+Dec 11, 2024 4:18:29 PM UI.addfile.AddFileHandler copyFile
+INFO: File copied successfully to: /Users/apple/intelliJ IDEA workspace/TwitterKOLProject/KOLs.json

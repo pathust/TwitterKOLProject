@@ -20,7 +20,8 @@ public class Details {
                 new Label("Username: " + user.getUsername()),
                 new Label("Profile Link: " + user.getProfileLink()),
                 new Label("Followers Count: " + user.getFollowersCount()),
-                new Label("Following Count: " + user.getFollowingCount())
+                new Label("Following Count: " + user.getFollowingCount()),
+                new Label("Pagerank: " + user.getPagerankScore())
         );
 
         Scene scene = new Scene(vbox, 300, 200);
@@ -37,7 +38,8 @@ public class Details {
                 new Label("User name: " + tweet.getAuthorUsername()),
                 new Label("Profile Link: " + tweet.getAuthorProfileLink()),
                 new Label("Tweet Link: " + tweet.getTweetLink()),
-                new Label("Repost Count: " + tweet.getRepostCount())
+                new Label("Repost Count: " + tweet.getRepostCount()),
+                new Label("Pagerank: " + tweet.getPagerankScore())
         );
 
         Scene scene = new Scene(vbox, 300, 200);
