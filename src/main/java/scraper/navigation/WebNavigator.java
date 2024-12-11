@@ -10,23 +10,22 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.*;
 public class WebNavigator implements Navigator {
     private final WebDriver driver;
     private final WebDriverWait wait;
-
+    private final JavascriptExecutor js;
     public WebNavigator(WebDriver driver) {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        this.js = (JavascriptExecutor) driver;
     }
 
     public void scrollToElement(WebElement element) {
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
+        js.executeScript("arguments[0].scrollIntoView(true);", element);
     }
 
     public void scrollDown() {
-        JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("window.scrollTo(0, document.body.scrollHeight)");
     }
 
     public void scrollBy(int pixels) {
-        JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("window.scrollBy(0, arguments[0]);", pixels);
     }
 
@@ -37,26 +36,13 @@ public class WebNavigator implements Navigator {
         try {
             WebElement button;
             button = driver.findElement(By.xpath(xpathExpression));
-
-            wait(1000);
-            if (button == null) {
-                System.out.println("Button not found");
-            }
-            button = wait.until(elementToBeClickable(button));
-            button.click();
+            js.executeScript("arguments[0].click();", button);
+            wait(500);
         }
         catch (Exception e) {
-
+            System.out.println("Button not found");
         }
     }
-
-//    public void wait(int milliseconds) {
-//        try {
-//            Thread.sleep(milliseconds);
-//        } catch (InterruptedException e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
 
     public void wait(int milliseconds) {
         try {

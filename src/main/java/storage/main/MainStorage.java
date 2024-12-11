@@ -26,8 +26,6 @@ public abstract class MainStorage<T extends DataModel> {
 
     protected abstract void updateItemFields(ObjectNode itemNode, T item);
 
-    protected abstract String getIdentifier(T item);
-
     public MainStorage() {
         this.mapper = new ObjectMapper();
         this.objectNodeMap = new HashMap<>();
@@ -45,7 +43,7 @@ public abstract class MainStorage<T extends DataModel> {
             int itemIndex = 0;
             for (JsonNode itemNode : rootNode) {
                 T item = parseItem(itemNode);
-                String identifier = getIdentifier(item);
+                String identifier = item.getUniqueKey();
 
                 objectNodeMap.put(identifier, (ObjectNode) itemNode);
                 itemIndexMap.put(identifier, itemIndex++);
@@ -56,11 +54,12 @@ public abstract class MainStorage<T extends DataModel> {
     }
 
     public void save(String filePath) throws IOException {
+        System.out.println("saving " + filePath);
         mapper.writerWithDefaultPrettyPrinter().writeValue(new File(filePath), itemArray);
     }
 
     public void add(T item) {
-        String identifier = getIdentifier(item);
+        String identifier = item.getUniqueKey();
         ObjectNode itemNode = objectNodeMap.get(identifier);
         if (itemNode != null) {
             updateItemFields(itemNode, item);

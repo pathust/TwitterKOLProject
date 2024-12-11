@@ -12,9 +12,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static java.lang.System.*;
-import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
 import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated;
+import static utils.Formator.formatTweetLink;
+import static utils.Formator.formatUserLink;
 import static utils.Math.toInt;
 import static utils.ObjectType.TWEET;
 
@@ -25,13 +25,11 @@ public class TweetDataExtractor extends DataExtractor<Tweet> implements Extracto
 
     @Override
     protected WebElement getFirstCell() {
-        System.out.println("first cell...");
+        String xpathExpression = "//article[contains(@data-testid, 'tweet')]";
         for (int i = 0; i < 3; i++) {
             try {
-                String xpathExpression = "//article[contains(@data-testid, 'tweet')]";
                 return wait.until(presenceOfElementLocated(By.xpath(xpathExpression)));
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 navigator.wait(2000);
             }
         }
@@ -73,8 +71,7 @@ public class TweetDataExtractor extends DataExtractor<Tweet> implements Extracto
         }
         else if (tweetType == 2) {
             repostLink = navigator.getLink(
-                    xpathExpression
-                    + "//a[span[contains(text(), 'reposted')]]");
+                    xpathExpression + "//a[span[contains(text(), 'reposted')]]");
         }
 
         String tweetLink = formatTweetLink(extractTweetLink(xpathExpression));
@@ -85,12 +82,8 @@ public class TweetDataExtractor extends DataExtractor<Tweet> implements Extracto
         String authorUsername = extractUserName(xpathExpression);
         String content = extractContent(xpathExpression);
 
-        System.out.println("author: " + authorUsername);
-        Tweet tweet = new Tweet(tweetLink, authorProfileLink, repostCount);
-        tweet.setAuthorUsername(authorUsername);
-        tweet.setContent(content);
-        tweet.setCommentCount(commentCount);
-        tweet.setLikeCount(likeCount);
+        Tweet tweet = new Tweet(tweetLink, authorProfileLink, authorUsername, content,
+                likeCount, commentCount, repostCount);
 
         if (repostLink != null && !tweet.getAuthorProfileLink().equals(repostLink)) {
             List<String> repostList = new ArrayList<>();
@@ -105,73 +98,14 @@ public class TweetDataExtractor extends DataExtractor<Tweet> implements Extracto
 
     @Override
     public void extractData(String filePath, String tweetLink) throws IOException {
-        out.println("Extracting data from " + tweetLink);
-        navigator.wait(3000);
-
-        Tweet tweet = (Tweet) storageHandler.get(TWEET, "Tweet", tweetLink);
-        if (tweet == null) {
-            out.println("Error: Tweet not found in Tweet.json for link: " + tweetLink);
-            return;
-        }
-        storageHandler.add(TWEET, "Tweet", tweet);
-
-        try {
-            WebElement repostButton = wait.until(elementToBeClickable(By.xpath(".//button[@data-testid='retweet']")));
-            repostButton.click();
-
-            WebElement viewQuotesOption = wait.until(elementToBeClickable(By.xpath(".//span[text()='View Quotes']")));
-            viewQuotesOption.click();
-
-            WebElement viewRepostsOption = wait.until(elementToBeClickable(By.xpath(".//span[text()='Reposts']")));
-            viewRepostsOption.click();
-
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    private String formatUserLink(String input) {
-        if (input == null) {
-            return null;
-        }
-        if (input.contains("/status/")) {
-            int statusIndex = input.indexOf("/status/");
-            System.out.println(input.substring(0, statusIndex));
-            return input.substring(0, statusIndex);
-        }
-        return input;
-    }
-
-    private String formatTweetLink(String input) {
-        if (input == null) {
-            return null;
-        }
-        if (input.contains("/status/")) {
-            int statusIndex = input.indexOf("/status/");
-            String afterStatus = input.substring(statusIndex);
-            int nextSlashIndex = afterStatus.indexOf("/", "/status/".length());
-            if (nextSlashIndex == -1) {
-                return input;
-            }
-            System.out.println(input.substring(0, nextSlashIndex));
-            return input.substring(0, statusIndex + nextSlashIndex);
-        }
-
-        return input;
+        navigator.wait(500);
+        String currentURL = driver.getCurrentUrl();
+        driver.get(currentURL + "/retweets");
     }
 
     private String extractUserName(String parentXpath) {
         String xpathExpression = parentXpath + "//div[@data-testid='User-Name']/div[1]//span[not(*)]";
-        for (int i = 0; i < 3; i++) {
-            try {
-                return navigator.getText(xpathExpression);
-            }
-            catch (Exception e) {
-                System.out.println("retry " + xpathExpression);
-                navigator.wait(2000);
-            }
-        }
-        return "Unknown";
+        return navigator.getText(xpathExpression);
     }
 
     private String extractTweetLink(String parentXpath) {
@@ -186,12 +120,7 @@ public class TweetDataExtractor extends DataExtractor<Tweet> implements Extracto
 
     private String extractContent(String parentXpath) {
         String xpathExpression = parentXpath + "//div[@data-testid='tweetText']";
-        try {
-            return navigator.getText(xpathExpression);
-        }
-        catch (Exception e) {
-            return null;
-        }
+        return navigator.getText(xpathExpression);
     }
 
     private int extractCount(String parentXpath, String attributeValue) {
@@ -208,7 +137,6 @@ public class TweetDataExtractor extends DataExtractor<Tweet> implements Extracto
     private boolean elementExist(String xpathExpression) {
         return !driver.findElements(By.xpath(xpathExpression)).isEmpty();
     }
-
 
     private int checkTweet(String parentXpath){
         String repostedXpath = parentXpath + "//a[span[contains(text(), 'reposted')]]";

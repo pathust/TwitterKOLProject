@@ -113,9 +113,10 @@ public class ExtractorController {
     public void extractData(boolean isResume) throws IOException, InterruptedException {
         // Extract data from tweets
         if (!isResume) {
-            extractInitialTweetsTo("Tweet", 20);
+//            extractInitialTweetsTo("Tweet", 1000);
             navigator.navigateToSection("user");
-            extractInitialKOLsTo("KOLs", 50);
+//            driver.get("https://x.com/21Oop36301/following");
+            extractInitialKOLsTo("KOLs", 1010);
         }
 
         // Scrape data

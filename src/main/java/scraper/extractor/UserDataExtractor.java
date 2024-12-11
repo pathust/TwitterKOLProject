@@ -57,7 +57,7 @@ public class UserDataExtractor extends DataExtractor<User> implements Extractor<
 
     @Override
     protected User extractItem(String filePath, String xpathExpression, boolean addToStorage) throws IOException {
-        if (addToStorage)
+        if (false)
             navigator.clickButton(xpathExpression, "Follow");
 
         String username = extractUserName(xpathExpression);

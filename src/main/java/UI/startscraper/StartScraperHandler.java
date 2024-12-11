@@ -20,7 +20,6 @@ public class StartScraperHandler {
                                    .map(String::trim) // Xóa khoảng trắng ở đầu và cuối
                                    .filter(line -> !line.isEmpty()) // Loại bỏ dòng trống
                                    .collect(Collectors.toList());
-        System.out.println(lines.size());
         return lines;
     }
 

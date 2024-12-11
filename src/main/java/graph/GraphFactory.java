@@ -7,9 +7,9 @@ import java.io.IOException;
 import java.util.List;
 
 public class GraphFactory {
-    public static final double followWeight = 0.4;
-    public static final double postWeight = 0.3;
-    public static final double repostWeight = 0.6;
+    public static final double followWeight = 1.0;
+    public static final double postWeight = 1.0;
+    public static final double repostWeight = 1.0;
 
     private static final GraphNodeStorage graphNodeStorage = new GraphNodeStorage();
 
@@ -22,11 +22,19 @@ public class GraphFactory {
         for (DataModel node : nodeList) {
             List<String> interactors = getInteractors(type, node);
             for (String uniqueKey : interactors) {
+                if(!graphNodeStorage.containsNode(uniqueKey)) {
+                    graphNodeStorage.addNode(uniqueKey, new User());
+                }
+
                 graph.addEdge(graphNodeStorage.getNode(uniqueKey), node, inWeight);
             }
 
             String uniqueKey = getParent(type, node);
             if(uniqueKey != null) {
+                if(!graphNodeStorage.containsNode(uniqueKey)) {
+                    graphNodeStorage.addNode(uniqueKey, new User());
+                }
+
                 graph.addEdge(node, graphNodeStorage.getNode(uniqueKey), outWeight);
             }
         }

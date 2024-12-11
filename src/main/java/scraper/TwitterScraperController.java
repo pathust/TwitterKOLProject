@@ -1,10 +1,8 @@
 package scraper;
 
 import UI.waiting.WaitingScene;
-import graph.Graph;
-import graph.GraphFactory;
-import graph.PagerankCalculator;
 import model.DataModel;
+import model.Tweet;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import scraper.authentication.Authenticator;
@@ -15,6 +13,7 @@ import scraper.filtering.TwitterFilter;
 import scraper.navigation.Navigator;
 import scraper.navigation.WebNavigator;
 import storage.StorageHandler;
+
 
 import java.io.IOException;
 import java.util.List;
@@ -39,7 +38,7 @@ public class TwitterScraperController {
     public TwitterScraperController(boolean resume) throws IOException {
         System.setProperty(
                 "webdriver.chrome.driver",
-                "D:\\Dowload\\chromedriver-win64\\chromedriver-win64\\chromedriver.exe");
+                "D:\\GitHub\\TwitterKOLProject\\chromedriver-win64/chromedriver");
         driver = new ChromeDriver();
         this.navigator = new WebNavigator(driver);
         this.authenticator = new TwitterAuthenticator(driver, navigator);
@@ -47,9 +46,9 @@ public class TwitterScraperController {
         this.storageHandler = new StorageHandler();
         this.extractorController = new ExtractorController(driver, navigator, storageHandler);
         this.isResume = resume;
-        if (isResume) {
+        if (true) {
             this.storageHandler.load(USER, "KOLs");
-            this.storageHandler.load(TWEET, "Tweets");
+            this.storageHandler.load(TWEET, "Tweet");
         }
 
         this.scheduler = Executors.newScheduledThreadPool(1);
@@ -125,27 +124,6 @@ public class TwitterScraperController {
         }
         catch (Exception e) {
             e.printStackTrace();
-        }
-
-        List<DataModel> userList = controller.storageHandler.getAll(USER, "KOLs")
-                .stream()
-                .filter(Objects::nonNull)
-                .map(item -> (DataModel) item)
-                .toList();
-        List<DataModel> tweetList = controller.storageHandler.getAll(TWEET, "Tweet")
-                .stream()
-                .filter(Objects::nonNull)
-                .map(item -> (DataModel) item)
-                .toList();
-
-        Graph graph = GraphFactory.createGraph(userList, tweetList);
-        PagerankCalculator.calculatePageRank(graph, 100);
-
-        for (DataModel user : userList) {
-            System.out.println(user.getUniqueKey() + ": " + user.getPagerankScore());
-        }
-        for (DataModel tweet : tweetList) {
-            System.out.println(tweet.getUniqueKey() + ": " + tweet.getPagerankScore());
         }
 
         close();
