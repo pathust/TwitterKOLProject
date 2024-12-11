@@ -1,10 +1,8 @@
 package scraper;
 
 import UI.waiting.WaitingScene;
-import graph.Graph;
-import graph.GraphFactory;
-import graph.PagerankCalculator;
 import model.DataModel;
+import model.Tweet;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import scraper.authentication.Authenticator;

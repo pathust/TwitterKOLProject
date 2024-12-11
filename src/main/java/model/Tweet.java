@@ -1,25 +1,33 @@
 package model;
 
-import javafx.util.Pair;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class Tweet extends DataModel{
-    private String authorUsername;
-    private String authorProfileLink;
     private String tweetLink;
+    private String authorProfileLink;
+    private String authorUsername;
     private String content;
     private int likeCount;
     private int commentCount;
     private int repostCount;
-    private int viewCount;
     private List<String> repostList;
-    //private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     public Tweet(String tweetLink, String authorProfileLink) {
         this.tweetLink = tweetLink;
         this.authorProfileLink = authorProfileLink;
+        repostList = new ArrayList<>();
+    }
+
+    public Tweet(String tweetLink, String authorProfileLink, String authorUsername, String content,
+                 int likeCount, int commentCount, int repostCount) {
+        this.tweetLink = tweetLink;
+        this.authorProfileLink = authorProfileLink;
+        this.authorUsername = authorUsername;
+        this.content = content;
+        this.likeCount = likeCount;
+        this.commentCount = commentCount;
+        this.repostCount = repostCount;
         repostList = new ArrayList<>();
     }
 
@@ -57,10 +65,7 @@ public class Tweet extends DataModel{
     }
 
     public void setRepostList(List<String> repostList) {
-        this.repostList =
-                (repostList != null)
-                        ? repostList
-                        : new ArrayList<>();
+        this.repostList = (repostList != null) ? repostList : new ArrayList<>();
     }
 
     public String getAuthorUsername() {
@@ -93,14 +98,6 @@ public class Tweet extends DataModel{
 
     public void setCommentCount(int commentCount) {
         this.commentCount = commentCount;
-    }
-
-    public int getViewCount() {
-        return viewCount;
-    }
-
-    public void setViewCount(int viewCount) {
-        this.viewCount = viewCount;
     }
 }
 

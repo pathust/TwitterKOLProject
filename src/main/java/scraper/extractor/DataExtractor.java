@@ -1,6 +1,7 @@
 package scraper.extractor;
 
 import model.DataModel;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -28,7 +29,7 @@ public abstract class DataExtractor<T extends DataModel> {
     }
 
     protected abstract WebElement getFirstCell();
-    protected abstract WebElement nextCell(WebElement currentCell) throws InterruptedException;
+    protected abstract WebElement nextCell(WebElement currentCell) throws RuntimeException;
     protected abstract T extractItem(String filePath, String xpathExpression, boolean addToStorage) throws IOException;
     public abstract void extractData(String filePath, String key) throws IOException, InterruptedException;
 
@@ -41,18 +42,24 @@ public abstract class DataExtractor<T extends DataModel> {
         WebElement previousCell = null, currentCell;
         int counter = 1;
         do {
-            currentCell = nextCell(previousCell);
+            while (true) {
+                currentCell = nextCell(previousCell);
+                if (currentCell != null || driver.findElements(By.xpath("//button//span[text() = 'Try Again']")).isEmpty()) {
+                    break;
+                }
+                String currentURL = driver.getCurrentUrl();
+                System.out.println(currentURL);
+                navigator.wait(180_000);
+                driver.get(currentURL);
+            }
             if (currentCell == null) {
                 break;
             }
 
-//            System.out.println("Retrieving " + counter);
-
             navigator.scrollToElement(currentCell);
-//            System.out.println("Scrolled to " + counter);
             String xpathExpression = getXPath(driver, currentCell);
             T newItem = extractItem(filePath, xpathExpression, addToStorage);
-//            System.out.println("Retrieved " + counter);
+
             if (newItem != null)
                 items.add(newItem);
 

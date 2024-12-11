@@ -10,7 +10,7 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.*;
 public class WebNavigator implements Navigator {
     private final WebDriver driver;
     private final WebDriverWait wait;
-    private JavascriptExecutor js;
+    private final JavascriptExecutor js;
     public WebNavigator(WebDriver driver) {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(5));

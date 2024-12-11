@@ -45,11 +45,6 @@ public class UserMainStorage extends MainStorage<User> {
         itemArray.set(userIndex, userNode);
     }
 
-    @Override
-    protected String getIdentifier(User user) {
-        return user.getProfileLink();
-    }
-
     private List<String> getFollowersLinks(JsonNode userNode) {
         List<String> profileLinks = new ArrayList<>();
         JsonNode listNode = userNode.path("followersList");

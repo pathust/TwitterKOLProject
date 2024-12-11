@@ -1,7 +1,5 @@
 package scraper.extractor;
 
-import model.DataModel;
-
 import java.io.IOException;
 import java.util.List;
 

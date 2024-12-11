@@ -15,9 +15,12 @@ public class TweetMainStorage extends MainStorage<Tweet> {
         String authorUsername = itemNode.get("authorUsername").asText();
         String authorProfileLink = itemNode.get("authorProfileLink").asText();
         String tweetLink = itemNode.get("tweetLink").asText();
+        String content = itemNode.get("content").asText();
+        int likeCount = itemNode.get("likeCount").asInt();
+        int commentCount = itemNode.get("commentCount").asInt();
         int repostCount = itemNode.get("repostCount").asInt();
 
-        Tweet tweet = new Tweet(tweetLink, authorProfileLink);
+        Tweet tweet = new Tweet(tweetLink, authorProfileLink, authorUsername, content, likeCount, commentCount, repostCount);
         tweet.setAuthorUsername(authorUsername);
         tweet.setRepostCount(repostCount);
         tweet.setRepostList(getRepostLinks(itemNode));
@@ -30,7 +33,10 @@ public class TweetMainStorage extends MainStorage<Tweet> {
         tweetNode.put("authorUsername", tweet.getAuthorUsername());
         tweetNode.put("authorProfileLink", tweet.getAuthorProfileLink());
         tweetNode.put("tweetLink", tweet.getTweetLink());
+        tweetNode.put("content", tweet.getContent());
         tweetNode.put("repostCount", tweet.getRepostCount());
+        tweetNode.put("likeCount", tweet.getLikeCount());
+        tweetNode.put("commentCount", tweet.getCommentCount());
         tweetNode.set("repostList", createRepostLinksNode(tweet.getRepostList()));
 
         return tweetNode;
@@ -38,13 +44,8 @@ public class TweetMainStorage extends MainStorage<Tweet> {
 
     @Override
     protected void updateItemFields(ObjectNode tweetNode, Tweet tweet) {
-        tweetNode.put("repostCount", tweet.getRepostCount());
+        tweetNode.put("content", tweet.getContent());
         tweetNode.set("repostList", createRepostLinksNode(tweet.getRepostList()));
-    }
-
-    @Override
-    protected String getIdentifier(Tweet tweet) {
-        return tweet.getTweetLink();
     }
 
     private List<String> getRepostLinks(JsonNode tweetNode) {
