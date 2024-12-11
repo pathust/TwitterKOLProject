@@ -29,7 +29,6 @@ public class StartScraperHandler {
             @Override
             protected Void call() {
                 try {
-
                     if(filter().size() == 0) return null;
 
                     TwitterScraperController.main(resume, filter().toArray(new String[0]));
@@ -37,7 +36,6 @@ public class StartScraperHandler {
                     Platform.runLater(() -> {
                         switchingScene.closeWaiting();
                         switchingScene.switchToDisplayKOL();
-//                        switchingScene.switchToDisplay();
                     });
                 } catch (IOException | InterruptedException ex) {
                     throw new RuntimeException(ex);
@@ -50,7 +48,6 @@ public class StartScraperHandler {
     }
 
     public void startCrawl(boolean resume, String searchingText) {
-//        crawler = new Thread(scraper);
         crawler = new Thread(initTask(resume));
         text = searchingText;
         crawler.start();

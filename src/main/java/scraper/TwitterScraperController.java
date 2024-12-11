@@ -16,7 +16,6 @@ import scraper.navigation.Navigator;
 import scraper.navigation.WebNavigator;
 import storage.StorageHandler;
 
-
 import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
@@ -40,7 +39,7 @@ public class TwitterScraperController {
     public TwitterScraperController(boolean resume) throws IOException {
         System.setProperty(
                 "webdriver.chrome.driver",
-                "D:\\Dowload\\chromedriver-win64\\chromedriver-win64//chromedriver.exe");
+                "D:\\Dowload\\chromedriver-win64\\chromedriver-win64\\chromedriver.exe");
         driver = new ChromeDriver();
         this.navigator = new WebNavigator(driver);
         this.authenticator = new TwitterAuthenticator(driver, navigator);
@@ -105,7 +104,7 @@ public class TwitterScraperController {
     public static void main(boolean resume, String[] args) throws IOException, InterruptedException {
         TwitterScraperController controller = new TwitterScraperController(resume);
 
-//        controller.login("@21Oop36301","penaldomessy21@gmail.com","123456789@21oop");
+        controller.login("@21Oop36301","penaldomessy21@gmail.com","123456789@21oop");
 //        controller.login("@nhom_8_OOP","nqkien199hy@gmail.com","kien1992005t1chy");
         if (!controller.isResume) {
             controller.applyFilter(
@@ -120,13 +119,13 @@ public class TwitterScraperController {
             controller.stopScheduler(); // Dừng scheduler khi chương trình kết thúc
             System.out.println("Data saved successfully.");
         }));
-//
-//        try {
-//            controller.extractData();
-//        }
-//        catch (Exception e) {
-//            e.printStackTrace();
-//        }
+
+        try {
+            controller.extractData();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
 
         List<DataModel> userList = controller.storageHandler.getAll(USER, "KOLs")
                 .stream()
