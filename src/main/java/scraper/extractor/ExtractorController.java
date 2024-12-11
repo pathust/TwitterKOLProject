@@ -97,18 +97,27 @@ public class ExtractorController {
     }
 
     public Tweet extractRepostList(String filePath, String tweetLink, int maxListSize) throws IOException, InterruptedException {
+        // Lấy danh sách người dùng đã repost
         List<User> repostList = userDataExtractor.extractItems(filePath, maxListSize, false);
 
+        // Tạo danh sách các link từ danh sách người dùng
         List<String> repostLinks = new ArrayList<>();
         for (User repost : repostList) {
             repostLinks.add(repost.getProfileLink());
         }
 
+        // Lấy tweet từ storage
         Tweet tweet = (Tweet) storageHandler.get(TWEET, "Tweet", tweetLink);
+        if (tweet == null) {
+            return null;
+        }
+
+        // Gắn danh sách repost vào tweet
         tweet.setRepostList(repostLinks);
 
-        return tweet;
+        return tweet; // Trả về tweet đã được cập nhật
     }
+
 
     public void extractData(boolean isResume) throws IOException, InterruptedException {
         // Extract data from tweets
@@ -120,8 +129,8 @@ public class ExtractorController {
         }
 
         // Scrape data
-        scrapeUsersData("KOLs", 10);
+        //scrapeUsersData("KOLs", 10);
         System.out.println("Scraping tweets");
-        scrapeTweetsData("Tweet", 20);
+        scrapeTweetsData("Tweet", 7);
     }
 }

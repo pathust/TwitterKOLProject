@@ -44,7 +44,7 @@ public class TweetDataExtractor extends DataExtractor<Tweet> implements Extracto
 
         String parentDivXpathExpression = "./ancestor::div[@data-testid='cellInnerDiv']";
         String nextCellXpathExpression = "(following-sibling::div[@data-testid='cellInnerDiv'])//article[contains(@data-testid, 'tweet')]";
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 1; i++) {
             try {
                 WebElement parentDiv = tweetCell.findElement(By.xpath(parentDivXpathExpression));
                 return parentDiv.findElement(By.xpath(nextCellXpathExpression));

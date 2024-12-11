@@ -44,13 +44,14 @@ public abstract class DataExtractor<T extends DataModel> {
         do {
             while (true) {
                 currentCell = nextCell(previousCell);
-                if (currentCell != null || driver.findElements(By.xpath("//button//span[text() = 'Try Again']")).isEmpty()) {
+                if (currentCell != null || driver.findElements(By.xpath("//button//span[text() = 'Retry']")).isEmpty()) {
                     break;
                 }
                 String currentURL = driver.getCurrentUrl();
                 System.out.println(currentURL);
                 navigator.wait(180_000);
-                driver.get(currentURL);
+                //driver.get(currentURL);
+                navigator.clickButton("","Retry");
             }
             if (currentCell == null) {
                 break;
