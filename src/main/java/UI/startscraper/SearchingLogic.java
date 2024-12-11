@@ -73,6 +73,7 @@ public class SearchingLogic {
         for (TextField tf : arrayText) {
             String txt = tf.getText();
             if(txt.isEmpty()) continue;
+            txt = txt.replace(" ", "");
             text.append(txt);
             text.append("\n");
         }

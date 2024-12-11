@@ -14,8 +14,6 @@ public class WaitingScene {
     private SwitchingScene switchingScene;
     private static WaitingView waitingView;
 
-    private String currentScene = "WaitingScene";
-
     public WaitingScene(Stage stage, SwitchingScene switching) {
         this.stage = stage;
         switchingScene = switching;
@@ -27,7 +25,7 @@ public class WaitingScene {
 
         waitingView.getStopButton().setOnAction(event ->{
             Platform.runLater(() -> {
-                stage.close();
+//                stage.close();
                 StartScraperHandler.closeThread();
             });
             switchingScene.switchToSearching();
@@ -55,6 +53,7 @@ public class WaitingScene {
         Platform.runLater(() -> {
             this.close();
             StartScraperHandler.closeThread();
+            System.exit(0);
         });
     }
 }
