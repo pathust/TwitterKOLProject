@@ -103,8 +103,12 @@ public class TwitterScraperController {
     public static void main(boolean resume, String[] args) throws IOException, InterruptedException {
         TwitterScraperController controller = new TwitterScraperController(resume);
 
-        controller.login("@21Oop36301","penaldomessy21@gmail.com","123456789@21oop");
+//        controller.login("@21Oop36301","penaldomessy21@gmail.com","123456789@21oop");
 //        controller.login("@nhom_8_OOP","nqkien199hy@gmail.com","kien1992005t1chy");
+//        controller.login(
+//                "@DThank05",
+//                "dinhthanh020105@gmail.com",
+//                "xuanthanh123");
         if (!controller.isResume) {
             controller.applyFilter(
                     List.of(args),
@@ -119,12 +123,16 @@ public class TwitterScraperController {
             System.out.println("Data saved successfully.");
         }));
 
-        try {
-            controller.extractData();
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
+//        try {
+//            controller.extractData();
+//        }
+//        catch (Exception e) {
+//            e.printStackTrace();
+//        }
+
+        List<Tweet> list1 = controller.storageHandler.getAll(TWEET, "Tweet1")
+                .stream;
+        list2, new list3();
 
         close();
     }

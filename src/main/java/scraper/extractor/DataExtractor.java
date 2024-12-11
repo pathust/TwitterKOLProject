@@ -42,9 +42,11 @@ public abstract class DataExtractor<T extends DataModel> {
         WebElement previousCell = null, currentCell;
         int counter = 1;
         do {
+            if (!driver.findElements(By.xpath("//span[contains(text(), 'No Repost')]")).isEmpty())
+                continue;
             while (true) {
                 currentCell = nextCell(previousCell);
-                if (currentCell != null || driver.findElements(By.xpath("//button//span[text() = 'Try Again']")).isEmpty()) {
+                if (currentCell != null || driver.findElements(By.xpath("//button//span[text() = 'Retry']")).isEmpty()) {
                     break;
                 }
                 String currentURL = driver.getCurrentUrl();

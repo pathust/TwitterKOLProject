@@ -120,8 +120,8 @@ public class ExtractorController {
         }
 
         // Scrape data
-        scrapeUsersData("KOLs", 10);
-        System.out.println("Scraping tweets");
+//        scrapeUsersData("KOLs", 10);
+//        System.out.println("Scraping tweets");
         scrapeTweetsData("Tweet", 20);
     }
 }

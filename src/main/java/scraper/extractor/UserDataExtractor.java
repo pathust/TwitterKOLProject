@@ -44,7 +44,7 @@ public class UserDataExtractor extends DataExtractor<User> implements Extractor<
 
         String parentDivXpathExpression = "./ancestor::div[@data-testid='cellInnerDiv']";
         String nextCellXpathExpression = "(following-sibling::div[@data-testid='cellInnerDiv'])//button[@data-testid='UserCell']";
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 1; i++) {
             try {
                 WebElement parentDiv = userCell.findElement(By.xpath(parentDivXpathExpression));
                 return parentDiv.findElement(By.xpath(nextCellXpathExpression));
