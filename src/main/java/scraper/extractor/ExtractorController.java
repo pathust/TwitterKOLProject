@@ -114,14 +114,14 @@ public class ExtractorController {
         // Extract data from tweets
         if (!isResume) {
 //            extractInitialTweetsTo("Tweet", 1000);
-            navigator.navigateToSection("user");
+//            navigator.navigateToSection("user");
 //            driver.get("https://x.com/21Oop36301/following");
-            extractInitialKOLsTo("KOLs", 1010);
+//            extractInitialKOLsTo("KOLs", 1010);
         }
 
         // Scrape data
-        scrapeUsersData("KOLs", 10);
-        System.out.println("Scraping tweets");
+//        scrapeUsersData("KOLs", 10);
+//        System.out.println("Scraping tweets");
         scrapeTweetsData("Tweet", 20);
     }
 }
