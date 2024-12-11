@@ -183,3 +183,61 @@ Dec 11, 2024 3:25:06 PM UI.addfile.AddFileHandler openFileDialog
 INFO: User selected file: /Users/phananhtai/intelliJ IDEA workspace/TwitterKOLProject/KOLs.json
 Dec 11, 2024 3:25:10 PM UI.addfile.AddFileHandler copyFile
 INFO: File copied successfully to: /Users/phananhtai/intelliJ IDEA workspace/TwitterKOLProject\KOLs
+Dec 11, 2024 3:39:22 PM UI.addfile.AddFileHandler openFileDialog
+INFO: User selected file: /Users/phananhtai/intelliJ IDEA workspace/TwitterKOLProject/data/KOLs.json
+Dec 11, 2024 3:39:23 PM UI.addfile.AddFileHandler copyFile
+INFO: File copied successfully to: /Users/phananhtai/intelliJ IDEA workspace/TwitterKOLProject\KOLs
+Dec 11, 2024 3:39:31 PM UI.addfile.AddFileHandler copyFile
+INFO: File copied successfully to: /Users/phananhtai/intelliJ IDEA workspace/TwitterKOLProject\KOLs
+Dec 11, 2024 3:39:37 PM UI.addfile.AddFileHandler copyFile
+INFO: File copied successfully to: /Users/phananhtai/intelliJ IDEA workspace/TwitterKOLProject\KOLs
+Dec 11, 2024 3:39:38 PM UI.addfile.AddFileHandler copyFile
+INFO: File copied successfully to: /Users/phananhtai/intelliJ IDEA workspace/TwitterKOLProject\Tweet
+Dec 11, 2024 3:40:16 PM UI.addfile.AddFileHandler openFileDialog
+INFO: User selected file: /Users/phananhtai/intelliJ IDEA workspace/TwitterKOLProject/data/KOLs.json
+Dec 11, 2024 3:40:17 PM UI.addfile.AddFileHandler copyFile
+INFO: File copied successfully to: /Users/phananhtai/intelliJ IDEA workspace/TwitterKOLProject\KOLs
+Dec 11, 2024 3:42:50 PM UI.addfile.AddFileHandler openFileDialog
+INFO: User selected file: /Users/phananhtai/intelliJ IDEA workspace/TwitterKOLProject/data/KOLs.json
+Dec 11, 2024 3:42:51 PM UI.addfile.AddFileHandler copyFile
+INFO: File copied successfully to: /Users/phananhtai/intelliJ IDEA workspace/TwitterKOLProject\KOLs
+Dec 11, 2024 3:42:52 PM UI.addfile.AddFileHandler copyFile
+INFO: File copied successfully to: /Users/phananhtai/intelliJ IDEA workspace/TwitterKOLProject\KOLs
+Dec 11, 2024 3:48:21 PM UI.addfile.AddFileHandler openFileDialog
+INFO: User selected file: /Users/phananhtai/intelliJ IDEA workspace/TwitterKOLProject/data/KOLs.json
+Dec 11, 2024 3:48:22 PM UI.addfile.AddFileHandler copyFile
+INFO: File copied successfully to: /Users/phananhtai/intelliJ IDEA workspace/TwitterKOLProject\KOLs.json
+Dec 11, 2024 3:50:22 PM UI.addfile.AddFileHandler openFileDialog
+INFO: User selected file: /Users/phananhtai/intelliJ IDEA workspace/TwitterKOLProject/data/KOLs.json
+Dec 11, 2024 3:50:23 PM UI.addfile.AddFileHandler copyFile
+INFO: File copied successfully to: /Users/phananhtai/intelliJ IDEA workspace/TwitterKOLProject/KOLs.json
+Dec 11, 2024 3:51:54 PM UI.addfile.AddFileHandler openFileDialog
+INFO: User cancelled file selection.
+Dec 11, 2024 3:52:03 PM UI.addfile.AddFileHandler openFileDialog
+INFO: User selected file: /Users/phananhtai/intelliJ IDEA workspace/TwitterKOLProject/data/KOLs.json
+Dec 11, 2024 3:52:04 PM UI.addfile.AddFileHandler copyFile
+INFO: File copied successfully to: /Users/phananhtai/intelliJ IDEA workspace/TwitterKOLProject/KOLs.json
+Dec 11, 2024 3:52:13 PM UI.addfile.AddFileHandler copyFile
+INFO: File copied successfully to: /Users/phananhtai/intelliJ IDEA workspace/TwitterKOLProject/KOLs.json
+Dec 11, 2024 3:52:14 PM UI.addfile.AddFileHandler copyFile
+INFO: File copied successfully to: /Users/phananhtai/intelliJ IDEA workspace/TwitterKOLProject/Tweet.json
+Dec 11, 2024 3:52:32 PM UI.addfile.AddFileHandler copyFile
+INFO: File copied successfully to: /Users/phananhtai/intelliJ IDEA workspace/TwitterKOLProject/KOLs.json
+Dec 11, 2024 4:30:11 PM UI.addfile.AddFileHandler openFileDialog
+INFO: User selected file: /Users/phananhtai/intelliJ IDEA workspace/TwitterKOLProject/data/KOLs.json
+Dec 11, 2024 4:30:12 PM UI.addfile.AddFileHandler copyFile
+INFO: File copied successfully to: /Users/phananhtai/intelliJ IDEA workspace/TwitterKOLProject\KOLs.json
+Dec 11, 2024 4:31:01 PM UI.addfile.AddFileHandler openFileDialog
+INFO: User selected file: /Users/phananhtai/intelliJ IDEA workspace/TwitterKOLProject/data/KOLs.json
+Dec 11, 2024 4:31:03 PM UI.addfile.AddFileHandler copyFile
+INFO: File copied successfully to: /Users/phananhtai/intelliJ IDEA workspace/TwitterKOLProject\KOLs.json
+Dec 11, 2024 4:31:46 PM UI.addfile.AddFileHandler openFileDialog
+INFO: User selected file: /Users/phananhtai/intelliJ IDEA workspace/TwitterKOLProject/data/KOLs.json
+Dec 11, 2024 4:31:46 PM UI.addfile.AddFileHandler copyFile
+INFO: File copied successfully to: /Users/phananhtai/intelliJ IDEA workspace/TwitterKOLProject/KOLs.json
+Dec 11, 2024 4:32:30 PM UI.addfile.AddFileHandler openFileDialog
+INFO: User cancelled file selection.
+Dec 11, 2024 4:33:20 PM UI.addfile.AddFileHandler openFileDialog
+INFO: User selected file: /Users/phananhtai/intelliJ IDEA workspace/TwitterKOLProject/data/KOLs.json
+Dec 11, 2024 4:33:21 PM UI.addfile.AddFileHandler copyFile
+INFO: File copied successfully to: /Users/phananhtai/intelliJ IDEA workspace/TwitterKOLProject/KOLs.json
