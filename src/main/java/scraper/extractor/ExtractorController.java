@@ -1,6 +1,6 @@
 package scraper.extractor;
 
-import UI.waiting.WaitingScene;
+import ui.waiting.WaitingScene;
 import javafx.application.Platform;
 import model.User;
 import model.Tweet;

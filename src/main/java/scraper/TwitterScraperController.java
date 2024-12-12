@@ -1,6 +1,6 @@
 package scraper;
 
-import UI.waiting.WaitingScene;
+import ui.waiting.WaitingScene;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import scraper.authentication.Authenticator;

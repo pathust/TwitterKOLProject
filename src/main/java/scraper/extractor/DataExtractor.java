@@ -47,10 +47,8 @@ public abstract class DataExtractor<T extends DataModel> {
                 if (currentCell != null || driver.findElements(By.xpath("//button//span[text() = 'Retry']")).isEmpty()) {
                     break;
                 }
-                String currentURL = driver.getCurrentUrl();
-                System.out.println(currentURL);
+                navigator.clickButton("", "Retry");
                 navigator.wait(180_000);
-                driver.get(currentURL);
             }
             if (currentCell == null) {
                 break;
