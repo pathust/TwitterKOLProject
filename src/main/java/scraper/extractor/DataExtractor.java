@@ -63,7 +63,6 @@ public abstract class DataExtractor<T extends DataModel> {
 
             previousCell = currentCell;
         } while (++counter <= maxListSize);
-        System.out.println("Retrieved " + items.size() + " items");
         return items;
     }
 }

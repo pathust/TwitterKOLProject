@@ -7,7 +7,6 @@ public class Formator {
         }
         if (input.contains("/status/")) {
             int statusIndex = input.indexOf("/status/");
-            System.out.println(input.substring(0, statusIndex));
             return input.substring(0, statusIndex);
         }
         return input;
@@ -24,7 +23,6 @@ public class Formator {
             if (nextSlashIndex == -1) {
                 return input;
             }
-            System.out.println(input.substring(0, nextSlashIndex));
             return input.substring(0, statusIndex + nextSlashIndex);
         }
 

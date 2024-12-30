@@ -31,7 +31,7 @@ public class ExtractorController {
         navigator.wait(5000);
     }
 
-    public void scrapeUsersData(String filePath, int maxTweetListSize) {
+    public void scrapeUsersData(String filePath, int maxTweetListSize) throws IOException, InterruptedException {
         List<String> links = storageHandler.getUnprocessedItemUniqueKeys(USER, filePath);
         for (String profileLink : links) {
             if (profileLink == null) {
@@ -39,28 +39,9 @@ public class ExtractorController {
             }
             Platform.runLater(() -> WaitingScene.updateStatus("Collecting " + profileLink));
 
-            driver.get(profileLink);
-            try {
-                extractTweetsFromProfileLink("Tweet", profileLink, maxTweetListSize);
-            }
-            catch (Exception e) {
-               System.out.println("Error: " + e.getMessage());
-            }
-
-            try {
-                userDataExtractor.extractData(filePath, profileLink);
-            }
-            catch (Exception e) {
-                System.out.println("Error: " + e.getMessage());;
-            }
-
-            try {
-                User user = (User) storageHandler.get(USER, filePath, profileLink);
-                storageHandler.transferToMainStorage(USER, filePath, user);
-            }
-            catch (Exception e) {
-                System.out.println("Error: " + e.getMessage());;
-            }
+            extractTweetsFromProfileLink("Tweet", profileLink, maxTweetListSize);
+            userDataExtractor.extractData(filePath, profileLink);
+            storageHandler.transferToMainStorage(USER, filePath, storageHandler.get(USER, filePath, profileLink));
         }
     }
 
@@ -68,7 +49,6 @@ public class ExtractorController {
         for (String tweetLink : storageHandler.getUnprocessedItemUniqueKeys(TWEET, filePath)) {
             Platform.runLater(() -> WaitingScene.updateStatus("Collecting " + tweetLink));
 
-            driver.get(tweetLink);
             tweetDataExtractor.extractData(filePath, tweetLink);
             extractRepostList(filePath, tweetLink, maxRepostListSize);
 
@@ -120,7 +100,6 @@ public class ExtractorController {
 
         // Scrape data
         scrapeUsersData("KOLs", 10);
-        System.out.println("Scraping tweets");
         scrapeTweetsData("Tweet", 20);
     }
 }

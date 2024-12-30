@@ -25,7 +25,6 @@ public class TwitterAuthenticator implements Authenticator {
     @Override
     public void login(String username, String email, String password) {
         try {
-            System.out.println("Logging in...");
             driver.get("https://twitter.com/login");
 
             boolean isLoggedIn = false;
@@ -40,7 +39,6 @@ public class TwitterAuthenticator implements Authenticator {
 
                         navigator.clickButton("","Next");
                     } catch (Exception e) {
-                        System.err.println("Error entering username or email.");
                         e.printStackTrace();
                     }
                 }
@@ -53,29 +51,20 @@ public class TwitterAuthenticator implements Authenticator {
                     if (driver.getCurrentUrl().contains("home")) {
                         isLoggedIn = true;
                     }
-                    else {
-                        System.out.println(driver.getCurrentUrl());
-                    }
                 } catch (Exception e) {
-                    System.err.println("Error during password entry or login.");
                     e.printStackTrace();
                 }
             }
         } catch (Exception e) {
-            System.err.println("Error during login process.");
             e.printStackTrace();
         }
-
-        System.out.println("Login process completed.");
     }
 
     private void sendKeys(String keysToSend) {
         try {
             WebElement field = label.findElement(By.xpath("(//input)[last()]"));
-            System.out.println(keysToSend);
             field.sendKeys(keysToSend);
         } catch (Exception e) {
-            System.err.println("Error sending key: " + keysToSend);
             e.printStackTrace();
         }
     }
@@ -89,7 +78,6 @@ public class TwitterAuthenticator implements Authenticator {
             label = wait.until(presenceOfElementLocated(By.xpath("//label")));
             return label.findElements(By.name("text")).isEmpty();
         } catch (Exception e) {
-            System.err.println("Error finding label element.");
             e.printStackTrace();
             return false;
         }

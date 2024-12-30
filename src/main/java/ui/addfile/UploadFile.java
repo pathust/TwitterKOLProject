@@ -35,7 +35,6 @@ public class UploadFile{
         try {
             root = loader.load();
         } catch (IOException e) {
-            System.out.println("No FIle found");
             throw new RuntimeException(e);
         }
 

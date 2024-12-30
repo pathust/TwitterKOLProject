@@ -71,26 +71,27 @@ public class UserDataExtractor extends DataExtractor<User> implements Extractor<
 
     @Override
     public void extractData(String filePath, String profileLink) throws IOException {
-        System.out.println("Extracting data from " + profileLink);
+        driver.get(profileLink);
         navigator.wait(2000);
 
         String followersCount = extractCount("followers");
         String followingCount = extractCount("following");
 
-        int knownFollowersCount = extractKnownFollowersCount();
-        navigator.navigateToSection("followers_you_follow");
-        List<User> followersList = extractItems(filePath, knownFollowersCount, true);
-        System.out.println("Number of followers: " + followersList.size());
         List<String> followersLinks = new ArrayList<>();
-        for (User follower : followersList) {
-            followersLinks.add(follower.getProfileLink());
+        int knownFollowersCount = extractKnownFollowersCount();
+        if (knownFollowersCount > 0) {
+            navigator.navigateToSection("followers_you_follow");
+            List<User> followersList = extractItems(filePath, knownFollowersCount, true);
+            for (User follower : followersList) {
+                followersLinks.add(follower.getProfileLink());
+            }
         }
+
 
         User user = (User) storageHandler.get(USER, "KOLs", profileLink);
         user.setFollowersCount(toInt(followersCount));
         user.setFollowingCount(toInt(followingCount));
         user.setFollowersList(followersLinks);
-        System.out.println("Number of followers: " + user.getFollowersCount());
         storageHandler.add(USER, "KOLs", user);
     }
 
@@ -102,7 +103,6 @@ public class UserDataExtractor extends DataExtractor<User> implements Extractor<
                 WebElement userNameElement = wait.until(presenceOfElementLocated(By.xpath(xpathExpression)));
                 return userNameElement.getText();
             } catch (Exception e) {
-                System.out.println("Retry attempt " + i + ": Error extracting username");
                 navigator.wait(2000);
             }
         }
@@ -117,7 +117,6 @@ public class UserDataExtractor extends DataExtractor<User> implements Extractor<
                 WebElement userNameElement = driver.findElement(By.xpath(xpathExpression));
                 return userNameElement.getAttribute("href");
             } catch (Exception e) {
-                System.out.println("Retry attempt " + i + ": Error extracting profile link");
                 navigator.wait(2000);
             }
         }

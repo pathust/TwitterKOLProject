@@ -31,7 +31,6 @@ public class StartedController {
         try {
             root = loader.load();
         } catch (IOException e) {
-            System.out.println("No FIle found");
             throw new RuntimeException(e);
         }
         AnchorPane anchorPane = (AnchorPane) loader.getNamespace().get("anchorPane");

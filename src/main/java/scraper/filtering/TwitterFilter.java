@@ -27,7 +27,6 @@ public class TwitterFilter implements Filter {
         try {
             WebElement searchBox = wait.until(presenceOfElementLocated(
                     By.xpath("//input[@placeholder='Search']")));
-            System.out.println(searchBox.getText());
             String wordsKey = String.join(" ", words);
             searchBox.sendKeys(wordsKey);
             searchBox.submit();

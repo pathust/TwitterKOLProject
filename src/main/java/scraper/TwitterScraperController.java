@@ -1,5 +1,6 @@
 package scraper;
 
+import model.DataModel;
 import ui.waiting.WaitingScene;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -11,7 +12,6 @@ import scraper.filtering.TwitterFilter;
 import scraper.navigation.Navigator;
 import scraper.navigation.WebNavigator;
 import storage.StorageHandler;
-
 
 import java.io.IOException;
 import java.util.List;
@@ -35,7 +35,7 @@ public class TwitterScraperController {
     public TwitterScraperController(boolean resume) throws IOException {
         System.setProperty(
                 "webdriver.chrome.driver",
-                "D:/Dowload/chromedriver-win64/chromedriver-win64/chromedriver.exe");
+                "/Users/phananhtai/Downloads/chromedriver-mac-arm64/chromedriver");
         driver = new ChromeDriver();
         this.navigator = new WebNavigator(driver);
         this.authenticator = new TwitterAuthenticator(driver, navigator);
@@ -89,7 +89,6 @@ public class TwitterScraperController {
         scheduler.shutdown();
         try {
             if (!scheduler.awaitTermination(5, TimeUnit.SECONDS)) {
-                System.out.println("Scheduler did not terminate in time. Forcing shutdown.");
                 scheduler.shutdownNow();
             }
         } catch (InterruptedException e) {
@@ -118,7 +117,6 @@ public class TwitterScraperController {
         catch (Exception e) {
             e.printStackTrace();
         }
-
         close();
     }
 }
